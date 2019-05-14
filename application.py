@@ -36,7 +36,7 @@ USERS = { # dictionary (username, User)
 
 # application base
 application = Flask(__name__)
-application.secret_key = 'blabla'
+application.secret_key = str(uuid.uuid1())
 # default route
 @application.route('/', methods=['GET'])
 def index():
@@ -84,7 +84,7 @@ def logout():
 @application.route('/home', methods=['GET'])
 @login_required
 def home():
-    msg='bla'
+    msg=application.secret_key
     return render_template('home.html',msg=msg)
 
 # --- login manager ------------------------------------------------------------
