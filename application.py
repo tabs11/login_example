@@ -69,7 +69,7 @@ def login_post():
             return redirect('/')
     else:
         flash(application.secret_key)
-    return render_template('login.html')
+        return render_template('login.html')
 
 
 @application.route('/logout', methods=['GET'])
