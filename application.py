@@ -35,7 +35,14 @@ USERS = { # dictionary (username, User)
 }
 
 # application base
-application = Flask(__name__)
+
+
+project_root = os.path.dirname(os.path.abspath(__file__))
+
+# Im not sure should be application/templates or app/templates or just templates 
+template_path = os.path.join(project_root, 'templates')
+application = Flask(__name__, template_folder=template_path)
+#application = Flask(__name__)
 application.secret_key = str(uuid.uuid1())
 
 # default route
