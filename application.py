@@ -10,8 +10,7 @@ from flask_login import UserMixin # subclass of flask user
 from flask_login import login_required
 from flask_login import login_user
 from flask_login import logout_user
-import uuid
-import os
+#import uuid
 class User(UserMixin):
 
     def __init__(self, username, password):
@@ -36,16 +35,8 @@ USERS = { # dictionary (username, User)
 }
 
 # application base
-
-
-project_root = os.path.dirname(os.path.abspath(__file__))
-
-# Im not sure should be application/templates or app/templates or just templates 
-template_path = os.path.join(project_root, 'templates')
-application = Flask(__name__, template_folder=template_path)
-#application = Flask(__name__)
-application.secret_key = str(uuid.uuid1())
-
+application = Flask(__name__)
+application.secret_key = 'blabla'
 # default route
 @application.route('/', methods=['GET'])
 def index():
@@ -75,9 +66,8 @@ def login_post():
             return redirect(request.args.get("next"))
         else:
             return redirect('/')
-        flash('bla')
     else:
-        flash(application.secret_key)
+        flash("username ou password erradas")
         return render_template('login.html')
 
 
@@ -97,7 +87,6 @@ def home():
     msg='bla'
     return render_template('home.html',msg=msg)
 
-
 # --- login manager ------------------------------------------------------------
 
 # create login manager
@@ -114,7 +103,7 @@ def load_user(userid):
 
 if __name__ == '__main__':
     application.run(
-       debug=True
+        host='0.0.0.0', 
+        port=3000, 
+        threaded=True
     )
-
-
