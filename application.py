@@ -10,7 +10,7 @@ from flask_login import UserMixin # subclass of flask user
 from flask_login import login_required
 from flask_login import login_user
 from flask_login import logout_user
-#import uuid
+import uuid
 class User(UserMixin):
 
     def __init__(self, username, password):
