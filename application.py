@@ -84,7 +84,7 @@ def logout():
 @application.route('/home', methods=['GET'])
 @login_required
 def home():
-    msg=application.secret_key
+    msg=str(uuid.uuid1())
     return render_template('home.html',msg=msg)
 
 # --- login manager ------------------------------------------------------------
