@@ -11,6 +11,7 @@ from flask_login import login_required
 from flask_login import login_user
 from flask_login import logout_user
 import uuid
+import os
 class User(UserMixin):
 
     def __init__(self, username, password):
