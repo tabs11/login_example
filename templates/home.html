@@ -1,0 +1,15 @@
+{% extends "login_layout.html" %}
+{% block content %}
+<h1>
+<font size="2"><p><strong></strong> {{ msg }}</font>
+</h1>
+
+<br>
+
+    <!-- Login Form -->
+    <form class="button" action="/logout" method="get">
+      <input type="submit" class="fadeIn fourth" value="Logout">
+    </form>
+
+
+{% endblock %}
