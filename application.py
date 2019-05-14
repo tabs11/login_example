@@ -75,6 +75,7 @@ def login_post():
             return redirect(request.args.get("next"))
         else:
             return redirect('/')
+        flash('bla')
     else:
         flash(application.secret_key)
         return render_template('login.html')
