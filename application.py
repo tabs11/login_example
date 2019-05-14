@@ -36,7 +36,7 @@ USERS = { # dictionary (username, User)
 
 # application base
 application = Flask(__name__)
-application.secret_key = str(uuid.uuid1())
+application.secret_key = 'bla'
 # default route
 @application.route('/', methods=['GET'])
 def index():
