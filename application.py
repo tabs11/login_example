@@ -85,7 +85,7 @@ def logout():
 @application.route('/home', methods=['GET'])
 @login_required
 def home():
-    msg=application.secret_key
+    msg='bla'
     return render_template('home.html',msg=msg)
 
 
@@ -105,9 +105,7 @@ def load_user(userid):
 
 if __name__ == '__main__':
     application.run(
-        host='0.0.0.0', 
-        port=5000, 
-        threaded=True
+       debug=True
     )
 
 
