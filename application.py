@@ -143,9 +143,6 @@ def sites_history():
     global DOWNLOAD_FOLDER
     id_folder=str(uuid.uuid1())
     #COMPANY_FOLDER=id_folder + '/'
-    ITSM_FOLDER=id_folder + '/ITSM_sites'
-    UPLAOD_FOLDER=id_folder + '/File_to_validate'
-    DOWNLOAD_FOLDER=id_folder + '/Report'
     msg=None
     if request.method == 'POST':
         if 'file' not in request.files:
@@ -157,6 +154,9 @@ def sites_history():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
+            ITSM_FOLDER=id_folder + '/ITSM_sites'
+            UPLAOD_FOLDER=id_folder + '/File_to_validate'
+            DOWNLOAD_FOLDER=id_folder + '/Report'
             os.makedirs(id_folder)
             os.makedirs(ITSM_FOLDER)
             os.makedirs(UPLOAD_FOLDER)
