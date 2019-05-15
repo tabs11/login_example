@@ -124,8 +124,8 @@ def home():
     msg= None
     if request.method == 'POST':
         company = request.form['company']
-        #id_folder=company + '_' + str(uuid.uuid1())
-        id_folder=str(uuid.uuid1())
+        id_folder=company + '_' + str(uuid.uuid1())
+        #id_folder=str(uuid.uuid1())
         msg = 'Successfull'
         os.makedirs(id_folder)
         os.makedirs(id_folder + '/ITSM_sites')
