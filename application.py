@@ -108,7 +108,7 @@ def file_downloads():
 
 # home route
 
-@application.route('/home', methods=['GET','POST'])
+@application.route('/home', methods=['POST'])
 @login_required
 def home():
     data=[s for s in os.listdir(os.getcwd()) if len(s) > 20]
