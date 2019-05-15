@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">>
+<html lang="en">
   <head>  
      <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -7,7 +7,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
   </head>
   <body>
-
+    <header>
+        <h1 class="logo">Nokia</h1>
+        <strong><nav>
+          <ul class="menu">
+            <li><a href="{{ url_for('login_get') }}"><h1>HOME</h1></a></li>
+          </ul>
+        </nav></strong>
+    </header>
     <div class="container">
     <h3 class=title><b>DATA VALIDATION</b></h3>
       {% block content %}

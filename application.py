@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask
-from flask import redirect
-from flask import render_template
-from flask import request
-from flask import flash
+from flask import Flask, request, redirect, url_for, render_template, send_from_directory,send_file,flash
+from werkzeug.utils import secure_filename
+
 from flask_login import LoginManager
 from flask_login import UserMixin # subclass of flask user
 from flask_login import login_required
 from flask_login import login_user
 from flask_login import logout_user
+import shutil
 import uuid
+import os
+import datetime as dt 
+from datetime import datetime
 class User(UserMixin):
 
     def __init__(self, username, password):
@@ -36,13 +38,11 @@ USERS = { # dictionary (username, User)
 
 # application base
 application = Flask(__name__)
-application.secret_key = 'bla'
+application.secret_key = 'blabla'
 # default route
 @application.route('/', methods=['GET'])
 def index():
     return redirect("/home", code=302)
-
-
 
 # login views
 @application.route('/login', methods=['GET'])
@@ -79,14 +79,81 @@ def logout():
 
 
 
+application.config['CMDB_FOLDER'] = 'CMDB_templates/'
+
+#
+# These are the extension that we are accepting to be uploaded
+application.config['ALLOWED_EXTENSIONS'] = set(['xlsx','xls'])
+
+# For a given file, return whether it's an allowed type or not
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in application.config['ALLOWED_EXTENSIONS']
+
+
+@application.route('/return-file/')
+@login_required
+def return_file():
+    filename='cmdb_templates.zip'
+    return send_file(os.path.join(application.config['CMDB_FOLDER'])+filename,attachment_filename=filename, as_attachment=True)
+
+
+@application.route('/home')
+@login_required
+def file_downloads():
+    return render_template('home.html')
+
+
 # home route
 
-@application.route('/home', methods=['GET'])
+@application.route('/home', methods=['GET','POST'])
 @login_required
 def home():
-    msg=str(uuid.uuid1())
+    data=[s for s in os.listdir(os.getcwd()) if len(s) > 20]
+    paths_to_del=[]
+    dates=[]
+    for i in range(len(data)):
+        paths_to_del.append(os.getcwd()+ '/' + data[i])
+        dates.append((dt.datetime.now()-datetime.fromtimestamp(os.path.getctime(paths_to_del[i]))).seconds)
+        if dates[i]>100:
+            shutil.rmtree(paths_to_del[i])
+        else:
+            None
+    msg= None
+    if request.method == 'POST':
+        company = request.form['company']
+        id_folder=company + '_' + str(uuid.uuid1())
+        msg = 'Successfull'
+        os.makedirs(id_folder)
+        os.makedirs(id_folder + '/ITSM_sites')
+        os.makedirs(id_folder +'/Report')
+        os.makedirs(id_folder + '/File_to_validate')
+        application.config['COMPANY_FOLDER'] = id_folder+'/'
+        application.config['UPLOAD_FOLDER'] = id_folder + '/File_to_validate/'
+        application.config['DOWNLOAD_FOLDER'] = id_folder + '/Report/'
+        application.config['ITSM_FOLDER'] = id_folder + '/ITSM_sites/'
     return render_template('home.html',msg=msg)
 
+
+@application.route('/files', methods=['GET','POST'])
+@login_required
+def sites_history():
+    msg=None
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            print('No file attached in request')
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename == '':
+            print('No file selected')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(application.config['ITSM_FOLDER'], filename))
+            msg=filename
+        else:
+            msg='Please select a valid extension (.xls or .xlsx)'
+    return render_template('multi_upload_index.html',msg=msg)
 # --- login manager ------------------------------------------------------------
 
 # create login manager
