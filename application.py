@@ -140,7 +140,7 @@ def sites_history():
             print('No file selected')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-           id_folder=application.secret_key
+            id_folder=application.secret_key
             os.makedirs(id_folder)
             os.makedirs(id_folder + '/ITSM_sites')
             os.makedirs(id_folder +'/Report')
