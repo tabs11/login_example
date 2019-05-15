@@ -155,7 +155,7 @@ def sites_history():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             ITSM_FOLDER=id_folder + '/ITSM_sites'
-            UPLAOD_FOLDER=id_folder + '/File_to_validate'
+            UPLOAD_FOLDER=id_folder + '/File_to_validate'
             DOWNLOAD_FOLDER=id_folder + '/Report'
             os.makedirs(id_folder)
             os.makedirs(ITSM_FOLDER)
