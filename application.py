@@ -40,19 +40,8 @@ USERS = { # dictionary (username, User)
 application = Flask(__name__)
 application.secret_key = 'bla'
 
-id_folder=str(uuid.uuid1())
 CMDB_FOLDER = 'CMDB_templates/'
-COMPANY_FOLDER = id_folder+'/'
-UPLOAD_FOLDER= id_folder + '/File_to_validate/'
-DOWNLOAD_FOLDER=id_folder + '/Report/'
-ITSM_FOLDER=id_folder + '/ITSM_sites/'
-
-
-
 application.config['CMDB_FOLDER'] = CMDB_FOLDER
-application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-application.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
-application.config['ITSM_FOLDER'] = ITSM_FOLDER
 #
 # These are the extension that we are accepting to be uploaded
 application.config['ALLOWED_EXTENSIONS'] = set(['xlsx','xls'])
@@ -122,6 +111,14 @@ def file_downloads():
 @application.route('/home', methods=['POST'])
 @login_required
 def home():
+    id_folder=str(uuid.uuid1())
+    COMPANY_FOLDER = id_folder+'/'
+    UPLOAD_FOLDER= id_folder + '/File_to_validate/'
+    DOWNLOAD_FOLDER=id_folder + '/Report/'
+    ITSM_FOLDER=id_folder + '/ITSM_sites/'
+    application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    application.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
+    application.config['ITSM_FOLDER'] = ITSM_FOLDER
     os.makedirs(id_folder)
     os.makedirs(id_folder + '/ITSM_sites')
     os.makedirs(id_folder +'/Report')
