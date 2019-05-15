@@ -131,20 +131,9 @@ def home():
     msg= None
     if request.method == 'POST':
         company = request.form['company']
-        global id_folder
-        global COMPANY_FOLDER
-        global ITSM_FOLDER
-        global UPLOAD_FOLDER
-        global DOWNLOAD_FOLDER
-        id_folder=company + '_' + str(uuid.uuid1())
-        COMPANY_FOLDER=id_folder + '/'
-        ITSM_FOLDER=id_folder + '/ITSM_sites'
-        UPLAOD_FOLDER=id_folder + '/File_to_validate'
-        DOWNLOAD_FOLDER=id_folder + '/Report'
-        os.makedirs(id_folder)
-        os.makedirs(ITSM_FOLDER)
-        os.makedirs(UPLOAD_FOLDER)
-        os.makedirs(DOWNLOAD_FOLDER)
+        
+        
+        
         msg = 'Successfull'
     return render_template('home.html',msg=msg)
 
@@ -153,8 +142,14 @@ def home():
 @login_required
 def sites_history():
     global id_folder
-    global COMPANY_FOLDER
     global ITSM_FOLDER
+    global UPLOAD_FOLDER
+    global DOWNLOAD_FOLDER
+    id_folder=str(uuid.uuid1())
+    #COMPANY_FOLDER=id_folder + '/'
+    ITSM_FOLDER=id_folder + '/ITSM_sites'
+    UPLAOD_FOLDER=id_folder + '/File_to_validate'
+    DOWNLOAD_FOLDER=id_folder + '/Report'
     msg=None
     if request.method == 'POST':
         if 'file' not in request.files:
@@ -166,6 +161,10 @@ def sites_history():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
+            os.makedirs(id_folder)
+            os.makedirs(ITSM_FOLDER)
+            os.makedirs(UPLOAD_FOLDER)
+            os.makedirs(DOWNLOAD_FOLDER)
             file.save(os.path.join(ITSM_FOLDER, filename))
             msg=filename
         else:
