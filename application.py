@@ -38,10 +38,13 @@ USERS = { # dictionary (username, User)
 
 # application base
 application = Flask(__name__)
-application.secret_key = 'blabla'
+application.secret_key = str(uuid.uuid1())
 
-project_root = os.path.dirname(os.path.abspath(__file__))
+application.config['CMDB_FOLDER'] = 'CMDB_templates/'
 
+#
+# These are the extension that we are accepting to be uploaded
+application.config['ALLOWED_EXTENSIONS'] = set(['xlsx','xls'])
 # default route
 @application.route('/', methods=['GET'])
 def index():
@@ -82,11 +85,7 @@ def logout():
 
 
 
-application.config['CMDB_FOLDER'] = project_root + '/CMDB_templates/'
 
-#
-# These are the extension that we are accepting to be uploaded
-application.config['ALLOWED_EXTENSIONS'] = set(['xlsx','xls'])
 
 # For a given file, return whether it's an allowed type or not
 def allowed_file(filename):
@@ -123,7 +122,19 @@ def home():
         else:
             None
     msg= None
-    
+    if request.method == 'POST':
+        company = request.form['company']
+        #id_folder=company + '_' + str(uuid.uuid1())
+        id_folder=application.secret_key
+        msg = 'Successfull'
+        os.makedirs(id_folder)
+        os.makedirs(id_folder + '/ITSM_sites')
+        os.makedirs(id_folder +'/Report')
+        os.makedirs(id_folder + '/File_to_validate')
+        application.config['COMPANY_FOLDER'] = id_folder+'/'
+        application.config['UPLOAD_FOLDER'] = id_folder + '/File_to_validate/'
+        application.config['DOWNLOAD_FOLDER'] = id_folder + '/Report/'
+    application.config['ITSM_FOLDER'] = id_folder + '/ITSM_sites/'
     return render_template('home.html',msg=msg)
 
 
@@ -140,18 +151,9 @@ def sites_history():
             print('No file selected')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            id_folder=application.secret_key
-            os.makedirs(id_folder)
-            os.makedirs(id_folder + '/ITSM_sites')
-            os.makedirs(id_folder +'/Report')
-            os.makedirs(id_folder + '/File_to_validate')
-            application.config['COMPANY_FOLDER'] = id_folder+'/'
-            application.config['UPLOAD_FOLDER'] = id_folder + '/File_to_validate/'
-            application.config['DOWNLOAD_FOLDER'] = id_folder + '/Report/'
-            application.config['ITSM_FOLDER'] = id_folder + '/ITSM_sites/'
             filename = secure_filename(file.filename)
             file.save(os.path.join(application.config['ITSM_FOLDER'], filename))
-            msg=application.secret_key
+            msg=filename
         else:
             msg='Please select a valid extension (.xls or .xlsx)'
     return render_template('multi_upload_index.html',msg=msg)
