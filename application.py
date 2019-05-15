@@ -147,8 +147,6 @@ def sites_history():
     global ITSM_FOLDER
     id_folder=str(uuid.uuid1())
     ITSM_FOLDER=id_folder + '/ITSM_sites'
-    os.makedirs(id_folder)
-    os.makedirs(ITSM_FOLDER)
     msg=None
     if request.method == 'POST':
         if 'file' not in request.files:
@@ -159,6 +157,8 @@ def sites_history():
             print('No file selected')
             return redirect(request.url)
         if file and allowed_file(file.filename):
+            os.makedirs(id_folder)
+            os.makedirs(ITSM_FOLDER)
             filename = secure_filename(file.filename)
             file.save(os.path.join(ITSM_FOLDER, filename))
             msg=filename
