@@ -40,7 +40,7 @@ USERS = { # dictionary (username, User)
 application = Flask(__name__)
 application.secret_key = 'bla'
 
-id_folder=''
+id_folder=str(uuid.uuid1())
 CMDB_FOLDER = 'CMDB_templates/'
 COMPANY_FOLDER = id_folder+'/'
 UPLOAD_FOLDER= id_folder + '/File_to_validate/'
@@ -135,8 +135,8 @@ def home():
     msg= None
     if request.method == 'POST':
         company = request.form['company']
-        global id_folder
-        id_folder=company + '_' + str(uuid.uuid1())
+        #global id_folder
+        #id_folder=company + '_' + str(uuid.uuid1())
         #id_folder=str(uuid.uuid1())
         msg = 'Successfull'
         os.makedirs(id_folder)
