@@ -134,7 +134,7 @@ def home():
         application.config['COMPANY_FOLDER'] = id_folder+'/'
         application.config['UPLOAD_FOLDER'] = id_folder + '/File_to_validate/'
         application.config['DOWNLOAD_FOLDER'] = id_folder + '/Report/'
-    application.config['ITSM_FOLDER'] = id_folder + '/ITSM_sites/'
+        application.config['ITSM_FOLDER'] = id_folder + '/ITSM_sites/'
     return render_template('home.html',msg=msg)
 
 
