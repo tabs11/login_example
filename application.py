@@ -39,6 +39,9 @@ USERS = { # dictionary (username, User)
 # application base
 application = Flask(__name__)
 application.secret_key = 'blabla'
+
+project_root = os.path.dirname(os.path.abspath(__file__))
+
 # default route
 @application.route('/', methods=['GET'])
 def index():
@@ -79,7 +82,7 @@ def logout():
 
 
 
-application.config['CMDB_FOLDER'] = 'CMDB_templates/'
+application.config['CMDB_FOLDER'] = project_root + '/CMDB_templates/'
 
 #
 # These are the extension that we are accepting to be uploaded
@@ -122,7 +125,7 @@ def home():
     msg= None
     if request.method == 'POST':
         company = request.form['company']
-        id_folder=company + '_' + str(uuid.uuid1())
+        id_folder=project_root + '/'+company + '_' + str(uuid.uuid1())
         msg = 'Successfull'
         os.makedirs(id_folder)
         os.makedirs(id_folder + '/ITSM_sites')
