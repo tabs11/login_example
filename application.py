@@ -122,6 +122,10 @@ def file_downloads():
 @application.route('/home', methods=['POST'])
 @login_required
 def home():
+    os.makedirs(id_folder)
+    os.makedirs(id_folder + '/ITSM_sites')
+    os.makedirs(id_folder +'/Report')
+    os.makedirs(id_folder + '/File_to_validate')
     data=[s for s in os.listdir(os.getcwd()) if len(s) > 20]
     paths_to_del=[]
     dates=[]
@@ -139,10 +143,6 @@ def home():
         #id_folder=company + '_' + str(uuid.uuid1())
         #id_folder=str(uuid.uuid1())
         msg = 'Successfull'
-        os.makedirs(id_folder)
-        os.makedirs(id_folder + '/ITSM_sites')
-        os.makedirs(id_folder +'/Report')
-        os.makedirs(id_folder + '/File_to_validate')
     return render_template('home.html',msg=msg)
 
 
