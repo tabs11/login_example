@@ -2,7 +2,6 @@
 
 from flask import Flask, request, redirect, url_for, render_template, send_from_directory,send_file,flash
 from werkzeug.utils import secure_filename
-
 from flask_login import LoginManager
 from flask_login import UserMixin # subclass of flask user
 from flask_login import login_required
@@ -42,6 +41,16 @@ application.secret_key = 'bla'
 
 CMDB_FOLDER = 'CMDB_templates/'
 application.config['CMDB_FOLDER'] = CMDB_FOLDER
+
+
+id_folder=''
+COMPANY_FOLDER = ''
+UPLOAD_FOLDER= ''
+DOWNLOAD_FOLDER=''
+ITSM_FOLDER=''
+#application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+#application.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
+#application.config['ITSM_FOLDER'] = ITSM_FOLDER
 #
 # These are the extension that we are accepting to be uploaded
 application.config['ALLOWED_EXTENSIONS'] = set(['xlsx','xls'])
@@ -84,9 +93,6 @@ def logout():
     return redirect('login')
 
 
-
-
-
 # For a given file, return whether it's an allowed type or not
 def allowed_file(filename):
     return '.' in filename and \
@@ -111,18 +117,20 @@ def file_downloads():
 @application.route('/home', methods=['POST'])
 @login_required
 def home():
+    global id_folder
+    #global COMPANY_FOLDER
+    global ITSM_FOLDER
+    global UPLOAD_FOLDER
+    global DOWNLOAD_FOLDER
+    
     id_folder=str(uuid.uuid1())
-    COMPANY_FOLDER = id_folder+'/'
-    UPLOAD_FOLDER= id_folder + '/File_to_validate/'
-    DOWNLOAD_FOLDER=id_folder + '/Report/'
-    ITSM_FOLDER=id_folder + '/ITSM_sites/'
-    application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-    application.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
-    application.config['ITSM_FOLDER'] = ITSM_FOLDER
+    ITSM_FOLDER=id_folder + '/ITSM_sites'
+    UPLOAD_FOLDER=id_folder + '/File_to_validate'
+    DOWNLOAD_FOLDER=id_folder + '/Report'
     os.makedirs(id_folder)
-    os.makedirs(id_folder + '/ITSM_sites')
-    os.makedirs(id_folder +'/Report')
-    os.makedirs(id_folder + '/File_to_validate')
+    os.makedirs(ITSM_FOLDER)
+    os.makedirs(UPLOAD_FOLDER)
+    os.makedirs(DOWNLOAD_FOLDER)
     data=[s for s in os.listdir(os.getcwd()) if len(s) > 20]
     paths_to_del=[]
     dates=[]
@@ -157,7 +165,7 @@ def sites_history():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(application.config['ITSM_FOLDER'], filename))
+            file.save(os.path.join(ITSM_FOLDER, filename))
             msg=filename
         else:
             msg='Please select a valid extension (.xls or .xlsx)'
