@@ -131,20 +131,7 @@ def home():
     msg= None
     if request.method == 'POST':
         company = request.form['company']
-        global id_folder
-        #global COMPANY_FOLDER
-        global ITSM_FOLDER
-        global UPLOAD_FOLDER
-        global DOWNLOAD_FOLDER
-    
-        id_folder=str(uuid.uuid1())
-        ITSM_FOLDER=id_folder + '/ITSM_sites'
-        UPLOAD_FOLDER=id_folder + '/File_to_validate'
-        DOWNLOAD_FOLDER=id_folder + '/Report'
-        os.makedirs(id_folder)
-        os.makedirs(ITSM_FOLDER)
-        os.makedirs(UPLOAD_FOLDER)
-        os.makedirs(DOWNLOAD_FOLDER)
+        
         #global id_folder
         #id_folder=company + '_' + str(uuid.uuid1())
         #id_folder=str(uuid.uuid1())
@@ -155,6 +142,13 @@ def home():
 @application.route('/files', methods=['GET','POST'])
 @login_required
 def sites_history():
+    global id_folder
+    #global COMPANY_FOLDER
+    global ITSM_FOLDER
+    id_folder=str(uuid.uuid1())
+    ITSM_FOLDER=id_folder + '/ITSM_sites'
+    os.makedirs(id_folder)
+    os.makedirs(ITSM_FOLDER)
     msg=None
     if request.method == 'POST':
         if 'file' not in request.files:
