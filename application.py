@@ -117,7 +117,6 @@ def file_downloads():
 @application.route('/home', methods=['POST'])
 @login_required
 def home():
-    
     data=[s for s in os.listdir(os.getcwd()) if len(s) > 20]
     paths_to_del=[]
     dates=[]
@@ -131,9 +130,6 @@ def home():
     msg= None
     if request.method == 'POST':
         company = request.form['company']
-        
-        
-        
         msg = 'Successfull'
     return render_template('home.html',msg=msg)
 
