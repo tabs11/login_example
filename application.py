@@ -44,12 +44,9 @@ application.config['CMDB_FOLDER'] = CMDB_FOLDER
 
 
 ID_FOLDER=''
-#COMPANY_FOLDER=''
-#UPLOAD_FOLDER= ''
-#DOWNLOAD_FOLDER=''
-#ITSM_FOLDER=''
-ITSM_FOLDER=ID_FOLDER + '/ITSM_sites'
-UPLOAD_FOLDER=ID_FOLDER + '/File_to_validate'
+ITSM_FOLDER=''
+UPLOAD_FOLDER= ''
+
 #DOWNLOAD_FOLDER=id_folder + '/Report'
 #application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 #application.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
@@ -134,9 +131,6 @@ def home():
 @application.route('/files', methods=['GET','POST'])
 @login_required
 def sites_history():
-	global ID_FOLDER
-	global ITSM_FOLDER
-	global UPLOAD_FOLDER
 	msg=None
 	if request.method == 'POST':
 		if 'file' not in request.files:
@@ -153,10 +147,9 @@ def sites_history():
 		else:
 			msg='Please select a valid extension (.xls or .xlsx)'
 	return render_template('multi_upload_index.html',msg=msg)#,ms2=msg2)
-# --- login manager ------------------------------------------------------------
-
 
 @application.route('/upload', methods=['POST'])
+@login_required
 def upload():
 	msg2=None
 	# Get the name of the uploaded files
