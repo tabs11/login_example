@@ -141,7 +141,7 @@ def sites_history():
 	if request.method == 'POST':
 		if 'file' not in request.files:
 			print('No file attached in request')
-	        	return redirect(request.url)
+			return redirect(request.url)
 		file = request.files['file']
 		if file.filename == '':
 			print('No file selected')
