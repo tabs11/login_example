@@ -14,25 +14,25 @@ import datetime as dt
 from datetime import datetime
 class User(UserMixin):
 
-    def __init__(self, username, password):
-        super(User, self).__init__()
-        self.username = username
-        self.password = password
+	def __init__(self, username, password):
+		super(User, self).__init__()
+		self.username = username
+		self.password = password
 
-    def is_active(self):
-        return True
+	def is_active(self):
+		return True
 
-    def is_anonymous(self):
-        return False
+	def is_anonymous(self):
+		return False
 
-    def get_id(self):
-        return self.username
+	def get_id(self):
+		return self.username
 
 # USER DATABASE
 USERS = { # dictionary (username, User)
-    'user1' : User('user1','pass'),
-    'user2' : User('user2','teste'),
-    'user3' : User('user3','cenas')
+	'user1' : User('user1','pass'),
+	'user2' : User('user2','teste'),
+	'user3' : User('user3','cenas')
 }
 
 # application base
@@ -60,59 +60,59 @@ application.config['ALLOWED_EXTENSIONS'] = set(['xlsx','xls'])
 # default route
 @application.route('/', methods=['GET'])
 def index():
-    return redirect("/home", code=302)
+	return redirect("/home", code=302)
 
 # login views
 @application.route('/login', methods=['GET'])
 def login_get():
-    return render_template('login.html')
+	return render_template('login.html')
 
 @application.route('/login', methods=['POST'])
 def login_post():
-    # get details from post request
-    username = request.form['username']
-    password = request.form['password']
-    # get  user
-    try:
-        user = USERS[username]
-    except KeyError:
-        user = None
-    # validate user
-    if user and user.password == password:
-        login_user(user)
-        if request.args.get("next"):
-            return redirect(request.args.get("next"))
-        else:
-            return redirect('/')
-    else:
-        flash("username ou password erradas")
-        return render_template('login.html')
+	# get details from post request
+	username = request.form['username']
+	password = request.form['password']
+	# get  user
+	try:
+		user = USERS[username]
+	except KeyError:
+		user = None
+	# validate user
+	if user and user.password == password:
+		login_user(user)
+		if request.args.get("next"):
+			return redirect(request.args.get("next"))
+		else:
+			return redirect('/')
+	else:
+		flash("username ou password erradas")
+		return render_template('login.html')
 
 
 @application.route('/logout', methods=['GET'])
 @login_required
 def logout():
-    logout_user()
-    return redirect('login')
+	logout_user()
+	return redirect('login')
 
 
 # For a given file, return whether it's an allowed type or not
 def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1] in application.config['ALLOWED_EXTENSIONS']
+	return '.' in filename and \
+		   filename.rsplit('.', 1)[1] in application.config['ALLOWED_EXTENSIONS']
 
 
 @application.route('/return-file/')
 @login_required
 def return_file():
-    filename='cmdb_templates.zip'
-    return send_file(os.path.join(application.config['CMDB_FOLDER'])+filename,attachment_filename=filename, as_attachment=True)
+	filename='cmdb_templates.zip'
+	return send_file(os.path.join(application.config['CMDB_FOLDER'])+filename,attachment_filename=filename, as_attachment=True)
 
 
 @application.route('/home')
 @login_required
 def file_downloads():
-    return render_template('home.html')
+	return render_template('home.html')
 
 
 # home route
@@ -147,7 +147,7 @@ def sites_history():
 			print('No file selected')
 			return redirect(request.url)
 		if file and allowed_file(file.filename):
-	        	filename = secure_filename(file.filename)
+			filename = secure_filename(file.filename)
 			file.save(os.path.join(ITSM_FOLDER, filename))
 			msg=filename
 		else:
@@ -187,14 +187,12 @@ login_manager.login_view = 'login_get'
 # callback to reload the user object
 @login_manager.user_loader
 def load_user(userid):
-    return USERS[userid]
+	return USERS[userid]
 
 
 if __name__ == '__main__':
-    application.run(
-        host='0.0.0.0', 
-        port=3000, 
-        threaded=True
-    )
-
-
+	application.run(
+		host='0.0.0.0', 
+		port=3000, 
+		threaded=True
+	)
