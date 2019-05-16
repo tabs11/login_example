@@ -37,21 +37,20 @@ USERS = { # dictionary (username, User)
 
 # application base
 application = Flask(__name__)
-application.secret_key = 'bla'
+#application.secret_key = 'bla'
+
+SECRET_KEY = str(uuid.uuid1())
+application.config['SECRET_KEY'] = SECRET_KEY
 
 CMDB_FOLDER = 'CMDB_templates/'
 application.config['CMDB_FOLDER'] = CMDB_FOLDER
 
 
-ID_FOLDER=''
-ITSM_FOLDER=''
-UPLOAD_FOLDER= ''
+ITSM_FOLDER='/ITSM_sites'
+application.config['ITSM_FOLDER'] = SECRET_KEY + ITSM_FOLDER
+UPLOAD_FOLDER='/Files_to_validate'
+application.config['UPLOAD_FOLDER'] = SECRET_KEY + UPLOAD_FOLDER
 
-#DOWNLOAD_FOLDER=id_folder + '/Report'
-#application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-#application.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
-#application.config['ITSM_FOLDER'] = ITSM_FOLDER
-#
 # These are the extension that we are accepting to be uploaded
 application.config['ALLOWED_EXTENSIONS'] = set(['xlsx','xls'])
 # default route
@@ -123,12 +122,12 @@ def home():
 @application.route('/files', methods=['GET','POST'])
 @login_required
 def sites_history():
-	global ID_FOLDER
+	global SECRET_KEY
 	global ITSM_FOLDER
 	global UPLOAD_FOLDER
-	ID_FOLDER=str(uuid.uuid1())
-	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites'
-	UPLOAD_FOLDER=ID_FOLDER + '/File_to_validate'
+	#ID_FOLDER=str(uuid.uuid1())
+	#ITSM_FOLDER=ID_FOLDER + '/ITSM_sites'
+	#UPLOAD_FOLDER=ID_FOLDER + '/File_to_validate'
 	
 	msg=None
 	if request.method == 'POST':
@@ -144,7 +143,7 @@ def sites_history():
 			os.makedirs(ITSM_FOLDER)
 			os.makedirs(UPLOAD_FOLDER)
 			filename = secure_filename(file.filename)
-			file.save(os.path.join(ITSM_FOLDER, filename))
+			file.save(os.path.join(application.config['ITSM_FOLDER'], filename))
 			msg=filename
 		else:
 			msg='Please select a valid extension (.xls or .xlsx)'
@@ -153,7 +152,7 @@ def sites_history():
 @application.route('/upload', methods=['POST'])
 @login_required
 def upload():
-	global ID_FOLDER
+	global SECRET_KEY
 	global ITSM_FOLDER
 	global UPLOAD_FOLDER
 	msg2=None
@@ -165,7 +164,7 @@ def upload():
 			# Make the filename safe, remove unsupported chars
 			filename = secure_filename(file.filename)
 			# Move the file form the temporal folder to the upload
-			file.save(os.path.join(UPLOAD_FOLDER, filename))
+			file.save(os.path.join(application.config['UPLOAD_FOLDER'], filename))
 		else:
 			msg2='Please select a valid extension (.xls or .xlsx)'
 			return render_template('multi_upload_index.html',msg2=msg2)
