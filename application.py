@@ -42,7 +42,9 @@ CMDB_FOLDER = 'CMDB_templates/'
 ##application.config['ITSM_FOLDER'] = ID_FOLDER + ITSM_FOLDER
 #UPLOAD_FOLDER=ID_FOLDER+'/Files_to_validate'
 ##application.config['UPLOAD_FOLDER'] = ID_FOLDER + UPLOAD_FOLDER
-ID_FOLDER=USERS
+ID_FOLDER=''
+ITSM_FOLDER=''
+UPLOAD_FOLDER=''
 #ID_FOLDER = application.secret_key
 #ITSM_FOLDER=ID_FOLDER+'/ITSM_sites'
 #UPLOAD_FOLDER=ID_FOLDER+'/Files_to_validate'
@@ -151,8 +153,8 @@ def sites_history():
 @login_required
 def upload():
 	global ID_FOLDER
-	global ITSM_FOLDER
 	global UPLOAD_FOLDER
+	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate'
 	msg2=None
 	# Get the name of the uploaded files
 	uploaded_files = request.files.getlist("file[]")
@@ -161,6 +163,7 @@ def upload():
 		if file and allowed_file(file.filename):
 			# Make the filename safe, remove unsupported chars
 			filename = secure_filename(file.filename)
+			os.makedirs(UPLOAD_FOLDER)
 			# Move the file form the temporal folder to the upload
 			file.save(os.path.join(UPLOAD_FOLDER, filename))
 		else:
