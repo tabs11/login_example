@@ -142,7 +142,7 @@ def sites_history():
 			#os.makedirs(UPLOAD_FOLDER)
 			filename = secure_filename(file.filename)
 			file.save(os.path.join(ITSM_FOLDER, filename))
-			msg=ID_FOLDERS
+			msg=ID_FOLDER
 		else:
 			msg='Please select a valid extension (.xls or .xlsx)'
 	return render_template('multi_upload_index.html',msg=msg)#,ms2=msg2)
