@@ -123,7 +123,7 @@ def sites_history():
 	global ID_FOLDER
 	global ITSM_FOLDER
 	#global UPLOAD_FOLDER
-	ID_FOLDER=USERS
+	ID_FOLDER=str(uuid.uuid1())
 	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites'
 	#UPLOAD_FOLDER=ID_FOLDER + '/File_to_validate'
 	
