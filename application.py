@@ -119,9 +119,6 @@ def file_downloads():
 @application.route('/home', methods=['POST'])
 @login_required
 def home():
-    global ID_FOLDER
-    global ITSM_FOLDER
-    global UPLOAD_FOLDER
     data=[s for s in os.listdir(os.getcwd()) if len(s) > 20]
     paths_to_del=[]
     dates=[]
@@ -135,9 +132,6 @@ def home():
     msg= None
     if request.method == 'POST':
         company = request.form['company']
-        os.makedirs(ID_FOLDER)
-        os.makedirs(ITSM_FOLDER)
-        os.makedirs(UPLOAD_FOLDER)
         msg = 'Successfull'
     return render_template('home.html',msg=msg)
 
@@ -162,7 +156,9 @@ def sites_history():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            
+            os.makedirs(ID_FOLDER)
+            os.makedirs(ITSM_FOLDER)
+            os.makedirs(UPLOAD_FOLDER)
             
             #os.makedirs(DOWNLOAD_FOLDER)
             file.save(os.path.join(ITSM_FOLDER, filename))
