@@ -44,6 +44,7 @@ application.config['CMDB_FOLDER'] = CMDB_FOLDER
 
 
 ID_FOLDER=str(uuid.uuid1())
+COMPANY_FOLDER=''
 #UPLOAD_FOLDER= ''
 #DOWNLOAD_FOLDER=''
 #ITSM_FOLDER=''
@@ -130,23 +131,27 @@ def home():
         else:
             None
     msg= None
-    if request.method == 'POST':
-        company = request.form['company']
-        msg = 'Successfull'
-    return render_template('home.html',msg=msg)
+    #if request.method == 'POST':
+    #    company = request.form['company']
+    #    msg = 'Successfull'
+    return render_template('home.html')#,msg=msg)
 
 
 @application.route('/files', methods=['GET','POST'])
 @login_required
 def sites_history():
+    global COMPANY_FOLDER
     global ID_FOLDER
     global ITSM_FOLDER
     global UPLOAD_FOLDER
     #global DOWNLOAD_FOLDER
-    #ID_FOLDER=str(uuid.uuid1())
-    #COMPANY_FOLDER=id_folder + '/'
     msg=None
+    msg2=None
     if request.method == 'POST':
+        company = request.form['company']
+        COMPANY_FOLDER=company
+        ID_FOLDER=COMPANY_FOLDER + '_' + ID_FOLDER
+        msg2 = 'Successfull'
         if 'file' not in request.files:
             print('No file attached in request')
             return redirect(request.url)
