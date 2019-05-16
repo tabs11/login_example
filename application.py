@@ -13,18 +13,14 @@ import os
 import datetime as dt 
 from datetime import datetime
 class User(UserMixin):
-
 	def __init__(self, username, password):
 		super(User, self).__init__()
 		self.username = username
 		self.password = password
-
 	def is_active(self):
 		return True
-
 	def is_anonymous(self):
 		return False
-
 	def get_id(self):
 		return self.username
 
@@ -42,8 +38,6 @@ application.secret_key = 'bla'
 CMDB_FOLDER = 'CMDB_templates/'
 #application.config['CMDB_FOLDER']=CMDB_FOLDER
 #
-ID_FOLDER = ''
-username=''
 #ITSM_FOLDER=ID_FOLDER+'/ITSM_sites'
 ##application.config['ITSM_FOLDER'] = ID_FOLDER + ITSM_FOLDER
 #UPLOAD_FOLDER=ID_FOLDER+'/Files_to_validate'
@@ -121,6 +115,7 @@ def file_downloads():
 @application.route('/home', methods=['POST'])
 @login_required
 def home():
+	flash(username)
 	return render_template('home.html')
 
 @application.route('/files', methods=['GET','POST'])
