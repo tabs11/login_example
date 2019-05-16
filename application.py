@@ -33,7 +33,8 @@ USERS = { # dictionary (username, User)
 
 # application base
 application = Flask(__name__)
-application.secret_key = 'cona'
+SECRET_KEY=str(uuid.uuid1())
+application.secret_key = SECRET_KEY
 CMDB_FOLDER = 'CMDB_templates/'
 #application.config['CMDB_FOLDER']=CMDB_FOLDER
 #
