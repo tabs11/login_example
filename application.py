@@ -48,7 +48,7 @@ CMDB_FOLDER = 'CMDB_templates/'
 #UPLOAD_FOLDER=ID_FOLDER+'/Files_to_validate'
 ##application.config['UPLOAD_FOLDER'] = ID_FOLDER + UPLOAD_FOLDER
 
-ID_FOLDER = current_user.username# application.secret_key
+ID_FOLDER = application.secret_key
 ITSM_FOLDER=ID_FOLDER+'/ITSM_sites'
 UPLOAD_FOLDER=ID_FOLDER+'/Files_to_validate'
 
@@ -147,7 +147,7 @@ def sites_history():
 			os.makedirs(UPLOAD_FOLDER)
 			filename = secure_filename(file.filename)
 			file.save(os.path.join(ITSM_FOLDER, filename))
-			msg=filename
+			msg=current_user.username
 		else:
 			msg='Please select a valid extension (.xls or .xlsx)'
 	return render_template('multi_upload_index.html',msg=msg)#,ms2=msg2)
