@@ -37,17 +37,20 @@ USERS = { # dictionary (username, User)
 
 # application base
 application = Flask(__name__)
-application.secret_key = 'bla'
+application.secret_key = str(uuid.uuid1())
 
 CMDB_FOLDER = 'CMDB_templates/'
 application.config['CMDB_FOLDER'] = CMDB_FOLDER
 
 
-id_folder=''
-COMPANY_FOLDER = ''
-UPLOAD_FOLDER= ''
-DOWNLOAD_FOLDER=''
-ITSM_FOLDER=''
+ID_FOLDER=application.secret_key
+#COMPANY_FOLDER = ''
+#UPLOAD_FOLDER= ''
+#DOWNLOAD_FOLDER=''
+#ITSM_FOLDER=''
+ITSM_FOLDER=ID_FOLDER + '/ITSM_sites'
+UPLOAD_FOLDER=ID_FOLDER + '/File_to_validate'
+#DOWNLOAD_FOLDER=id_folder + '/Report'
 #application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 #application.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
 #application.config['ITSM_FOLDER'] = ITSM_FOLDER
@@ -137,11 +140,11 @@ def home():
 @application.route('/files', methods=['GET','POST'])
 @login_required
 def sites_history():
-    global id_folder
+    global ID_FOLDER
     global ITSM_FOLDER
     global UPLOAD_FOLDER
-    global DOWNLOAD_FOLDER
-    id_folder=str(uuid.uuid1())
+    #global DOWNLOAD_FOLDER
+    #id_folder=str(uuid.uuid1())
     #COMPANY_FOLDER=id_folder + '/'
     msg=None
     if request.method == 'POST':
@@ -154,13 +157,11 @@ def sites_history():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            ITSM_FOLDER=id_folder + '/ITSM_sites'
-            UPLOAD_FOLDER=id_folder + '/File_to_validate'
-            DOWNLOAD_FOLDER=id_folder + '/Report'
-            os.makedirs(id_folder)
+            
+            os.makedirs(ID_FOLDER)
             os.makedirs(ITSM_FOLDER)
             os.makedirs(UPLOAD_FOLDER)
-            os.makedirs(DOWNLOAD_FOLDER)
+            #os.makedirs(DOWNLOAD_FOLDER)
             file.save(os.path.join(ITSM_FOLDER, filename))
             msg=filename
         else:
