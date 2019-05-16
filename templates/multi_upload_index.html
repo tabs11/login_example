@@ -1,5 +1,16 @@
 {% extends "login_layout.html" %}
 {% block content %}
+
+ <h2>COMPANY:</h2>
+  <font size="1"><h2>(Choose the related company/project, then click on 'FILES TO UPLOAD' button.)</h2></font>
+
+  <form class="button" action="/home" method="POST">
+  {% if msg %}
+    <font size="2"><p><strong></strong> {{ msg }}</font>
+  {% endif %}
+    <input name="company">
+    <input class= "mybutton" type="submit" value= "Submit">
+  </form>
   <h2>Upload existing Sites in CMDB:</h2>
   <form class="button" method=post enctype=multipart/form-data>
     <table>
