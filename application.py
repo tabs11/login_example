@@ -45,9 +45,7 @@ CMDB_FOLDER = 'CMDB_templates/'
 #ID_FOLDER=''
 #ITSM_FOLDER=''
 #UPLOAD_FOLDER=''
-ID_FOLDER = application.secret_key
-ITSM_FOLDER=ID_FOLDER+'/ITSM_sites'
-UPLOAD_FOLDER=ID_FOLDER+'/Files_to_validate'
+
 
 
 # These are the extension that we are accepting to be uploaded
@@ -64,7 +62,6 @@ def login_get():
 
 @application.route('/login', methods=['POST'])
 def login_post():
-	global username
 	# get details from post request
 	username = request.form['username']
 	password = request.form['password']
@@ -75,6 +72,11 @@ def login_post():
 		user = None
 	# validate user
 	if user and user.password == password:
+		SECRET_KEY=str(uuid.uuid1())
+		application.secret_key = SECRET_KEY
+		ID_FOLDER = application.secret_key
+		ITSM_FOLDER=ID_FOLDER+'/ITSM_sites'
+		UPLOAD_FOLDER=ID_FOLDER+'/Files_to_validate'
 		login_user(user)
 		if request.args.get("next"):
 			return redirect(request.args.get("next"))
