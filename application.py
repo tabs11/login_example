@@ -39,8 +39,8 @@ USERS = { # dictionary (username, User)
 application = Flask(__name__)
 application.secret_key = 'bla'
 
-SECRET_KEY = str(uuid.uuid1())
-application.config['SECRET_KEY'] = SECRET_KEY
+ID_FOLDER = str(uuid.uuid1())
+application.config['ID_FOLDER'] = ID_FOLDER
 
 CMDB_FOLDER = 'CMDB_templates/'
 application.config['CMDB_FOLDER'] = CMDB_FOLDER
@@ -122,7 +122,7 @@ def home():
 @application.route('/files', methods=['GET','POST'])
 @login_required
 def sites_history():
-	global SECRET_KEY
+	global ID_FOLDER
 	global ITSM_FOLDER
 	global UPLOAD_FOLDER
 	#ID_FOLDER=str(uuid.uuid1())
