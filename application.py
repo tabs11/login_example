@@ -184,7 +184,7 @@ def upload():
 		if file and allowed_file(file.filename):
 			# Make the filename safe, remove unsupported chars
 			filename = secure_filename(file.filename)
-            os.makedirs(UPLOAD_FOLDER)
+            		os.makedirs(UPLOAD_FOLDER)
 			# Move the file form the temporal folder to the upload
 			file.save(os.path.join(UPLOAD_FOLDER, filename))
 		else:
