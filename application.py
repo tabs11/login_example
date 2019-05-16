@@ -43,7 +43,7 @@ CMDB_FOLDER = 'CMDB_templates/'
 application.config['CMDB_FOLDER'] = CMDB_FOLDER
 
 
-ID_FOLDER=str(uuid.uuid1())
+ID_FOLDER=''
 #COMPANY_FOLDER=''
 #UPLOAD_FOLDER= ''
 #DOWNLOAD_FOLDER=''
@@ -120,60 +120,59 @@ def file_downloads():
 @application.route('/home', methods=['POST'])
 @login_required
 def home():
-    data=[s for s in os.listdir(os.getcwd()) if len(s) > 20]
-    paths_to_del=[]
-    dates=[]
-    for i in range(len(data)):
-        paths_to_del.append(os.getcwd()+ '/' + data[i])
-        dates.append((dt.datetime.now()-datetime.fromtimestamp(os.path.getctime(paths_to_del[i]))).seconds)
-        if dates[i]>60*60*24:
-            shutil.rmtree(paths_to_del[i])
-        else:
-            None
+    #data=[s for s in os.listdir(os.getcwd()) if len(s) > 20]
+    #paths_to_del=[]
+    #dates=[]
+    #for i in range(len(data)):
+    #    paths_to_del.append(os.getcwd()+ '/' + data[i])
+    #    dates.append((dt.datetime.now()-datetime.fromtimestamp(os.path.getctime(paths_to_del[i]))).seconds)
+    #    if dates[i]>60*60*24:
+    #        shutil.rmtree(paths_to_del[i])
+    #    else:
+    #        None
+	global ID_FOLDER
+	global ITSM_FOLDER
+	global UPLOAD_FOLDER
+	ID_FOLDER=str(uuid.uuid1())
+	os.makedirs(ID_FOLDER)
+	os.makedirs(ITSM_FOLDER)
+	os.makedirs(UPLOAD_FOLDER)
+	
     #msg= None
     #if request.method == 'POST':
     #    company = request.form['company']
     #    msg = 'Successfull'
+	
     return render_template('home.html')#,msg=msg)
 
 
 @application.route('/files', methods=['GET','POST'])
 @login_required
 def sites_history():
-    #global COMPANY_FOLDER
-    global ID_FOLDER
-    global ITSM_FOLDER
-    #global DOWNLOAD_FOLDER
-    msg=None
-    #msg2=None
-    if request.method == 'POST':
-        #company = request.form['company']
-        #COMPANY_FOLDER=company
-        #ID_FOLDER=COMPANY_FOLDER + '_' + ID_FOLDER
-        #msg2 = 'Successfull'
-        if 'file' not in request.files:
-            print('No file attached in request')
-            return redirect(request.url)
-        file = request.files['file']
-        if file.filename == '':
-            print('No file selected')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            os.makedirs(ID_FOLDER)
-            os.makedirs(ITSM_FOLDER)
-            #os.makedirs(DOWNLOAD_FOLDER)
-            file.save(os.path.join(ITSM_FOLDER, filename))
-            msg=filename
-        else:
-            msg='Please select a valid extension (.xls or .xlsx)'
-    return render_template('multi_upload_index.html',msg=msg)#,ms2=msg2)
+	global ID_FOLDER
+	global ITSM_FOLDER
+	global UPLOAD_FOLDER
+	msg=None
+	if request.method == 'POST':
+		if 'file' not in request.files:
+			print('No file attached in request')
+	        	return redirect(request.url)
+		file = request.files['file']
+		if file.filename == '':
+			print('No file selected')
+			return redirect(request.url)
+		if file and allowed_file(file.filename):
+	        	filename = secure_filename(file.filename)
+			file.save(os.path.join(ITSM_FOLDER, filename))
+			msg=filename
+		else:
+			msg='Please select a valid extension (.xls or .xlsx)'
+	return render_template('multi_upload_index.html',msg=msg)#,ms2=msg2)
 # --- login manager ------------------------------------------------------------
 
 
 @application.route('/upload', methods=['POST'])
 def upload():
-	global UPLOAD_FOLDER
 	msg2=None
 	# Get the name of the uploaded files
 	uploaded_files = request.files.getlist("file[]")
@@ -182,7 +181,6 @@ def upload():
 		if file and allowed_file(file.filename):
 			# Make the filename safe, remove unsupported chars
 			filename = secure_filename(file.filename)
-			os.makedirs(UPLOAD_FOLDER)
 			# Move the file form the temporal folder to the upload
 			file.save(os.path.join(UPLOAD_FOLDER, filename))
 		else:
