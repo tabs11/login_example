@@ -140,18 +140,18 @@ def home():
 @application.route('/files', methods=['GET','POST'])
 @login_required
 def sites_history():
-    global COMPANY_FOLDER
+    #global COMPANY_FOLDER
     global ID_FOLDER
     global ITSM_FOLDER
     global UPLOAD_FOLDER
     #global DOWNLOAD_FOLDER
     msg=None
-    msg2=None
+    #msg2=None
     if request.method == 'POST':
-        company = request.form['company']
-        COMPANY_FOLDER=company
-        ID_FOLDER=COMPANY_FOLDER + '_' + ID_FOLDER
-        msg2 = 'Successfull'
+        #company = request.form['company']
+        #COMPANY_FOLDER=company
+        #ID_FOLDER=COMPANY_FOLDER + '_' + ID_FOLDER
+        #msg2 = 'Successfull'
         if 'file' not in request.files:
             print('No file attached in request')
             return redirect(request.url)
@@ -170,7 +170,7 @@ def sites_history():
             msg=filename
         else:
             msg='Please select a valid extension (.xls or .xlsx)'
-    return render_template('multi_upload_index.html',msg=msg,ms2=msg2)
+    return render_template('multi_upload_index.html',msg=msg)#,ms2=msg2)
 # --- login manager ------------------------------------------------------------
 
 # create login manager
