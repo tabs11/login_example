@@ -131,7 +131,6 @@ def home():
 	os.makedirs(UPLOAD_FOLDER)
 	return render_template('home.html')
 
-
 @application.route('/files', methods=['GET','POST'])
 @login_required
 def sites_history():
