@@ -67,6 +67,7 @@ def login_get():
 
 @application.route('/login', methods=['POST'])
 def login_post():
+	global username
 	# get details from post request
 	username = request.form['username']
 	password = request.form['password']
@@ -119,7 +120,6 @@ def file_downloads():
 @application.route('/home', methods=['POST'])
 @login_required
 def home():
-	
 	return render_template('home.html')
 
 @application.route('/files', methods=['GET','POST'])
@@ -128,7 +128,7 @@ def sites_history():
 	#global ID_FOLDER
 	#global ITSM_FOLDER
 	#global UPLOAD_FOLDER
-	ID_FOLDER=str(current_user.username)
+	ID_FOLDER=username
 	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites'
 	#UPLOAD_FOLDER=ID_FOLDER + '/File_to_validate'
 	
@@ -147,7 +147,7 @@ def sites_history():
 			#os.makedirs(UPLOAD_FOLDER)
 			filename = secure_filename(file.filename)
 			file.save(os.path.join(ITSM_FOLDER, filename))
-			msg=current_user.username
+			msg=username
 		else:
 			msg='Please select a valid extension (.xls or .xlsx)'
 	return render_template('multi_upload_index.html',msg=msg)#,ms2=msg2)
