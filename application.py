@@ -42,7 +42,7 @@ CMDB_FOLDER = 'CMDB_templates/'
 ##application.config['ITSM_FOLDER'] = ID_FOLDER + ITSM_FOLDER
 #UPLOAD_FOLDER=ID_FOLDER+'/Files_to_validate'
 ##application.config['UPLOAD_FOLDER'] = ID_FOLDER + UPLOAD_FOLDER
-
+ID_FOLDER=USERS
 #ID_FOLDER = application.secret_key
 #ITSM_FOLDER=ID_FOLDER+'/ITSM_sites'
 #UPLOAD_FOLDER=ID_FOLDER+'/Files_to_validate'
@@ -115,7 +115,6 @@ def file_downloads():
 @application.route('/home', methods=['POST'])
 @login_required
 def home():
-	flash(username)
 	return render_template('home.html')
 
 @application.route('/files', methods=['GET','POST'])
@@ -123,7 +122,7 @@ def home():
 def sites_history():
 	global ID_FOLDER
 	global ITSM_FOLDER
-	global UPLOAD_FOLDER
+	#global UPLOAD_FOLDER
 	ID_FOLDER=USERS
 	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites'
 	#UPLOAD_FOLDER=ID_FOLDER + '/File_to_validate'
@@ -143,7 +142,7 @@ def sites_history():
 			#os.makedirs(UPLOAD_FOLDER)
 			filename = secure_filename(file.filename)
 			file.save(os.path.join(ITSM_FOLDER, filename))
-			msg=username
+			msg=ID_FOLDERS
 		else:
 			msg='Please select a valid extension (.xls or .xlsx)'
 	return render_template('multi_upload_index.html',msg=msg)#,ms2=msg2)
