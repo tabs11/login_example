@@ -143,7 +143,6 @@ def sites_history():
     #global COMPANY_FOLDER
     global ID_FOLDER
     global ITSM_FOLDER
-    global UPLOAD_FOLDER
     #global DOWNLOAD_FOLDER
     msg=None
     #msg2=None
@@ -163,7 +162,7 @@ def sites_history():
             filename = secure_filename(file.filename)
             os.makedirs(ID_FOLDER)
             os.makedirs(ITSM_FOLDER)
-            os.makedirs(UPLOAD_FOLDER)
+            
             
             #os.makedirs(DOWNLOAD_FOLDER)
             file.save(os.path.join(ITSM_FOLDER, filename))
@@ -172,6 +171,31 @@ def sites_history():
             msg='Please select a valid extension (.xls or .xlsx)'
     return render_template('multi_upload_index.html',msg=msg)#,ms2=msg2)
 # --- login manager ------------------------------------------------------------
+
+
+@application.route('/upload', methods=['POST'])
+def upload():
+    global UPLOAD_FOLDER
+	msg2=None
+	# Get the name of the uploaded files
+	uploaded_files = request.files.getlist("file[]")
+	for file in uploaded_files:
+		# Check if the file is one of the allowed types/extensions
+		if file and allowed_file(file.filename):
+			# Make the filename safe, remove unsupported chars
+			filename = secure_filename(file.filename)
+            os.makedirs(UPLOAD_FOLDER)
+			# Move the file form the temporal folder to the upload
+			file.save(os.path.join(UPLOAD_FOLDER, filename))
+		else:
+			msg2='Please select a valid extension (.xls or .xlsx)'
+			return render_template('multi_upload_index.html',msg2=msg2)
+	return render_template('multi_files_upload.html',msg2=msg2)
+
+
+@application.route('/upload/<filename>')
+def uploaded_file(filename):
+	return send_from_directory(UPLOAD_FOLDER,filename)
 
 # create login manager
 login_manager = LoginManager()
