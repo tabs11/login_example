@@ -143,7 +143,7 @@ def sites_history():
 			os.makedirs(ITSM_FOLDER)
 			os.makedirs(UPLOAD_FOLDER)
 			filename = secure_filename(file.filename)
-			file.save(os.path.join(application.config['ITSM_FOLDER'], filename))
+			file.save(os.path.join(ITSM_FOLDER, filename))
 			msg=filename
 		else:
 			msg='Please select a valid extension (.xls or .xlsx)'
@@ -164,7 +164,7 @@ def upload():
 			# Make the filename safe, remove unsupported chars
 			filename = secure_filename(file.filename)
 			# Move the file form the temporal folder to the upload
-			file.save(os.path.join(application.config['UPLOAD_FOLDER'], filename))
+			file.save(os.path.join(UPLOAD_FOLDER, filename))
 		else:
 			msg2='Please select a valid extension (.xls or .xlsx)'
 			return render_template('multi_upload_index.html',msg2=msg2)
