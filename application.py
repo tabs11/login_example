@@ -39,6 +39,8 @@ USERS = { # dictionary (username, User)
 application = Flask(__name__)
 application.secret_key = 'bla'
 
+CMDB_FOLDER = 'CMDB_templates/'
+application.config['CMDB_FOLDER']=CMDB_FOLDER
 ID_FOLDER = str(uuid.uuid1())
 
 
@@ -93,8 +95,7 @@ def allowed_file(filename):
 	return '.' in filename and \
 		   filename.rsplit('.', 1)[1] in application.config['ALLOWED_EXTENSIONS']
 
-CMDB_FOLDER = 'CMDB_templates/'
-application.config['CMDB_FOLDER']
+
 
 @application.route('/return-file/')
 @login_required
