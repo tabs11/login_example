@@ -124,7 +124,7 @@ def sites_history():
 	global ID_FOLDER
 	global ITSM_FOLDER
 	global UPLOAD_FOLDER
-	ID_FOLDER=username
+	ID_FOLDER=USERS
 	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites'
 	#UPLOAD_FOLDER=ID_FOLDER + '/File_to_validate'
 	
