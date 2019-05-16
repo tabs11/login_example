@@ -130,7 +130,7 @@ def home():
             shutil.rmtree(paths_to_del[i])
         else:
             None
-    msg= None
+    #msg= None
     #if request.method == 'POST':
     #    company = request.form['company']
     #    msg = 'Successfull'
@@ -170,7 +170,7 @@ def sites_history():
             msg=filename
         else:
             msg='Please select a valid extension (.xls or .xlsx)'
-    return render_template('multi_upload_index.html',msg=msg)
+    return render_template('multi_upload_index.html',msg=msg,ms2=msg2)
 # --- login manager ------------------------------------------------------------
 
 # create login manager
