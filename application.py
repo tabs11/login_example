@@ -42,7 +42,8 @@ application.secret_key = 'bla'
 CMDB_FOLDER = 'CMDB_templates/'
 #application.config['CMDB_FOLDER']=CMDB_FOLDER
 #
-#ID_FOLDER = str(uuid.uuid1())
+ID_FOLDER = ''
+username=''
 #ITSM_FOLDER=ID_FOLDER+'/ITSM_sites'
 ##application.config['ITSM_FOLDER'] = ID_FOLDER + ITSM_FOLDER
 #UPLOAD_FOLDER=ID_FOLDER+'/Files_to_validate'
@@ -125,9 +126,9 @@ def home():
 @application.route('/files', methods=['GET','POST'])
 @login_required
 def sites_history():
-	#global ID_FOLDER
-	#global ITSM_FOLDER
-	#global UPLOAD_FOLDER
+	global ID_FOLDER
+	global ITSM_FOLDER
+	global UPLOAD_FOLDER
 	ID_FOLDER=username
 	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites'
 	#UPLOAD_FOLDER=ID_FOLDER + '/File_to_validate'
