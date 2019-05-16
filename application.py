@@ -117,20 +117,19 @@ def file_downloads():
 @application.route('/home', methods=['POST'])
 @login_required
 def home():
+	
+	return render_template('home.html')
+
+@application.route('/files', methods=['GET','POST'])
+@login_required
+def sites_history():
 	global ID_FOLDER
 	global ITSM_FOLDER
 	global UPLOAD_FOLDER
 	ID_FOLDER=str(uuid.uuid1())
 	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites'
 	UPLOAD_FOLDER=ID_FOLDER + '/File_to_validate'
-	os.makedirs(ID_FOLDER)
-	os.makedirs(ITSM_FOLDER)
-	os.makedirs(UPLOAD_FOLDER)
-	return render_template('home.html')
-
-@application.route('/files', methods=['GET','POST'])
-@login_required
-def sites_history():
+	
 	msg=None
 	if request.method == 'POST':
 		if 'file' not in request.files:
@@ -141,6 +140,9 @@ def sites_history():
 			print('No file selected')
 			return redirect(request.url)
 		if file and allowed_file(file.filename):
+			os.makedirs(ID_FOLDER)
+			os.makedirs(ITSM_FOLDER)
+			os.makedirs(UPLOAD_FOLDER)
 			filename = secure_filename(file.filename)
 			file.save(os.path.join(ITSM_FOLDER, filename))
 			msg=filename
