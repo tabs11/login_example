@@ -37,7 +37,7 @@ USERS = { # dictionary (username, User)
 
 # application base
 application = Flask(__name__)
-#application.secret_key = 'bla'
+application.secret_key = 'bla'
 
 SECRET_KEY = str(uuid.uuid1())
 application.config['SECRET_KEY'] = SECRET_KEY
