@@ -129,7 +129,7 @@ def home():
 	os.makedirs(ID_FOLDER)
 	os.makedirs(ITSM_FOLDER)
 	os.makedirs(UPLOAD_FOLDER)
-    return render_template('home.html')
+	return render_template('home.html')
 
 
 @application.route('/files', methods=['GET','POST'])
