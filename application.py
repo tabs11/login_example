@@ -48,9 +48,9 @@ CMDB_FOLDER = 'CMDB_templates/'
 #UPLOAD_FOLDER=ID_FOLDER+'/Files_to_validate'
 ##application.config['UPLOAD_FOLDER'] = ID_FOLDER + UPLOAD_FOLDER
 
-ID_FOLDER = application.secret_key
-ITSM_FOLDER=ID_FOLDER+'/ITSM_sites'
-UPLOAD_FOLDER=ID_FOLDER+'/Files_to_validate'
+#ID_FOLDER = application.secret_key
+#ITSM_FOLDER=ID_FOLDER+'/ITSM_sites'
+#UPLOAD_FOLDER=ID_FOLDER+'/Files_to_validate'
 
 
 # These are the extension that we are accepting to be uploaded
@@ -125,11 +125,11 @@ def home():
 @application.route('/files', methods=['GET','POST'])
 @login_required
 def sites_history():
-	global ID_FOLDER
-	global ITSM_FOLDER
-	global UPLOAD_FOLDER
-	#ID_FOLDER=str(uuid.uuid1())
-	#ITSM_FOLDER=ID_FOLDER + '/ITSM_sites'
+	#global ID_FOLDER
+	#global ITSM_FOLDER
+	#global UPLOAD_FOLDER
+	ID_FOLDER=str(current_user.username)
+	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites'
 	#UPLOAD_FOLDER=ID_FOLDER + '/File_to_validate'
 	
 	msg=None
@@ -144,7 +144,7 @@ def sites_history():
 		if file and allowed_file(file.filename):
 			os.makedirs(ID_FOLDER)
 			os.makedirs(ITSM_FOLDER)
-			os.makedirs(UPLOAD_FOLDER)
+			#os.makedirs(UPLOAD_FOLDER)
 			filename = secure_filename(file.filename)
 			file.save(os.path.join(ITSM_FOLDER, filename))
 			msg=current_user.username
