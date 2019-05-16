@@ -48,7 +48,7 @@ CMDB_FOLDER = 'CMDB_templates/'
 #UPLOAD_FOLDER=ID_FOLDER+'/Files_to_validate'
 ##application.config['UPLOAD_FOLDER'] = ID_FOLDER + UPLOAD_FOLDER
 
-ID_FOLDER = USERS[userid]
+ID_FOLDER = application.secret_key
 ITSM_FOLDER=ID_FOLDER+'/ITSM_sites'
 UPLOAD_FOLDER=ID_FOLDER+'/Files_to_validate'
 
