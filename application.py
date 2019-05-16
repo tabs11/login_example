@@ -153,6 +153,9 @@ def sites_history():
 @application.route('/upload', methods=['POST'])
 @login_required
 def upload():
+	global ID_FOLDER
+	global ITSM_FOLDER
+	global UPLOAD_FOLDER
 	msg2=None
 	# Get the name of the uploaded files
 	uploaded_files = request.files.getlist("file[]")
