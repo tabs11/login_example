@@ -44,7 +44,7 @@ application.config['CMDB_FOLDER'] = CMDB_FOLDER
 
 
 ID_FOLDER=str(uuid.uuid1())
-COMPANY_FOLDER=''
+#COMPANY_FOLDER=''
 #UPLOAD_FOLDER= ''
 #DOWNLOAD_FOLDER=''
 #ITSM_FOLDER=''
@@ -175,7 +175,7 @@ def sites_history():
 
 @application.route('/upload', methods=['POST'])
 def upload():
-    global UPLOAD_FOLDER
+	global UPLOAD_FOLDER
 	msg2=None
 	# Get the name of the uploaded files
 	uploaded_files = request.files.getlist("file[]")
