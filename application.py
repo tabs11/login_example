@@ -37,14 +37,13 @@ USERS = { # dictionary (username, User)
 
 # application base
 application = Flask(__name__)
-application.secret_key = str(uuid.uuid1())
+application.secret_key = 'bla'
 
 CMDB_FOLDER = 'CMDB_templates/'
 application.config['CMDB_FOLDER'] = CMDB_FOLDER
 
 
-ID_FOLDER=application.secret_key
-#COMPANY_FOLDER = ''
+ID_FOLDER=str(uuid.uuid1())
 #UPLOAD_FOLDER= ''
 #DOWNLOAD_FOLDER=''
 #ITSM_FOLDER=''
@@ -144,7 +143,7 @@ def sites_history():
     global ITSM_FOLDER
     global UPLOAD_FOLDER
     #global DOWNLOAD_FOLDER
-    #id_folder=str(uuid.uuid1())
+    #ID_FOLDER=str(uuid.uuid1())
     #COMPANY_FOLDER=id_folder + '/'
     msg=None
     if request.method == 'POST':
