@@ -120,30 +120,16 @@ def file_downloads():
 @application.route('/home', methods=['POST'])
 @login_required
 def home():
-    #data=[s for s in os.listdir(os.getcwd()) if len(s) > 20]
-    #paths_to_del=[]
-    #dates=[]
-    #for i in range(len(data)):
-    #    paths_to_del.append(os.getcwd()+ '/' + data[i])
-    #    dates.append((dt.datetime.now()-datetime.fromtimestamp(os.path.getctime(paths_to_del[i]))).seconds)
-    #    if dates[i]>60*60*24:
-    #        shutil.rmtree(paths_to_del[i])
-    #    else:
-    #        None
 	global ID_FOLDER
 	global ITSM_FOLDER
 	global UPLOAD_FOLDER
 	ID_FOLDER=str(uuid.uuid1())
+	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites'
+	UPLOAD_FOLDER=ID_FOLDER + '/File_to_validate'
 	os.makedirs(ID_FOLDER)
 	os.makedirs(ITSM_FOLDER)
 	os.makedirs(UPLOAD_FOLDER)
-	
-    #msg= None
-    #if request.method == 'POST':
-    #    company = request.form['company']
-    #    msg = 'Successfull'
-	
-    return render_template('home.html')#,msg=msg)
+    return render_template('home.html')
 
 
 @application.route('/files', methods=['GET','POST'])
