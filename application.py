@@ -47,9 +47,9 @@ application.config['CMDB_FOLDER'] = CMDB_FOLDER
 
 
 ITSM_FOLDER='/ITSM_sites'
-application.config['ITSM_FOLDER'] = SECRET_KEY + ITSM_FOLDER
+application.config['ITSM_FOLDER'] = ID_FOLDER + ITSM_FOLDER
 UPLOAD_FOLDER='/Files_to_validate'
-application.config['UPLOAD_FOLDER'] = SECRET_KEY + UPLOAD_FOLDER
+application.config['UPLOAD_FOLDER'] = ID_FOLDER + UPLOAD_FOLDER
 
 # These are the extension that we are accepting to be uploaded
 application.config['ALLOWED_EXTENSIONS'] = set(['xlsx','xls'])
@@ -152,7 +152,7 @@ def sites_history():
 @application.route('/upload', methods=['POST'])
 @login_required
 def upload():
-	global SECRET_KEY
+	global ID_FOLDER
 	global ITSM_FOLDER
 	global UPLOAD_FOLDER
 	msg2=None
