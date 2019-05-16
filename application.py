@@ -40,14 +40,18 @@ application = Flask(__name__)
 application.secret_key = 'bla'
 
 CMDB_FOLDER = 'CMDB_templates/'
-application.config['CMDB_FOLDER']=CMDB_FOLDER
-ID_FOLDER = str(uuid.uuid1())
+#application.config['CMDB_FOLDER']=CMDB_FOLDER
+#
+#ID_FOLDER = str(uuid.uuid1())
+#ITSM_FOLDER=ID_FOLDER+'/ITSM_sites'
+##application.config['ITSM_FOLDER'] = ID_FOLDER + ITSM_FOLDER
+#UPLOAD_FOLDER=ID_FOLDER+'/Files_to_validate'
+##application.config['UPLOAD_FOLDER'] = ID_FOLDER + UPLOAD_FOLDER
 
-
+ID_FOLDER = USERS[userid]
 ITSM_FOLDER=ID_FOLDER+'/ITSM_sites'
-#application.config['ITSM_FOLDER'] = ID_FOLDER + ITSM_FOLDER
 UPLOAD_FOLDER=ID_FOLDER+'/Files_to_validate'
-#application.config['UPLOAD_FOLDER'] = ID_FOLDER + UPLOAD_FOLDER
+
 
 # These are the extension that we are accepting to be uploaded
 application.config['ALLOWED_EXTENSIONS'] = set(['xlsx','xls'])
