@@ -181,7 +181,7 @@ def upload():
 			msg2='Please select a valid extension (.xls or .xlsx)'
 			return render_template('multi_upload_index.html',msg2=msg2)
 	if len(os.listdir(UPLOAD_FOLDER))>0:
-		process_data.process_file(path=os.path.join(UPLOAD_FOLDER),company=session['filename'].split('_')[0],report=os.path.join(DOWNLOAD_FOLDER),history=os.path.join(ITSM_FOLDER))
+		process_data.process_file(path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER,history=ITSM_FOLDER)
 		filenames=os.listdir(DOWNLOAD_FOLDER)
 
 		text = open(DOWNLOAD_FOLDER+'issues.txt', 'r+',encoding='utf8')
