@@ -105,10 +105,10 @@ def return_file():
 	return send_file(os.path.join(application.config['CMDB_FOLDER'])+filename,attachment_filename=filename, as_attachment=True)
 
 
-@application.route('/')
+@application.route('/home')
 @login_required
 def file_downloads():
-	return render_template('login.html')
+	return render_template('home.html')
 
 
 # home route
