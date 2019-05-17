@@ -152,9 +152,10 @@ def sites_history():
 @application.route('/upload', methods=['POST'])
 @login_required
 def upload():
-	global ID_FOLDER
-	global UPLOAD_FOLDER
-	#UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate'
+	#global ID_FOLDER
+	#global UPLOAD_FOLDER
+	ID_FOLDER=session['username']
+	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate'
 	msg2=None
 	# Get the name of the uploaded files
 	uploaded_files = request.files.getlist("file[]")
