@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, request, redirect, url_for, render_template, send_from_directory,send_file,flash
+from flask import Flask, request, redirect, url_for, render_template, send_from_directory,send_file,flash,session
 from werkzeug.utils import secure_filename
 from flask_login import LoginManager
 from flask_login import UserMixin # subclass of flask user
