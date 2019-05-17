@@ -62,7 +62,6 @@ def login_get():
 
 @application.route('/login', methods=['POST'])
 def login_post():
-	global username
 	# get details from post request
 	username = request.form['username']
 	password = request.form['password']
@@ -124,11 +123,11 @@ def home():
 @application.route('/files', methods=['GET','POST'])
 @login_required
 def sites_history():
-	global ID_FOLDER
-	global ITSM_FOLDER
+	#global ID_FOLDER
+	#global ITSM_FOLDER
 	#global UPLOAD_FOLDER
-	#ID_FOLDER=str(uuid.uuid1())
-	#ITSM_FOLDER=ID_FOLDER + '/ITSM_sites'
+	ID_FOLDER=session['username']
+	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites'
 	#UPLOAD_FOLDER=ID_FOLDER + '/File_to_validate'
 	msg=None
 	if request.method == 'POST':
