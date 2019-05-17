@@ -139,7 +139,7 @@ def home():
 def sites_history():
 	session['filename']=session['company']+'_'+str(uuid.uuid1())
 	ID_FOLDER=session['filename']
-	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites'
+	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites/'
 	msg=None
 	if request.method == 'POST':
 		if 'file' not in request.files:
@@ -163,9 +163,9 @@ def sites_history():
 @login_required
 def upload():
 	ID_FOLDER=session['filename']
-	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites'
-	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate'
-	DOWNLOAD_FOLDER=ID_FOLDER+'/Report'
+	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites/'
+	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
+	DOWNLOAD_FOLDER=ID_FOLDER+'/Report/'
 	msg2=None
 	# Get the name of the uploaded files
 	uploaded_files = request.files.getlist("file[]")
