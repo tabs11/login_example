@@ -190,11 +190,8 @@ def upload():
 	return render_template('multi_files_upload.html', filenames=filenames,text=content,msg2=msg2)
 
 
-@application.route('/upload/<filename>')
+@application.route('/report/<filename>')
 def uploaded_file(filename):
-	ID_FOLDER=session['filename']
-	DOWNLOAD_FOLDER=ID_FOLDER+'/Report'
-	os.makedirs(DOWNLOAD_FOLDER)
 	return send_from_directory(DOWNLOAD_FOLDER,filename)
 
 # create login manager
