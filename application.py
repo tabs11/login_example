@@ -129,20 +129,15 @@ def home():
 	if request.method == 'POST':
 		company = request.form['company']
 		session['company']=company
-		#session['filename']=company+'_'+str(uuid.uuid1())
-		msg = [session['username'],session['company']]
+		msg = 'Successfull'
 	return render_template('home.html',msg=msg)
 
 @application.route('/files', methods=['GET','POST'])
 @login_required
 def sites_history():
 	session['filename']=session['company']+'_'+str(uuid.uuid1())
-	#global ID_FOLDER
-	#global ITSM_FOLDER
-	#global UPLOAD_FOLDER
 	ID_FOLDER=session['filename']
 	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites'
-	#UPLOAD_FOLDER=ID_FOLDER + '/File_to_validate'
 	msg=None
 	if request.method == 'POST':
 		if 'file' not in request.files:
@@ -166,10 +161,10 @@ def sites_history():
 @application.route('/upload', methods=['POST'])
 @login_required
 def upload():
-	#global ID_FOLDER
-	#global UPLOAD_FOLDER
 	ID_FOLDER=session['filename']
+	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites'
 	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate'
+	DOWNLOAD_FOLDER=ID_FOLDER+'/Report'
 	msg2=None
 	# Get the name of the uploaded files
 	uploaded_files = request.files.getlist("file[]")
@@ -184,12 +179,21 @@ def upload():
 		else:
 			msg2='Please select a valid extension (.xls or .xlsx)'
 			return render_template('multi_upload_index.html',msg2=msg2)
-	return render_template('multi_files_upload.html',msg2=msg2)
+	if len(os.listdir(UPLOAD_FOLDER'))>0:
+		prodata.process_file(path=os.path.join(UPLOAD_FOLDER),company=session['filename'].split('_')[0],report=os.path.join(DOWNLOAD_FOLDER),history=os.path.join(ITSM_FOLDER))
+		filenames=os.listdir(DOWNLOAD_FOLDER)
+
+		text = open(DOWNLOAD_FOLDER+'issues.txt', 'r+',encoding='utf8')
+		content = text.read()
+		text.close()
+	return render_template('multi_files_upload.html', filenames=filenames,text=content,msg2=msg2)
 
 
 @application.route('/upload/<filename>')
 def uploaded_file(filename):
-	return send_from_directory(UPLOAD_FOLDER,filename)
+	ID_FOLDER=session['filename']
+	DOWNLOAD_FOLDER=ID_FOLDER+'/Report'
+	return send_from_directory(DOWNLOAD_FOLDER,filename)
 
 # create login manager
 login_manager = LoginManager()
