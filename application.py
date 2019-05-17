@@ -68,7 +68,7 @@ def login_post():
 	# get  user
 	try:
 		user = USERS[username]
-		session['username']=username
+		session['username']=str(uuid.uuid1())
 	except KeyError:
 		user = None
 	# validate user
