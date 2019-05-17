@@ -12,7 +12,8 @@ import uuid
 import os
 import datetime as dt 
 from datetime import datetime
-import process_data as prodata
+import process_data
+
 class User(UserMixin):
 	def __init__(self, username, password):
 		super(User, self).__init__()
@@ -180,7 +181,7 @@ def upload():
 			msg2='Please select a valid extension (.xls or .xlsx)'
 			return render_template('multi_upload_index.html',msg2=msg2)
 	if len(os.listdir(UPLOAD_FOLDER))>0:
-		prodata.process_file(path=os.path.join(UPLOAD_FOLDER),company=session['filename'].split('_')[0],report=os.path.join(DOWNLOAD_FOLDER),history=os.path.join(ITSM_FOLDER))
+		process_data.process_file(path=os.path.join(UPLOAD_FOLDER),company=session['filename'].split('_')[0],report=os.path.join(DOWNLOAD_FOLDER),history=os.path.join(ITSM_FOLDER))
 		filenames=os.listdir(DOWNLOAD_FOLDER)
 
 		text = open(DOWNLOAD_FOLDER+'issues.txt', 'r+',encoding='utf8')
