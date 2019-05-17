@@ -150,7 +150,6 @@ def sites_history():
 		if file and allowed_file(file.filename):
 			os.makedirs(ID_FOLDER)
 			os.makedirs(ITSM_FOLDER)
-			#os.makedirs(UPLOAD_FOLDER)
 			filename = secure_filename(file.filename)
 			file.save(os.path.join(ITSM_FOLDER, filename))
 			msg=ID_FOLDER
@@ -193,6 +192,7 @@ def upload():
 def uploaded_file(filename):
 	ID_FOLDER=session['filename']
 	DOWNLOAD_FOLDER=ID_FOLDER+'/Report'
+	os.makedirs(DOWNLOAD_FOLDER)
 	return send_from_directory(DOWNLOAD_FOLDER,filename)
 
 # create login manager
