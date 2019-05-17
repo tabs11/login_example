@@ -36,7 +36,7 @@ application = Flask(__name__)
 SECRET_KEY='bla'#str(uuid.uuid1())
 application.secret_key = SECRET_KEY
 CMDB_FOLDER = 'CMDB_templates/'
-#application.config['CMDB_FOLDER']=CMDB_FOLDER
+application.config['CMDB_FOLDER']=CMDB_FOLDER
 #
 #ITSM_FOLDER=ID_FOLDER+'/ITSM_sites'
 ##application.config['ITSM_FOLDER'] = ID_FOLDER + ITSM_FOLDER
