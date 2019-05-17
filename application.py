@@ -118,7 +118,7 @@ def home():
 	if request.method == 'POST':
 		company = request.form['company']
 		msg = username
-	return render_template('home.html')
+	return render_template('home.html',msg=msg)
 
 @application.route('/files', methods=['GET','POST'])
 @login_required
