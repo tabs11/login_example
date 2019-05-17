@@ -199,7 +199,7 @@ def uploaded_file(filename):
 	return send_from_directory(DOWNLOAD_FOLDER,filename)
 
 
-@application.route("/refresh/, methods=['POST'])
+@application.route("/refresh/", methods=['POST'])
 @login_required
 def refresh():
 	ID_FOLDER=session['filename']
