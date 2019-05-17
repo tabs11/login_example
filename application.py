@@ -68,6 +68,7 @@ def login_post():
 	password = request.form['password']
 	# get  user
 	try:
+		global user
 		user = USERS[username]
 	except KeyError:
 		user = None
@@ -117,7 +118,7 @@ def file_downloads():
 def home():
 	if request.method == 'POST':
 		company = request.form['company']
-		msg = username
+		msg = user
 	return render_template('home.html',msg=msg)
 
 @application.route('/files', methods=['GET','POST'])
