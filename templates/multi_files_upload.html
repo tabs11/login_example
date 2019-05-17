@@ -1,6 +1,11 @@
 {% extends "login_layout.html" %}
 {% block content %}
-
+ <!-- Login Form -->
+<div align="right">
+    <form action="/logout" method="GET">
+        <button class="mybutton" class="fadeIn fourth" type="submit" value="Logout">Logout</button>
+    </form>
+</div>
 	<div class="multi_upload_index">
 		<h2 class="text-muted">UPLOADED FILES:</h2>
 
@@ -16,8 +21,4 @@
 			{{ text }}
 		</pre>
 	</div>
-<!-- Login Form -->
-    <form class="button" action="/logout" method="GET">
-      <input class="mybutton" type="submit" class="fadeIn fourth" value="Logout">
-    </form>
  {% endblock %}  
