@@ -68,7 +68,7 @@ def login_post():
 	# get  user
 	try:
 		user = USERS[username]
-		session['username']=str(uuid.uuid1())
+		#session['username']=str(uuid.uuid1())
 	except KeyError:
 		user = None
 	# validate user
@@ -115,19 +115,32 @@ def file_downloads():
 @application.route('/home', methods=['POST'])
 @login_required
 def home():
+	data=[s for s in os.listdir(os.getcwd()) if len(s) > 20]
+	paths_to_del=[]
+	dates=[]
+	for i in range(len(data)):
+		paths_to_del.append(os.getcwd()+ '/' + data[i])
+		dates.append((dt.datetime.now()-datetime.fromtimestamp(os.path.getctime(paths_to_del[i]))).seconds)
+		if dates[i]>60*60*24:
+			shutil.rmtree(paths_to_del[i])
+		else:
+			None
+	msg=None
 	if request.method == 'POST':
 		company = request.form['company']
 		session['company']=company
+		#session['filename']=company+'_'+str(uuid.uuid1())
 		msg = [session['username'],session['company']]
 	return render_template('home.html',msg=msg)
 
 @application.route('/files', methods=['GET','POST'])
 @login_required
 def sites_history():
+	session['filename']=session['company']+'_'+str(uuid.uuid1())
 	#global ID_FOLDER
 	#global ITSM_FOLDER
 	#global UPLOAD_FOLDER
-	ID_FOLDER=session['username']
+	ID_FOLDER=session['filename']
 	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites'
 	#UPLOAD_FOLDER=ID_FOLDER + '/File_to_validate'
 	msg=None
@@ -155,7 +168,7 @@ def sites_history():
 def upload():
 	#global ID_FOLDER
 	#global UPLOAD_FOLDER
-	ID_FOLDER=session['username']
+	ID_FOLDER=session['filename']
 	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate'
 	msg2=None
 	# Get the name of the uploaded files
