@@ -27,5 +27,16 @@
   </div>
   {% endif %}
 {% endwith %}
+ <div class="multi_upload_index">
+  <h2>Instructions for the upload templates -  <b>CI's</b> and/or <b>Sites</b>:</h2>
+      <a href = "/return-file/" target ="blank"><button class="mybutton2">Download Templates</button></a>
+  <hr/>
+    <ul>  
+      <li><p> During onboarding/deployment the Sites or CI data has to be analyzed and defined in the CMDB data model first;</li>
+      <li><p> Based on the CMDB data model, the Sites or CI information can be prepared for bulk upload in these templates</li>
+      <li><p> The fields marked green are mandatory; in some cases upload in ITSM will fail when these fields are left blank; in other cases it will impact ticket creation afterwards.</li>
+      <li><p> The fields, white/unmarked, must be filled based on the rules of the CMDB data model. When blank, the rules may vary per project.</li>
+    </ul>
+  </div>
 
 {% endblock %}
