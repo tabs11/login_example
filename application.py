@@ -205,8 +205,6 @@ def refresh():
 	ID_FOLDER=session['filename']
 	if os.path.exists(ID_FOLDER):
 		shutil.rmtree(ID_FOLDER)
-	return render_template('refresh.html')#, message=forward_message);
-
 # create login manager
 login_manager = LoginManager()
 # init login manager on application
