@@ -192,13 +192,15 @@ def upload():
 
 
 @application.route('/report/<filename>')
+@login_required
 def uploaded_file(filename):
 	ID_FOLDER=session['filename']
 	DOWNLOAD_FOLDER=ID_FOLDER+'/Report/'
 	return send_from_directory(DOWNLOAD_FOLDER,filename)
 
 
-@application.route("/refresh/", methods=['POST'])
+@application.route("/home", methods=['POST'])
+@login_required
 def refresh():
 	ID_FOLDER=session['filename']
 	if os.path.exists(ID_FOLDER):
