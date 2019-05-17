@@ -197,6 +197,14 @@ def uploaded_file(filename):
 	DOWNLOAD_FOLDER=ID_FOLDER+'/Report/'
 	return send_from_directory(DOWNLOAD_FOLDER,filename)
 
+
+@application.route("/refresh/", methods=['POST'])
+def refresh():
+	ID_FOLDER=session['filename']
+	if os.path.exists(ID_FOLDER):
+		shutil.rmtree(ID_FOLDER)
+	return render_template('refresh.html')#, message=forward_message);
+
 # create login manager
 login_manager = LoginManager()
 # init login manager on application
