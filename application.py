@@ -117,7 +117,8 @@ def file_downloads():
 def home():
 	if request.method == 'POST':
 		company = request.form['company']
-		msg = session['username']
+		session['company']=company
+		msg = [session['username'],session['company']]
 	return render_template('home.html',msg=msg)
 
 @application.route('/files', methods=['GET','POST'])
