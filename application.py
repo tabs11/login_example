@@ -193,6 +193,8 @@ def upload():
 
 @application.route('/report/<filename>')
 def uploaded_file(filename):
+	ID_FOLDER=session['filename']
+	DOWNLOAD_FOLDER=ID_FOLDER+'/Report/'
 	return send_from_directory(DOWNLOAD_FOLDER,filename)
 
 # create login manager
