@@ -156,7 +156,7 @@ def sites_history():
 			msg=ID_FOLDER
 		else:
 			msg='Please select a valid extension (.xls or .xlsx)'
-	return render_template('multi_upload_index.html',msg=msg)#,ms2=msg2)
+	return render_template('multi_upload_index.html',msg=msg)
 
 @application.route('/upload', methods=['POST'])
 @login_required
@@ -179,7 +179,7 @@ def upload():
 		else:
 			msg2='Please select a valid extension (.xls or .xlsx)'
 			return render_template('multi_upload_index.html',msg2=msg2)
-	if len(os.listdir(UPLOAD_FOLDER'))>0:
+	if len(os.listdir(UPLOAD_FOLDER))>0:
 		prodata.process_file(path=os.path.join(UPLOAD_FOLDER),company=session['filename'].split('_')[0],report=os.path.join(DOWNLOAD_FOLDER),history=os.path.join(ITSM_FOLDER))
 		filenames=os.listdir(DOWNLOAD_FOLDER)
 
