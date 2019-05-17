@@ -199,12 +199,13 @@ def uploaded_file(filename):
 	return send_from_directory(DOWNLOAD_FOLDER,filename)
 
 
-@application.route("/home", methods=['POST'])
+@application.route("/refresh/, methods=['POST'])
 @login_required
 def refresh():
 	ID_FOLDER=session['filename']
 	if os.path.exists(ID_FOLDER):
 		shutil.rmtree(ID_FOLDER)
+	return render_template('refresh.html')
 # create login manager
 login_manager = LoginManager()
 # init login manager on application
