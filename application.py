@@ -39,16 +39,6 @@ SECRET_KEY='bla'#str(uuid.uuid1())
 application.secret_key = SECRET_KEY
 CMDB_FOLDER = 'CMDB_templates/'
 application.config['CMDB_FOLDER']=CMDB_FOLDER
-#
-#ITSM_FOLDER=ID_FOLDER+'/ITSM_sites'
-##application.config['ITSM_FOLDER'] = ID_FOLDER + ITSM_FOLDER
-#UPLOAD_FOLDER=ID_FOLDER+'/Files_to_validate'
-##application.config['UPLOAD_FOLDER'] = ID_FOLDER + UPLOAD_FOLDER
-#ID_FOLDER=''
-#ITSM_FOLDER=''
-#UPLOAD_FOLDER=''
-
-
 
 # These are the extension that we are accepting to be uploaded
 application.config['ALLOWED_EXTENSIONS'] = set(['xlsx','xls'])
