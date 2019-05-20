@@ -29,7 +29,7 @@ class User(UserMixin):
 
 # USER DATABASE
 USERS = { # dictionary (username, User)
-	'user1' : User('numartin','pass'),
+	'numartin' : User('numartin','pass'),
 	'user2' : User('jschuur','teste'),
 	'user3' : User('user3','cenas')
 }
