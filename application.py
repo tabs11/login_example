@@ -29,9 +29,9 @@ class User(UserMixin):
 
 # USER DATABASE
 USERS = { # dictionary (username, User)
-	'numartin' : User('numartin','pass'),
-	'jschuur' : User('jschuur','teste'),
-	#'user3' : User('user3','cenas')
+	'user1' : User('numartin','pass'),
+	'user2' : User('jschuur','teste'),
+	'user3' : User('user3','cenas')
 }
 
 # application base
