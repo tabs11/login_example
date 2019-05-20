@@ -15,10 +15,10 @@ from datetime import datetime
 import process_data
 
 class User(UserMixin):
-	def __init__(self, username, name,password):
+	def __init__(self, username,password):
 		super(User, self).__init__()
 		self.username = username
-		self.name = name
+		#self.name = name
 		self.password = password
 	def is_active(self):
 		return True
@@ -29,8 +29,8 @@ class User(UserMixin):
 
 # USER DATABASE
 USERS = { # dictionary (username, User)
-	'numartin' : User('numartin','Nuno','pass'),
-	'jschuur' : User('jschuur','Joke','teste'),
+	'numartin' : User('numartin','pass'),
+	'jschuur' : User('jschuur','teste'),
 	#'user3' : User('user3','cenas')
 }
 
