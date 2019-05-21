@@ -79,6 +79,9 @@ def login_post():
 @login_required
 def logout():
 	logout_user()
+	ID_FOLDER=session['filename']
+	if os.path.exists(ID_FOLDER):
+		shutil.rmtree(ID_FOLDER)
 	return redirect('login')
 
 
@@ -192,15 +195,6 @@ def uploaded_file(filename):
 	return send_from_directory(DOWNLOAD_FOLDER,filename)
 
 
-@application.route('/refresh', methods=['POST'])
-@login_required
-def refresh():
-	session['filename']=session['company']+'_'+str(uuid.uuid1())
-	#ID_FOLDER=session['filename']
-	ID_FOLDER=session['filename']
-	if os.path.exists(ID_FOLDER):
-		shutil.rmtree(ID_FOLDER)
-	return render_template('home.html')
 
 
 
