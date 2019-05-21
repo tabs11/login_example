@@ -203,23 +203,23 @@ def process_file(path,company,report,history):
 			print('Duplicated CI Names (excluding duplicate rows):'.upper(),'-'*len('Duplicated CI Names (excluding duplicate rows):'),duplicate_cis[0],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			#########################
 			##product categorization
-			data=urlopen("https://fiespmidup1.int.net.nokia.com:8443/customer_onboarding/csv/oneitsm_ProdCats.csv").read().decode('ascii','ignore')
-			datafile=StringIO(data)
-			csvReader=csv.reader(datafile)
-			prod_cat_list=[]
-			for row in csvReader:
-				prod_cat_list.append(row)
-			prod_cat=pd.DataFrame(prod_cat_list)
-			headers = prod_cat.iloc[0]
-			prod_cat  = pd.DataFrame(prod_cat.values[1:], columns=headers)
-			template=prod_cat
-			#opcat_template='Prod_Cats'
-			#if len(glob.glob(opcat_template+'/*'))==0:
-			#	print('Prod Cat folder is empty','',sep='\n',file=open(report +'/issues.txt','a'))
-			#	cis_list=[]
-			#else:
-			#	template=pd.read_excel(glob.glob(opcat_template+'/*')[0],pd.ExcelFile(glob.glob(opcat_template+'/*')[0]).sheet_names[5])
-			#template=pd.read_excel(glob.glob(opcat_template+'/*')[0],pd.ExcelFile(glob.glob(opcat_template+'/*')[0]).sheet_names[5])
+			#data=urlopen("https://fiespmidup1.int.net.nokia.com:8443/customer_onboarding/csv/oneitsm_ProdCats.csv").read().decode('ascii','ignore')
+			#datafile=StringIO(data)
+			#csvReader=csv.reader(datafile)
+			#prod_cat_list=[]
+			#for row in csvReader:
+			#	prod_cat_list.append(row)
+			#prod_cat=pd.DataFrame(prod_cat_list)
+			#headers = prod_cat.iloc[0]
+			#prod_cat  = pd.DataFrame(prod_cat.values[1:], columns=headers)
+			#template=prod_cat
+			opcat_template='Prod_Cats'
+			if len(glob.glob(opcat_template+'/*'))==0:
+				print('Prod Cat folder is empty','',sep='\n',file=open(report +'/issues.txt','a'))
+				cis_list=[]
+			else:
+				template=pd.read_excel(glob.glob(opcat_template+'/*')[0],pd.ExcelFile(glob.glob(opcat_template+'/*')[0]).sheet_names[5])
+			template=pd.read_excel(glob.glob(opcat_template+'/*')[0],pd.ExcelFile(glob.glob(opcat_template+'/*')[0]).sheet_names[5])
 			prodcats_cis=pd.concat([
 			cis[0][cis[0].columns[~cis[0].columns.str.contains('Product N|Type',case=False)].tolist()].filter(regex=re.compile('Tier|Cat|Prod',re.IGNORECASE)),
 			cis[0].filter(regex=re.compile('Product N',re.IGNORECASE)),
