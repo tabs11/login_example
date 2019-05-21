@@ -8,9 +8,9 @@ from difflib import get_close_matches
 import itertools
 import sys
 import datetime as dt
-#from urllib.request import urlopen
-#from io import StringIO
-#import csv
+from urllib.request import urlopen
+from io import StringIO
+import csv
 
 def process_file(path,company,report,history):
 	sheets=[]
