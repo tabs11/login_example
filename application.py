@@ -144,7 +144,7 @@ def sites_history():
 			os.makedirs(ITSM_FOLDER)
 			filename = secure_filename(file.filename)
 			file.save(os.path.join(ITSM_FOLDER, filename))
-			msg=ID_FOLDER
+			msg=filename
 		else:
 			msg='Please select a valid extension (.xls or .xlsx)'
 	return render_template('multi_upload_index.html',msg=msg)
@@ -195,6 +195,8 @@ def uploaded_file(filename):
 @application.route('/home', methods=['POST'])
 @login_required
 def refresh():
+	session['filename']=session['company']+'_'+str(uuid.uuid1())
+	#ID_FOLDER=session['filename']
 	ID_FOLDER=session['filename']
 	if os.path.exists(ID_FOLDER):
 		shutil.rmtree(ID_FOLDER)
