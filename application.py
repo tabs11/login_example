@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from flask import Flask, request, redirect, url_for, render_template, send_from_directory,send_file,flash,session
 from werkzeug.utils import secure_filename
 from flask_login import LoginManager
@@ -74,15 +73,6 @@ def login_post():
 		flash("username ou password erradas")
 		return render_template('login.html')
 
-
-@application.route('/logout', methods=['GET'])
-@login_required
-def logout():
-	logout_user()
-	ID_FOLDER=session['filename']
-	if os.path.exists(ID_FOLDER):
-		shutil.rmtree(ID_FOLDER)
-	return redirect('login')
 
 
 # For a given file, return whether it's an allowed type or not
@@ -195,7 +185,14 @@ def uploaded_file(filename):
 	return send_from_directory(DOWNLOAD_FOLDER,filename)
 
 
-
+@application.route('/logout', methods=['GET'])
+@login_required
+def logout():
+	ID_FOLDER=session['filename']
+	if os.path.exists(ID_FOLDER):
+		shutil.rmtree(ID_FOLDER)
+	logout_user()
+	return redirect('login')
 
 
 # create login manager
