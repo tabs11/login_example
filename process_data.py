@@ -41,7 +41,7 @@ def process_file(path,company,report,history):
 		print('','#'*24,'#' +' DATA TO BE VALIDATED '+ '#','#'*24,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 		print('Missing or Mismatched fields:'.upper(),'',pd.DataFrame(pd.Series(list(itertools.chain(*unmatched_fields))).rename('Field')),'','Please use the templates for sites and CIs, provided in home page','',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 	else:
-		all_fields=pd.concat([pd.Series(fields).rename('Field'),pd.Series(field_type).rename('Mand field'),pd.Series(char_num).rename('Max chars')],axis=1)
+		all_fields=pd.concat([pd.Series(fields).rename('Field'),pd.Series(field_type).rename('Mandatory'),pd.Series(char_num).rename('Maximum allowed')],axis=1)
 		common_fields=[]
 		for j in range(len(sheets)):
 			###first overview prints####
@@ -60,7 +60,7 @@ def process_file(path,company,report,history):
 				count_chars.append(sheets[j].iloc[:,i].apply(lambda x: x if pd.isnull(x) else len(str(x))).max())
 				sheets[j].iloc[:,i]=sheets[j].iloc[:,i].apply(lambda x: x.strip() if type(x)==str else x)
 			##count max number of characteres per field
-			chars=pd.concat([pd.Series(sheets[j].columns).rename('Field'),pd.Series(count_chars).rename('Num Char')],axis=1)
+			chars=pd.concat([pd.Series(sheets[j].columns).rename('Field'),pd.Series(count_chars).rename('Characters')],axis=1)
 			b=common_fields[j].merge(chars,on='Field',how='outer')
 			c=b.iloc[:,[0,1,3,2]]
 			print('Number of records:'.upper(),'-'*len('Number of records:'), str(np.shape(sheets[j])[0]),'','Field Names and Maximum number of Characteres per field:'.upper(),'-'*len('Field Names and Maximum number of Characteres per field:'),c,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))			
