@@ -23,30 +23,26 @@ def process_file(path,company,report,history):
 		sheets[j].rename(columns=lambda x: x.strip(), inplace=True)
 	sites_fields=['Company','Site Name*','Site Alias*','Description','Region*','Site Group*','Street','Country*','City*','Latitude','Longitude','Location ID','Additional Site Details','Maintenance Circle Name','Site Type','Status*']
 	cis_fields=['Product type','CI type','Company+','CI Name*','CI Description','Tag Number','System Role','Status*','Priority','Additional Information','Tier 1','Tier 2','Tier 3','Product Name+','Model/Version','Manufacturer','Region','Site Group','Site+','DNS Host Name','Domain','CI ID+','Supported']
-	fields=[]
-	fields.append(sites_fields)
-	fields.append(cis_fields)
-	sites_char_num=[254,60,60,255,60,60,60,60,0,90,12,12,30,0,70,0]
-	cis_char_num=[0,38,254,254,60,60,60,0,0,60,60,60,254,254,254,64,30,254,254,254,254,64,3]
-	chars=[]
-	chars.append(sites_char_num)
-	chars.append(cis_char_num)
+	fields=sites_fields+cis_fields
+	char_num=[254,60,60,255,60,60,90,60,60,12,12,30,0,70,0,0,38,254,254,60,254,64,30,0,0,254.60,60,60,254,254,254,60,60,60,254,254,64,64,0]
+	field_type=[['Yes']*3,['No'],['Yes']*2,['No'],['Yes']*2,['No']*6,['Yes']*5,['No']*3,['Yes']*2,['No'],['Yes']*4,['No'],['Yes']*4,['No']*4]
+	field_type=list(itertools.chain(*field_type))     
 	unmatched_fields=[]
 	for j in range(len(sheets)):
 	###first overview prints####
 		if (sheets[j].columns.str.contains('CI N',case=False).any()):
 			unmatched_fields.append(list(set(cis_fields) - set(sheets[j])))   
 		if (~sheets[j].columns.str.contains('CI N',case=False).any()):
-			unmatched_fields.append(list(set(sites_fields) - set(sheets[j])))
-			
+			unmatched_fields.append(list(set(sites_fields) - set(sheets[j])))	
 		else:
 			None
 
 	if len(list(itertools.chain(*unmatched_fields)))>0:
-		print('Missing or Mismatched fields:' + str(list(itertools.chain(*unmatched_fields))),
-			'Please use the templates for sites and CIs, provided in home page',
-			file=open(report +'issues.txt','a',encoding='utf8'))
+		print('','#'*24,'#' +' DATA TO BE VALIDATED '+ '#','#'*24,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+		print('Missing or Mismatched fields:'.upper(),'',pd.DataFrame(pd.Series(list(itertools.chain(*unmatched_fields))).rename('Field')),'','Please use the templates for sites and CIs, provided in home page','',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 	else:
+		all_fields=pd.concat([pd.Series(fields).rename('Field'),pd.Series(field_type).rename('Mandatory field'),pd.Series(char_num).rename('Number of characteres allowed')],axis=1)
+		common_fields=[]
 		for j in range(len(sheets)):
 			###first overview prints####
 			print('','#'*25,str(j+1)+': DATA TO BE VALIDATED '+ '#','#'*25,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))		
@@ -55,9 +51,9 @@ def process_file(path,company,report,history):
 			else:
 				print(os.listdir(path)[j],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			blank_cases=[]
+			common_fields.append(all_fields.merge(pd.DataFrame(pd.Series(sheets[j].columns).rename('Field')),on='Field',how='inner').drop_duplicates())
 			count_chars=[]
-			null_columns=sheets[j][sheets[j].columns[sheets[j].isnull().any()]]  
-					
+			null_columns=sheets[j][sheets[j].columns[sheets[j].isnull().any()]]  		
 			###blanks and char num
 			for i in range(len(sheets[j].columns)):
 				blank_cases.append(sheets[j].iloc[:,i][sheets[j].iloc[:,i].astype(str).apply(lambda x: x[0].isspace() or x[len(x)-1].isspace())].unique())
@@ -65,9 +61,9 @@ def process_file(path,company,report,history):
 				sheets[j].iloc[:,i]=sheets[j].iloc[:,i].apply(lambda x: x.strip() if type(x)==str else x)
 			##count max number of characteres per field
 			chars=pd.concat([pd.Series(sheets[j].columns).rename('Field'),pd.Series(count_chars).rename('Number of Characters'),pd.Series(0*len(count_chars)).rename('Maximum allowed')],axis=1)
-			#chars=chars.loc[:, chars.columns.notnull()]
-			print('Number of records:'.upper(),'-'*len('Number of records:'), str(np.shape(sheets[j])[0]),'',
-				'Field Names and Maximum number of Characteres per field:'.upper(),'-'*len('Field Names and Maximum number of Charactetrs per field:'),chars,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+			b=common_fields[j].merge(chars,on='Field',how='outer')
+			c=b.iloc[:,[0,1,3,2]]
+			print('Number of records:'.upper(),'-'*len('Number of records:'), str(np.shape(sheets[j])[0]),'','Field Names and Maximum number of Characteres per field:'.upper(),'-'*len('Field Names and Maximum number of Charactetrs per field:'),c,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))			
 			#check for blank spaces
 			blanks=pd.concat([pd.Series(sheets[j].columns).rename('Field'),pd.Series(blank_cases).rename('Cases'),pd.Series(blank_cases).apply(lambda x: len(x)).rename('Count')],axis=1)
 			if np.shape(blanks[blanks['Cases'].apply(lambda x: len(x)>0)])[0]>0:
