@@ -60,7 +60,7 @@ def process_file(path,company,report,history):
 				count_chars.append(sheets[j].iloc[:,i].apply(lambda x: x if pd.isnull(x) else len(str(x))).max())
 				sheets[j].iloc[:,i]=sheets[j].iloc[:,i].apply(lambda x: x.strip() if type(x)==str else x)
 			##count max number of characteres per field
-			chars=pd.concat([pd.Series(sheets[j].columns).rename('Field'),pd.Series(count_chars).rename('Number of Characters'),pd.Series(0*len(count_chars)).rename('Maximum allowed')],axis=1)
+			chars=pd.concat([pd.Series(sheets[j].columns).rename('Field'),pd.Series(count_chars).rename('Number of Characters')],axis=1)
 			b=common_fields[j].merge(chars,on='Field',how='outer')
 			c=b.iloc[:,[0,1,3,2]]
 			print('Number of records:'.upper(),'-'*len('Number of records:'), str(np.shape(sheets[j])[0]),'','Field Names and Maximum number of Characteres per field:'.upper(),'-'*len('Field Names and Maximum number of Charactetrs per field:'),c,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))			
