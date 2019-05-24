@@ -114,7 +114,7 @@ def home():
 	if request.method == 'POST':
 		company = request.form['company']
 		session['company']=company
-		msg = 'paths_to_del
+		msg = paths_to_del
 	return render_template('home.html',msg=msg)
 
 @application.route('/files', methods=['GET','POST'])
