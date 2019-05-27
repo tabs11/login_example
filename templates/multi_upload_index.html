@@ -6,7 +6,11 @@
         <button class="mybutton" class="fadeIn fourth" type="submit" value="Logout">Logout</button>
     </form>
 </div>
- 
+<div align="center">
+      <form action="/home" method="GET">
+        <button class="mybutton2" name="forwardBtn" type="submit">CLEAN DATA</button>
+      </form>
+  </div>
   <h2>Upload existing Sites in CMDB:</h2>
   <form class="button" method=post enctype=multipart/form-data>
     <table>
@@ -22,12 +26,8 @@
         {% endif %}   
         <input class="mybutton" type=submit value=Submit>
     </tr>
-    
     </table>
-    
   </form> 
-
-
   <h2>Validate CIs/Sites:</h2>
   
   <form class="button" align="right" method="post" action="upload" enctype="multipart/form-data">
