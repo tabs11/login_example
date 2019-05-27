@@ -203,7 +203,7 @@ def noam_upload():
 	msg3=None
 	session['filename_final']=session['company_noam']+'_'+str(uuid.uuid1())
 	NOAM_FOLDER=session['filename_final']
-	NOAM__UPLOAD=NOAM_FOLDER+'/NOAM_files/'
+	NOAM_UPLOAD=NOAM_FOLDER+'/NOAM_files/'
 	NOAM_REPORT==NOAM_FOLDER +'/Report/'
 	# Get the name of the uploaded files
 	uploaded_files = request.files.getlist("file[]")
@@ -217,12 +217,12 @@ def noam_upload():
 			os.makedir(NOAM_UPLOAD)
 			os.makedir(NOAM_REPORT)
 			
-			file.save(os.path.join(NOAM__UPLOAD, filename))
+			file.save(os.path.join(NOAM_UPLOAD, filename))
 		else:
 			msg3='Please select a valid extension (.xls or .xlsx)'
 			return render_template('index_NOAM_company.html',msg3=msg3)
-	if len(os.listdir(NOAM__UPLOAD))>0:
-		noam_data.noam_files(file_path=NOAM_FOLDER,company=NOAM_FOLDER.split('_')[0],NOAM_report=NOAM_REPORT)
+	if len(os.listdir(NOAM_UPLOAD))>0:
+		noam_data.noam_files(file_path=NOAM_UPLOAD,company=NOAM_FOLDER.split('_')[0],NOAM_report=NOAM_REPORT)
 		noam_filenames=os.listdir(NOAM_REPORT)
 
 	return render_template('noam_files_upload.html', noam_filenames=noam_filenames,msg3=msg3)
