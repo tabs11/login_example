@@ -213,9 +213,9 @@ def noam_upload():
 			# Make the filename safe, remove unsupported chars
 			filename = secure_filename(file.filename)
 			# Move the file form the temporal folder to the upload
-			os.makedir(NOAM_FOLDER)
-			os.makedir(NOAM_UPLOAD)
-			os.makedir(NOAM_REPORT)
+			os.makedirs(NOAM_FOLDER)
+			os.makedirs(NOAM_UPLOAD)
+			os.makedirs(NOAM_REPORT)
 			
 			file.save(os.path.join(NOAM_UPLOAD, filename))
 		else:
