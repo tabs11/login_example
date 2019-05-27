@@ -1,16 +1,11 @@
 import pandas as pd
 import numpy as np
-import re
 import os
-from difflib import get_close_matches
 from openpyxl import load_workbook
 import itertools
 import datetime as dt
 import glob
-#import xlwt
 import xlrd
-import xlutils
-import copy
 
 def noam_files(file_path,company,NOAM_report):
 	###noamsites
