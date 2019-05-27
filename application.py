@@ -204,7 +204,7 @@ def noam_upload():
 	session['filename_final']=session['company_noam']+'_'+str(uuid.uuid1())
 	NOAM_FOLDER=session['filename_final']
 	NOAM_UPLOAD=NOAM_FOLDER+'/NOAM_files/'
-	NOAM_REPORT==NOAM_FOLDER +'/Report/'
+	NOAM_REPORT=NOAM_FOLDER +'/Report/'
 	# Get the name of the uploaded files
 	uploaded_files = request.files.getlist("file[]")
 	for file in uploaded_files:
