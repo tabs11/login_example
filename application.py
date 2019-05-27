@@ -234,7 +234,7 @@ def noam_upload():
 @application.route('/NOAM_Report/<filename>')
 def uploaded_NOAM_file(filename):
 	NOAM_FOLDER=session['filename_final']
-	NOAM_REPORT==NOAM_FOLDER +'/Report/'
+	NOAM_REPORT=NOAM_FOLDER +'/Report/'
 	return send_from_directory(NOAM_REPORT,filename)
 
 
