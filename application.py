@@ -185,6 +185,54 @@ def uploaded_file(filename):
 	return send_from_directory(DOWNLOAD_FOLDER,filename)
 
 
+
+@application.route('/noam', methods=['GET', 'POST'])
+def comp_noam():
+	msg= None
+	if request.method == 'POST':
+		company_noam = request.form['company_noam']
+		session['company_noam']=company_noam
+		msg = 'Successfull'
+	return render_template('index_NOAM_company.html',msg=msg)
+
+
+
+@application.route('/noam_upload', methods=['POST'])
+def noam_upload():
+	msg3=None
+	session['filename_final']=session['company_noam']+'_'+str(uuid.uuid1())
+	NOAM_FOLDER=session['filename_final']
+	NOAM__UPLOAD=NOAM_FOLDER+'/NOAM_files/'
+	NOAM_REPORT==NOAM_FOLDER +'/Report/'
+	# Get the name of the uploaded files
+	uploaded_files = request.files.getlist("file[]")
+	for file in uploaded_files:
+		# Check if the file is one of the allowed types/extensions
+		if file and allowed_file(file.filename):
+			# Make the filename safe, remove unsupported chars
+			filename = secure_filename(file.filename)
+			# Move the file form the temporal folder to the upload
+			file.save(os.path.join(NOAM__UPLOAD, filename))
+		else:
+			msg3='Please select a valid extension (.xls or .xlsx)'
+			return render_template('index_NOAM_company.html',msg3=msg3)
+	if len(os.listdir(NOAM__UPLOAD))>0:
+		noam_data.noam_files(file_path=NOAM_FOLDER,company=NOAM_FOLDER.split('_')[0],NOAM_report=NOAM_REPORT)
+		noam_filenames=os.listdir(NOAM_REPORT)
+
+	return render_template('noam_files_upload.html', noam_filenames=noam_filenames,msg3=msg3)
+
+
+
+
+
+@application.route('/NOAM_Report/<filename>')
+def uploaded_NOAM_file(filename):
+	return send_from_directory(NOAM_REPORT,filename)
+
+
+
+
 @application.route('/logout', methods=['GET'])
 @login_required
 def logout():
