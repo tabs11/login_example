@@ -6,7 +6,7 @@ import itertools
 import datetime as dt
 import glob
 import xlrd
-
+from xlutils.copy import copy
 def noam_files(file_path,company,NOAM_report):
 	###noamsites
 	noam_sites = xlrd.open_workbook('CMDB_templates/Location_updated.xls',formatting_info=True)
