@@ -213,6 +213,10 @@ def noam_upload():
 			# Make the filename safe, remove unsupported chars
 			filename = secure_filename(file.filename)
 			# Move the file form the temporal folder to the upload
+			os.makedir(NOAM_FOLDER)
+			os.makedir(NOAM_UPLOAD)
+			os.makedir(NOAM_REPORT)
+			
 			file.save(os.path.join(NOAM__UPLOAD, filename))
 		else:
 			msg3='Please select a valid extension (.xls or .xlsx)'
@@ -229,6 +233,8 @@ def noam_upload():
 
 @application.route('/NOAM_Report/<filename>')
 def uploaded_NOAM_file(filename):
+	NOAM_FOLDER=session['filename_final']
+	NOAM_REPORT==NOAM_FOLDER +'/Report/'
 	return send_from_directory(NOAM_REPORT,filename)
 
 
