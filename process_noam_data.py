@@ -9,7 +9,8 @@ import datetime as dt
 import glob
 #import xlwt
 import xlrd
-from xlutils.copy import copy
+import xlutils
+import copy
 
 def noam_files(file_path,company,NOAM_report):
 	###noamsites
