@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+
+	<div class="multi_upload_index">
+		<h2 class="text-muted">NOAM FILES:</h2>
+
+			<p>Below the overview report (issues.txt) and the screened file with data to upload and detailed issues (report.xlsx): .</p>
+			<ul>
+				{% for file in noam_filenames %}
+					<li><a href="{{url_for('uploaded_NOAM_file', filename=file)}}">{{file}}</a></li>
+				{% endfor %}
+			</ul>
+		<h2 class="text-muted">REPORT OVERVIEW:</h2>
+		<hr/>    
+	</div>
+ {% endblock %}  
