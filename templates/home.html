@@ -10,6 +10,11 @@ Hello, <b>{{ current_user.username}}</b>
         <button class="mybutton" class="fadeIn fourth" type="submit" value="Logout">Logout</button>
     </form>
 </div>
+<div align="left">
+      <form action="/noam" method="GET">
+        <button class="mybutton" name="forwardBtn" type="submit">NOAM</button>
+      </form>
+</div>
   <h2>COMPANY:</h2>
   <font size="1"><h2>(Choose the related company/project, then click on 'FILES TO UPLOAD' button.)</h2></font>
 
@@ -36,9 +41,4 @@ Hello, <b>{{ current_user.username}}</b>
       <li><p> The fields, white/unmarked, must be filled based on the rules of the CMDB data model. When blank, the rules may vary per project.</li>
     </ul>
   </div>
- <div align="center">
-      <form action="/noam" method="GET">
-        <button class="mybutton2" name="forwardBtn" type="submit">NOAM</button>
-      </form>
-    </div>
 {% endblock %}
