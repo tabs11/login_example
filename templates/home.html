@@ -36,4 +36,9 @@ Hello, <b>{{ current_user.username}}</b>
       <li><p> The fields, white/unmarked, must be filled based on the rules of the CMDB data model. When blank, the rules may vary per project.</li>
     </ul>
   </div>
+ <div align="center">
+      <form action="/noam" method="post">
+        <button class="mybutton2" name="forwardBtn" type="submit">NOAM</button>
+      </form>
+    </div>
 {% endblock %}
