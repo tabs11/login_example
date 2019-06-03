@@ -10,11 +10,6 @@ Hello, <b>{{ current_user.username}}</b>
         <button class="mybutton" class="fadeIn fourth" type="submit" value="Logout">Logout</button>
     </form>
 </div>
-<div align="right">
-      <form action="/noam" method="GET">
-        <button class="mybutton" name="forwardBtn" type="submit">NOAM</button>
-      </form>
-</div>
   <h2>COMPANY:</h2>
   <font size="1"><h2>(Choose the related company/project, then click on 'FILES TO UPLOAD' button.)</h2></font>
 
@@ -40,5 +35,11 @@ Hello, <b>{{ current_user.username}}</b>
       <li><p> The fields marked green are mandatory; in some cases upload in ITSM will fail when these fields are left blank; in other cases it will impact ticket creation afterwards.</li>
       <li><p> The fields, white/unmarked, must be filled based on the rules of the CMDB data model. When blank, the rules may vary per project.</li>
     </ul>
+   
+   <div align="right">
+      <form action="/noam" method="GET">
+        <button class="mybutton" name="forwardBtn" type="submit">NOAM only</button>
+      </form>
+</div>
   </div>
 {% endblock %}
