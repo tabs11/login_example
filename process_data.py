@@ -45,10 +45,10 @@ def process_file(path,company,report,history):
 		for j in range(len(sheets)):
 			###first overview prints####
 			print('','#'*25,str(j+1)+': DATA TO BE VALIDATED '+ '#','#'*25,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))		
-			if len(os.listdir(path))==1:
-				print(os.listdir(path)[0],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-			else:
-				print(os.listdir(path)[j],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+			#if len(os.listdir(path))==1:
+			#	print(os.listdir(path)[0],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+			#else:
+			#	print(os.listdir(path)[j],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			blank_cases=[]
 			common_fields.append(all_fields.merge(pd.DataFrame(pd.Series(sheets[j].columns).rename('Field')),on='Field',how='inner').drop_duplicates())
 			count_chars=[]
