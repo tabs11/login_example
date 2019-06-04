@@ -45,10 +45,12 @@ def process_file(path,company,report,history):
 		for j in range(len(sheets)):
 			###first overview prints####
 			print('','#'*25,str(j+1)+': DATA TO BE VALIDATED '+ '#','#'*25,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))		
-			#if len(os.listdir(path))==1:
-			#	print(os.listdir(path)[0],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-			#else:
-			#	print(os.listdir(path)[j],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+			if len(os.listdir(path))>2:
+				print(''
+			if len(os.listdir(path))==1:
+				print(os.listdir(path)[0],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+			else:
+				print(os.listdir(path)[j],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			blank_cases=[]
 			common_fields.append(all_fields.merge(pd.DataFrame(pd.Series(sheets[j].columns).rename('Field')),on='Field',how='inner').drop_duplicates())
 			count_chars=[]
@@ -87,19 +89,25 @@ def process_file(path,company,report,history):
 			print('Number of Duplicated rows:'.upper(),'-'*len('Number of Duplicated rows:'),dup_rows,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			sheets[j].drop_duplicates(inplace=True)
 			####locations
-
 			filtered_locations=sheets[j].filter(regex=re.compile('REG|GROUP|CITY',re.IGNORECASE))
-			if np.shape(filtered_locations)[1]>0:
-				print('Location values:'.upper(),sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-				for k in range(np.shape(filtered_locations)[1]):    
-					print('-'*len('Location values:'),filtered_locations.columns[k],pd.DataFrame(pd.Series(filtered_locations.iloc[:,k].unique()).sample(n=len(filtered_locations['Region*'].unique())), random_state=1),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-					if filtered_locations.iloc[:,k].str.isupper().any():
+			print('Location values:'.upper(),sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+			for k in range(np.shape(filtered_locations)[1]):    
+    				a=pd.DataFrame(pd.Series(filtered_locations.iloc[:,k].unique()).sample(n=len(filtered_locations['Region*'].unique()), random_state=1))
+    				a.rename(columns={0:filtered_locations.columns[k]},inplace=True)
+				print('-'*len('Location values:'),a,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+
+			#filtered_locations=sheets[j].filter(regex=re.compile('REG|GROUP|CITY',re.IGNORECASE))
+			#if np.shape(filtered_locations)[1]>0:
+				#print('Location values:'.upper(),sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+				#for k in range(np.shape(filtered_locations)[1]):    
+					#print('-'*len('Location values:'),filtered_locations.columns[k],pd.DataFrame(pd.Series(filtered_locations.iloc[:,k].unique()).sample(n=len(filtered_locations['Region*'].unique()), random_state=1)),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+				if filtered_locations.iloc[:,k].str.isupper().any():
 						#sheets[j][filtered_locations.columns[k]]=filtered_locations.iloc[:,k].apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else x.title())
-						print('Upper cases in ' + filtered_locations.columns[k],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-					else:
-						None
-			else:
-				print('No location fields','-'*len('No location fields'))
+					print('Upper cases in ' + filtered_locations.columns[k],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+				else:
+					None
+			#else:
+			#	print('No location fields','-'*len('No location fields'))
 			##############
 			####ITSM sites
 			#itsm_sites='/ITSM_sites'
