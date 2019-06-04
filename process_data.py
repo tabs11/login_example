@@ -104,10 +104,10 @@ def process_file(path,company,report,history):
 			filtered_locations=sheets[j].filter(regex=re.compile('REG|GROUP|CITY',re.IGNORECASE))
 			print('Location values:'.upper(),sep='\n')
 			for k in range(np.shape(filtered_locations)[1]):    
-    				print('-'*len('Location values:'),filtered_locations.columns[k],pd.DataFrame(pd.Series(filtered_locations.iloc[:,k].unique()).sample(n=7, random_state=1)),'',sep='\n')
+    				print('-'*len('Location values:'),filtered_locations.columns[k],pd.DataFrame(pd.Series(filtered_locations.iloc[:,k].unique()).sample(n=7, random_state=1)),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
     				if filtered_locations.iloc[:,k].str.isupper().any():
-        		#		sheets[j][filtered_locations.columns[k]]=filtered_locations.iloc[:,k].apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else x.title())
-        				print('Upper cases in ' + filtered_locations.columns[k],'',sep='\n')
+        		##		sheets[j][filtered_locations.columns[k]]=filtered_locations.iloc[:,k].apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else x.title())
+        				print('Upper cases in ' + filtered_locations.columns[k],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
     				else:
         				None
 			###############
