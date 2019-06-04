@@ -110,8 +110,8 @@ def process_file(path,company,report,history):
     				if filtered_locations.iloc[:,k].str.isupper().any():
         				#sheets[j][filtered_locations.columns[k]]=filtered_locations.iloc[:,k].apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else x.title())
         				print('Upper cases in ' + filtered_locations.columns[k],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-   				else:
-        				None
+				else:
+					None
 			###############
 			####ITSM sites
 			#itsm_sites='/ITSM_sites'
