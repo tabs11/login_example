@@ -46,8 +46,8 @@ def process_file(path,company,report,history):
 			###first overview prints####
 			print('','#'*25,str(j+1)+': DATA TO BE VALIDATED '+ '#','#'*25,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))		
 			if len(os.listdir(path))>2:
-				print(''
-			if len(os.listdir(path))==1:
+				print('Too many files: Please follow the rules provided','',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+			elif len(os.listdir(path))==1:
 				print(os.listdir(path)[0],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			else:
 				print(os.listdir(path)[j],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
