@@ -12,15 +12,15 @@ def noam_files(file_path,company,NOAM_report):
 	###noamsites
 	noam_sites = xlrd.open_workbook('CMDB_templates/Location_updated.xls',formatting_info=True)
 	wb_sites=copy(noam_sites)
-	w_sheet1_sites=wb_sites.get_sheet(0)
-	#w_sheet2_sites=wb_sites.get_sheet(1)
-	#w_sheet3_sites=wb_sites.get_sheet(3)
-	w_sheet4_sites=wb_sites.get_sheet(1)
-	w_sheet5_sites=wb_sites.get_sheet(2)
+	w_sheet1_sites=wb_sites.get_sheet(1)
+	w_sheet2_sites=wb_sites.get_sheet(2)
+	w_sheet3_sites=wb_sites.get_sheet(3)
+	w_sheet4_sites=wb_sites.get_sheet(4)
+	w_sheet5_sites=wb_sites.get_sheet(5)
 	##noam cis
 	noam_cis = xlrd.open_workbook('CMDB_templates/Transactional_CI_updated.xls',formatting_info=True)
 	wb_cis=copy(noam_cis)
-	w_sheet2_cis=wb_cis.get_sheet(0)
+	w_sheet2_cis=wb_cis.get_sheet(2)
 	##files to upload
 	sheets=[]
 	cis=[]
@@ -62,15 +62,15 @@ def noam_files(file_path,company,NOAM_report):
 			
 			##Description
 			w_sheet1_sites.write(3+i,15,sites[0].filter(regex=re.compile('Descr',re.IGNORECASE)).iloc[:,0][i])
-			#w_sheet3_sites.write(3+i,3,sites[0].filter(regex=re.compile('Descr',re.IGNORECASE)).iloc[:,0][i])
+			w_sheet3_sites.write(3+i,3,sites[0].filter(regex=re.compile('Descr',re.IGNORECASE)).iloc[:,0][i])
 			
 			##Additional Sites Details
 			w_sheet1_sites.write(3+i,16,sites[0].filter(regex=re.compile('Additional',re.IGNORECASE)).iloc[:,0][i])
 			
 			#status
 			w_sheet1_sites.write(3+i,17,sites[0].filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0][i])
-			#w_sheet2_sites.write(3+i,2,sites[0].filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0][i])
-			#w_sheet3_sites.write(3+i,4,sites[0].filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0][i])
+			w_sheet2_sites.write(3+i,2,sites[0].filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0][i])
+			w_sheet3_sites.write(3+i,4,sites[0].filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0][i])
 			w_sheet4_sites.write(3+i,4,sites[0].filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0][i])
 			
 			#Latitude
@@ -85,17 +85,17 @@ def noam_files(file_path,company,NOAM_report):
 			w_sheet1_sites.write(3+i,25,sites[0].filter(regex=re.compile('TYPE',re.IGNORECASE)).iloc[:,0][i])
 			
 			##reg
-			#w_sheet2_sites.write(3+i,0,sites[0].filter(regex=re.compile('REGION',re.IGNORECASE)).iloc[:,0][i])
-			#w_sheet3_sites.write(3+i,2,sites[0].filter(regex=re.compile('REGION',re.IGNORECASE)).iloc[:,0][i])
+			w_sheet2_sites.write(3+i,0,sites[0].filter(regex=re.compile('REGION',re.IGNORECASE)).iloc[:,0][i])
+			w_sheet3_sites.write(3+i,2,sites[0].filter(regex=re.compile('REGION',re.IGNORECASE)).iloc[:,0][i])
 			w_sheet4_sites.write(3+i,2,sites[0].filter(regex=re.compile('REGION',re.IGNORECASE)).iloc[:,0][i])
 		
 			#company
-			#w_sheet2_sites.write(3+i,1,sites[0].filter(regex=re.compile('COMPANY',re.IGNORECASE)).iloc[:,0][i])
-			#w_sheet3_sites.write(3+i,1,sites[0].filter(regex=re.compile('COMPANY',re.IGNORECASE)).iloc[:,0][i])
+			w_sheet2_sites.write(3+i,1,sites[0].filter(regex=re.compile('COMPANY',re.IGNORECASE)).iloc[:,0][i])
+			w_sheet3_sites.write(3+i,1,sites[0].filter(regex=re.compile('COMPANY',re.IGNORECASE)).iloc[:,0][i])
 			w_sheet4_sites.write(3+i,1,sites[0].filter(regex=re.compile('COMPANY',re.IGNORECASE)).iloc[:,0][i])
 			
 			#Site Group
-			#w_sheet3_sites.write(3+i,0,sites[0].filter(regex=re.compile('GROUP',re.IGNORECASE)).iloc[:,0][i])
+			w_sheet3_sites.write(3+i,0,sites[0].filter(regex=re.compile('GROUP',re.IGNORECASE)).iloc[:,0][i])
 			w_sheet4_sites.write(3+i,3,sites[0].filter(regex=re.compile('GROUP',re.IGNORECASE)).iloc[:,0][i])
 	
 		wb_sites.save(NOAM_report + company +'_sites_Noam.xls')
