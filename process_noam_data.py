@@ -102,82 +102,155 @@ def noam_files(file_path,company,NOAM_report):
 	else:
 		None
 	if len(cis)>0:
-		cis[0].fillna('',inplace=True)
-		for i in range(np.shape(cis[0])[0]):
+		cis=cis[0]
+		cis.fillna('',inplace=True)
+		for i in range(np.shape(cis)[0]):
 			#CI type
 			w_sheet2_cis.write(3+i,113,'migrator')
 			w_sheet2_cis.write(3+i,117,'Computer System')
 			w_sheet2_cis.write(3+i,123,'Computer System')
 			w_sheet2_cis.write(3+i,124,'BMC_COMPUTERSYSTEM')
+			#CI type
+			w_sheet2_cis.write(3+i,89,'BMC_COMPUTERSYSTEM')
+			##Product type
+			w_sheet2_cis.write(3+i,81,'Hardware')
+			###CI Name
+			w_sheet2_cis.write(3+i,3,cis['CI Name*'][i])
+			##CI ID
+			##w_sheet2_cis.write(3+i,11,cis[0].filter(regex=re.compile('CI ID',re.IGNORECASE)).iloc[:,0][i])
+			###CI Description
+			w_sheet2_cis.write(3+i,6,cis['CI Description'][i])
+			####Status
+			if (cis['Status*']=='').any():
+				w_sheet2_cis.write(3+i,41,'Deployed')
+			else:
+				w_sheet2_cis.write(3+i,41,cis['Status*'][i])
+			####Supported
+			w_sheet2_cis.write(3+i,28,'Yes')
+			####Tier 1
+			w_sheet2_cis.write(3+i,1,cis['Tier 1'][i])
+			####Tier 2
+			w_sheet2_cis.write(3+i,7,cis['Tier 2'][i])
+			####Tier 3
+			w_sheet2_cis.write(3+i,9,cis['Tier 3'][i])
+			###Product Name
+			w_sheet2_cis.write(3+i,13,cis['Product Name+'][i])
+			####Manufacturer
+			w_sheet2_cis.write(3+i,21,cis['Manufacturer'][i])
+			####System Role
+			w_sheet2_cis.write(3+i,39,cis['System Role'][i])
+			###Priority
+			if (cis['Priority']=='').any():
+				w_sheet2_cis.write(3+i,53,'PRIORITY_5')   
+			else:
+				w_sheet2_cis.write(3+i,53,cis['Priority'][i])
+			###Additional Information
+			###w_sheet2_cis.write(3+i,56,cis[0].filter(regex=re.compile('Additional',re.IGNORECASE)).iloc[:,0][i])
+			##
+			###Region
+			w_sheet2_cis.write(3+i,37,cis['Region'][i])
+			##
+			###Site Group
+			w_sheet2_cis.write(3+i,43,cis['Site Group'][i])
+			##
+			###Site
+			w_sheet2_cis.write(3+i,45,cis['Site+'][i])
+			##
+			###Tag Number
+			w_sheet2_cis.write(3+i,18,cis['Tag Number'][i])
+			##
+			###Model Version
+			###w_sheet2_cis.write(3+i,19,cis[0].filter(regex=re.compile('Version',re.IGNORECASE)).iloc[:,0][i])
+			##
+			###DNS
+			w_sheet2_cis.write(3+i,35,cis['DNS Host Name'][i])
+			##
+			###Domain
+			w_sheet2_cis.write(3+i,42,cis['Domain'][i])
+			##
+			###num cells
+			###w_sheet2_cis.write(3+i,126,cis[0].filter(regex=re.compile('cells',re.IGNORECASE)).iloc[:,0][i])
 
-			cis[0]['CI type']='BMC_COMPUTERSYSTEM'
-			w_sheet2_cis.write(3+i,89,cis[0].filter(regex=re.compile('CI TYPE',re.IGNORECASE)).iloc[:,0][i])
-			#Product type
-			cis[0]['Product type']='Hardware'
-			w_sheet2_cis.write(3+i,81,cis[0].filter(regex=re.compile('Product Type',re.IGNORECASE)).iloc[:,0][i])
-			##CI Name
-			w_sheet2_cis.write(3+i,3,cis[0].filter(regex=re.compile('CI NAME',re.IGNORECASE)).iloc[:,0][i])
-			#CI ID
-			#w_sheet2_cis.write(3+i,11,cis[0].filter(regex=re.compile('CI ID',re.IGNORECASE)).iloc[:,0][i])
-			##CI Description
-			w_sheet2_cis.write(3+i,6,cis[0].filter(regex=re.compile('CI DESCR',re.IGNORECASE)).iloc[:,0][i])
-			##Status
-			if (cis[0]['Status*']=='').any():
-				cis[0]['Status*']='Deployed'
-			else:
-				None
-			w_sheet2_cis.write(3+i,41,cis[0].filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0][i])
-			##Supported
-			if (cis[0]['Supported']=='').any():
-				cis[0]['Supported']='Yes'    
-			else:
-				None
-			w_sheet2_cis.write(3+i,28,cis[0].filter(regex=re.compile('SUPPORTED',re.IGNORECASE)).iloc[:,0][i])
-			##Tier 1
-			w_sheet2_cis.write(3+i,1,cis[0].filter(regex=re.compile('Tier 1',re.IGNORECASE)).iloc[:,0][i])
-			##Tier 2
-			w_sheet2_cis.write(3+i,7,cis[0].filter(regex=re.compile('Tier 2',re.IGNORECASE)).iloc[:,0][i])
-			##Tier 3
-			w_sheet2_cis.write(3+i,9,cis[0].filter(regex=re.compile('Tier 3',re.IGNORECASE)).iloc[:,0][i])
-			##Product Name
-			w_sheet2_cis.write(3+i,13,cis[0].filter(regex=re.compile('Product N',re.IGNORECASE)).iloc[:,0][i])
-			##Manufacturer
-			w_sheet2_cis.write(3+i,21,cis[0].filter(regex=re.compile('Manuf',re.IGNORECASE)).iloc[:,0][i])
-			##System Role
-			w_sheet2_cis.write(3+i,39,cis[0].filter(regex=re.compile('Role',re.IGNORECASE)).iloc[:,0][i])
-			#Priority
-			if (cis[0]['Priority']=='').any():
-				cis[0]['Priority']='PRIORITY_5'    
-			else:
-				None
-			w_sheet2_cis.write(3+i,53,cis[0].filter(regex=re.compile('Priority',re.IGNORECASE)).iloc[:,0][i])
-			#Additional Information
-			#w_sheet2_cis.write(3+i,56,cis[0].filter(regex=re.compile('Additional',re.IGNORECASE)).iloc[:,0][i])
-			
-			#Region
-			w_sheet2_cis.write(3+i,37,cis[0].filter(regex=re.compile('Region',re.IGNORECASE)).iloc[:,0][i])
-			
-			#Site Group
-			w_sheet2_cis.write(3+i,43,cis[0].filter(regex=re.compile('Group',re.IGNORECASE)).iloc[:,0][i])
-			
-			#Site
-			w_sheet2_cis.write(3+i,45,cis[0].filter(regex=re.compile('Site',re.IGNORECASE)).iloc[:,0][i])
-			
-			#Tag Number
-			w_sheet2_cis.write(3+i,18,cis[0].filter(regex=re.compile('TAG Number',re.IGNORECASE)).iloc[:,0][i])
-			
-			#Model Version
-			#w_sheet2_cis.write(3+i,19,cis[0].filter(regex=re.compile('Version',re.IGNORECASE)).iloc[:,0][i])
-			
-			#DNS
-			w_sheet2_cis.write(3+i,35,cis[0].filter(regex=re.compile('DNS',re.IGNORECASE)).iloc[:,0][i])
-			
-			#Domain
-			w_sheet2_cis.write(3+i,42,cis[0].filter(regex=re.compile('Domain',re.IGNORECASE)).iloc[:,0][i])
-			
-			#num cells
-			#w_sheet2_cis.write(3+i,126,cis[0].filter(regex=re.compile('cells',re.IGNORECASE)).iloc[:,0][i])
-		
 		wb_cis.save(NOAM_report + company +'_cis_Noam.xls')
 	else:
 		None
+	#if len(cis)>0:
+	#	cis[0].fillna('',inplace=True)
+	#	for i in range(np.shape(cis[0])[0]):
+	#		#CI type
+	#		w_sheet2_cis.write(3+i,113,'migrator')
+	#		w_sheet2_cis.write(3+i,117,'Computer System')
+	#		w_sheet2_cis.write(3+i,123,'Computer System')
+	#		w_sheet2_cis.write(3+i,124,'BMC_COMPUTERSYSTEM')
+#
+	#		cis[0]['CI type']='BMC_COMPUTERSYSTEM'
+	#		w_sheet2_cis.write(3+i,89,cis[0].filter(regex=re.compile('CI TYPE',re.IGNORECASE)).iloc[:,0][i])
+	#		#Product type
+	#		cis[0]['Product type']='Hardware'
+	#		w_sheet2_cis.write(3+i,81,cis[0].filter(regex=re.compile('Product Type',re.IGNORECASE)).iloc[:,0][i])
+	#		##CI Name
+	#		w_sheet2_cis.write(3+i,3,cis[0].filter(regex=re.compile('CI NAME',re.IGNORECASE)).iloc[:,0][i])
+	#		#CI ID
+	#		#w_sheet2_cis.write(3+i,11,cis[0].filter(regex=re.compile('CI ID',re.IGNORECASE)).iloc[:,0][i])
+	#		##CI Description
+	#		w_sheet2_cis.write(3+i,6,cis[0].filter(regex=re.compile('CI DESCR',re.IGNORECASE)).iloc[:,0][i])
+	#		##Status
+	#		if (cis[0]['Status*']=='').any():
+	#			cis[0]['Status*']='Deployed'
+	#		else:
+	#			None
+	#		w_sheet2_cis.write(3+i,41,cis[0].filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0][i])
+	#		##Supported
+	#		if (cis[0]['Supported']=='').any():
+	#			cis[0]['Supported']='Yes'    
+	#		else:
+	#			None
+	#		w_sheet2_cis.write(3+i,28,cis[0].filter(regex=re.compile('SUPPORTED',re.IGNORECASE)).iloc[:,0][i])
+	#		##Tier 1
+	#		w_sheet2_cis.write(3+i,1,cis[0].filter(regex=re.compile('Tier 1',re.IGNORECASE)).iloc[:,0][i])
+	#		##Tier 2
+	#		w_sheet2_cis.write(3+i,7,cis[0].filter(regex=re.compile('Tier 2',re.IGNORECASE)).iloc[:,0][i])
+	#		##Tier 3
+	#		w_sheet2_cis.write(3+i,9,cis[0].filter(regex=re.compile('Tier 3',re.IGNORECASE)).iloc[:,0][i])
+	#		##Product Name
+	#		w_sheet2_cis.write(3+i,13,cis[0].filter(regex=re.compile('Product N',re.IGNORECASE)).iloc[:,0][i])
+	#		##Manufacturer
+	#		w_sheet2_cis.write(3+i,21,cis[0].filter(regex=re.compile('Manuf',re.IGNORECASE)).iloc[:,0][i])
+	#		##System Role
+	#		w_sheet2_cis.write(3+i,39,cis[0].filter(regex=re.compile('Role',re.IGNORECASE)).iloc[:,0][i])
+	#		#Priority
+	#		if (cis[0]['Priority']=='').any():
+	#			cis[0]['Priority']='PRIORITY_5'    
+	#		else:
+	#			None
+	#		w_sheet2_cis.write(3+i,53,cis[0].filter(regex=re.compile('Priority',re.IGNORECASE)).iloc[:,0][i])
+	#		#Additional Information
+	#		#w_sheet2_cis.write(3+i,56,cis[0].filter(regex=re.compile('Additional',re.IGNORECASE)).iloc[:,0][i])
+	#		
+	#		#Region
+	#		w_sheet2_cis.write(3+i,37,cis[0].filter(regex=re.compile('Region',re.IGNORECASE)).iloc[:,0][i])
+	#		
+	#		#Site Group
+	#		w_sheet2_cis.write(3+i,43,cis[0].filter(regex=re.compile('Group',re.IGNORECASE)).iloc[:,0][i])
+	#		
+	#		#Site
+	#		w_sheet2_cis.write(3+i,45,cis[0].filter(regex=re.compile('Site',re.IGNORECASE)).iloc[:,0][i])
+	#		
+	#		#Tag Number
+	#		w_sheet2_cis.write(3+i,18,cis[0].filter(regex=re.compile('TAG Number',re.IGNORECASE)).iloc[:,0][i])
+	#		
+	#		#Model Version
+	#		#w_sheet2_cis.write(3+i,19,cis[0].filter(regex=re.compile('Version',re.IGNORECASE)).iloc[:,0][i])
+	#		
+	#		#DNS
+	#		w_sheet2_cis.write(3+i,35,cis[0].filter(regex=re.compile('DNS',re.IGNORECASE)).iloc[:,0][i])
+	#		
+	#		#Domain
+	#		w_sheet2_cis.write(3+i,42,cis[0].filter(regex=re.compile('Domain',re.IGNORECASE)).iloc[:,0][i])
+	#		
+	#		#num cells
+	#		#w_sheet2_cis.write(3+i,126,cis[0].filter(regex=re.compile('cells',re.IGNORECASE)).iloc[:,0][i])
+	#	
+	#	wb_cis.save(NOAM_report + company +'_cis_Noam.xls')
+	#else:
+	#	None
