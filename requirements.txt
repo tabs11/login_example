@@ -25,6 +25,6 @@ Werkzeug==0.15.4
 wrapt==1.10.11
 xlrd==1.1.0
 XlsxWriter==1.1.0
-Flask-Login==0.4.1
+flask-login==0.4.1
 xlutils==2.0.0
 urllib.request==3.5
