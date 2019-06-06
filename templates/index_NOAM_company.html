@@ -17,9 +17,8 @@
     <input class= "mybutton" type="submit" value= "Submit">
   </form>
   
-  <h2>NOAM templates:</h2>
-  
-<form class="button" align="right" method="post" action="/noam_upload" enctype="multipart/form-data">
+<h2>SELECT FILE TO CONVERT:</h2>
+<form class="button" align="right" method="post" action="noam_data" enctype="multipart/form-data">
     <table>
     <tr>
       <td><label id="#bb"> Select Files
@@ -31,5 +30,18 @@
     <input class="mybutton" type="submit" value="Submit"  class="span2"></td>
     </tr>
     </table>
-</form>
+  </form>
+
+
+  <h2>CONVERT TO NOAM TEMPLATES:</h2>
+  
+
+  <form class="button" align="right" method="GET" action="noam_upload" enctype="multipart/form-data">
+    <table>
+    <tr>
+    <input class="mybutton" type="submit" value="Submit"  class="span2"></td>
+    </tr>
+    </table>
+   
+  </form>
 {% endblock %}

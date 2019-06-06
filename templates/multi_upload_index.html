@@ -23,17 +23,29 @@
     </tr>
     </table>
   </form> 
-  <h2>Validate CIs/Sites:</h2>
   
-  <form class="button" align="right" method="post" action="upload" enctype="multipart/form-data">
+ <h2>Upload data to validate:</h2>
+
+  <form class="button" align="right" method="post" action="data" enctype="multipart/form-data">
     <table>
     <tr>
       <td><label id="#bb"> Select Files
         <input type="file" multiple="" name="file[]" class="span3" /></td>
       <td> 
-      {% if msg2 %}
-        <p><strong></strong> {{ msg2 }}
+      {% if msg3 %}
+        <p><strong></strong> {{ msg3 }}
       {% endif %}
+    <input class="mybutton" type="submit" value="Submit"  class="span2"></td>
+    </tr>
+    </table>
+  </form>
+
+
+  <h2>Validate CIs/Sites:</h2>
+
+  <form class="button" align="right" method="post" action="upload" enctype="multipart/form-data">
+    <table>
+    <tr>
     <input class="mybutton" type="submit" value="Submit"  class="span2"></td>
     </tr>
     </table>

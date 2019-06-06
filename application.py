@@ -7,12 +7,13 @@ from flask_login import login_required
 from flask_login import login_user
 from flask_login import logout_user
 import shutil
+import pandas as pd
 import uuid
 import os
 import datetime as dt 
 from datetime import datetime
 import process_data
-import process_noam_data as noam_data
+import process_noam_data
 
 class User(UserMixin):
 	def __init__(self, username,password):
@@ -124,6 +125,7 @@ def sites_history():
 	session['filename']=session['company']+'_'+str(uuid.uuid1())
 	ID_FOLDER=session['filename']
 	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites/'
+	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
 	msg=None
 	if request.method == 'POST':
 		if 'file' not in request.files:
@@ -136,6 +138,7 @@ def sites_history():
 		if file and allowed_file(file.filename):
 			os.makedirs(ID_FOLDER)
 			os.makedirs(ITSM_FOLDER)
+			os.makedirs(UPLOAD_FOLDER)
 			filename = secure_filename(file.filename)
 			file.save(os.path.join(ITSM_FOLDER, filename))
 			msg=filename
@@ -143,15 +146,14 @@ def sites_history():
 			msg='Please select a valid extension (.xls or .xlsx)'
 	return render_template('multi_upload_index.html',msg=msg)
 
-@application.route('/upload', methods=['POST'])
+
+@application.route('/data', methods=['GET','POST'])
 @login_required
-def upload():
+def data_to_validate():
 	ID_FOLDER=session['filename']
-	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites/'
 	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
 	DOWNLOAD_FOLDER=ID_FOLDER+'/Report/'
-	msg2=None
-	# Get the name of the uploaded files
+	msg3=None
 	uploaded_files = request.files.getlist("file[]")
 	for file in uploaded_files:
 		# Check if the file is one of the allowed types/extensions
@@ -160,22 +162,32 @@ def upload():
 			filename = secure_filename(file.filename)
 			if not os.path.exists(UPLOAD_FOLDER):
 				os.makedirs(UPLOAD_FOLDER)
-				os.makedirs(DOWNLOAD_FOLDER)
-			else:
-				None
+			
 			# Move the file form the temporal folder to the upload
 			file.save(os.path.join(UPLOAD_FOLDER, filename))
+			filenames=os.listdir(UPLOAD_FOLDER)
+			msg3=filenames
 		else:
-			msg2='Please select a valid extension (.xls or .xlsx)'
-			return render_template('multi_upload_index.html',msg2=msg2)
+			msg3='Please select a valid extension (.xls or .xlsx)'
+
+	return render_template('multi_upload_index.html',msg3=msg3)
+
+
+@application.route('/upload', methods=['POST'])
+@login_required
+def upload():
+	ID_FOLDER=session['filename']
+	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites/'
+	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
+	DOWNLOAD_FOLDER=ID_FOLDER+'/Report/'
+	os.makedirs(DOWNLOAD_FOLDER)
 	if len(os.listdir(UPLOAD_FOLDER))>0:
 		process_data.process_file(path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER,history=ITSM_FOLDER)
 		filenames=os.listdir(DOWNLOAD_FOLDER)
-
 		text = open(DOWNLOAD_FOLDER+'issues.txt', 'r+',encoding='utf8')
 		content = text.read()
 		text.close()
-	return render_template('multi_files_upload.html', filenames=filenames,text=content,msg2=msg2)
+	return render_template('multi_files_upload.html', filenames=filenames,text=content)
 
 
 @application.route('/report/<filename>')
@@ -193,18 +205,19 @@ def comp_noam():
 	if request.method == 'POST':
 		company_noam = request.form['company_noam']
 		session['company_noam']=company_noam
+		
 		msg = 'Successfull'
 	return render_template('index_NOAM_company.html',msg=msg)
 
 
-
-@application.route('/noam_upload', methods=['POST'])
-def noam_upload():
+@application.route('/noam_data', methods=['GET','POST'])
+def noam_data():
 	msg3=None
 	session['filename_final']=session['company_noam']+'_'+str(uuid.uuid1())
 	NOAM_FOLDER=session['filename_final']
 	NOAM_UPLOAD=NOAM_FOLDER+'/NOAM_files/'
 	NOAM_REPORT=NOAM_FOLDER +'/Report/'
+	
 	# Get the name of the uploaded files
 	uploaded_files = request.files.getlist("file[]")
 	for file in uploaded_files:
@@ -212,20 +225,31 @@ def noam_upload():
 		if file and allowed_file(file.filename):
 			# Make the filename safe, remove unsupported chars
 			filename = secure_filename(file.filename)
+			if not os.path.exists(NOAM_FOLDER):
+				os.makedirs(NOAM_FOLDER)
+				os.makedirs(NOAM_UPLOAD)
+				os.makedirs(NOAM_REPORT)
 			# Move the file form the temporal folder to the upload
-			os.makedirs(NOAM_FOLDER)
-			os.makedirs(NOAM_UPLOAD)
-			os.makedirs(NOAM_REPORT)
 			
 			file.save(os.path.join(NOAM_UPLOAD, filename))
+			filenames=os.listdir(NOAM_UPLOAD)
+			msg3=filenames
 		else:
 			msg3='Please select a valid extension (.xls or .xlsx)'
-			return render_template('index_NOAM_company.html',msg3=msg3)
+	return render_template('index_NOAM_company.html',msg3=msg3)
+
+
+@application.route('/noam_upload', methods=['GET'])
+def noam_upload():
+	NOAM_FOLDER=session['filename_final']
+	NOAM_UPLOAD=NOAM_FOLDER+'/NOAM_files/'
+	NOAM_REPORT=NOAM_FOLDER +'/Report/'
+	# Get the name of the uploaded files
 	if len(os.listdir(NOAM_UPLOAD))>0:
-		noam_data.noam_files(file_path=NOAM_UPLOAD,company=NOAM_FOLDER.split('_')[0],NOAM_report=NOAM_REPORT)
+		process_noam_data.noam_files(file_path=NOAM_UPLOAD,company=NOAM_FOLDER.split('_')[0],NOAM_report=NOAM_REPORT)
 		noam_filenames=os.listdir(NOAM_REPORT)
 
-	return render_template('noam_files_upload.html', noam_filenames=noam_filenames,msg3=msg3)
+	return render_template('noam_files_upload.html', noam_filenames=noam_filenames)
 
 
 
@@ -243,9 +267,9 @@ def uploaded_NOAM_file(filename):
 @application.route('/logout', methods=['GET'])
 @login_required
 def logout():
-	ID_FOLDER=session['filename']
-	if os.path.exists(ID_FOLDER):
-		shutil.rmtree(ID_FOLDER)
+	#ID_FOLDER=session['filename']
+	#if os.path.exists(ID_FOLDER):
+	#	shutil.rmtree(ID_FOLDER)
 	logout_user()
 	return redirect('login')
 
