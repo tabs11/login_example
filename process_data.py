@@ -23,7 +23,7 @@ def process_file(path,company,report,history):
 	sites_fields=['Company','Site Name*','Site Alias*','Description','Region*','Site Group*','Street','Country*','City*','Latitude','Longitude','Location ID','Additional Site Details','Maintenance Circle Name','Site Type','Status*']
 	cis_fields=['Product type','CI type','Company+','CI Name*','CI Description','Tag Number','System Role','Status*','Priority','Additional Information','Tier 1','Tier 2','Tier 3','Product Name+','Model/Version','Manufacturer','Region','Site Group','Site+','DNS Host Name','Domain','CI ID+','Supported']
 	fields=sites_fields+cis_fields
-	char_num=[254,60,60,255,60,60,90,60,60,12,12,30,0,70,'-','-',38,254,254,254,254,64,30,'-','-',254,60,60,60,254,254,254,60,60,60,254,254,64,3]
+	char_num=[254,60,60,255,60,60,90,60,60,12,12,30,'-',70,'-','-',38,254,254,254,254,64,30,'-','-',254,60,60,60,254,254,254,60,60,60,254,254,64,3]
 	field_type=[['Yes']*3,['No'],['Yes']*2,['No'],['Yes']*2,['No']*6,['Yes']*5,['No']*3,['Yes']*2,['No'],['Yes']*4,['No'],['Yes']*4,['No']*4]
 	field_type=list(itertools.chain(*field_type))     
 	unmatched_fields=[]
