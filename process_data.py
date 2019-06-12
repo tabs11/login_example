@@ -273,7 +273,7 @@ def process_file(path,company,report,history):
 				prod_suggested=prod_name.apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else get_close_matches(x,template.iloc[:,3].astype(str).unique().tolist(),1)).apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else ''.join(x))
 				prod_missing_final=pd.concat([prod_missing,prod_suggested.rename('Suggested Product Name'),prod_match.rename('Others PN match')],axis=1)
 				#wrong  product names tier classification
-				same_prod=prodcats_cis.merge(template,left_on=prod_name.name,right_on=template.columns[3],how='inner').drop_duplicates()
+				same_prod=pprodcats_cis[~prodcats_cis['Product Name'].isna()].merge(template,left_on=prod_name.name,right_on=template.columns[3],how='inner').drop_duplicates()
 				wrongcats1=same_prod.iloc[:,[0,5,3,4,8]][(same_prod.iloc[:,0]!=same_prod.iloc[:,5]) & (same_prod.iloc[:,1]==same_prod.iloc[:,6]) & (same_prod.iloc[:,2]==same_prod.iloc[:,7])].drop_duplicates()
 				wrongcats2=same_prod.iloc[:,[1,6,3,4,8]][(same_prod.iloc[:,1]!=same_prod.iloc[:,6]) & (same_prod.iloc[:,0]==same_prod.iloc[:,5]) & (same_prod.iloc[:,2]==same_prod.iloc[:,7])].drop_duplicates()
 				wrongcats3=same_prod.iloc[:,[2,7,3,4,8]][(same_prod.iloc[:,2]!=same_prod.iloc[:,7]) &(same_prod.iloc[:,0]==same_prod.iloc[:,5]) & (same_prod.iloc[:,1]==same_prod.iloc[:,6])].drop_duplicates()
