@@ -57,7 +57,12 @@ def process_file(path,company,report,history):
 			null_columns=sheets[j][sheets[j].columns[sheets[j].isnull().any()]]  		
 			###blanks and char num
 			for i in range(len(sheets[j].columns)):
-				blank_cases.append(sheets[j].iloc[:,i][sheets[j].iloc[:,i].astype(str).apply(lambda x: x[0].isspace() or x[len(x)-1].isspace())].unique())
+				blank_find=sheets[j].iloc[:,i][sheets[j].iloc[:,i].astype(str).apply(lambda x: x[0].isspace() or x[len(x)-1].isspace())]
+				if len(blank_find)>0:
+					blank_cases.append(blank_find.iloc[0])
+				else:
+					blank_cases.append('None')
+				#blank_cases.append(sheets[j].iloc[:,i][sheets[j].iloc[:,i].astype(str).apply(lambda x: x[0].isspace() or x[len(x)-1].isspace())].unique())
 				count_chars.append(sheets[j].iloc[:,i].apply(lambda x: x if pd.isnull(x) else len(str(x))).max())
 				sheets[j].iloc[:,i]=sheets[j].iloc[:,i].apply(lambda x: x.strip() if type(x)==str else x)
 			##count max number of characteres per field
@@ -66,9 +71,12 @@ def process_file(path,company,report,history):
 			c=b.iloc[:,[0,1,3,2]]
 			print('Number of records:'.upper(),'-'*len('Number of records:'), str(np.shape(sheets[j])[0]),'','Field Names and Maximum number of Characteres per field:'.upper(),'-'*len('Field Names and Maximum number of Characteres per field:'),c,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))			
 			#check for blank spaces
-			blanks=pd.concat([pd.Series(sheets[j].columns).rename('Field'),pd.Series(blank_cases).rename('Cases'),pd.Series(blank_cases).apply(lambda x: len(x)).rename('Count')],axis=1)
-			if np.shape(blanks[blanks['Cases'].apply(lambda x: len(x)>0)])[0]>0:
-				blank_spaces=blanks[blanks['Cases'].apply(lambda x: len(x)>0)]
+			#blanks=pd.concat([pd.Series(sheets[j].columns).rename('Field'),pd.Series(blank_cases).rename('Cases'),pd.Series(blank_cases).apply(lambda x: len(x)).rename('Count')],axis=1)
+			blanks=pd.concat([pd.Series(sheets[j].columns).rename('Field'),pd.Series(blank_cases).rename('Case example'),pd.Series(blank_cases).apply(lambda x: len(x)).rename('Count')],axis=1)
+			if np.shape(blanks[blanks['Case example']!='None'])[0]>0:
+				blank_spaces=blanks[blanks['Case example']!='None']
+			#if np.shape(blanks[blanks['Cases'].apply(lambda x: len(x)>0)])[0]>0:
+			#	blank_spaces=blanks[blanks['Cases'].apply(lambda x: len(x)>0)]
 			else:
 				blank_spaces=str(0)
 			print('Fields with blanks spaces:'.upper(),'-'*len('Fields with blanks spaces:'),blank_spaces,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
