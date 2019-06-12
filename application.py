@@ -267,9 +267,9 @@ def uploaded_NOAM_file(filename):
 @application.route('/logout', methods=['GET'])
 @login_required
 def logout():
-	#ID_FOLDER=session['filename']
-	#if os.path.exists(ID_FOLDER):
-	#	shutil.rmtree(ID_FOLDER)
+	ID_FOLDER=session['filename']
+	if os.path.exists(ID_FOLDER):
+		shutil.rmtree(ID_FOLDER)
 	logout_user()
 	return redirect('login')
 
