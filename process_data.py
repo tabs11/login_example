@@ -20,6 +20,7 @@ def process_file(path,company,report,history):
 		for k in range(len(pd.ExcelFile(glob.glob(path+'*')[j]).sheet_names)):
 			sheets.append(pd.read_excel(glob.glob(path+'*')[j],pd.ExcelFile(glob.glob(path+'*')[j]).sheet_names[k]))     
 		sheets[j].rename(columns=lambda x: x.strip(), inplace=True)
+		sheets[j].dropna(axis=0,how='all',inplace=True)
 	sites_fields=['Company','Site Name*','Site Alias*','Description','Region*','Site Group*','Street','Country*','City*','Latitude','Longitude','Location ID','Additional Site Details','Maintenance Circle Name','Site Type','Status*']
 	cis_fields=['Product type','CI type','Company+','CI Name*','CI Description','Tag Number','System Role','Status*','Priority','Additional Information','Tier 1','Tier 2','Tier 3','Product Name+','Model/Version','Manufacturer','Region','Site Group','Site+','DNS Host Name','Domain','CI ID+','Supported']
 	fields=sites_fields+cis_fields
