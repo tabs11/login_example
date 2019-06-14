@@ -101,9 +101,9 @@ def process_file(path,company,report,history):
 			filtered_locations=sheets[j].filter(regex=re.compile('REG|GROUP|CITY',re.IGNORECASE))
 			if np.shape(filtered_locations)[1]>0:
 				length=[]
-				length.append(len(filtered_locations.iloc[:,k].unique()))
 				print('Location values:'.upper(),sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 				for k in range(np.shape(filtered_locations)[1]):
+					length.append(len(filtered_locations.iloc[:,k].unique()))
 					a=pd.DataFrame(pd.Series(filtered_locations.iloc[:,k].unique()).sample(n=min(length), random_state=1))
 					a.rename(columns={0:filtered_locations.columns[k]},inplace=True)
 					print('-'*len('Location values:'),a,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
