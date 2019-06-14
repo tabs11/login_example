@@ -63,7 +63,7 @@ def process_file(path,company,report,history):
 				else:
 					blank_cases.append('None')
 				#blank_cases.append(sheets[j].iloc[:,i][sheets[j].iloc[:,i].astype(str).apply(lambda x: x[0].isspace() or x[len(x)-1].isspace())].unique())
-				count_chars.append(sheets[j].iloc[:,i].apply(lambda x: x if pd.isnull(x) else len(str(x))).max())
+				count_chars.append(sheets[j].iloc[:,i].astype(str).apply(lambda x: x if pd.isnull(x) else len(str(x))).max())
 				sheets[j].iloc[:,i]=sheets[j].iloc[:,i].apply(lambda x: x.strip() if type(x)==str else x)
 			##count max number of characteres per field
 			chars=pd.concat([pd.Series(sheets[j].columns).rename('Field'),pd.Series(count_chars).rename('Characters')],axis=1)
