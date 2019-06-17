@@ -87,7 +87,7 @@ def allowed_file(filename):
 @application.route('/return-file/')
 @login_required
 def return_file():
-	filename='Upload template for sites and CI Data.zip'
+	filename='Templates.zip'
 	return send_file(os.path.join(application.config['CMDB_FOLDER'])+filename,attachment_filename=filename, as_attachment=True)
 
 
