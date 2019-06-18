@@ -67,10 +67,16 @@ def noam_files(file_path,company,NOAM_report):
 			w_sheet1_sites.write(3+i,16,sites[0].filter(regex=re.compile('Additional',re.IGNORECASE)).iloc[:,0][i])
 			
 			#status
-			w_sheet1_sites.write(3+i,17,sites[0].filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0][i])
-			w_sheet2_sites.write(3+i,2,sites[0].filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0][i])
-			w_sheet3_sites.write(3+i,4,sites[0].filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0][i])
-			w_sheet4_sites.write(3+i,4,sites[0].filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0][i])
+			if (sites[0]['Status*']=='').any():
+				w_sheet1_sites.write(3+i,41,'Enabled')
+				w_sheet2_sites.write(3+i,41,'Enabled')
+				w_sheet3_sites.write(3+i,41,'Enabled')
+				w_sheet4_sites.write(3+i,41,'Enabled')
+			else:
+				w_sheet1_sites.write(3+i,17,sites[0].filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0][i])
+				w_sheet2_sites.write(3+i,2,sites[0].filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0][i])
+				w_sheet3_sites.write(3+i,4,sites[0].filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0][i])
+				w_sheet4_sites.write(3+i,4,sites[0].filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0][i])
 			
 			#Latitude
 			w_sheet1_sites.write(3+i,18,sites[0].filter(regex=re.compile('LAT',re.IGNORECASE)).iloc[:,0][i])
@@ -96,6 +102,7 @@ def noam_files(file_path,company,NOAM_report):
 			#Site Group
 			w_sheet3_sites.write(3+i,0,sites[0].filter(regex=re.compile('GROUP',re.IGNORECASE)).iloc[:,0][i])
 			w_sheet4_sites.write(3+i,3,sites[0].filter(regex=re.compile('GROUP',re.IGNORECASE)).iloc[:,0][i])
+			
 	
 		wb_sites.save(NOAM_report + company +'_sites_Noam.xls')
 	else:
