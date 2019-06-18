@@ -130,10 +130,9 @@ def process_file(path,company,report,history):
 			################
 			####ITSM sites
 			#itsm_sites='/ITSM_sites'
-			itsm_columns=['Site Name','Region','Site Group','City*+']
+			itsm_columns=['Site Name','Region','Site Group','City']
 			print('All Existing Sites in CMDB:'.upper(),'-'*len('All Existing Sites in CMDB:'),sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			if len(glob.glob(history+'/*'))==0:
-			#if len(glob.glob(company+itsm_sites+'/*'))==0:
 				sites_itsm=pd.DataFrame(columns=itsm_columns)
 				print('ITSM folder is empty','',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			else:
