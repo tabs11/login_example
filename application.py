@@ -35,7 +35,7 @@ USERS = { # dictionary (username, User)
 	'mccavitt' : User('mccavitt','mccavitt'),
 	'abociat' : User('abociat','abociat'),
 	'mariusgc' : User('mariusgc','mariusgc'),
-	'Cristina Gelei' : User('gelei','gelei')
+	'gelei' : User('gelei','gelei')
 }
 
 # application base
