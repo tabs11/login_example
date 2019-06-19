@@ -1,16 +1,31 @@
 {% extends "login_layout.html" %}
 {% block content %}
 
-<div class="wrapper fadeInDown">
+<!-- <div class="wrapper fadeInDown">
   <div id="formContent">
 
-    <!-- Login Form -->
+    Login Form
     <form class="button" method="post">
-      <input type="text" id="username" class="fadeIn second" name="username" placeholder="login">
-      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
-      <input class="mybutton" type="submit" class="fadeIn fourth" value="Log In">
+      <input type="text" id="username" name="username" placeholder="login">
+      <input type="password" id="password" name="password" placeholder="password">
+      <input class="mybutton" type="submit" value="Log In">
     </form>
 
+  </div>
+</div>
+-->
+<div class="wrapper fadeInDown">
+  <div id="formContent">     
+    <form method="post">
+      <label style="background-color:white" for="username">Username:</label>
+      <input type="text" id="username" name="username">
+      <label style="background-color:white" for="password">Password:</label>
+      <input type="password" id="password" name="password">
+
+    <div id="lower">
+      <input class="mybutton" type="submit" value="Login">
+    </div>
+  </form>
   </div>
 </div>
 
