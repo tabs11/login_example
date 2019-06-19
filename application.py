@@ -80,7 +80,7 @@ def login_post():
 		else:
 			return redirect('/')
 	else:
-		flash("username ou password erradas")
+		flash("wrong username or password")
 		return render_template('login.html')
 
 
