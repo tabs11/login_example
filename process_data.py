@@ -150,10 +150,10 @@ def process_file(path,company,report,history):
 				###pick Site
 				existing_sites=pd.concat([existing_sites.filter(regex=re.compile('SITE',re.IGNORECASE)).iloc[:,0],existing_sites.filter(regex=re.compile('REG|GROUP|CITY',re.IGNORECASE))],axis=1)
 				existing_sites.rename(columns={
-					existing_sites.filter(regex=re.compile('Region',re.IGNORECASE)).columns[0]:'Region in Sites',
-					existing_sites.filter(regex=re.compile('Region',re.IGNORECASE)).columns[1]:'Region in ITSM Sites',
-					existing_sites.filter(regex=re.compile('GROUP',re.IGNORECASE)).columns[0]:'Site Group in Sites',
-					existing_sites.filter(regex=re.compile('GROUP',re.IGNORECASE)).columns[1]:'Site Group in ITSM Sites'},
+					existing_sites.filter(regex=re.compile('REGION',re.IGNORECASE)).columns[0]:'Region in Sites',
+					existing_sites.filter(regex=re.compile('REGION',re.IGNORECASE)).columns[1]:'Region in ITSM Sites',
+					existing_sites.filter(regex=re.compile('SITE GROUP',re.IGNORECASE)).columns[0]:'Site Group in Sites',
+					existing_sites.filter(regex=re.compile('SITE GROUP',re.IGNORECASE)).columns[1]:'Site Group in ITSM Sites'},
 					inplace=True)
 
 				#wrong_locations_sites=existing_sites[existing_sites['Region_x']!=existing_sites['Region_y']].drop_duplicates().sort_values([existing_sites.columns[0]])
@@ -321,10 +321,10 @@ def process_file(path,company,report,history):
 			#new_sites=new_sites[new_sites['_merge']=='left_on']
 			#existing_sites2=cis[0].filter(regex=re.compile('SITE N|SITE+|SITE*|REG|GROUP',re.IGNORECASE)).merge(all_sites2.filter(regex=re.compile('SITE N|SITE+|SITE*|REG|GROUP|CITY',re.IGNORECASE)).set_index(all_sites2.columns[0]),left_on=cis[0].filter(regex=re.compile('SITE',re.IGNORECASE)).columns[0],right_index=True,how='inner').drop_duplicates()
 			existing_sites2.rename(columns={
-				existing_sites2.filter(regex=re.compile('Region',re.IGNORECASE)).columns[0]:'Region in CIs',
-				existing_sites2.filter(regex=re.compile('Region',re.IGNORECASE)).columns[1]:'Region in Sites',
-				existing_sites2.filter(regex=re.compile('GROUP',re.IGNORECASE)).columns[0]:'Site Group in CIs',
-				existing_sites2.filter(regex=re.compile('GROUP',re.IGNORECASE)).columns[1]:'Site Group in Sites'},inplace=True)
+				existing_sites2.filter(regex=re.compile('REGION',re.IGNORECASE)).columns[0]:'Region in CIs',
+				existing_sites2.filter(regex=re.compile('REGION',re.IGNORECASE)).columns[1]:'Region in Sites',
+				existing_sites2.filter(regex=re.compile('SITE GROUP',re.IGNORECASE)).columns[0]:'Site Group in CIs',
+				existing_sites2.filter(regex=re.compile('SITE GROUP',re.IGNORECASE)).columns[1]:'Site Group in Sites'},inplace=True)
 
 			#wrong_locations=existing_sites2[(existing_sites2['Region in CIs'])!=(existing_sites2['Region in Sites']) and (existing_sites2['Site Group in CIs'])!=(existing_sites2['Site Group in Sites'])].drop(['_merge'],axis=1)
 			wrong_locations=pd.concat([existing_sites2[(existing_sites2['Region in CIs'])!=(existing_sites2['Region in Sites'])],existing_sites2[(existing_sites2['Site Group in CIs'])!=(existing_sites2['Site Group in Sites'])]],axis=0).drop_duplicates()
