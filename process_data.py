@@ -199,7 +199,7 @@ def process_file(path,company,report,history):
 				cis_locations=[]
 				cis.append(sheets[j])
 				site_name=cis[0][cis[0].columns[~cis[0].columns.str.contains('Group',case=False)].tolist()].filter(regex=re.compile('SITE',re.IGNORECASE))
-				sites_reg=pd.concat([site_name,cis[0].filter(regex=re.compile('REG|GROUP',re.IGNORECASE))],axis=1).drop_duplicates()
+				sites_reg=pd.concat([site_name,cis[0].filter(regex=re.compile('REG|SITE GROUP',re.IGNORECASE))],axis=1).drop_duplicates()
 				#sites_reg=cis[0].filter(regex=re.compile('SITE N|SITE+|SITE*|REG|GROUP',re.IGNORECASE)).drop_duplicates()#merge(all_sites2.filter(regex=re.compile('SITE N|SITE+|SITE*|REG|GROUP|CITY',re.IGNORECASE)).set_index(all_sites2.columns[0]),left_on=cis[0].filter(regex=re.compile('SITE',re.IGNORECASE)).columns[0],right_index=True,how='inner',indicator=True).drop_duplicates()
 				dup_sites_reg=sites_reg[sites_reg.iloc[:,0].duplicated(keep=False)].sort_values([sites_reg.columns[0]])
 				print('Sites with multiple regions or Site Groups related in CIs data:'.upper(),'-'*len('Sites with multiple regions related in CIs data:'),sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
@@ -211,7 +211,7 @@ def process_file(path,company,report,history):
 				filtered_cis=cis[0].filter(regex=re.compile('CI N',re.IGNORECASE))
 				filtered_desc=cis[0].filter(regex=re.compile('DESC',re.IGNORECASE))
 				filtered_region=cis[0].filter(regex=re.compile('REG',re.IGNORECASE))
-				filtered_site_group=cis[0].filter(regex=re.compile('GROUP',re.IGNORECASE))
+				filtered_site_group=cis[0].filter(regex=re.compile('SITE GROUP',re.IGNORECASE))
 				filtered_dns=cis[0].filter(regex=re.compile('DNS',re.IGNORECASE))      
 				if (np.shape(filtered_desc)[1]>0) & ((np.shape(filtered_region)[1]>0) | (np.shape(filtered_site_group)[1]>0)):
 					with_region=(cis[0][filtered_desc.columns[0]]==cis[0][filtered_cis.columns[0]] + ' | ' + cis[0][filtered_region.columns[0]]).all()
