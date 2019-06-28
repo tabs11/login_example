@@ -139,7 +139,13 @@ def process_file(path,company,report,history):
 			else:
 				sites_itsm=pd.read_excel(glob.glob(history+'/*')[0],pd.ExcelFile(glob.glob(history+'/*')[0]).sheet_names[0])
 				sites_itsm=sites_itsm[sites_itsm['PrimAlias']==0]
-				sites_itsm=sites_itsm[itsm_columns]
+				sites_itsm=sites_itsm.filter(regex=re.compile('SITE N|REG|GROUP|CITY',re.IGNORECASE))
+				sites_itsm.rename(columns={
+					sites_itsm.columns[0]:'Site Name',
+					sites_itsm.columns[1]:'Region',
+					sites_itsm.columns[2]:'Site Group',
+					sites_itsm.columns[3]:'City'},inplace=True)
+				#sites_itsm=sites_itsm[itsm_columns]
 				print(np.shape(sites_itsm)[0],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))                  
 			###########################################################################################################################
 			#SITES            
