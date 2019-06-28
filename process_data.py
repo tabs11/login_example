@@ -326,10 +326,10 @@ def process_file(path,company,report,history):
 			#new_sites=sites_reg.merge(all_sites2.filter(regex=re.compile('SITE N|SITE+|SITE*|REG|GROUP|CITY',re.IGNORECASE)).set_index(all_sites2.columns[0]),left_on=sites_reg.filter(regex=re.compile('SITE',re.IGNORECASE)).columns[0],right_index=True,how='outer',indicator=True).drop_duplicates()
 			#new_sites=new_sites[new_sites['_merge']=='left_on']
 			#existing_sites2=cis[0].filter(regex=re.compile('SITE N|SITE+|SITE*|REG|GROUP',re.IGNORECASE)).merge(all_sites2.filter(regex=re.compile('SITE N|SITE+|SITE*|REG|GROUP|CITY',re.IGNORECASE)).set_index(all_sites2.columns[0]),left_on=cis[0].filter(regex=re.compile('SITE',re.IGNORECASE)).columns[0],right_index=True,how='inner').drop_duplicates()
-			new_sites=sites_reg.merge(all_sites2.filter(regex=re.compile('SITE N|REG|GROUP|CITY',re.IGNORECASE)).set_index(all_sites2.columns[0]),left_on=sites_reg.filter(regex=re.compile('SITE',re.IGNORECASE)).columns[0],right_index=True,how='outer',indicator=True).drop_duplicates()
-			new_sites=new_sites[new_sites['_merge']=='left_only']
+			#new_sites=sites_reg.merge(all_sites2.filter(regex=re.compile('SITE N|REG|GROUP|CITY',re.IGNORECASE)).set_index(all_sites2.columns[0]),left_on=sites_reg.filter(regex=re.compile('SITE',re.IGNORECASE)).columns[0],right_index=True,how='outer',indicator=True).drop_duplicates()
+			#new_sites=new_sites[new_sites['_merge']=='left_only']
 			#if np.shape(all_sites2)[0]>0:
-			print('Sites in CIS not found in CMDB: '.upper(),'-'*len('Sites in CIS not found in CMDB: '),new_sites,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+			#print('Sites in CIS not found in CMDB: '.upper(),'-'*len('Sites in CIS not found in CMDB: '),new_sites,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			
 			existing_sites2.rename(columns={
 				existing_sites2.filter(regex=re.compile('REGION',re.IGNORECASE)).columns[0]:'Region in CIs',
