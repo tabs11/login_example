@@ -251,6 +251,11 @@ def process_file(path,company,report,history):
 				else:
 					duplicate_cis[0]='Wrong CI Name field'
 				print('Duplicated CI Names (excluding duplicate rows):'.upper(),'-'*len('Duplicated CI Names (excluding duplicate rows):'),duplicate_cis[0],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+				cis_chars=pd.DataFrame(cis[0][filtered_cis.iloc[:,0].astype(str).str.contains("\;|\.|\,|\:|\$|\s",regex=True)].drop_duplicates())
+				if np.shape(cis_chars)[0]>0:
+					print('CIs with not allowed characters:', np.shape(cis_chars)[0],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+				else:
+					None
 				#########################
 				##product categorization
 				#data=urlopen("https://fiespmidup1.int.net.nokia.com:8443/customer_onboarding/csv/oneitsm_ProdCats.csv").read().decode('ascii','ignore')
@@ -367,7 +372,7 @@ def process_file(path,company,report,history):
 			else:
 				print('No Sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			if len(cis)>0:
-				cis[0].to_excel(writer, 'cis',index=False)
+				cis[0][.to_excel(writer, 'cis',index=False)
 				if len(cis_locations)>0:
 					cis_locations[0].to_excel(writer, 'Region Issues in CIs',index=False)
 				else:
