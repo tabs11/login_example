@@ -372,7 +372,7 @@ def process_file(path,company,report,history):
 			else:
 				print('No Sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			if len(cis)>0:
-				cis[0][.to_excel(writer, 'cis',index=False)
+				cis[0].to_excel(writer, 'cis',index=False)
 				if len(cis_locations)>0:
 					cis_locations[0].to_excel(writer, 'Region Issues in CIs',index=False)
 				else:
