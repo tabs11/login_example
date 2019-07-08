@@ -126,8 +126,8 @@ def home():
 				
 			else:
 				None
-			#msg = 'Successfull'
-			msg=dates
+			msg = 'Successfull'
+			#msg=dates
 	return render_template('home.html',msg=msg)
 
 @application.route('/files', methods=['GET','POST'])
