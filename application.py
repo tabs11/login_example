@@ -123,10 +123,11 @@ def home():
 			dates.append((dt.datetime.now()-datetime.fromtimestamp(os.path.getctime(paths_to_del[i]))).seconds)
 			if dates[i]>60*60*24:
 				shutil.rmtree(paths_to_del[i])
-				msg=dates
+				
 			else:
-				#None
-				msg = 'Successfull'
+				None
+			#msg = 'Successfull'
+			msg=dates
 	return render_template('home.html',msg=msg)
 
 @application.route('/files', methods=['GET','POST'])
