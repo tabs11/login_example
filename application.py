@@ -111,21 +111,22 @@ def file_downloads():
 @application.route('/home', methods=['POST'])
 @login_required
 def home():
-	data=[s for s in os.listdir(os.getcwd()) if len(s) > 20]
-	paths_to_del=[]
-	dates=[]
-	for i in range(len(data)):
-		paths_to_del.append(os.getcwd()+ '/' + data[i])
-		dates.append((dt.datetime.now()-datetime.fromtimestamp(os.path.getctime(paths_to_del[i]))).seconds)
-		if dates[i]>60*60*24:
-			shutil.rmtree(paths_to_del[i])
-		else:
-			None
 	msg=None
 	if request.method == 'POST':
 		company = request.form['company']
 		session['company']=company
-		msg = 'Successfull'
+		data=[s for s in os.listdir(os.getcwd()) if len(s) > 20]
+		paths_to_del=[]
+		dates=[]
+		for i in range(len(data)):
+			paths_to_del.append(os.getcwd()+ '/' + data[i])
+			dates.append((dt.datetime.now()-datetime.fromtimestamp(os.path.getctime(paths_to_del[i]))).seconds)
+			if dates[i]>60*60*24:
+				shutil.rmtree(paths_to_del[i])
+				msg=paths_to_del
+			else:
+				#None
+				msg = 'Successfull'
 	return render_template('home.html',msg=msg)
 
 @application.route('/files', methods=['GET','POST'])
