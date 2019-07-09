@@ -120,8 +120,8 @@ def home():
 		dates=[]
 		for i in range(len(data)):
 			paths_to_del.append(os.getcwd()+ '/' + data[i])
-			dates.append((dt.datetime.now()-datetime.fromtimestamp(os.path.getctime(paths_to_del[i]))).seconds)
-			if dates[i]>60*60*24:
+			dates.append((dt.datetime.now()-datetime.fromtimestamp(os.path.getctime(paths_to_del[i]))).days)
+			if dates[i]>1:
 				shutil.rmtree(paths_to_del[i])
 				
 			else:
