@@ -239,12 +239,12 @@ def process_file(path,company,report,history):
 					print('CIs with middle spaces/punctuation or special characters:'.upper(),'-'*len('CIs with middle spaces/punctuation or special characters:'),'#: ' + str(np.shape(cis_chars)[0]),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 				else:
 					None
-				if cis[0].filter(regex=re.compile('PRIORITY',re.IGNORECASE)).isnull().any():
-					print('Priority not correctly filled')
-				else:
-					prior=pd.DataFrame(np.unique(cis[0].filter(regex=re.compile('PRIORITY',re.IGNORECASE))))
-					prior.rename(columns={0:'Values'},inplace=True)
-					print('PRIORITIES USED: ','-'*len('PRIORITIES USED: '),prior,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+				#if cis[0].filter(regex=re.compile('PRIORITY',re.IGNORECASE)).isnull().any():
+				#	print('Priority not correctly filled')
+				#else:
+				#	prior=pd.DataFrame(np.unique(cis[0].filter(regex=re.compile('PRIORITY',re.IGNORECASE))))
+				#	prior.rename(columns={0:'Values'},inplace=True)
+				#	print('PRIORITIES USED: ','-'*len('PRIORITIES USED: '),prior,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 
 				#########################
 				##product categorization
