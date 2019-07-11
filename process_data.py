@@ -244,7 +244,7 @@ def process_file(path,company,report,history):
 				else:
 					prior=pd.DataFrame(np.unique(cis[0].filter(regex=re.compile('PRIORITY',re.IGNORECASE))))
 					prior.rename(columns={0:'Values'},inplace=True)
-					print('PRIORITIES USED: ','-'*len('PRIORITIES USED: '),,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+					print('PRIORITIES USED: ','-'*len('PRIORITIES USED: '),prior,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 
 				#########################
 				##product categorization
