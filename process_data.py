@@ -306,7 +306,7 @@ def process_file(path,company,report,history):
 				all_sites2=sites_itsm
 			##CIs with non existing sites
 			new_sites=sites_reg.merge(all_sites2.filter(regex=re.compile('SITE N|SITE+|SITE*|REG|GROUP|CITY',re.IGNORECASE)).set_index(all_sites2.columns[0]),left_on=sites_reg.filter(regex=re.compile('SITE',re.IGNORECASE)).columns[0],right_index=True,how='outer',indicator=True).drop_duplicates()
-			new_sites=new_sites[new_sites['_merge']=='left_only']
+			new_sites=new_sites[new_sites['_merge']=='left_only'].iloc[:,:-1]
 			if np.shape(new_sites)[0]>0:
 				print('CIs with non existing sites'.upper(),'-'*len('CIs with non existing sites'),np.shape(new_sites)[0],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			else:
