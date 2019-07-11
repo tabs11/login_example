@@ -240,7 +240,7 @@ def process_file(path,company,report,history):
 				else:
 					None
 				if cis[0].filter(regex=re.compile('PRIORITY',re.IGNORECASE)).isnull().any():
-					print('Priority not correct filled')
+					print('Priority not correctly filled')
 				else:
 					prior=pd.DataFrame(np.unique(cis[0].filter(regex=re.compile('PRIORITY',re.IGNORECASE))))
 					prior.rename(columns={0:'Values'},inplace=True)
