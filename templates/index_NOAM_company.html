@@ -1,21 +1,6 @@
 {% extends "login_layout.html" %}
 {% block content %}
 <!-- Login Form -->
-<div align="right">
-    <form action="/logout" method="GET">
-        <button class="mybutton" class="fadeIn fourth" type="submit" value="Logout">Logout</button>
-    </form>
-</div>
-  <h2>COMPANY:</h2>
-  <font size="1"><h2>(Choose the related company/project, then select the file and 'Submit' to convert it to NOAM templates.)</h2></font>
-
-  <form class="button" action="noam" method="POST">
-  {% if msg %}
-    <font size="2"><p><strong></strong> {{ msg }}</font>
-  {% endif %}
-    <input name="company_noam">
-    <input class= "mybutton" type="submit" value= "Submit">
-  </form>
   
 <h2>SELECT FILE TO CONVERT:</h2>
 <form class="button" align="right" method="post" action="noam_data" enctype="multipart/form-data">
@@ -41,7 +26,35 @@
     <tr>
     <input class="mybutton" type="submit" value="Submit"  class="span2"></td>
     </tr>
-    </table>
-   
+    </table> 
   </form>
+<hr/>
+<h2>SELECT FILE TO CONVERT:</h2>
+<form class="button" method="post" action="op_res_cats" enctype="multipart/form-data">
+  <table>
+    <tr>
+      <td><label id="#bb"> Select Files
+        <input type="file" multiple="" name="file[]" class="span3" /></td>
+      <td> 
+      {% if msg4 %}
+        <p><strong></strong> {{ msg4 }}
+      {% endif %}
+    <input class="mybutton" type="submit" value="Submit"  class="span2"></td>
+    </tr>
+    </table>
+  </form>
+
+
+ <h2>CONVERT OP AND RES CATS TO NOAM TEMPLATES:</h2>
+  
+
+  <form class="button" align="right" method="GET" action="op_res_cats_upload" enctype="multipart/form-data">
+    <table>
+    <tr>
+    <input class="mybutton" type="submit" value="Submit"  class="span2"></td>
+    </tr>
+    </table>   
+  </form>
+
+
 {% endblock %}
