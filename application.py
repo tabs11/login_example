@@ -227,8 +227,8 @@ def comp_noam():
 @application.route('/noam_data', methods=['GET','POST'])
 def noam_data():
 	msg3=None
-	session['filename_final']=session['company_noam']+'_'+str(uuid.uuid1())
-	NOAM_FOLDER=session['filename_final']
+	session['filename']=session['company']+'_'+str(uuid.uuid1())
+	NOAM_FOLDER=session['filename']
 	NOAM_UPLOAD=NOAM_FOLDER+'/NOAM_files/'
 	NOAM_REPORT=NOAM_FOLDER +'/Report/'
 	
@@ -255,7 +255,7 @@ def noam_data():
 
 @application.route('/noam_upload', methods=['GET'])
 def noam_upload():
-	NOAM_FOLDER=session['filename_final']
+	NOAM_FOLDER=session['filename']
 	NOAM_UPLOAD=NOAM_FOLDER+'/NOAM_files/'
 	NOAM_REPORT=NOAM_FOLDER +'/Report/'
 	# Get the name of the uploaded files
@@ -266,16 +266,64 @@ def noam_upload():
 	return render_template('noam_files_upload.html', noam_filenames=noam_filenames)
 
 
-
-
-
 @application.route('/NOAM_Report/<filename>')
 def uploaded_NOAM_file(filename):
-	NOAM_FOLDER=session['filename_final']
+	NOAM_FOLDER=session['filename']
 	NOAM_REPORT=NOAM_FOLDER +'/Report/'
 	return send_from_directory(NOAM_REPORT,filename)
 
+##########################################################
+@application.route('/op_res_cats', methods=['GET','POST'])
+@login_required
+def op_res_cats_data():
+	msg4=None
+	session['filename']=session['company']+'_'+str(uuid.uuid1())
+	OP_RES_FOLDER=session['filename']
+	OP_RES_UPLOAD=OP_RES_FOLDER+'/op_res_cats_files/'
+	OP_RES_REPORT=OP_RES_FOLDER +'/Report/'
+	
+	# Get the name of the uploaded files
+	uploaded_files = request.files.getlist("file[]")
+	for file in uploaded_files:
+		# Check if the file is one of the allowed types/extensions
+		if file and allowed_file(file.filename):
+			# Make the filename safe, remove unsupported chars
+			filename = secure_filename(file.filename)
+			if not os.path.exists(OP_RES_FOLDER):
+				os.makedirs(OP_RES_FOLDER)
+				os.makedirs(OP_RES_UPLOAD)
+				os.makedirs(OP_RES_REPORT)
+			# Move the file form the temporal folder to the upload
+			
+			file.save(os.path.join(OP_RES_UPLOAD, filename))
+			filenames=os.listdir(OP_RES_UPLOAD)
+			msg4=filenames
+		else:
+			msg4='Please select a valid extension (.xls or .xlsx)'
+	return render_template('index_NOAM_company.html',msg4=msg4)
 
+
+
+@application.route('/op_res_cats_upload', methods=['GET'])
+@login_required
+def op_res_cats_data_upload():
+	OP_RES_FOLDER=session['filename']
+	OP_RES_UPLOAD=OP_RES_FOLDER+'/op_res_cats_files/'
+	OP_RES_REPORT=OP_RES_FOLDER +'/Report/'
+	# Get the name of the uploaded files
+	if len(os.listdir(OP_RES_UPLOAD))>0:
+		process_res_cats.rescats_files(file_path=OP_RES_UPLOAD,company=OP_RES_UPLOAD.split('_')[0],res_cats_report=OP_RES_REPORT)
+		op_res_filenames=os.listdir(OP_RES_REPORT)
+	return render_template('res_cats_upload.html', op_res_filenames=op_res_filenames)
+
+
+@application.route('/OP_RES_UPLOAD_Report/<filename>')
+@login_required
+def uploaded_RES_CATS_file(filename):
+	OP_RES_FOLDER=session['filename']
+	OP_RES_REPORT=OP_RES_FOLDER +'/Report/'
+	return send_from_directory(OP_RES_REPORT,filename)
+#############################################################
 
 
 @application.route('/logout', methods=['GET'])
