@@ -14,7 +14,7 @@ import datetime as dt
 from datetime import datetime
 import process_data
 import process_noam_data
-
+import process_res_cats
 class User(UserMixin):
 	def __init__(self, username,password):
 		super(User, self).__init__()
