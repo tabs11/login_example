@@ -10,7 +10,7 @@ import glob
 # Create DataFrame
 # =============================================================================
 def rescats_files(file_path,company,res_cats_report):
-    res_cats=load_workbook('ITSM_config/Generic_Catalog.xlsm',read_only=False, keep_vba=True)
+    res_cats=load_workbook('CMDB_templates/Generic_Catalog.xlsm',read_only=False, keep_vba=True)
     sheets_sites = res_cats.sheetnames
     w_sheet1_res_cats=res_cats[sheets_sites[1]]
     w_sheet2_res_cats=res_cats[sheets_sites[2]]
