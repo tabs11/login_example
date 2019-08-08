@@ -1,11 +1,7 @@
 {% extends "login_layout.html" %}
 {% block content %}
  <!-- Login Form -->
-<div align="right">
-    <form action="/logout" method="GET">
-        <button class="mybutton" class="fadeIn fourth" type="submit" value="Logout">Logout</button>
-    </form>
-</div>
+
   <h2>Upload existing Sites in CMDB:</h2>
   <form class="button" method=post enctype=multipart/form-data>
     <table>
@@ -39,8 +35,9 @@
     </tr>
     </table>
   </form>
+ <h2></h2>
 
-  <form class="button" align="center" method="post" action="upload" enctype="multipart/form-data">
+  <form class="button" align="right" method="post" action="upload" enctype="multipart/form-data">
     <table>
     <tr>
     <input class="mybutton" type="submit" value="RUN Validation"  class="span2"></td>
