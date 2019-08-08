@@ -8,12 +8,12 @@ import glob
 def op_res_cats_files(file_path,company,op_res_cats_report):
 
     ##Operational Category
-    op_cats=load_workbook('ITSM_config/OperationalCatalog.xlsm',read_only=False, keep_vba=True)
+    op_cats=load_workbook('CMDB_templates/OperationalCatalog.xlsm',read_only=False, keep_vba=True)
     sheets_ops = op_cats.sheetnames
     w_sheet_op_cats=op_cats[sheets_ops[1]]
     w_sheet1_op_cats=op_cats[sheets_ops[2]]
     #Resolution Category
-    res_cats=load_workbook('ITSM_config/Generic_Catalog.xlsm',read_only=False, keep_vba=True)
+    res_cats=load_workbook('CMDB_templates/Generic_Catalog.xlsm',read_only=False, keep_vba=True)
     sheets_res = res_cats.sheetnames
     w_sheet1_res_cats=res_cats[sheets_res[1]]
     w_sheet2_res_cats=res_cats[sheets_res[2]]
