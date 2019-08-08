@@ -2,7 +2,7 @@
 {% block content %}
 <!-- Login Form -->
   
-<h2>SELECT FILE TO CONVERT:</h2>
+<h2>CONVERT CMDB TEMPLATES TO NOAM TEMPLATES:</h2>
 <form class="button" align="right" method="post" action="noam_data" enctype="multipart/form-data">
     <table>
     <tr>
@@ -16,20 +16,16 @@
     </tr>
     </table>
   </form>
-
-
-  <h2>CONVERT TO NOAM TEMPLATES:</h2>
-  
-
+  <h2>:</h2>
   <form class="button" align="right" method="GET" action="noam_upload" enctype="multipart/form-data">
     <table>
     <tr>
-    <input class="mybutton" type="submit" value="Submit"  class="span2"></td>
+    <input class="mybutton" type="submit" value="RUN conversion"  class="span2"></td>
     </tr>
     </table> 
   </form>
 <hr/>
-<h2>SELECT FILE TO CONVERT:</h2>
+<h2>CONVERT RESCATS AND OPCATS TEMPLATES TO NOAM TEMPLATES:</h2>
 <form class="button" method="post" action="op_res_cats" enctype="multipart/form-data">
   <table>
     <tr>
@@ -45,13 +41,13 @@
   </form>
 
 
- <h2>CONVERT OP AND RES CATS TO NOAM TEMPLATES:</h2>
+ <h2>:</h2>
   
 
   <form class="button" align="right" method="GET" action="op_res_cats_upload" enctype="multipart/form-data">
     <table>
     <tr>
-    <input class="mybutton" type="submit" value="Submit"  class="span2"></td>
+    <input class="mybutton" type="submit" value="RUN conversion"  class="span2"></td>
     </tr>
     </table>   
   </form>
