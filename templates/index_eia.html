@@ -1,0 +1,31 @@
+{% extends "login_layout.html" %}
+{% block content %}
+
+
+<h2>SELECT FILE TO CONVERT:</h2>
+<form class="button" method="post" action="eia" enctype="multipart/form-data">
+  <table>
+    <tr>
+      <td><label id="#bb"> Select Files
+        <input type="file" multiple="" name="file[]" class="span3" /></td>
+      <td> 
+      {% if msg %}
+        <p><strong></strong> {{ msg }}
+      {% endif %}
+    <input class="mybutton" type="submit" value="Submit"  class="span2"></td>
+    </tr>
+    </table>
+  </form>
+
+
+  <h2>CONVERT OP AND RES CATS TO NOAM TEMPLATES:</h2>
+  
+
+  <form class="button" align="right" method="GET" action="eia_upload" enctype="multipart/form-data">
+    <table>
+    <tr>
+    <input class="mybutton" type="submit" value="Submit"  class="span2"></td>
+    </tr>
+    </table>   
+  </form>
+{% endblock %}

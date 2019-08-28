@@ -1,0 +1,15 @@
+{% extends "login_layout.html" %}
+{% block content %}
+<!-- Login Form -->
+
+	<div class="multi_upload_index">
+		<h2 class="text-muted">EIA FILES:</h2>
+
+			<p>Below the file with data to upload in NOAM template format: .</p>
+			<ul>
+				{% for file in eia_filenames %}
+					<li><a href="{{url_for('uploaded_EIA_file', filename=file)}}">{{file}}</a></li>
+				{% endfor %}
+			</ul>
+	</div>
+ {% endblock %} 
