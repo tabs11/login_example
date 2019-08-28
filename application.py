@@ -56,7 +56,7 @@ CMDB_FOLDER = 'CMDB_templates/'
 application.config['CMDB_FOLDER']=CMDB_FOLDER
 
 # These are the extension that we are accepting to be uploaded
-application.config['ALLOWED_EXTENSIONS'] = set(['xlsx','xls'])
+application.config['ALLOWED_EXTENSIONS'] = set(['xlsx','xls','csv'])
 # default route
 @application.route('/', methods=['GET'])
 def index():
