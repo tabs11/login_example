@@ -310,10 +310,10 @@ def process_file(path,company,report,history):
 			else:
 				all_sites2=sites_itsm
 			##CIs with non existing sites
-			new_sites=sites_reg.merge(all_sites2.filter(regex=re.compile('SITE N|SITE+|SITE*|REG|GROUP|CITY',re.IGNORECASE)).set_index(all_sites2.columns[0]),left_on=sites_reg.filter(regex=re.compile('SITE',re.IGNORECASE)).columns[0],right_index=True,how='outer',indicator=True).drop_duplicates()
-			new_sites=new_sites[new_sites['_merge']=='left_only'].iloc[:,:-1]
-			if np.shape(new_sites)[0]>0:
-				print('CIs with non existing sites'.upper(),'-'*len('CIs with non existing sites'),np.shape(new_sites)[0],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+			new_sites_in_cis=sites_reg.merge(all_sites2.filter(regex=re.compile('SITE N|SITE+|SITE*|REG|GROUP|CITY',re.IGNORECASE)).set_index(all_sites2.columns[0]),left_on=sites_reg.filter(regex=re.compile('SITE',re.IGNORECASE)).columns[0],right_index=True,how='outer',indicator=True).drop_duplicates()
+			new_sites_in_cis=new_sites_in_cis[new_sites_in_cis['_merge']=='left_only'].iloc[:,:-1]
+			if np.shape(new_sites_in_cis)[0]>0:
+				print('CIs with non existing sites'.upper(),'-'*len('CIs with non existing sites'),np.shape(new_sites_in_cis)[0],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			else:
 				None
 			existing_sites2=sites_reg.merge(all_sites2.filter(regex=re.compile('SITE N|REG|SITE GROUP|CITY',re.IGNORECASE)).set_index(all_sites2.columns[0]),left_on=sites_reg.filter(regex=re.compile('SITE',re.IGNORECASE)).columns[0],right_index=True,how='inner').drop_duplicates()
@@ -361,8 +361,8 @@ def process_file(path,company,report,history):
 					cis_chars.to_excel(writer, 'Special Characters in CIS',index=False)
 				else:
 					print('No Special Characters in CIs',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-				if np.shape(new_sites)[0]>0:
-					new_sites.to_excel(writer,'CIs with non existing sites',index=False)
+				if np.shape(new_sites_in_cis)[0]>0:
+					new_sites_in_cis.to_excel(writer,'CIs with non existing sites',index=False)
 				if len(cis_locations)>0:
 					cis_locations[0].to_excel(writer, 'Region Issues in CIs',index=False)
 				else:
