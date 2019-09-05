@@ -40,31 +40,31 @@ def op_res_cats_files(file_path,company,op_res_cats_report):
     if len(res)>0:
         res.fillna('',inplace=True)
         res['ResCat3'][res['ResCat3'].str.contains('None')]='- None -'
-    for k in range(len(res.columns)):
-        res.iloc[:,k]=res.iloc[:,k].apply(lambda x: x.strip() if type(x)==str else x)
-    for i in range(res.shape[0]):      
-        w_sheet1_res_cats['A' +str(4+i)]='Resolution Category'
-        w_sheet1_res_cats['B' +str(4+i)]=res.filter(regex=re.compile('ResCat1',re.IGNORECASE)).iloc[:,0].values[i]
-        w_sheet1_res_cats['C' +str(4+i)]=res.filter(regex=re.compile('ResCat2',re.IGNORECASE)).iloc[:,0].values[i]
-        w_sheet1_res_cats['D' +str(4+i)]=res.filter(regex=re.compile('ResCat3',re.IGNORECASE)).iloc[:,0].values[i]
-        w_sheet1_res_cats['O' +str(4+i)]='Enabled'
-        w_sheet2_res_cats['A' +str(4+i)]=res.filter(regex=re.compile('Company',re.IGNORECASE)).iloc[:,0].values[i]
-        w_sheet2_res_cats['B' +str(4+i)]='Enabled'
-        w_sheet2_res_cats['C' +str(4+i)]='Resolution Category'
-        w_sheet2_res_cats['D' +str(4+i)]=res.filter(regex=re.compile('ResCat1',re.IGNORECASE)).iloc[:,0].values[i]
-        w_sheet2_res_cats['E' +str(4+i)]=res.filter(regex=re.compile('ResCat2',re.IGNORECASE)).iloc[:,0].values[i]
-        w_sheet2_res_cats['F' +str(4+i)]=res.filter(regex=re.compile('ResCat3',re.IGNORECASE)).iloc[:,0].values[i]
-        w_sheet2_res_cats['L' +str(4+i)]='Yes'
-        w_sheet2_res_cats['M' +str(4+i)]='Yes'
-        w_sheet2_res_cats['N' +str(4+i)]='Yes'
-        w_sheet2_res_cats['O' +str(4+i)]='Yes'
-        w_sheet2_res_cats['P' +str(4+i)]='Yes'
-        w_sheet3_res_cats['A' +str(4+i)]='Resolution Category'
-        w_sheet3_res_cats['B' +str(4+i)]=res.filter(regex=re.compile('ResCat1',re.IGNORECASE)).iloc[:,0].values[i]
-        w_sheet3_res_cats['C' +str(4+i)]=res.filter(regex=re.compile('ResCat2',re.IGNORECASE)).iloc[:,0].values[i]
-        w_sheet3_res_cats['D' +str(4+i)]=res.filter(regex=re.compile('ResCat3',re.IGNORECASE)).iloc[:,0].values[i]
-        w_sheet3_res_cats['F' +str(4+i)]='Enabled'
-    res_cats.save(filename = op_res_cats_report + company + '_res_cats_example.xlsm')
+        for k in range(len(res.columns)):
+            res.iloc[:,k]=res.iloc[:,k].apply(lambda x: x.strip() if type(x)==str else x)
+        for i in range(res.shape[0]):      
+            w_sheet1_res_cats['A' +str(4+i)]='Resolution Category'
+            w_sheet1_res_cats['B' +str(4+i)]=res.filter(regex=re.compile('ResCat1',re.IGNORECASE)).iloc[:,0].values[i]
+            w_sheet1_res_cats['C' +str(4+i)]=res.filter(regex=re.compile('ResCat2',re.IGNORECASE)).iloc[:,0].values[i]
+            w_sheet1_res_cats['D' +str(4+i)]=res.filter(regex=re.compile('ResCat3',re.IGNORECASE)).iloc[:,0].values[i]
+            w_sheet1_res_cats['O' +str(4+i)]='Enabled'
+            w_sheet2_res_cats['A' +str(4+i)]=res.filter(regex=re.compile('Company',re.IGNORECASE)).iloc[:,0].values[i]
+            w_sheet2_res_cats['B' +str(4+i)]='Enabled'
+            w_sheet2_res_cats['C' +str(4+i)]='Resolution Category'
+            w_sheet2_res_cats['D' +str(4+i)]=res.filter(regex=re.compile('ResCat1',re.IGNORECASE)).iloc[:,0].values[i]
+            w_sheet2_res_cats['E' +str(4+i)]=res.filter(regex=re.compile('ResCat2',re.IGNORECASE)).iloc[:,0].values[i]
+            w_sheet2_res_cats['F' +str(4+i)]=res.filter(regex=re.compile('ResCat3',re.IGNORECASE)).iloc[:,0].values[i]
+            w_sheet2_res_cats['L' +str(4+i)]='Yes'
+            w_sheet2_res_cats['M' +str(4+i)]='Yes'
+            w_sheet2_res_cats['N' +str(4+i)]='Yes'
+            w_sheet2_res_cats['O' +str(4+i)]='Yes'
+            w_sheet2_res_cats['P' +str(4+i)]='Yes'
+            w_sheet3_res_cats['A' +str(4+i)]='Resolution Category'
+            w_sheet3_res_cats['B' +str(4+i)]=res.filter(regex=re.compile('ResCat1',re.IGNORECASE)).iloc[:,0].values[i]
+            w_sheet3_res_cats['C' +str(4+i)]=res.filter(regex=re.compile('ResCat2',re.IGNORECASE)).iloc[:,0].values[i]
+            w_sheet3_res_cats['D' +str(4+i)]=res.filter(regex=re.compile('ResCat3',re.IGNORECASE)).iloc[:,0].values[i]
+            w_sheet3_res_cats['F' +str(4+i)]='Enabled'
+        res_cats.save(filename = op_res_cats_report + company + '_res_cats_example.xlsm')
     if len(ops)>0:
         ops.fillna('',inplace=True)
         ops['inc_values'] = np.where(ops['Module'] == "Incident Management", 'Yes', None)
@@ -74,28 +74,28 @@ def op_res_cats_files(file_path,company,op_res_cats_report):
         ops['rel_values'] = np.where(ops['Module'] == "Release Management", 'Yes', None)
     
         ops['OpCat3'][ops['OpCat3'].str.contains('None')]='- None -'
-    for k in range(len(ops.columns)):
-        ops.iloc[:,k]=ops.iloc[:,k].apply(lambda x: x.strip() if type(x)==str else x)
-    for i in range(ops.shape[0]): 
-        w_sheet_op_cats['A' +str(4+i)]=ops.filter(regex=re.compile('Company',re.IGNORECASE)).iloc[:,0].values[i]
-        w_sheet_op_cats['B' +str(4+i)]=ops.filter(regex=re.compile('OpCat1',re.IGNORECASE)).iloc[:,0].values[i]
-        w_sheet_op_cats['C' +str(4+i)]=ops.filter(regex=re.compile('OpCat2',re.IGNORECASE)).iloc[:,0].values[i]
-        w_sheet_op_cats['D' +str(4+i)]=ops.filter(regex=re.compile('OpCat3',re.IGNORECASE)).iloc[:,0].values[i]
-        w_sheet_op_cats['Q' +str(4+i)]='Enabled'
-        w_sheet1_op_cats['A' +str(4+i)]=ops.filter(regex=re.compile('OpCat1',re.IGNORECASE)).iloc[:,0].values[i]
-        w_sheet1_op_cats['B' +str(4+i)]=ops.filter(regex=re.compile('OpCat2',re.IGNORECASE)).iloc[:,0].values[i]
-        w_sheet1_op_cats['C' +str(4+i)]=ops.filter(regex=re.compile('OpCat3',re.IGNORECASE)).iloc[:,0].values[i]
-        w_sheet1_op_cats['F' +str(4+i)]='Enabled'
-        w_sheet_op_cats['F' +str(4+i)]=ops['inc_values'].values[i]
-        w_sheet_op_cats['G' +str(4+i)]=ops['inc_values'].values[i]
-        w_sheet_op_cats['H' +str(4+i)]=ops['inc_values'].values[i]
-        w_sheet_op_cats['I' +str(4+i)]=ops['inc_values'].values[i]
-        w_sheet_op_cats['J' +str(4+i)]=ops['inc_values'].values[i]
-        w_sheet_op_cats['K' +str(4+i)]=ops['prb_values'].values[i]
-        w_sheet_op_cats['N' +str(4+i)]=ops['chg_values'].values[i]
-        w_sheet_op_cats['L' +str(4+i)]=ops['conf_values'].values[i]
-        w_sheet_op_cats['R' +str(4+i)]=ops['rel_values'].values[i]
-    op_cats.save(filename = op_res_cats_report + company + '_op_cats_example.xlsm')
+        for k in range(len(ops.columns)):
+            ops.iloc[:,k]=ops.iloc[:,k].apply(lambda x: x.strip() if type(x)==str else x)
+        for i in range(ops.shape[0]): 
+            w_sheet_op_cats['A' +str(4+i)]=ops.filter(regex=re.compile('Company',re.IGNORECASE)).iloc[:,0].values[i]
+            w_sheet_op_cats['B' +str(4+i)]=ops.filter(regex=re.compile('OpCat1',re.IGNORECASE)).iloc[:,0].values[i]
+            w_sheet_op_cats['C' +str(4+i)]=ops.filter(regex=re.compile('OpCat2',re.IGNORECASE)).iloc[:,0].values[i]
+            w_sheet_op_cats['D' +str(4+i)]=ops.filter(regex=re.compile('OpCat3',re.IGNORECASE)).iloc[:,0].values[i]
+            w_sheet_op_cats['Q' +str(4+i)]='Enabled'
+            w_sheet1_op_cats['A' +str(4+i)]=ops.filter(regex=re.compile('OpCat1',re.IGNORECASE)).iloc[:,0].values[i]
+            w_sheet1_op_cats['B' +str(4+i)]=ops.filter(regex=re.compile('OpCat2',re.IGNORECASE)).iloc[:,0].values[i]
+            w_sheet1_op_cats['C' +str(4+i)]=ops.filter(regex=re.compile('OpCat3',re.IGNORECASE)).iloc[:,0].values[i]
+            w_sheet1_op_cats['F' +str(4+i)]='Enabled'
+            w_sheet_op_cats['F' +str(4+i)]=ops['inc_values'].values[i]
+            w_sheet_op_cats['G' +str(4+i)]=ops['inc_values'].values[i]
+            w_sheet_op_cats['H' +str(4+i)]=ops['inc_values'].values[i]
+            w_sheet_op_cats['I' +str(4+i)]=ops['inc_values'].values[i]
+            w_sheet_op_cats['J' +str(4+i)]=ops['inc_values'].values[i]
+            w_sheet_op_cats['K' +str(4+i)]=ops['prb_values'].values[i]
+            w_sheet_op_cats['N' +str(4+i)]=ops['chg_values'].values[i]
+            w_sheet_op_cats['L' +str(4+i)]=ops['conf_values'].values[i]
+            w_sheet_op_cats['R' +str(4+i)]=ops['rel_values'].values[i]
+        op_cats.save(filename = op_res_cats_report + company + '_op_cats_example.xlsm')
 # =============================================================================
 # Create DataFrame
 # =============================================================================
