@@ -54,11 +54,11 @@ def op_res_cats_files(file_path,company,op_res_cats_report):
         w_sheet2_res_cats['D' +str(4+i)]=res.filter(regex=re.compile('ResCat1',re.IGNORECASE)).iloc[:,0].values[i]
         w_sheet2_res_cats['E' +str(4+i)]=res.filter(regex=re.compile('ResCat2',re.IGNORECASE)).iloc[:,0].values[i]
         w_sheet2_res_cats['F' +str(4+i)]=res.filter(regex=re.compile('ResCat3',re.IGNORECASE)).iloc[:,0].values[i]
-        w_sheet2_res_cats['L' +str(4+i)]=0
-        w_sheet2_res_cats['M' +str(4+i)]=0
-        w_sheet2_res_cats['N' +str(4+i)]=0
-        w_sheet2_res_cats['O' +str(4+i)]=0
-        w_sheet2_res_cats['P' +str(4+i)]=0
+        w_sheet2_res_cats['L' +str(4+i)]='Yes'
+        w_sheet2_res_cats['M' +str(4+i)]='Yes'
+        w_sheet2_res_cats['N' +str(4+i)]='Yes'
+        w_sheet2_res_cats['O' +str(4+i)]='Yes'
+        w_sheet2_res_cats['P' +str(4+i)]='Yes'
         w_sheet3_res_cats['A' +str(4+i)]='Resolution Category'
         w_sheet3_res_cats['B' +str(4+i)]=res.filter(regex=re.compile('ResCat1',re.IGNORECASE)).iloc[:,0].values[i]
         w_sheet3_res_cats['C' +str(4+i)]=res.filter(regex=re.compile('ResCat2',re.IGNORECASE)).iloc[:,0].values[i]
@@ -67,11 +67,11 @@ def op_res_cats_files(file_path,company,op_res_cats_report):
     res_cats.save(filename = op_res_cats_report + company + '_res_cats_example.xlsm')
     if len(ops)>0:
         ops.fillna('',inplace=True)
-        ops['inc_values'] = np.where(ops['Module'] == "Incident Management", 0, None)
-        ops['prb_values'] = np.where(ops['Module'] == "Problem Management", 0, None)
-        ops['chg_values'] = np.where(ops['Module'] == "Change Management", 0, None)
-        ops['conf_values'] = np.where(ops['Module'] == "Configuration/Asset Management", 0, None)
-        ops['rel_values'] = np.where(ops['Module'] == "Release Management", 0, None)
+        ops['inc_values'] = np.where(ops['Module'] == "Incident Management", 'Yes', None)
+        ops['prb_values'] = np.where(ops['Module'] == "Problem Management", 'Yes', None)
+        ops['chg_values'] = np.where(ops['Module'] == "Change Management", 'Yes', None)
+        ops['conf_values'] = np.where(ops['Module'] == "Configuration/Asset Management", 'Yes', None)
+        ops['rel_values'] = np.where(ops['Module'] == "Release Management", 'Yes', None)
     
         ops['OpCat3'][ops['OpCat3'].str.contains('None')]='- None -'
     for k in range(len(ops.columns)):
