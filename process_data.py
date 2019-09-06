@@ -105,7 +105,7 @@ def process_file(path,company,report,history):
 			
 			sheets[j].drop_duplicates(inplace=True)
 			####locations
-
+			sheets[j].fillna('',inplace=True)
 			filtered_locations=sheets[j].filter(regex=re.compile('REG|GROUP|CITY',re.IGNORECASE))
 			length=[]
 			print('Location values:'.upper(),'-'*len('Location values:'),sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
