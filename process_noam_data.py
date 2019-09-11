@@ -164,7 +164,7 @@ def noam_files(file_path,company,NOAM_report):
 				w_sheet2_cis['BB' +str(4+i)]=cis['Priority'][i]
 
 			###Additional Information
-			w_sheet2_cis.write(4+i,56,cis[0].filter(regex=re.compile('Additional Information',re.IGNORECASE)).iloc[:,0][i])
+			w_sheet2_cis['BE' +str(4+i)]=cis['Additional Information'][i]
 			##
 			###Region
 			w_sheet2_cis['AL' +str(4+i)]=cis['Region'][i]
