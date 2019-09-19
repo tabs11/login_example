@@ -247,19 +247,19 @@ def process_file(path,company,report,history):
 
 				#########################
 				##product categorization
-				data=urlopen("https://fiespmidup1.int.net.nokia.com:8443/customer_onboarding/csv/oneitsm_ProdCats.csv").read().decode('ascii','ignore')
-				datafile=StringIO(data)
-				csvReader=csv.reader(datafile)
-				prod_cat_list=[]
-				for row in csvReader:
-					prod_cat_list.append(row)
-				prod_cat=pd.DataFrame(prod_cat_list)
-				headers = prod_cat.iloc[0]
-				prod_cat  = pd.DataFrame(prod_cat.values[1:], columns=headers)
-				template=prod_cat
+				#data=urlopen("https://fiespmidup1.int.net.nokia.com:8443/customer_onboarding/csv/oneitsm_ProdCats.csv").read().decode('ascii','ignore')
+				#datafile=StringIO(data)
+				#csvReader=csv.reader(datafile)
+				#prod_cat_list=[]
+				#for row in csvReader:
+				#	prod_cat_list.append(row)
+				#prod_cat=pd.DataFrame(prod_cat_list)
+				#headers = prod_cat.iloc[0]
+				#prod_cat  = pd.DataFrame(prod_cat.values[1:], columns=headers)
+				#template=prod_cat
 				
-				#opcat_template='Prod_Cats'
-				#template=pd.read_excel(glob.glob(opcat_template+'/*')[0],pd.ExcelFile(glob.glob(opcat_template+'/*')[0]).sheet_names[5])
+				opcat_template='Prod_Cats'
+				template=pd.read_excel(glob.glob(opcat_template+'/*')[0],pd.ExcelFile(glob.glob(opcat_template+'/*')[0]).sheet_names[5])
 				template.rename(columns={template.columns[3]:'Product Name+'},inplace=True)
 				prodcats_cis=cis[0].filter(regex=re.compile('TIER|PRODUCT N|MANUF',re.IGNORECASE))
 				prod_missing=prodcats_cis.loc[~prodcats_cis['Product Name+'].isin(template.iloc[:,3])].drop_duplicates()
