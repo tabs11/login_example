@@ -401,15 +401,15 @@ login_manager.login_view = 'login_get'
 def load_user(userid):
 	return USERS[userid]
 
-port = int(os.environ.get("PORT", 5000))
+#port = int(os.environ.get("PORT", 5000))
 
 if __name__ == '__main__':
+	#application.run(
+	#	host='0.0.0.0', 
+	#	port=port
+	#)
 	application.run(
 		host='0.0.0.0', 
-		port=port
+		port=3000, 
+		threaded=True
 	)
-	#application.run(
-		#host='0.0.0.0', 
-		#port=3000, 
-		#threaded=True
-	#)
