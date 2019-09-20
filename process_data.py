@@ -23,7 +23,7 @@ def process_file(path,company,report,history):
 	#cis_fields=['Product type','CI type','Company+','CI Name*','CI Description','Tag Number','System Role','Status*','Priority','Additional Information','Tier 1','Tier 2','Tier 3','Product Name+','Model/Version','Manufacturer','Region','Site Group','Site+','DNS Host Name','Domain','CI ID+','Supported']
 	
 	sites_fields=['Company','Site Name','Site Alias','Description','Region','Site Group','Street','Country','City','Latitude','Longitude','Location ID','Additional Site Details','Maintenance Circle Name','Site Type','Status']
-	cis_fields=['Product type','CI type','Company','CI Name','CI Description','Tag Number','System Role','Status','Priority','Additional Information','Tier 1','Tier 2','Tier 3','Product Name','Model/Version','Manufacturer','Region','Site Group','Site','DNS Host Name','Domain','CI ID','Supported']
+	cis_fields=['Product type','CI type','Company','CI Name','CI Description','Tag Number','System Role','Status','Priority','Additional Information','Tier 1','Tier 2','Tier 3','Product Name','Model Version','Manufacturer','Region','Site Group','Site','DNS Host Name','Domain','CI ID','Supported']
 
 	fields=sites_fields+cis_fields
 	char_num=[254,60,60,255,60,60,90,60,60,12,12,30,0,70,'-','-',38,254,254,254,254,64,30,'-','-',254,60,60,60,254,254,254,60,60,60,254,254,64,3]
@@ -265,15 +265,15 @@ def process_file(path,company,report,history):
 				
 				opcat_template='Prod_Cats'
 				template=pd.read_excel(glob.glob(opcat_template+'/*')[0],pd.ExcelFile(glob.glob(opcat_template+'/*')[0]).sheet_names[5])
-				template.rename(columns={template.columns[3]:'Product Name+'},inplace=True)
+				template.rename(columns={template.columns[3]:'Product Name'},inplace=True)
 				prodcats_cis=cis[0].filter(regex=re.compile('TIER|PRODUCT N|MANUF',re.IGNORECASE))
-				prod_missing=prodcats_cis.loc[~prodcats_cis['Product Name+'].isin(template.iloc[:,3])].drop_duplicates()
+				prod_missing=prodcats_cis.loc[~prodcats_cis['Product Name'].isin(template.iloc[:,3])].drop_duplicates()
 				prod_name=prod_missing.filter(regex=re.compile('Product N',re.IGNORECASE)).iloc[:,0]
 				prod_match=prod_name.apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else get_close_matches(x,template.iloc[:,3].astype(str).unique().tolist()))
 				prod_suggested=prod_name.apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else get_close_matches(x,template.iloc[:,3].astype(str).unique().tolist(),1)).apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else ''.join(x))
 				prod_missing_final=pd.concat([prod_missing,prod_suggested.rename('Suggested Product Name'),prod_match.rename('Others PN match')],axis=1)
 				#wrong  product names tier classification
-				same_prod=prodcats_cis[~prodcats_cis['Product Name+'].isna()].merge(template,left_on=prod_name.name,right_on='Product Name+',how='inner').drop_duplicates()
+				same_prod=prodcats_cis[~prodcats_cis['Product Name'].isna()].merge(template,left_on=prod_name.name,right_on='Product Name',how='inner').drop_duplicates()
 				wrongcats1=same_prod.iloc[:,[0,5,3,4,8]][(same_prod.iloc[:,0]!=same_prod.iloc[:,5]) & (same_prod.iloc[:,1]==same_prod.iloc[:,6]) & (same_prod.iloc[:,2]==same_prod.iloc[:,7])].drop_duplicates()
 				wrongcats2=same_prod.iloc[:,[1,6,3,4,8]][(same_prod.iloc[:,1]!=same_prod.iloc[:,6]) & (same_prod.iloc[:,0]==same_prod.iloc[:,5]) & (same_prod.iloc[:,2]==same_prod.iloc[:,7])].drop_duplicates()
 				wrongcats3=same_prod.iloc[:,[2,7,3,4,8]][(same_prod.iloc[:,2]!=same_prod.iloc[:,7]) &(same_prod.iloc[:,0]==same_prod.iloc[:,5]) & (same_prod.iloc[:,1]==same_prod.iloc[:,6])].drop_duplicates()
