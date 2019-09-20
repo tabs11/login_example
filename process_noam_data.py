@@ -135,18 +135,13 @@ def noam_files(file_path,company,NOAM_report):
 			if (cis.filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0]=='').any():
 				w_sheet2_cis['AP' +str(4+i)]='Deployed'
 			else:
-				w_sheet2_cis['AP' +str(4+i)]=cis.filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0].values[i]
-			
-
+				w_sheet2_cis['AP' +str(4+i)]=cis.filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0].values[i]		
 			####Tier 1
 			w_sheet2_cis['B' +str(4+i)]=cis['Tier 1'][i]
-
 			####Tier 2
 			w_sheet2_cis['H' +str(4+i)]=cis['Tier 2'][i]
-
 			####Tier 3
 			w_sheet2_cis['J' +str(4+i)]=cis['Tier 3'][i]
-
 			###Product Name
 			#w_sheet2_cis.write(4+i,13,cis['Product Name+'][i])
 			w_sheet2_cis['N' +str(4+i)]=cis.filter(regex=re.compile('Product Name',re.IGNORECASE)).iloc[:,0].values[i]
