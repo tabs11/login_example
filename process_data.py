@@ -14,7 +14,7 @@ def process_file(path,company,report,history):
 	sheets=[]
 	cis=[]
 	sites=[]
-	all_sites=pd.DataFrame(columns=['Site*','Region','Site Group','City*'])
+	all_sites=pd.DataFrame(columns=['Site','Region','Site Group','City'])
 	for j in range(len(glob.glob(path+'/*'))):
 		for k in range(len(pd.ExcelFile(glob.glob(path+'*')[j]).sheet_names)):
 			sheets.append(pd.read_excel(glob.glob(path+'*')[j],pd.ExcelFile(glob.glob(path+'*')[j]).sheet_names[k]))     
