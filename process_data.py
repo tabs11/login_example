@@ -19,8 +19,12 @@ def process_file(path,company,report,history):
 		for k in range(len(pd.ExcelFile(glob.glob(path+'*')[j]).sheet_names)):
 			sheets.append(pd.read_excel(glob.glob(path+'*')[j],pd.ExcelFile(glob.glob(path+'*')[j]).sheet_names[k]))     
 	
-	sites_fields=['Company','Site Name*','Site Alias*','Description','Region*','Site Group*','Street','Country*','City*','Latitude','Longitude','Location ID','Additional Site Details','Maintenance Circle Name','Site Type','Status*']
-	cis_fields=['Product type','CI type','Company+','CI Name*','CI Description','Tag Number','System Role','Status*','Priority','Additional Information','Tier 1','Tier 2','Tier 3','Product Name+','Model/Version','Manufacturer','Region','Site Group','Site+','DNS Host Name','Domain','CI ID+','Supported']
+	#sites_fields=['Company','Site Name*','Site Alias*','Description','Region*','Site Group*','Street','Country*','City*','Latitude','Longitude','Location ID','Additional Site Details','Maintenance Circle Name','Site Type','Status*']
+	#cis_fields=['Product type','CI type','Company+','CI Name*','CI Description','Tag Number','System Role','Status*','Priority','Additional Information','Tier 1','Tier 2','Tier 3','Product Name+','Model/Version','Manufacturer','Region','Site Group','Site+','DNS Host Name','Domain','CI ID+','Supported']
+	
+	sites_fields=['Company','Site Name','Site Alias','Description','Region','Site Group','Street','Country','City','Latitude','Longitude','Location ID','Additional Site Details','Maintenance Circle Name','Site Type','Status']
+	cis_fields=['Product type','CI type','Company','CI Name','CI Description','Tag Number','System Role','Status','Priority','Additional Information','Tier 1','Tier 2','Tier 3','Product Name','Model/Version','Manufacturer','Region','Site Group','Site','DNS Host Name','Domain','CI ID','Supported']
+
 	fields=sites_fields+cis_fields
 	char_num=[254,60,60,255,60,60,90,60,60,12,12,30,0,70,'-','-',38,254,254,254,254,64,30,'-','-',254,60,60,60,254,254,254,60,60,60,254,254,64,3]
 	#char_num=[254,60,60,255,60,60,90,60,60,12,12,30,0,70,0,0,38,254,254,60,254,64,30,0,0,254.60,60,60,254,254,254,60,60,60,254,254,64,64,0]
@@ -28,6 +32,7 @@ def process_file(path,company,report,history):
 	field_type=list(itertools.chain(*field_type))     
 	unmatched_fields=[]
 	for j in range(len(sheets)):
+		sheets[j].rename(columns=lambda x: re.sub('[^A-Za-z0-9]+', ' ', x), inplace=True)
 		sheets[j].rename(columns=lambda x: x.strip(), inplace=True)
 		sheets[j].dropna(axis=0,how='all',inplace=True)
 	###first overview prints####
