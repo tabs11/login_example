@@ -187,7 +187,7 @@ def noam_files(file_path,company,NOAM_report):
 
 			##
 			###num cells
-			w_sheet2_cis['DW' +str(4+i)]=cis[0].filter(regex=re.compile('cell',re.IGNORECASE)).iloc[:,0][i]
+			w_sheet2_cis['DW' +str(4+i)]=cis.filter(regex=re.compile('cell',re.IGNORECASE)).iloc[:,0][i]
 		noam_cis.save(filename = NOAM_report + company +'_CIs_Noam.xlsm')
 		#wb_cis.save(NOAM_report + company +'_cis_Noam.xls')
 	else:
