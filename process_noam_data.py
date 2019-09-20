@@ -121,7 +121,8 @@ def noam_files(file_path,company,NOAM_report):
 			w_sheet2_cis['CL' +str(4+i)]='BMC_COMPUTERSYSTEM'
 			##Product type
 			w_sheet2_cis['CD' +str(4+i)]='Hardware'
-
+			####Supported
+			w_sheet2_cis['AC' +str(4+i)]='Yes'
 			###CI Name
 			w_sheet2_cis['D' +str(4+i)]=cis.filter(regex=re.compile('CI NAME',re.IGNORECASE)).iloc[:,0].values[i]
 
@@ -135,8 +136,7 @@ def noam_files(file_path,company,NOAM_report):
 				w_sheet2_cis['AP' +str(4+i)]='Deployed'
 			else:
 				w_sheet2_cis['AP' +str(4+i)]=(cis.filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0].values[i]
-			####Supported
-			w_sheet2_cis['AC' +str(4+i)]='Yes'
+			
 
 			####Tier 1
 			w_sheet2_cis['B' +str(4+i)]=cis['Tier 1'][i]
