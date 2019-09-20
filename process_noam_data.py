@@ -128,13 +128,13 @@ def noam_files(file_path,company,NOAM_report):
 			##CI ID
 			#w_sheet2_cis.write(4+i,11,cis.filter(regex=re.compile('CI ID',re.IGNORECASE)).iloc[:,0][i])
 			###CI Description
-			w_sheet2_cis['G' +str(4+i)]=cis.filter(regex=re.compile('CI Description',re.IGNORECASE)).iloc[:,0][i])
+			w_sheet2_cis['G' +str(4+i)]=cis.filter(regex=re.compile('CI Description',re.IGNORECASE)).iloc[:,0].values[i]
 
 			####Status
 			if (cis.filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0]=='').any():
 				w_sheet2_cis['AP' +str(4+i)]='Deployed'
 			else:
-				w_sheet2_cis['AP' +str(4+i)]=cis['Status*'][i]
+				w_sheet2_cis['AP' +str(4+i)]=(cis.filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0].values[i]
 			####Supported
 			w_sheet2_cis['AC' +str(4+i)]='Yes'
 
@@ -149,7 +149,7 @@ def noam_files(file_path,company,NOAM_report):
 
 			###Product Name
 			#w_sheet2_cis.write(4+i,13,cis['Product Name+'][i])
-			w_sheet2_cis['N' +str(4+i)]=cis.filter(regex=re.compile('Product Name',re.IGNORECASE)).iloc[:,0]
+			w_sheet2_cis['N' +str(4+i)]=cis.filter(regex=re.compile('Product Name',re.IGNORECASE)).iloc[:,0].values[i]
 
 			####Manufacturer
 			w_sheet2_cis['V' +str(4+i)]=cis['Manufacturer'][i]
