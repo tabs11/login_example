@@ -43,9 +43,9 @@ def noam_files(file_path,company,NOAM_report):
 		sites[0].fillna('',inplace=True)
 		for i in range(np.shape(sites[0])[0]):
 			#site
-			w_sheet1_sites['A' +str(4+i)]=sites[0].filter(regex=re.compile('SITE',re.IGNORECASE)).iloc[:,0].values[i]
-			w_sheet4_sites['A' +str(4+i)]=sites[0].filter(regex=re.compile('SITE',re.IGNORECASE)).iloc[:,0].values[i]
-			w_sheet5_sites['A' +str(4+i)]=sites[0].filter(regex=re.compile('SITE',re.IGNORECASE)).iloc[:,0].values[i]
+			w_sheet1_sites['A' +str(4+i)]=sites[0].filter(regex=re.compile('SITE N',re.IGNORECASE)).iloc[:,0].values[i]
+			w_sheet4_sites['A' +str(4+i)]=sites[0].filter(regex=re.compile('SITE N',re.IGNORECASE)).iloc[:,0].values[i]
+			w_sheet5_sites['A' +str(4+i)]=sites[0].filter(regex=re.compile('SITE N',re.IGNORECASE)).iloc[:,0].values[i]
 			w_sheet5_sites['B' +str(4+i)]=sites[0].filter(regex=re.compile('ALIAS',re.IGNORECASE)).iloc[:,0].values[i]
 			##street
 
@@ -67,7 +67,7 @@ def noam_files(file_path,company,NOAM_report):
 
 			
 			#status
-			if (sites[0]['Status*']=='').any():
+			if (sites[0].filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0]=='').any():
 				w_sheet1_sites['R' +str(4+i)]='Enabled'
 				w_sheet2_sites['C' +str(4+i)]='Enabled'
 				
@@ -123,15 +123,15 @@ def noam_files(file_path,company,NOAM_report):
 			w_sheet2_cis['CD' +str(4+i)]='Hardware'
 
 			###CI Name
-			w_sheet2_cis['D' +str(4+i)]=cis['CI Name*'][i]
+			w_sheet2_cis['D' +str(4+i)]=cis.filter(regex=re.compile('CI NAME',re.IGNORECASE)).iloc[:,0].values[i]
 
 			##CI ID
-			##w_sheet2_cis.write(4+i,11,cis[0].filter(regex=re.compile('CI ID',re.IGNORECASE)).iloc[:,0][i])
+			#w_sheet2_cis.write(4+i,11,cis.filter(regex=re.compile('CI ID',re.IGNORECASE)).iloc[:,0][i])
 			###CI Description
-			w_sheet2_cis['G' +str(4+i)]=cis['CI Description'][i]
+			w_sheet2_cis['G' +str(4+i)]=cis.filter(regex=re.compile('CI Description',re.IGNORECASE)).iloc[:,0][i])
 
 			####Status
-			if (cis['Status*']=='').any():
+			if (cis.filter(regex=re.compile('STATUS',re.IGNORECASE)).iloc[:,0]=='').any():
 				w_sheet2_cis['AP' +str(4+i)]='Deployed'
 			else:
 				w_sheet2_cis['AP' +str(4+i)]=cis['Status*'][i]
@@ -149,7 +149,7 @@ def noam_files(file_path,company,NOAM_report):
 
 			###Product Name
 			#w_sheet2_cis.write(4+i,13,cis['Product Name+'][i])
-			w_sheet2_cis['N' +str(4+i)]=cis['Product Name+'][i]
+			w_sheet2_cis['N' +str(4+i)]=cis.filter(regex=re.compile('Product Name',re.IGNORECASE)).iloc[:,0]
 
 			####Manufacturer
 			w_sheet2_cis['V' +str(4+i)]=cis['Manufacturer'][i]
@@ -173,8 +173,7 @@ def noam_files(file_path,company,NOAM_report):
 			w_sheet2_cis['AR' +str(4+i)]=cis['Site Group'][i]
 			##
 			###Site
-			w_sheet2_cis['AT' +str(4+i)]=cis['Site+'][i]
-
+			w_sheet2_cis['AT' +str(4+i)]=cis[cis.columns[~cis.columns.str.contains('Group',case=False)].tolist()].filter(regex=re.compile('SITE',re.IGNORECASE)).iloc[:,0].values[i]
 			##
 			###Tag Number
 			w_sheet2_cis['S' +str(4+i)]=cis['Tag Number'][i]
