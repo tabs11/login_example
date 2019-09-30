@@ -215,15 +215,15 @@ def uploaded_file(filename):
 
 
 
-@application.route('/noam', methods=['GET', 'POST'])
-def comp_noam():
-	msg= None
-	if request.method == 'POST':
-		company_noam = request.form['company_noam']
-		session['company_noam']=company_noam
-		
-		msg = 'Successfull'
-	return render_template('index_NOAM_company.html',msg=msg)
+#@application.route('/noam', methods=['GET', 'POST'])
+#def comp_noam():
+#	msg= None
+#	if request.method == 'POST':
+#		company_noam = request.form['company_noam']
+#		session['company_noam']=company_noam
+#		
+#		msg = 'Successfull'
+#	return render_template('index_NOAM_company.html',msg=msg)
 
 
 @application.route('/noam_data', methods=['GET','POST'])
