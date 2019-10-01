@@ -74,11 +74,11 @@ def process_file(path,company,report,history):
 			chars=pd.concat([pd.Series(sheets[j].columns).rename('Field'),pd.Series(count_chars).rename('Characters')],axis=1)
 			b=common_fields[j].merge(chars,on='Field',how='outer')
 			c=b.iloc[:,[0,1,3,2]]
-			print('Number of records:'.upper(),'-'*len('Number of records:'), str(np.shape(sheets[j])[0]),'','Field Names and Maximum number of Characteres per field:'.upper(),'-'*len('Field Names and Maximum number of Characteres per field:'),c,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))			
-			if len(np.unique(sheets[j].filter(regex=re.compile('COMPANY',re.IGNORECASE))))>1:
-				print('Company Name is wrongly filled: '.upper(),'-'*len('Company Name is wrongly filled: '),np.unique(sheets[j].filter(regex=re.compile('COMPANY',re.IGNORECASE))),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-			else:
-				print('bla')
+			#print('Number of records:'.upper(),'-'*len('Number of records:'), str(np.shape(sheets[j])[0]),'','Field Names and Maximum number of Characteres per field:'.upper(),'-'*len('Field Names and Maximum number of Characteres per field:'),c,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))			
+			#if len(np.unique(sheets[j].filter(regex=re.compile('COMPANY',re.IGNORECASE))))>1:
+			#	print('Company Name is wrongly filled: '.upper(),'-'*len('Company Name is wrongly filled: '),np.unique(sheets[j].filter(regex=re.compile('COMPANY',re.IGNORECASE))),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+			#else:
+			#	print('bla')
 			#check for blank spaces
 			#blanks=pd.concat([pd.Series(sheets[j].columns).rename('Field'),pd.Series(blank_cases).rename('Cases'),pd.Series(blank_cases).apply(lambda x: len(x)).rename('Count')],axis=1)
 			blanks=pd.concat([pd.Series(sheets[j].columns).rename('Field'),pd.Series(blank_cases).apply(lambda x: len(x)).rename('Count'),pd.Series(blank_cases).rename('Case example'),],axis=1)
