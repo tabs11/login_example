@@ -156,7 +156,7 @@ def noam_files(file_path,company,NOAM_report):
 			if (cis['Priority']=='').any():
 				w_sheet2_cis['BB' +str(4+i)]='PRIORITY_5'
 			else:
-				w_sheet2_cis['BB' +str(4+i)]=cis['Priority'].str.upper()[i]
+				w_sheet2_cis['BB' +str(4+i)]=cis['Priority'][i]
 
 			###Additional Information
 			w_sheet2_cis['BE' +str(4+i)]=cis['Additional Information'][i]
