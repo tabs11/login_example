@@ -64,7 +64,7 @@ def op_res_cats_files(file_path,company,op_res_cats_report):
             w_sheet3_res_cats['C' +str(4+i)]=res.filter(regex=re.compile('ResCat2',re.IGNORECASE)).iloc[:,0].values[i]
             w_sheet3_res_cats['D' +str(4+i)]=res.filter(regex=re.compile('ResCat3',re.IGNORECASE)).iloc[:,0].values[i]
             w_sheet3_res_cats['F' +str(4+i)]='Enabled'
-        res_cats.save(filename = op_res_cats_report + company + '_res_cats_example.xlsm')
+        res_cats.save(filename = op_res_cats_report + company + '_res_cats_' + dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") + '.xlsm')
     if len(ops)>0:
         ops.fillna('',inplace=True)
         ops['inc_values'] = np.where(ops['Module'] == "Incident Management", 'Yes', None)
@@ -95,7 +95,7 @@ def op_res_cats_files(file_path,company,op_res_cats_report):
             w_sheet_op_cats['N' +str(4+i)]=ops['chg_values'].values[i]
             w_sheet_op_cats['L' +str(4+i)]=ops['conf_values'].values[i]
             w_sheet_op_cats['R' +str(4+i)]=ops['rel_values'].values[i]
-        op_cats.save(filename = op_res_cats_report + company + '_op_cats_example.xlsm')
+        op_cats.save(filename = op_res_cats_report + company + '_op_cats_' + dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") + '.xlsm')
 # =============================================================================
 # Create DataFrame
 # =============================================================================
