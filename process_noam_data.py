@@ -104,7 +104,7 @@ def noam_files(file_path,company,NOAM_report):
 			w_sheet3_sites['A' +str(4+i)]=sites[0].filter(regex=re.compile('GROUP',re.IGNORECASE)).iloc[:,0].values[i]
 			w_sheet4_sites['D' +str(4+i)]=sites[0].filter(regex=re.compile('GROUP',re.IGNORECASE)).iloc[:,0].values[i]
 	
-		noam_sites.save(filename = NOAM_report + company + '_sites_Noam' + dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsm')
+		noam_sites.save(filename = NOAM_report + company + '_sites_Noam_' + dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsm')
 	else:
 		None
 	if len(cis)>0:
@@ -191,7 +191,7 @@ def noam_files(file_path,company,NOAM_report):
 				w_sheet2_cis['DW' +str(4+i)]=cis.filter(regex=re.compile('cell',re.IGNORECASE)).iloc[:,0][i]
 			else:
 				print('No cells')
-		noam_cis.save(filename = NOAM_report + company +'_CIs_Noam'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") + '.xlsm')
+		noam_cis.save(filename = NOAM_report + company +'_CIs_Noam_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") + '.xlsm')
 		#wb_cis.save(NOAM_report + company +'_cis_Noam.xls')
 	else:
 		None
