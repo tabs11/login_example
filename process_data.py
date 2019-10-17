@@ -189,8 +189,9 @@ def process_file(path,company,report,history):
 			if sheets[j].columns.str.contains('CI N',case=False).any():
 				cis_locations=[]
 				cis.append(sheets[j])
-				site_name=cis[0][cis[0].columns[~cis[0].columns.str.contains('Group',case=False)].tolist()].filter(regex=re.compile('SITE',re.IGNORECASE))
-				sites_reg=pd.concat([site_name,cis[0].filter(regex=re.compile('REG|SITE GROUP',re.IGNORECASE))],axis=1).drop_duplicates()
+				#site_name=cis[0][cis[0].columns[~cis[0].columns.str.contains('Group',case=False)].tolist()].filter(regex=re.compile('SITE',re.IGNORECASE))
+				#sites_reg=pd.concat([site_name,cis[0].filter(regex=re.compile('REG|SITE GROUP',re.IGNORECASE))],axis=1).drop_duplicates()
+				sites_reg=cis[0][['Site','Region','Site Group']].drop_duplicates()
 				#sites_reg=cis[0].filter(regex=re.compile('SITE N|SITE+|SITE*|REG|GROUP',re.IGNORECASE)).drop_duplicates()#merge(all_sites2.filter(regex=re.compile('SITE N|SITE+|SITE*|REG|GROUP|CITY',re.IGNORECASE)).set_index(all_sites2.columns[0]),left_on=cis[0].filter(regex=re.compile('SITE',re.IGNORECASE)).columns[0],right_index=True,how='inner',indicator=True).drop_duplicates()
 				dup_sites_reg=sites_reg[sites_reg.iloc[:,0].duplicated(keep=False)].sort_values([sites_reg.columns[0]])
 				if np.shape(dup_sites_reg)[0]>0:
@@ -219,7 +220,7 @@ def process_file(path,company,report,history):
 				well_conc_dns=(cis[0][filtered_dns.columns[0]]==cis[0][filtered_cis.columns[0]]).all()
 				if well_conc_dns==False:
 					cis[0]['Suggested '+ filtered_dns.columns[0]]=cis[0][filtered_cis.columns[0]]
-					print('DNS Host Name values:'.upper(),'-'*len('DNS Host Name values:'),'','Replaced by CI Name values',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))       
+					print('DNS Host Name values:'.upper(),'-'*len('DNS Host Name values:'),'Replaced by CI Name values','',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))       
 		
 				else:
 					None
@@ -233,9 +234,11 @@ def process_file(path,company,report,history):
 				else:
 					None
 
-				cis_chars=pd.DataFrame(cis[0][filtered_cis.iloc[:,0].astype(str).str.contains("\;|\.|\,|\:|\$|\s",regex=True)].drop_duplicates())
+				#cis_chars=pd.DataFrame(cis[0][filtered_cis.iloc[:,0].astype(str).str.contains("\;|\.|\,|\:|\$|\s",regex=True)].drop_duplicates())
+				cis_chars=pd.DataFrame(cis[0][cis[0]['CI Name'].astype(str).str.contains("\"|\'|´",regex=True)].drop_duplicates())
 				if np.shape(cis_chars)[0]>0:
-					print('CIs with middle spaces/punctuation or special characters:'.upper(),'-'*len('CIs with middle spaces/punctuation or special characters:'),'#: ' + str(np.shape(cis_chars)[0]),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+					cis[0]['CI Name']=cis[0]['CI Name'].astype(str).apply(lambda x: re.sub("\'|\"|\´", "",x))
+					print('CIs with quotes (Quotes Auto Removed):'.upper(),'-'*len('CIs with quotes (Auto Removed'),'#: ' + str(np.shape(cis_chars)[0]),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 				else:
 					None
 				#if cis[0].filter(regex=re.compile('PRIORITY',re.IGNORECASE)).isnull().any():
@@ -357,10 +360,10 @@ def process_file(path,company,report,history):
 				print('No Sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			if len(cis)>0:
 				cis[0].to_excel(writer, 'cis',index=False)
-				if len(cis_chars)>0:
-					cis_chars.to_excel(writer, 'Special Characters in CIS',index=False)
-				else:
-					print('No Special Characters in CIs',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+				#if len(cis_chars)>0:
+				#	cis_chars.to_excel(writer, 'Special Characters in CIS',index=False)
+				#else:
+				#	print('No Special Characters in CIs',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 				if np.shape(new_sites_in_cis)[0]>0:
 					new_sites_in_cis.to_excel(writer,'CIs with non existing sites',index=False)
 				if len(cis_locations)>0:
