@@ -123,7 +123,7 @@ def home():
 	for i in range(len(data)):
 		paths_to_del.append(os.getcwd()+ '/' + data[i])
 		dates.append((dt.datetime.now()-datetime.fromtimestamp(os.path.getctime(paths_to_del[i]))).days)
-		if dates[i]>1:
+		if dates[i]>0:
 			shutil.rmtree(paths_to_del[i])	
 		else:
 			None
