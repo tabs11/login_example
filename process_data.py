@@ -262,8 +262,9 @@ def process_file(path,company,report,history):
 				#template=prod_cat
 				
 				opcat_template='Prod_Cats'
-				template=pd.read_excel(glob.glob(opcat_template+'/*')[0],pd.ExcelFile(glob.glob(opcat_template+'/*')[0]).sheet_names[5])
-				template.rename(columns={template.columns[3]:'Product Name'},inplace=True)
+				#template=pd.read_excel(glob.glob(opcat_template+'/*')[0],pd.ExcelFile(glob.glob(opcat_template+'/*')[0]).sheet_names[5])
+				template=pd.read_csv(glob.glob(opcat_template+'/*')[0],sep=',')
+				#template.rename(columns={template.columns[3]:'Product Name'},inplace=True)
 				prodcats_cis=cis[0][['Tier 1','Tier 2','Tier 3','Product Name','Manufacturer']]
 				#prodcats_cis=cis[0].filter(regex=re.compile('TIER|PRODUCT N|MANUF',re.IGNORECASE))
 				prod_missing=prodcats_cis.loc[~prodcats_cis['Product Name'].isin(template.iloc[:,3])].drop_duplicates()
