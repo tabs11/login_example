@@ -16,6 +16,7 @@ import process_data
 import process_noam_data
 import process_res_cats
 import process_zte
+import update_priority as up_prio 
 
 class User(UserMixin):
 	def __init__(self, username,password):
