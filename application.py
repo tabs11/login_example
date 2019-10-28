@@ -135,6 +135,13 @@ def home():
 			#msg=dates
 	return render_template('home.html',msg=msg)
 
+#######
+@application.route('/cmdb', methods=['GET','POST'])
+@login_required
+def cmdb():
+	return render_template('cmdb_validation.html')
+#######
+
 @application.route('/files', methods=['GET','POST'])
 @login_required
 def sites_history():
@@ -213,7 +220,59 @@ def uploaded_file(filename):
 	DOWNLOAD_FOLDER=ID_FOLDER+'/Report/'
 	return send_from_directory(DOWNLOAD_FOLDER,filename)
 
+#############################################################################
 
+@application.route('/get_priorities', methods=['GET','POST'])
+def get_priorities():
+	msg4=None
+	session['filename']=session['company']+'_'+str(uuid.uuid1())
+	PRIO_FOLDER=session['filename']
+	PRIO_UPLOAD=PRIO_FOLDER+'/PRIO_files/'
+	PRIO_REPORT=PRIO_FOLDER +'/Report/'
+	
+	# Get the name of the uploaded files
+	uploaded_files = request.files.getlist("file[]")
+	for file in uploaded_files:
+		# Check if the file is one of the allowed types/extensions
+		if file and allowed_file(file.filename):
+			# Make the filename safe, remove unsupported chars
+			filename = secure_filename(file.filename)
+			if not os.path.exists(PRIO_FOLDER):
+				os.makedirs(PRIO_FOLDER)
+				os.makedirs(PRIO_UPLOAD)
+				os.makedirs(PRIO_REPORT)
+			# Move the file form the temporal folder to the upload
+			
+			file.save(os.path.join(PRIO_UPLOAD, filename))
+			filenames=os.listdir(PRIO_UPLOAD)
+			msg4=filenames
+		else:
+			msg4='Please select a valid extension (.xls or .xlsx)'
+	return render_template('priority_index.html',msg4=msg4)
+
+
+@application.route('/prio_upload', methods=['GET'])
+def prio_upload():
+	PRIO_FOLDER=session['filename']
+	PRIO_UPLOAD=PRIO_FOLDER+'/PRIO_files/'
+	PRIO_REPORT=PRIO_FOLDER +'/Report/'
+	# Get the name of the uploaded files
+	if len(os.listdir(PRIO_UPLOAD))>0:
+		up_prio.update_priority(path=PRIO_UPLOAD,company=PRIO_FOLDER.split('_')[0],prio_report=PRIO_REPORT)
+		prio_filenames=os.listdir(PRIO_REPORT)
+		print(prio_filenames)
+
+	return render_template('prio_files_upload.html', prio_filenames=prio_filenames)
+
+
+@application.route('/PRIO_Report/<filename>')
+def uploaded_PRIO_file(filename):
+	PRIO_FOLDER=session['filename']
+	PRIO_REPORT=PRIO_FOLDER +'/Report/'
+	return send_from_directory(PRIO_REPORT,filename)
+
+
+##############################################
 
 #@application.route('/noam', methods=['GET', 'POST'])
 #def comp_noam():
