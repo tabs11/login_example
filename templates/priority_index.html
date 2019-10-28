@@ -1,0 +1,29 @@
+ {% extends "login_layout.html" %}
+{% block content %}
+ <h2>Update Priority:</h2>
+
+  <form class="button" align="left" method="post" action="get_priorities" enctype="multipart/form-data">
+    <table>
+    <tr>
+      <td><label id="#bb"> Select Files
+        <input type="file" multiple="" name="file[]" class="span3" /></td>
+      <td> 
+      {% if msg4 %}
+        <p><strong></strong> {{ msg4 }}
+      {% endif %}
+    <input class="mybutton" type="submit" value="Submit"  class="span2"></td>
+    </tr>
+    </table>
+  </form>
+ <h2></h2>
+
+  <form class="button" align="left" method="get" action="prio_upload" enctype="multipart/form-data">
+    <table>
+    <tr>
+    <input class="mybutton" type="submit" value="RUN Update"  class="span2"></td>
+    </tr>
+    </table>
+   
+  </form>
+
+  {% endblock %}

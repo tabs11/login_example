@@ -1,0 +1,18 @@
+{% extends "login_layout.html" %}
+{% block content %}
+ <!-- Login Form -->
+
+<p class="big"></p>
+<p class="big"></p>
+	<div class="multi_upload_index">
+		<h2 class="text-muted">UPLOADED FILES:</h2>
+
+			<p>Below the list of CIs with updated priority: .</p>
+			<ul>
+				{% for file in prio_filenames %}
+					<li><a href="{{url_for('uploaded_PRIO_file', filename=file)}}">{{file}}</a></li>
+				{% endfor %}
+			</ul>
+		<hr/>
+	</div>
+ {% endblock %}  
