@@ -8,7 +8,6 @@ def update_priority(path,company,prio_report):
     cis=pd.DataFrame()
     prio=pd.DataFrame()
     final=pd.DataFrame()
-    path=path='/Users/numartin/Desktop/Priorities/'
     for j in range(len(glob.glob(path+'/*'))):
         for k in range(len(pd.ExcelFile(glob.glob(path+'*')[j]).sheet_names)):
             sheets.append(pd.read_excel(glob.glob(path+'*')[j],pd.ExcelFile(glob.glob(path+'*')[j]).sheet_names[k]))     
