@@ -43,5 +43,7 @@ def update_priority(path,company,prio_report):
         left['New Priority'].fillna(left['Priority'], inplace=True)
         final=pd.concat([inner,left],axis=0)
         final.rename(columns={'_merge':'match','Priority': 'Old Priority'},inplace=True)
+        with pd.ExcelWriter(prio_report + company + '_priority_update_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
+            final.to_excel(writer, 'priority_change',index=False)
     else:
         None
