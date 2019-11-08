@@ -350,8 +350,8 @@ def process_file(path,company,report,history):
 		else:
 			None
 	#sites[0].to_csv(report + company + '_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S")+'.csv')
-	with pd.ExcelWriter(report + company + '_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
-		print('','#################','#Report Overview#'.upper(),'#################','',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+	print('','#################','#Report Overview#'.upper(),'#################','',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+	with pd.ExcelWriter(report + company + '_sites_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
 		if len(sites)>0:
 			sites[0].to_excel(writer, 'sites',index=False)
 			if np.shape(dup_sites)[0]>0:
@@ -364,7 +364,9 @@ def process_file(path,company,report,history):
 				print('No Wrong Locations in sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 		else:
 			print('No Sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-		#if len(cis)>0:
+		writer.save()
+	with pd.ExcelWriter(report + company + '_cis_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
+		if len(cis)>0:
 			#cis[0].to_excel(writer, 'cis',index=False)
 	#		#if len(cis_chars)>0:
 	#		#	cis_chars.to_excel(writer, 'Special Characters in CIS',index=False)
@@ -389,8 +391,8 @@ def process_file(path,company,report,history):
 	#				cis_list[i].to_excel(writer, issues_names[i],index=False)
 	#			else:
 	#				print('No ' + issues_names[i],sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))                       
-		#else:
-		#	print('No CIs',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+		else:
+			print('No CIs',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 		writer.save()
 #
 #
