@@ -372,25 +372,25 @@ def process_file(path,company,report,history):
 	#		#	cis_chars.to_excel(writer, 'Special Characters in CIS',index=False)
 	#		#else:
 	#		#	print('No Special Characters in CIs',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-	#		if np.shape(new_sites_in_cis)[0]>0:
-	#			new_sites_in_cis.to_excel(writer,'CIs with non existing sites',index=False)
-	#		if len(cis_locations)>0:
-	#			cis_locations[0].to_excel(writer, 'Region Issues in CIs',index=False)
-	#		else:
-	#			print('No Wrong Locations in CIs',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-	#		if len(cis_sites_locations)>0:
-	#			cis_sites_locations[0].to_excel(writer, 'CIs Sites Region Issues',index=False)   
-	#		else:
-	#			print('No Wrong locations between sites and cis',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))    
-	#		if np.shape(dup_cis)[0]>0:
-	#			dup_cis.to_excel(writer, 'Duplicate CIs',index=False)
-	#		else:
-	#			print('No Duplicate CIs',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-	#		for i in range(len(cis_list)):
-	#			if np.shape(cis_list[i])[0]>0:
-	#				cis_list[i].to_excel(writer, issues_names[i],index=False)
-	#			else:
-	#				print('No ' + issues_names[i],sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))                       
+			if np.shape(new_sites_in_cis)[0]>0:
+				new_sites_in_cis.to_excel(writer,'CIs with non existing sites',index=False)
+			if len(cis_locations)>0:
+				cis_locations[0].to_excel(writer, 'Region Issues in CIs',index=False)
+			else:
+				print('No Wrong Locations in CIs',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+			if len(cis_sites_locations)>0:
+				cis_sites_locations[0].to_excel(writer, 'CIs Sites Region Issues',index=False)   
+			else:
+				print('No Wrong locations between sites and cis',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))    
+			if np.shape(dup_cis)[0]>0:
+				dup_cis.to_excel(writer, 'Duplicate CIs',index=False)
+			else:
+				print('No Duplicate CIs',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+			for i in range(len(cis_list)):
+				if np.shape(cis_list[i])[0]>0:
+					cis_list[i].to_excel(writer, issues_names[i],index=False)
+				else:
+					print('No ' + issues_names[i],sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))                       
 		else:
 			print('No CIs',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 		writer_2.save()
