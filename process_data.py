@@ -351,20 +351,20 @@ def process_file(path,company,report,history):
 			None
 	#sites[0].to_csv(report + company + '_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S")+'.csv')
 	print('','#################','#Report Overview#'.upper(),'#################','',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-	with pd.ExcelWriter(report + company + '_sites_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
-		if len(sites)>0:
-			sites[0].to_excel(writer, 'sites',index=False)
-			if np.shape(dup_sites)[0]>0:
-				dup_sites.to_excel(writer, 'Duplicate Sites',index=False)
-			else:
-				print('No Duplicate Sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-			if len(wrong_locations_sites_list)>0:
-				wrong_locations_sites_list[0].to_excel(writer, 'Region Issues in Sites',index=False)
-			else:
-				print('No Wrong Locations in sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-		else:
-			print('No Sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-		writer.save()
+	#with pd.ExcelWriter(report + company + '_sites_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
+	#	if len(sites)>0:
+	#		sites[0].to_excel(writer, 'sites',index=False)
+	#		if np.shape(dup_sites)[0]>0:
+	#			dup_sites.to_excel(writer, 'Duplicate Sites',index=False)
+	#		else:
+	#			print('No Duplicate Sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+	#		if len(wrong_locations_sites_list)>0:
+	#			wrong_locations_sites_list[0].to_excel(writer, 'Region Issues in Sites',index=False)
+	#		else:
+	#			print('No Wrong Locations in sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+	#	else:
+	#		print('No Sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+	#	writer.save()
 	#with pd.ExcelWriter(report + company + '_cis_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
 	#	if len(cis)>0:
 			#cis[0].to_excel(writer, 'cis',index=False)
