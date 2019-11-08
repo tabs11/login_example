@@ -11,14 +11,17 @@ from io import StringIO
 import csv
 
 def process_file(path,company,report,history):
+	files=pd.DataFrame()
 	sheets=[]
 	cis=[]
 	sites=[]
 	all_sites=pd.DataFrame(columns=['Site','Region','Site Group','City'])
 	for j in range(len(glob.glob(path+'/*'))):
-		for k in range(len(pd.ExcelFile(glob.glob(path+'*')[j]).sheet_names)):
-			sheets.append(pd.read_excel(glob.glob(path+'*')[j],pd.ExcelFile(glob.glob(path+'*')[j]).sheet_names[k]))     
-	
+		#for k in range(len(pd.ExcelFile(glob.glob(path+'*')[j]).sheet_names)):
+		#	sheets.append(pd.read_excel(glob.glob(path+'*')[j],pd.ExcelFile(glob.glob(path+'*')[j]).sheet_names[k]))     
+    		files=pd.read_excel(glob.glob(path+'*')[j],sheet_name=None)
+    		for frame in files.keys():
+        		sheets.append(files[frame])
 	sites_fields=['Company','Site Name','Site Alias','Description','Region','Site Group','Street','Country','City','Latitude','Longitude','Location ID','Additional Site Details','Maintenance Circle Name','Site Type','Status']
 	cis_fields=['Company','CI Name','CI Description','Tag Number','System Role','Status','Priority','Additional Information','Tier 1','Tier 2','Tier 3','Product Name','Model Version','Manufacturer','Region','Site Group','Site','DNS Host Name','Domain','CI ID']
 	fields=sites_fields+cis_fields
