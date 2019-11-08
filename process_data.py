@@ -390,7 +390,7 @@ def process_file(path,company,report,history):
 	#			else:
 	#				print('No ' + issues_names[i],sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))                       
 		else:
-	#		print('No CIs',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+			print('No CIs',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 		writer.save()
 #
 #
