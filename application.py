@@ -17,7 +17,7 @@ import process_noam_data
 import process_res_cats
 import process_zte
 import update_priority as up_prio
-from flask_caching import Cache
+#from flask_caching import Cache
 
 
 class User(UserMixin):
@@ -51,17 +51,17 @@ USERS = { # dictionary (username, User)
 	
 }
 
-config = {
-    "DEBUG": True,          # some Flask specific configs
-    "CACHE_TYPE": "simple", # Flask-Caching related configs
-    "CACHE_DEFAULT_TIMEOUT": 300
-}
-
-# application base
+#config = {
+#    "DEBUG": True,          # some Flask specific configs
+#    "CACHE_TYPE": "simple", # Flask-Caching related configs
+#    "CACHE_DEFAULT_TIMEOUT": 300
+#}
+#
+## application base
 application = Flask(__name__)
 # tell Flask to use the above defined config
-application.config.from_mapping(config)
-cache = Cache(application)
+#application.config.from_mapping(config)
+#cache = Cache(application)
 
 SECRET_KEY='bla'#str(uuid.uuid1())
 application.secret_key = SECRET_KEY
@@ -210,7 +210,7 @@ def data_to_validate():
 
 
 @application.route('/upload', methods=['POST'])
-@cache.cached(timeout=500)
+#@cache.cached(timeout=500)
 @login_required
 def upload():
 	ID_FOLDER=session['filename']
