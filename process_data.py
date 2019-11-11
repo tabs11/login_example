@@ -364,7 +364,7 @@ def process_file(path,company,report,history):
 				print('No Wrong Locations in sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 		else:
 			print('No Sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-		#if len(cis)>0:
+		if len(cis)>0:
 		#	try:
 		#		cis[0].to_excel(writer, 'cis',index=False)
 		#	except Exception as e:
@@ -390,6 +390,6 @@ def process_file(path,company,report,history):
 					print('No ' + issues_names[i],sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))                       
 		else:
 			print('No CIs',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-		riter.save()
+		writer.save()
 #
 #
