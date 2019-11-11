@@ -368,7 +368,7 @@ def process_file(path,company,report,history):
 			try:
 				cis[0].to_excel(writer, 'cis',index=False)
 			except Exception as e:
-				cis[0].to_csv(report + company +'_report_'+'.csv')	
+				cis[0].to_csv(report + company +'cis_report_'+'.csv')	
 			if np.shape(new_sites_in_cis)[0]>0:
 				new_sites_in_cis.to_excel(writer,'CIs with non existing sites',index=False)
 			if len(cis_locations)>0:
