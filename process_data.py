@@ -172,6 +172,7 @@ def process_file(path,company,report,history):
 							None
 					else:
 						None
+				sites[0].to_csv(report + company +'sites_to_add'+'.csv')
 				else:
 					None
 				##new_sites###
@@ -301,6 +302,7 @@ def process_file(path,company,report,history):
 							  'Wrong Manufacturer']
 				issues=pd.concat([pd.Series(issues_names).rename('Field'),pd.Series(cis_list).apply(lambda x: len(x)).rename('COUNT')],axis=1)
 				print('PRODUCT CATALOG ISSUES:','-'*len('PRODUCT CATALOG ISSUES:'),issues,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))               
+				cis[0].to_csv(report + company +'cis_to_add_'+'.csv')			
 			else:
 				None				
 		cis_sites_locations=[]
@@ -351,9 +353,9 @@ def process_file(path,company,report,history):
 			None
 	
 	print('','#################','#Report Overview#'.upper(),'#################','',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-	with pd.ExcelWriter(report + company + '_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
+	with pd.ExcelWriter(report + company + 'issues_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
 		if len(sites)>0:
-			sites[0].to_excel(writer, 'sites',index=False)
+			#sites[0].to_excel(writer, 'sites',index=False)
 			if np.shape(dup_sites)[0]>0:
 				dup_sites.to_excel(writer, 'Duplicate Sites',index=False)
 			else:
