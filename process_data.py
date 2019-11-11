@@ -187,7 +187,7 @@ def process_file(path,company,report,history):
 					print('Duplicated Site Names (excluding duplicate rows):'.upper(),'-'*len('Duplicated Site Names (excluding duplicate rows):'),duplicate_sites[0],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))  
 				else:
 					None
-				sites[0].to_csv(report + company +'sites_to_add'+'.csv')
+				#sites[0].to_csv(report + company +'sites_to_add'+'.csv')
 			else:
 				None
 			#CIS
@@ -302,7 +302,7 @@ def process_file(path,company,report,history):
 							  'Wrong Manufacturer']
 				issues=pd.concat([pd.Series(issues_names).rename('Field'),pd.Series(cis_list).apply(lambda x: len(x)).rename('COUNT')],axis=1)
 				print('PRODUCT CATALOG ISSUES:','-'*len('PRODUCT CATALOG ISSUES:'),issues,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))               
-				cis[0].to_csv(report + company +'cis_to_add_'+'.csv')			
+				#cis[0].to_csv(report + company +'cis_to_add_'+'.csv')			
 			else:
 				None				
 		cis_sites_locations=[]
@@ -355,7 +355,10 @@ def process_file(path,company,report,history):
 	print('','#################','#Report Overview#'.upper(),'#################','',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 	with pd.ExcelWriter(report + company + 'issues_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
 		if len(sites)>0:
-			#sites[0].to_excel(writer, 'sites',index=False)
+			try:
+				sites[0].to_excel(writer, 'sites',index=False)
+			except exception:
+				sites[0].to_csv(report + company +'sites_to_add'+'.csv')
 			if np.shape(dup_sites)[0]>0:
 				dup_sites.to_excel(writer, 'Duplicate Sites',index=False)
 			else:
