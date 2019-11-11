@@ -16,14 +16,7 @@ import process_data
 import process_noam_data
 import process_res_cats
 import process_zte
-import update_priority as up_prio 
-from flask_caching import Cache
-
-config = {
-    "DEBUG": True,          # some Flask specific configs
-    "CACHE_TYPE": "simple", # Flask-Caching related configs
-    "CACHE_DEFAULT_TIMEOUT": 1000
-}
+import update_priority as up_prio
 class User(UserMixin):
 	def __init__(self, username,password):
 		super(User, self).__init__()
@@ -55,8 +48,18 @@ USERS = { # dictionary (username, User)
 	
 }
 
+config = {
+    "DEBUG": True,          # some Flask specific configs
+    "CACHE_TYPE": "simple", # Flask-Caching related configs
+    "CACHE_DEFAULT_TIMEOUT": 300
+}
+
 # application base
 application = Flask(__name__)
+# tell Flask to use the above defined config
+application.config.from_mapping(config)
+cache = Cache(application)
+
 SECRET_KEY='bla'#str(uuid.uuid1())
 application.secret_key = SECRET_KEY
 CMDB_FOLDER = 'CMDB_templates/'
@@ -204,6 +207,7 @@ def data_to_validate():
 
 
 @application.route('/upload', methods=['POST'])
+@cache.cached(timeout=500)
 @login_required
 def upload():
 	ID_FOLDER=session['filename']
