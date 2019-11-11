@@ -358,7 +358,8 @@ def process_file(path,company,report,history):
 			try:
 				sites[0].to_excel(writer, 'sites',index=False)
 			except exception:
-				sites[0].to_csv(report + company +'sites_to_add'+'.csv')
+				print('no exception',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+				#sites[0].to_csv(report + company +'sites_to_add'+'.csv')
 			if np.shape(dup_sites)[0]>0:
 				dup_sites.to_excel(writer, 'Duplicate Sites',index=False)
 			else:
