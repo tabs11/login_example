@@ -17,6 +17,9 @@ import process_noam_data
 import process_res_cats
 import process_zte
 import update_priority as up_prio
+from flask_caching import Cache
+
+
 class User(UserMixin):
 	def __init__(self, username,password):
 		super(User, self).__init__()
