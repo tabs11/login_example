@@ -172,7 +172,6 @@ def process_file(path,company,report,history):
 							None
 					else:
 						None
-				sites[0].to_csv(report + company +'sites_to_add'+'.csv')
 				else:
 					None
 				##new_sites###
@@ -188,6 +187,7 @@ def process_file(path,company,report,history):
 					print('Duplicated Site Names (excluding duplicate rows):'.upper(),'-'*len('Duplicated Site Names (excluding duplicate rows):'),duplicate_sites[0],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))  
 				else:
 					None
+				sites[0].to_csv(report + company +'sites_to_add'+'.csv')
 			else:
 				None
 			#CIS
