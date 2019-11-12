@@ -353,7 +353,7 @@ def process_file(path,company,report,history):
 			None
 	
 	print('','#################','#Report Overview#'.upper(),'#################','',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-	with pd.ExcelWriter(report + company + 'issues_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
+	with pd.ExcelWriter(report + company + '_issues_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
 		if len(sites)>0:
 			sites[0].to_excel(writer, 'sites',index=False)			
 			if np.shape(dup_sites)[0]>0:
