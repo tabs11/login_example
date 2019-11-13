@@ -48,6 +48,7 @@ USERS = { # dictionary (username, User)
 	'singaram' : User('singaram','singaram'),
 	'nvp' : User('nvp','nvp'),
 	'avilcean' : User('avilcean','avilcean')
+	'paulof'   : User('paulof','paulof')
 
 	
 }
