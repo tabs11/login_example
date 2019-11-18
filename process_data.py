@@ -194,6 +194,12 @@ def process_file(path,company,report,history):
 			if sheets[j].columns.str.contains('CI N',case=False).any():
 				cis_locations=[]
 				cis.append(sheets[j])
+				cis_chars=pd.DataFrame(cis[0][cis[0]['CI Name'].astype(str).str.contains("\"|\'|´",regex=True)].drop_duplicates())
+				if np.shape(cis_chars)[0]>0:
+					cis[0]['CI Name']=cis[0]['CI Name'].astype(str).apply(lambda x: re.sub("\'|\"|\´", "",x))
+					print('CIs with quotes (Quotes Auto Removed):'.upper(),'-'*len('CIs with quotes (Auto Removed'),'#: ' + str(np.shape(cis_chars)[0]),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+				else:
+					None
 				#site_name=cis[0][cis[0].columns[~cis[0].columns.str.contains('Group',case=False)].tolist()].filter(regex=re.compile('SITE',re.IGNORECASE))
 				#sites_reg=pd.concat([site_name,cis[0].filter(regex=re.compile('REG|SITE GROUP',re.IGNORECASE))],axis=1).drop_duplicates()
 				sites_reg=cis[0][['Site','Region','Site Group']].drop_duplicates()
@@ -240,12 +246,7 @@ def process_file(path,company,report,history):
 					None
 
 				#cis_chars=pd.DataFrame(cis[0][filtered_cis.iloc[:,0].astype(str).str.contains("\;|\.|\,|\:|\$|\s",regex=True)].drop_duplicates())
-				cis_chars=pd.DataFrame(cis[0][cis[0]['CI Name'].astype(str).str.contains("\"|\'|´",regex=True)].drop_duplicates())
-				if np.shape(cis_chars)[0]>0:
-					cis[0]['CI Name']=cis[0]['CI Name'].astype(str).apply(lambda x: re.sub("\'|\"|\´", "",x))
-					print('CIs with quotes (Quotes Auto Removed):'.upper(),'-'*len('CIs with quotes (Auto Removed'),'#: ' + str(np.shape(cis_chars)[0]),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-				else:
-					None
+				
 				#if cis[0].filter(regex=re.compile('PRIORITY',re.IGNORECASE)).isnull().any():
 				#	print('Priority not correctly filled')
 				#else:
