@@ -270,6 +270,11 @@ def process_file(path,company,report,history):
 				opcat_template='Prod_Cats'
 				#template=pd.read_excel(glob.glob(opcat_template+'/*')[0],pd.ExcelFile(glob.glob(opcat_template+'/*')[0]).sheet_names[5])
 				template=pd.read_csv(glob.glob(opcat_template+'/*')[0],sep=',')
+				template.rename(columns={template.columns[0]:'Correct Tier 1',
+							 template.columns[1]:'Correct Tier 2',
+							 template.columns[2]:'Correct Tier 3',
+							 template.columns[4]:'Correct Manufacturer'},
+						inplace=True)
 				#template.rename(columns={template.columns[3]:'Product Name'},inplace=True)
 				prodcats_cis=cis[0][['Tier 1','Tier 2','Tier 3','Product Name','Manufacturer']]
 				#prodcats_cis=cis[0].filter(regex=re.compile('TIER|PRODUCT N|MANUF',re.IGNORECASE))
@@ -324,6 +329,10 @@ def process_file(path,company,report,history):
 			new_sites_in_cis=sites_reg.merge(all_sites2.filter(regex=re.compile('SITE N|SITE+|SITE*|REG|GROUP|CITY',re.IGNORECASE)).set_index(all_sites2.columns[0]),left_on=sites_reg.filter(regex=re.compile('SITE',re.IGNORECASE)).columns[0],right_index=True,how='outer',indicator=True).drop_duplicates()
 			new_sites_in_cis=new_sites_in_cis[new_sites_in_cis['_merge']=='left_only'].iloc[:,:-1]
 			if np.shape(new_sites_in_cis)[0]>0:
+				new_sites_in_cis.rename(columns={new_sites_in_cis.columns[1]:'Region',
+								 new_sites_in_cis.columns[1]:'Site Group'},
+							inplace=True
+						       )
 				print('CIs with non existing sites'.upper(),'-'*len('CIs with non existing sites'),np.shape(new_sites_in_cis)[0],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			else:
 				None
