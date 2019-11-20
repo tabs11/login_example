@@ -333,7 +333,7 @@ def process_file(path,company,report,history):
 								 new_sites_in_cis.columns[2]:'Site Group'},
 							inplace=True
 						       )
-				new_sites_in_cis=new_sites_in_cis['Site','Region','Site Group']]
+				new_sites_in_cis=new_sites_in_cis[['Site','Region','Site Group']]
 				print('CIs with non existing sites'.upper(),'-'*len('CIs with non existing sites'),np.shape(new_sites_in_cis)[0],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			else:
 				None
