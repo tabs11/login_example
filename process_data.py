@@ -372,7 +372,7 @@ def process_file(path,company,report,history):
 			if np.shape(dup_sites)[0]>0:
 				dup_sites.to_excel(writer, 'Duplicate Sites',index=False)
 			else:
-			#	print('No Duplicate Sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+				print('No Duplicate Sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			#if np.shape(existing_sites)[0]>0:
 			#	existing_sites.to_excel(writer, 'Existing Sites',index=False)
 			#else:
