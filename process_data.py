@@ -30,15 +30,18 @@ def process_file(path,company,report,history):
 	field_type=[['Yes']*3,['No'],['Yes']*2,['No'],['Yes']*2,['No']*6,['Yes']*3,['No']*3,['Yes']*2,['No'],['Yes']*4,['No'],['Yes']*4,['No']*3]
 	field_type=list(itertools.chain(*field_type))     
 	unmatched_fields=[]
+	names=[]
 	for j in range(len(sheets)):
 		sheets[j].rename(columns=lambda x: re.sub('[^A-Za-z0-9]+', ' ', x), inplace=True)
 		sheets[j].rename(columns=lambda x: x.strip(), inplace=True)
 		sheets[j].dropna(axis=0,how='all',inplace=True)
 	###first overview prints####
-		if (sheets[j].columns.str.contains('CI N',case=False).any()):
-			unmatched_fields.append(list(set(cis_fields) - set(sheets[j])))   
 		if (~sheets[j].columns.str.contains('CI N',case=False).any()):
-			unmatched_fields.append(list(set(sites_fields) - set(sheets[j])))	
+			names.append('Sites Validation')
+			unmatched_fields.append(list(set(sites_fields) - set(sheets[j])))
+		if (sheets[j].columns.str.contains('CI N',case=False).any()):
+			names.append('CIs Validation')
+			unmatched_fields.append(list(set(cis_fields) - set(sheets[j])))   
 		else:
 			None
 
@@ -50,7 +53,7 @@ def process_file(path,company,report,history):
 		common_fields=[]
 		for j in range(len(sheets)):
 			###first overview prints####
-			print('','#'*25,str(j+1)+': DATA TO BE VALIDATED '+ '#','#'*25,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))		
+			print('','#'*20,str(j+1)+':' names[j].upper(),'#'*20,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))		
 			if len(os.listdir(path))==1:
 				print(os.listdir(path)[0],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			else:
