@@ -53,7 +53,7 @@ def process_file(path,company,report,history):
 		common_fields=[]
 		for j in range(len(sheets)):
 			###first overview prints####
-			print('','#'*20,str(j+1)+':' names[j].upper(),'#'*20,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))		
+			print('','#'*20,str(j+1)+':' + names[j].upper(),'#'*20,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))		
 			if len(os.listdir(path))==1:
 				print(os.listdir(path)[0],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			else:
