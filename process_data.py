@@ -145,6 +145,7 @@ def process_file(path,company,report,history):
 			###########################################################################################################################
 			#SITES            
 			if (~sheets[j].columns.str.contains('CI N',case=False).any()):
+				existing_sites=pd.DataFrame()
 				wrong_locations_sites_list=[]
 				if np.shape(sites_itsm)[0]>0:
 					all_sites=sheets[j].merge(sites_itsm.set_index(sites_itsm.columns[0]),left_on=sheets[j].filter(regex=re.compile('SITE',re.IGNORECASE)).columns[0],right_index=True,how='outer',indicator=True).drop_duplicates()
@@ -372,6 +373,10 @@ def process_file(path,company,report,history):
 				dup_sites.to_excel(writer, 'Duplicate Sites',index=False)
 			else:
 				print('No Duplicate Sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+			if np.shape(existing_sites)[0]>0:
+				existing_sites.to_excel(writer, 'Existing Sites',index=False)
+			else:
+				print(' No existing Sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			if len(wrong_locations_sites_list)>0:
 				wrong_locations_sites_list[0].to_excel(writer, 'Region Issues in Sites',index=False)
 			else:
