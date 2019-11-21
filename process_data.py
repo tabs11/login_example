@@ -176,6 +176,8 @@ def process_file(path,company,report,history):
 						if np.shape(correct_locations_sites)[0]>0:
 							print('Existing sites with same locations:'.upper(),'-'*len('Existing sites with same locations:'),'#: ' +str(np.shape(correct_locations_sites)[0]),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 							existing_sites_list.append(correct_locations_sites)
+						else:
+							None
 					else:
 						None
 				else:
