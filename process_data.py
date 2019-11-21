@@ -163,7 +163,7 @@ def process_file(path,company,report,history):
 
 					if np.shape(existing_sites)[0]>0:
 						print('Sites to upload already existing in CMDB: '.upper(),'-'*len('Sites to upload already existing in CMDB: '),'#: ' + str(np.shape(existing_sites)[0]),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-						print('New sites to upload in CMDB: '.upper(),'-'*len('New Sites to upload in CMDB: '),'#: ' + str(np.shape(existing_sites)[0]),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+						print('New sites to upload in CMDB: '.upper(),'-'*len('New Sites to upload in CMDB: '),'#: ' + str(np.shape(new_sites)[0]),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 
 						wrong_locations_sites=pd.concat([existing_sites[(existing_sites['Region in Sites'])!=(existing_sites['Region in ITSM Sites'])],existing_sites[(existing_sites['Site Group in Sites'])!=(existing_sites['Site Group in ITSM Sites'])]],axis=0).drop_duplicates()
 						if np.shape(wrong_locations_sites)[0]>0:
