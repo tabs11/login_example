@@ -49,7 +49,10 @@ USERS = { # dictionary (username, User)
 	'nvp' : User('nvp','nvp'),
 	'avilcean' : User('avilcean','avilcean'),
 	'paulof'   : User('paulof','paulof'),
-	'adriani'  : User('adriani','adriani')
+	'adriani'  : User('adriani','adriani'),
+	'paagrawa'  : User('paagrawa','paagrawa'),
+	'paagrawa_admin'  : User('paagrawa_admin','paagrawa_admin')
+
 
 	
 }
