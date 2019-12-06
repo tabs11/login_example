@@ -275,7 +275,7 @@ def process_file(path,company,report,history):
 				#prod_cat  = pd.DataFrame(prod_cat.values[1:], columns=headers)
 				#template=prod_cat
 				
-				opcat_template='Prod_Cats'
+				opcat_template='Prod_Cats_V2'
 				#template=pd.read_excel(glob.glob(opcat_template+'/*')[0],pd.ExcelFile(glob.glob(opcat_template+'/*')[0]).sheet_names[5])
 				template=pd.read_csv(glob.glob(opcat_template+'/*')[0],sep=',')
 				template.rename(columns={template.columns[0]:'Correct Tier 1',
