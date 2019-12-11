@@ -111,7 +111,7 @@ def op_res_cats_files(file_path,company,op_res_cats_report):
         wrong_ops=wrong_Tiers.iloc[:,[0,1,2,3,4,7,5,6]]
         if len(wrong_ops)>0:
             print('Wrong Operational Categories:'.upper() + str(np.shape(wrong_ops)[0]),'',sep='\n',file=open(op_res_cats_report +'issues.txt','a',encoding='utf8'))
-            with pd.ExcelWriter(op_res_cats_report + company + '_res_cats_issues'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
+            with pd.ExcelWriter(op_res_cats_report + company + '_op_cats_issues'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
                 wrong_ops.to_excel(writer, 'wrong_ops',index=False)
                 writer.save()
         else:
