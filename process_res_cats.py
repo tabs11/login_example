@@ -24,8 +24,8 @@ def op_res_cats_files(file_path,company,op_res_cats_report):
     res=pd.DataFrame()
     ops=pd.DataFrame()
     templates=[]
-    op_template=pd.read_excel('Op_Res_Cats/Datamodel OpCats-ResCats-LoV.xlsx',pd.ExcelFile('Prod_Cats/Datamodel OpCats-ResCats-LoV.xlsx').sheet_names[0])
-    res_template=pd.read_excel('Op_Res_Cats/Datamodel OpCats-ResCats-LoV.xlsx',pd.ExcelFile('Prod_Cats/Datamodel OpCats-ResCats-LoV.xlsx').sheet_names[1])
+    op_template=pd.read_excel('Op_Res_Cats/Datamodel OpCats-ResCats-LoV.xlsx',pd.ExcelFile('Op_Res_Cats/Datamodel OpCats-ResCats-LoV.xlsx').sheet_names[0])
+    res_template=pd.read_excel('Op_Res_Cats/Datamodel OpCats-ResCats-LoV.xlsx',pd.ExcelFile('Op_Res_Cats/Datamodel OpCats-ResCats-LoV.xlsx').sheet_names[1])
     templates.append(op_template)
     templates.append(res_template)
     for j in range(len(glob.glob(file_path+'/*'))):
