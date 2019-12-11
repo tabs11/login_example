@@ -398,7 +398,10 @@ def op_res_cats_data_upload():
 	if len(os.listdir(OP_RES_UPLOAD))>0:
 		process_res_cats.op_res_cats_files(file_path=OP_RES_UPLOAD,company=OP_RES_UPLOAD.split('_')[0],op_res_cats_report=OP_RES_REPORT)
 		op_res_filenames=os.listdir(OP_RES_REPORT)
-	return render_template('res_cats_upload.html', op_res_filenames=op_res_filenames)
+		text = open(OP_RES_REPORT+'issues.txt', 'r+',encoding='utf8')
+		content = text.read()
+		text.close()
+	return render_template('res_cats_upload.html', op_res_filenames=op_res_filenames,text=content)
 
 
 @application.route('/OP_RES_UPLOAD_Report/<filename>')
