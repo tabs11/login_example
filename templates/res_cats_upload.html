@@ -11,5 +11,11 @@
 					<li><a href="{{url_for('uploaded_RES_CATS_file', filename=file)}}">{{file}}</a></li>
 				{% endfor %}
 			</ul>
+		
+		<hr/>
+			<h2 class="text-muted">DATA SUMMARY AND ISSUES FOUND:</h2>
+		<pre>
+			{{ text }}
+		</pre>
 	</div>
  {% endblock %} 
