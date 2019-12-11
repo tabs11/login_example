@@ -93,7 +93,7 @@ def op_res_cats_files(file_path,company,op_res_cats_report):
                 w_sheet3_res_cats['C' +str(4+i)]=res.filter(regex=re.compile('ResCat2',re.IGNORECASE)).iloc[:,0].values[i]
                 w_sheet3_res_cats['D' +str(4+i)]=res.filter(regex=re.compile('ResCat3',re.IGNORECASE)).iloc[:,0].values[i]
                 w_sheet3_res_cats['F' +str(4+i)]='Enabled'
-            res_cats.save(filename = op_res_cats_report + company + '_res_cats_' + dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") + '.xlsm')
+            res_cats.save(filename = op_res_cats_report + company + '_res_cats_NOAM' + dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") + '.xlsm')
     if len(ops)>0:
         wrong_Tier1=ops.loc[~ops.iloc[:,2].isin(templates[0].iloc[:,2]) & ops.iloc[:,3].isin(templates[0].iloc[:,3])].drop_duplicates()
         wrong_Tier1['Wrong Tier'] ='Tier 1'
@@ -140,7 +140,7 @@ def op_res_cats_files(file_path,company,op_res_cats_report):
                 w_sheet_op_cats['N' +str(4+i)]=ops['chg_values'].values[i]
                 w_sheet_op_cats['L' +str(4+i)]=ops['conf_values'].values[i]
                 w_sheet_op_cats['R' +str(4+i)]=ops['rel_values'].values[i]
-            op_cats.save(filename = op_res_cats_report + company + '_op_cats_' + dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") + '.xlsm')
+            op_cats.save(filename = op_res_cats_report + company + '_op_cats_NOAM' + dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") + '.xlsm')
 
 ## -*- coding: utf-8 -*-
 #import pandas as pd
