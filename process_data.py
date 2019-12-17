@@ -26,7 +26,7 @@ def process_file(path,company,report,history):
 	sites_fields=['Company','Site Name','Site Alias','Description','Region','Site Group','Street','Country','City','Latitude','Longitude','Location ID','Additional Site Details','Maintenance Circle Name','Site Type','Status']
 	cis_fields=['Company','CI Name','CI Description','Tag Number','System Role','Status','Priority','Additional Information','Tier 1','Tier 2','Tier 3','Product Name','Model Version','Manufacturer','Region','Site Group','Site','DNS Host Name','Domain','CI ID']
 	fields=sites_fields+cis_fields
-	char_num=[254,60,60,255,60,60,90,60,60,12,12,30,0,70,0,0,254,254,254,64,30,0,0,254,60,60,60,254,254,254,60,60,60,254,254,64]
+	char_num=[254,60,60,255,60,60,90,60,60,12,12,30,10,70,22,8,254,254,254,64,30,16,10,254,60,60,60,254,254,254,60,60,60,254,254,64]
 	field_type=[['Yes']*3,['No'],['Yes']*2,['No'],['Yes']*2,['No']*6,['Yes']*3,['No']*3,['Yes']*2,['No'],['Yes']*4,['No'],['Yes']*4,['No']*3]
 	field_type=list(itertools.chain(*field_type))     
 	unmatched_fields=[]
@@ -104,7 +104,6 @@ def process_file(path,company,report,history):
 				null_fields.reset_index(level=0, inplace=True)
 				null_fields.rename(columns={'index':'Field',0:'Count'},inplace=True)
 				null_fields=null_fields.merge(all_fields.iloc[:,:-1],on='Field',how='inner').drop_duplicates()
-
 				print('Fields with Null Values:'.upper(),'-'*len('Field with Null Values:'),null_fields,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
  
 			else:
