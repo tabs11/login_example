@@ -49,7 +49,7 @@ def process_file(path,company,report,history):
 		print('','#'*24,'#' +' DATA TO BE VALIDATED '+ '#','#'*24,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 		print('Missing or Mismatched fields:'.upper(),'',pd.DataFrame(pd.Series(list(itertools.chain(*unmatched_fields))).rename('Field')),'','Please use the templates for sites and CIs, provided in home page','',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 	else:
-		all_fields=pd.concat([pd.Series(fields).rename('Field'),pd.Series(field_type).rename('Mandatory'),pd.Series(char_num).rename('Maximum allowed')],axis=1)
+		all_fields=pd.concat([pd.Series(fields).rename('Field'),pd.Series(field_type).rename('Mandatory'),pd.Series(char_num).rename('Allowed')],axis=1)
 		common_fields=[]
 		for j in range(len(sheets)):
 			###first overview prints####
