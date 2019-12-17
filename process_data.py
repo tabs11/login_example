@@ -390,7 +390,7 @@ def process_file(path,company,report,history):
 			if len(existing_sites_list)>0:
 				existing_sites_list[0].to_excel(writer, 'Existing Location',index=False)
 			else:
-				print(' No existing Sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+				print('No existing Sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			if len(wrong_locations_sites_list)>0:
 				wrong_locations_sites_list[0].to_excel(writer, 'Region Issues in Sites',index=False)
 			else:
