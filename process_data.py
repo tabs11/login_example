@@ -26,7 +26,7 @@ def process_file(path,company,report,history):
 	sites_fields=['Company','Site Name','Site Alias','Description','Region','Site Group','Street','Country','City','Latitude','Longitude','Location ID','Additional Site Details','Maintenance Circle Name','Site Type','Status']
 	cis_fields=['Company','CI Name','CI Description','Tag Number','System Role','Status','Priority','Additional Information','Tier 1','Tier 2','Tier 3','Product Name','Model Version','Manufacturer','Region','Site Group','Site','DNS Host Name','Domain','CI ID']
 	fields=sites_fields+cis_fields
-	char_num=[254,60,60,255,60,60,90,60,60,12,12,30,0,70,'-','-',254,254,254,64,30,'-','-',254,60,60,60,254,254,254,60,60,60,254,254,64]
+	char_num=[254,60,60,255,60,60,90,60,60,12,12,30,0,70,0,0,254,254,254,64,30,0,0,254,60,60,60,254,254,254,60,60,60,254,254,64]
 	field_type=[['Yes']*3,['No'],['Yes']*2,['No'],['Yes']*2,['No']*6,['Yes']*3,['No']*3,['Yes']*2,['No'],['Yes']*4,['No'],['Yes']*4,['No']*3]
 	field_type=list(itertools.chain(*field_type))     
 	unmatched_fields=[]
@@ -76,7 +76,15 @@ def process_file(path,company,report,history):
 			chars=pd.concat([pd.Series(sheets[j].columns).rename('Field'),pd.Series(count_chars).rename('Characters')],axis=1)
 			b=common_fields[j].merge(chars,on='Field',how='outer')
 			c=b.iloc[:,[0,1,3,2]]
-			print('Number of records:'.upper(),'-'*len('Number of records:'), str(np.shape(sheets[j])[0]),'','Field Names and Maximum number of Characteres per field:'.upper(),'-'*len('Field Names and Maximum number of Characteres per field:'),c,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))			
+			c=c[c['Characters']>c['Allowed']]
+			print('Number of records:'.upper(),'-'*len('Number of records:'), str(np.shape(sheets[j])[0]),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))					
+			print('Characteres per field:'.upper(),'-'*len('Characteres per field:'),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+			if len(c)>0:
+				print(c,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+
+			else:
+				print('All fields have the number of characteres allowed','',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+			#print('Number of records:'.upper(),'-'*len('Number of records:'), str(np.shape(sheets[j])[0]),'','Field Names and Maximum number of Characteres per field:'.upper(),'-'*len('Field Names and Maximum number of Characteres per field:'),c,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))			
 			#if len(np.unique(sheets[j].filter(regex=re.compile('COMPANY',re.IGNORECASE))))>1:
 			#	print('Company Name is wrongly filled: '.upper(),'-'*len('Company Name is wrongly filled: '),np.unique(sheets[j].filter(regex=re.compile('COMPANY',re.IGNORECASE))),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			#else:
