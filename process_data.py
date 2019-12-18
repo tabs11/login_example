@@ -297,45 +297,89 @@ def process_file(path,company,report,history):
 				#template=prod_cat
 				
 				opcat_template='Prod_Cats_V2'
-				#template=pd.read_excel(glob.glob(opcat_template+'/*')[0],pd.ExcelFile(glob.glob(opcat_template+'/*')[0]).sheet_names[5])
-				template=pd.read_csv(glob.glob(opcat_template+'/*')[0],sep=',')
-				template.rename(columns={template.columns[0]:'Correct Tier 1',
-							 template.columns[1]:'Correct Tier 2',
-							 template.columns[2]:'Correct Tier 3',
-							 template.columns[4]:'Correct Manufacturer'},
-						inplace=True)
-				#template.rename(columns={template.columns[3]:'Product Name'},inplace=True)
+				##template=pd.read_excel(glob.glob(opcat_template+'/*')[0],pd.ExcelFile(glob.glob(opcat_template+'/*')[0]).sheet_names[5])
+				#template=pd.read_csv(glob.glob(opcat_template+'/*')[0],sep=',')
+				#template.rename(columns={template.columns[0]:'Correct Tier 1',
+				#			 template.columns[1]:'Correct Tier 2',
+				#			 template.columns[2]:'Correct Tier 3',
+				#			 template.columns[4]:'Correct Manufacturer'},
+				#		inplace=True)
+				##template.rename(columns={template.columns[3]:'Product Name'},inplace=True)
+				#prodcats_cis=cis[0][['Tier 1','Tier 2','Tier 3','Product Name','Manufacturer']]
+				##prodcats_cis=cis[0].filter(regex=re.compile('TIER|PRODUCT N|MANUF',re.IGNORECASE))
+				#prod_missing=prodcats_cis.loc[~prodcats_cis['Product Name'].isin(template.iloc[:,3])].drop_duplicates()
+				#prod_name=prod_missing.filter(regex=re.compile('Product N',re.IGNORECASE)).iloc[:,0]
+				#prod_match=prod_name.apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else get_close_matches(x,template.iloc[:,3].astype(str).unique().tolist()))
+				#prod_suggested=prod_name.apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else get_close_matches(x,template.iloc[:,3].astype(str).unique().tolist(),1)).apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else ''.join(x))
+				#prod_missing_final=pd.concat([prod_missing,prod_suggested.rename('Suggested Product Name'),prod_match.rename('Others PN match')],axis=1)
+				##wrong  product names tier classification
+				#same_prod=prodcats_cis[~prodcats_cis['Product Name'].isna()].merge(template,left_on=prod_name.name,right_on='Product Name',how='inner').drop_duplicates()
+				#wrongcats1=same_prod.iloc[:,[0,5,3,4,8]][(same_prod.iloc[:,0]!=same_prod.iloc[:,5]) & (same_prod.iloc[:,1]==same_prod.iloc[:,6]) & (same_prod.iloc[:,2]==same_prod.iloc[:,7])].drop_duplicates()
+				#wrongcats2=same_prod.iloc[:,[1,6,3,4,8]][(same_prod.iloc[:,1]!=same_prod.iloc[:,6]) & (same_prod.iloc[:,0]==same_prod.iloc[:,5]) & (same_prod.iloc[:,2]==same_prod.iloc[:,7])].drop_duplicates()
+				#wrongcats3=same_prod.iloc[:,[2,7,3,4,8]][(same_prod.iloc[:,2]!=same_prod.iloc[:,7]) &(same_prod.iloc[:,0]==same_prod.iloc[:,5]) & (same_prod.iloc[:,1]==same_prod.iloc[:,6])].drop_duplicates()
+				#wrongcats1and2=same_prod.iloc[:,[0,5,1,6,3,4,8]][(same_prod.iloc[:,0]!=same_prod.iloc[:,5]) & (same_prod.iloc[:,1]!=same_prod.iloc[:,6]) & (same_prod.iloc[:,2]==same_prod.iloc[:,7])].drop_duplicates()
+				#wrongcats1and3=same_prod.iloc[:,[0,5,2,7,3,4,8]][(same_prod.iloc[:,0]!=same_prod.iloc[:,5]) & (same_prod.iloc[:,1]==same_prod.iloc[:,6]) & (same_prod.iloc[:,2]!=same_prod.iloc[:,7])].drop_duplicates()
+				#wrongcats2and3=same_prod.iloc[:,[1,6,2,7,3,4,8]][(same_prod.iloc[:,1]!=same_prod.iloc[:,6]) & (same_prod.iloc[:,2]!=same_prod.iloc[:,7]) & (same_prod.iloc[:,0]==same_prod.iloc[:,5])].drop_duplicates()
+				#wrongcats1and2and3=same_prod.iloc[:,[0,5,1,6,2,7,3,4,8]][(same_prod.iloc[:,0]!=same_prod.iloc[:,5]) & (same_prod.iloc[:,1]!=same_prod.iloc[:,6]) & (same_prod.iloc[:,2]!=same_prod.iloc[:,7])].drop_duplicates()
+				#wrong_manufacturer=same_prod.iloc[:,[3,4,8]][(same_prod.iloc[:,4]!=same_prod.iloc[:,8])].drop_duplicates()                        
+				#cis_list=[]
+				#cis_list.append(prod_missing_final)
+				#cis_list.append(wrongcats1)
+				#cis_list.append(wrongcats2)
+				#cis_list.append(wrongcats3)
+				#cis_list.append(wrongcats1and2)
+				#cis_list.append(wrongcats1and3)
+				#cis_list.append(wrongcats2and3)
+				#cis_list.append(wrongcats1and2and3)
+				#cis_list.append(wrong_manufacturer)
+				#issues_names=['Wrong product Name','Wrong Tier 1','Wrong Tier 2','Wrong Tier 3',
+				#			  'Wrong Tier 1 and 2','Wrong Tier 1 and 3','Wrong Tier 2 and 3','Wrong Tier 1, 2 and 3',
+				#			  'Wrong Manufacturer']
+				#issues=pd.concat([pd.Series(issues_names).rename('Field'),pd.Series(cis_list).apply(lambda x: len(x)).rename('COUNT')],axis=1)
+				cis_list=[]
+				template=pd.read_csv(glob.glob(opcat_template+'/*.csv')[0],sep=',')
+				template.rename(columns={template.columns[3]:'Product Name'},inplace=True)
+				template.rename(columns={template.columns[0]:'Tier 1 in catalogue',
+					template.columns[1]:'Tier 2 in catalogue',
+					template.columns[2]:'Tier 3 in catalogue',
+                    			template.columns[4]:'Manufacturer in catalogue'},
+                   			 inplace=True)
 				prodcats_cis=cis[0][['Tier 1','Tier 2','Tier 3','Product Name','Manufacturer']]
-				#prodcats_cis=cis[0].filter(regex=re.compile('TIER|PRODUCT N|MANUF',re.IGNORECASE))
 				prod_missing=prodcats_cis.loc[~prodcats_cis['Product Name'].isin(template.iloc[:,3])].drop_duplicates()
 				prod_name=prod_missing.filter(regex=re.compile('Product N',re.IGNORECASE)).iloc[:,0]
 				prod_match=prod_name.apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else get_close_matches(x,template.iloc[:,3].astype(str).unique().tolist()))
 				prod_suggested=prod_name.apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else get_close_matches(x,template.iloc[:,3].astype(str).unique().tolist(),1)).apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else ''.join(x))
 				prod_missing_final=pd.concat([prod_missing,prod_suggested.rename('Suggested Product Name'),prod_match.rename('Others PN match')],axis=1)
-				#wrong  product names tier classification
 				same_prod=prodcats_cis[~prodcats_cis['Product Name'].isna()].merge(template,left_on=prod_name.name,right_on='Product Name',how='inner').drop_duplicates()
-				wrongcats1=same_prod.iloc[:,[0,5,3,4,8]][(same_prod.iloc[:,0]!=same_prod.iloc[:,5]) & (same_prod.iloc[:,1]==same_prod.iloc[:,6]) & (same_prod.iloc[:,2]==same_prod.iloc[:,7])].drop_duplicates()
-				wrongcats2=same_prod.iloc[:,[1,6,3,4,8]][(same_prod.iloc[:,1]!=same_prod.iloc[:,6]) & (same_prod.iloc[:,0]==same_prod.iloc[:,5]) & (same_prod.iloc[:,2]==same_prod.iloc[:,7])].drop_duplicates()
-				wrongcats3=same_prod.iloc[:,[2,7,3,4,8]][(same_prod.iloc[:,2]!=same_prod.iloc[:,7]) &(same_prod.iloc[:,0]==same_prod.iloc[:,5]) & (same_prod.iloc[:,1]==same_prod.iloc[:,6])].drop_duplicates()
-				wrongcats1and2=same_prod.iloc[:,[0,5,1,6,3,4,8]][(same_prod.iloc[:,0]!=same_prod.iloc[:,5]) & (same_prod.iloc[:,1]!=same_prod.iloc[:,6]) & (same_prod.iloc[:,2]==same_prod.iloc[:,7])].drop_duplicates()
-				wrongcats1and3=same_prod.iloc[:,[0,5,2,7,3,4,8]][(same_prod.iloc[:,0]!=same_prod.iloc[:,5]) & (same_prod.iloc[:,1]==same_prod.iloc[:,6]) & (same_prod.iloc[:,2]!=same_prod.iloc[:,7])].drop_duplicates()
-				wrongcats2and3=same_prod.iloc[:,[1,6,2,7,3,4,8]][(same_prod.iloc[:,1]!=same_prod.iloc[:,6]) & (same_prod.iloc[:,2]!=same_prod.iloc[:,7]) & (same_prod.iloc[:,0]==same_prod.iloc[:,5])].drop_duplicates()
-				wrongcats1and2and3=same_prod.iloc[:,[0,5,1,6,2,7,3,4,8]][(same_prod.iloc[:,0]!=same_prod.iloc[:,5]) & (same_prod.iloc[:,1]!=same_prod.iloc[:,6]) & (same_prod.iloc[:,2]!=same_prod.iloc[:,7])].drop_duplicates()
-				wrong_manufacturer=same_prod.iloc[:,[3,4,8]][(same_prod.iloc[:,4]!=same_prod.iloc[:,8])].drop_duplicates()                        
-				cis_list=[]
+				same_prod=same_prod.iloc[:,[0,5,1,6,2,7,3,4,8]]
+				wrongcats1=same_prod[(same_prod.iloc[:,0]!=same_prod.iloc[:,1]) & (same_prod.iloc[:,2]==same_prod.iloc[:,3]) & (same_prod.iloc[:,4]==same_prod.iloc[:,5])].drop_duplicates()
+				wrongcats1['Wrong field'] ='Tier 1'
+				wrongcats2=same_prod[(same_prod.iloc[:,2]!=same_prod.iloc[:,3]) & (same_prod.iloc[:,0]==same_prod.iloc[:,1]) & (same_prod.iloc[:,4]==same_prod.iloc[:,5])].drop_duplicates()
+				wrongcats2['Wrong field'] ='Tier 2'
+				wrongcats3=same_prod[(same_prod.iloc[:,4]!=same_prod.iloc[:,5]) &(same_prod.iloc[:,0]==same_prod.iloc[:,1]) & (same_prod.iloc[:,2]==same_prod.iloc[:,3])].drop_duplicates()
+				wrongcats3['Wrong field'] ='Tier 3'
+				wrongcats1and2=same_prod[(same_prod.iloc[:,0]!=same_prod.iloc[:,1]) & (same_prod.iloc[:,2]!=same_prod.iloc[:,3]) & (same_prod.iloc[:,4]==same_prod.iloc[:,5])].drop_duplicates()
+				wrongcats1and2['Wrong field'] ='Tier 1 and 2'
+				wrongcats1and3=same_prod[(same_prod.iloc[:,0]!=same_prod.iloc[:,1]) & (same_prod.iloc[:,2]==same_prod.iloc[:,3]) & (same_prod.iloc[:,4]!=same_prod.iloc[:,5])].drop_duplicates()
+				wrongcats1and3['Wrong field'] ='Tier 1 and 3'
+				wrongcats2and3=same_prod[(same_prod.iloc[:,2]!=same_prod.iloc[:,3]) & (same_prod.iloc[:,4]!=same_prod.iloc[:,5]) & (same_prod.iloc[:,0]==same_prod.iloc[:,1])].drop_duplicates()
+				wrongcats2and3['Wrong field'] ='Tier 2 and 3'
+				wrongcats1and2and3=same_prod[(same_prod.iloc[:,0]!=same_prod.iloc[:,1]) & (same_prod.iloc[:,2]!=same_prod.iloc[:,3]) & (same_prod.iloc[:,4]!=same_prod.iloc[:,5])].drop_duplicates()
+				wrongcats1and2and3['Wrong field'] ='Tier 1, Tier 2 and 3'
+				wrong_manufacturer=same_prod[(same_prod.iloc[:,7]!=same_prod.iloc[:,8])].drop_duplicates()    
+				wrong_manufacturer['Wrong field'] ='Manufacturer'
+				wrong_Tiers=pd.concat([wrongcats1,wrongcats2,wrongcats3,wrongcats1and2,wrongcats1and3,wrongcats2and3,wrongcats1and2and3,wrong_manufacturer],axis=0)
+				wrong_t=pd.DataFrame(wrong_Tiers["Wrong field"])
+				wrong_t=wrong_t.groupby(wrong_t.columns.values[0]).size().reset_index(name='counts')
+				wrong_prod=pd.concat([pd.Series('Product Name').rename('Wrong field'),pd.Series(len(prod_missing_final['Product Name'])).rename('Count')],axis=1)
+				wrong_prod=pd.concat([pd.Series('Product Name').rename('Wrong field'),pd.Series(len(prod_missing_final['Product Name'])).rename('Count')],axis=1)
+				wrong_t=pd.DataFrame(wrong_Tiers["Wrong field"])
+				wrong_t=wrong_t.groupby(wrong_t.columns.values[0]).size().reset_index(name='Count')
+				wrong_catalogue=pd.concat([wrong_prod,wrong_t],axis=0)
+				wrong_catalogue.reset_index(inplace = True,drop =True) 
 				cis_list.append(prod_missing_final)
-				cis_list.append(wrongcats1)
-				cis_list.append(wrongcats2)
-				cis_list.append(wrongcats3)
-				cis_list.append(wrongcats1and2)
-				cis_list.append(wrongcats1and3)
-				cis_list.append(wrongcats2and3)
-				cis_list.append(wrongcats1and2and3)
-				cis_list.append(wrong_manufacturer)
-				issues_names=['Wrong product Name','Wrong Tier 1','Wrong Tier 2','Wrong Tier 3',
-							  'Wrong Tier 1 and 2','Wrong Tier 1 and 3','Wrong Tier 2 and 3','Wrong Tier 1, 2 and 3',
-							  'Wrong Manufacturer']
-				issues=pd.concat([pd.Series(issues_names).rename('Field'),pd.Series(cis_list).apply(lambda x: len(x)).rename('COUNT')],axis=1)
+				cis_list.append(wrong_Tiers)
+				issues_names=['Wrong product Name','Wrong Tiers']
 				print('PRODUCT CATALOG ISSUES:','-'*len('PRODUCT CATALOG ISSUES:'),issues,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))               
 				#cis[0].to_csv(report + company +'cis_to_add_'+'.csv')			
 			else:
