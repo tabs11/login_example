@@ -419,7 +419,7 @@ def process_file(path,company,report,history):
 			if np.shape(new_sites_in_cis)[0]>0:
 				new_sites_in_cis.to_excel(writer,'CIs with non existing sites',index=False)
 			else:
-				print('All CIs have existing Sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8')
+				print('All CIs have existing Sites',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			if len(cis_locations)>0:
 				cis_locations[0].to_excel(writer, 'Region Issues in CIs',index=False)
 			else:
