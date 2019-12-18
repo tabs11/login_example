@@ -119,14 +119,28 @@ def process_file(path,company,report,history):
 			sheets[j].drop_duplicates(inplace=True)
 			####locations
 			sheets[j].fillna('',inplace=True)
-			filtered_locations=sheets[j].filter(regex=re.compile('REG|GROUP|CITY',re.IGNORECASE))
+			#filtered_locations=sheets[j].filter(regex=re.compile('REG|GROUP|CITY',re.IGNORECASE))
+			#length=[]
+			#print('Location values:'.upper(),'-'*len('Location values:'),sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+			#for k in range(np.shape(filtered_locations)[1]):
+			#	length.append(len(filtered_locations.iloc[:,k].unique()))
+			#	a=pd.DataFrame(pd.Series(filtered_locations.iloc[:,k].unique()).sample(n=min(length), random_state=1))
+			#	a.rename(columns={0:filtered_locations.columns[k]},inplace=True)
+			#	print(a,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+			#	#print('-'*len('Location values:'),filtered_locations.columns[k],filtered_locations.iloc[:,k].unique(),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+			#	if filtered_locations.iloc[:,k].str.isupper().any():
+			#		#sheets[j][filtered_locations.columns[k]]=filtered_locations.iloc[:,k].apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else x.title())
+			#		print('Found Upper cases in ' + filtered_locations.columns[k],'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+			#	else:
+			#		None
+			filtered_locations=sheets[j].filter(regex=re.compile('REG|GROUP',re.IGNORECASE))
 			length=[]
 			print('Location values:'.upper(),'-'*len('Location values:'),sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			for k in range(np.shape(filtered_locations)[1]):
 				length.append(len(filtered_locations.iloc[:,k].unique()))
-				a=pd.DataFrame(pd.Series(filtered_locations.iloc[:,k].unique()).sample(n=min(length), random_state=1))
-				a.rename(columns={0:filtered_locations.columns[k]},inplace=True)
-				print(a,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
+				#a=pd.DataFrame(pd.Series(filtered_locations.iloc[:,k].unique()).sample(n=min(length), random_state=1))
+				#a.rename(columns={0:filtered_locations.columns[k]},inplace=True)
+				print(filtered_locations.columns[k]+': ' + str(length[k]) ,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 				#print('-'*len('Location values:'),filtered_locations.columns[k],filtered_locations.iloc[:,k].unique(),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 				if filtered_locations.iloc[:,k].str.isupper().any():
 					#sheets[j][filtered_locations.columns[k]]=filtered_locations.iloc[:,k].apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else x.title())
