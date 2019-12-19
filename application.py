@@ -54,7 +54,10 @@ USERS = { # dictionary (username, User)
 	'paagrawa_admin'  : User('paagrawa_admin','paagrawa_admin'),
 	'mlacan'  : User('mlacan','mlacan'),
 	'rserban' : User('rserban','rserban'),
-	'matheka' : User('matheka','matheka')
+	'matheka' : User('matheka','matheka'),
+	'fjoseph' : User('fjoseph','fjoseph'),
+	'difrance' : User('difrance','difrance')
+	
 
 
 	
