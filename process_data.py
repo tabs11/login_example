@@ -376,7 +376,8 @@ def process_file(path,company,report,history):
 				wrong_t=pd.DataFrame(wrong_Tiers["Wrong field"])
 				wrong_t=wrong_t.groupby(wrong_t.columns.values[0]).size().reset_index(name='Count')
 				wrong_catalogue=pd.concat([wrong_prod,wrong_t],axis=0)
-				wrong_catalogue.reset_index(inplace = True,drop =True) 
+				wrong_catalogue.reset_index(inplace = True,drop =True)
+				wrong_catalogue=wrong_catalogue[wrong_catalogue['Count']>0]
 				cis_list.append(prod_missing_final)
 				cis_list.append(wrong_Tiers)
 				issues_names=['Wrong product Name','Wrong Tiers']
