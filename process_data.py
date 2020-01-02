@@ -381,7 +381,10 @@ def process_file(path,company,report,history):
 				cis_list.append(prod_missing_final)
 				cis_list.append(wrong_Tiers)
 				issues_names=['Wrong product Name','Wrong Tiers']
-				print('PRODUCT CATALOG ISSUES:','-'*len('PRODUCT CATALOG ISSUES:'),wrong_catalogue,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))               
+				if len(wrong_catalogue)>0:
+					print('PRODUCT CATALOG ISSUES:','-'*len('PRODUCT CATALOG ISSUES:'),wrong_catalogue,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))               
+				else:
+					None
 				#cis[0].to_csv(report + company +'cis_to_add_'+'.csv')			
 			else:
 				None				
