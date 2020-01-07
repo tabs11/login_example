@@ -232,11 +232,29 @@ def upload():
 	os.makedirs(DOWNLOAD_FOLDER)
 	if len(os.listdir(UPLOAD_FOLDER))>0:
 		process_data.process_file(path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER,history=ITSM_FOLDER)
-		filenames=os.listdir(DOWNLOAD_FOLDER)
-		text = open(DOWNLOAD_FOLDER+'issues.txt', 'r+',encoding='utf8')
-		content = text.read()
-		text.close()
-	return render_template('multi_files_upload.html', filenames=filenames,text=content)
+		filenames = [f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith('.xlsx')]
+		text_errors=open(DOWNLOAD_FOLDER+'errors.txt', 'r+',encoding='utf8')
+		content_errors = text_errors.read()
+		text_errors.close()
+		text_correct=open(DOWNLOAD_FOLDER+'correct_data.txt', 'r+',encoding='utf8')
+		content_correct = text_correct.read()
+		text_correct.close()
+		text_errors_report=open(DOWNLOAD_FOLDER+'errors_report.txt', 'r+',encoding='utf8')
+		content_errors_report = text_errors_report.read()
+		text_errors_report.close()
+		text_warnings=open(DOWNLOAD_FOLDER+'warnings.txt', 'r+',encoding='utf8')
+		content_warnings = text_warnings.read()
+		text_warnings.close()
+		text_summary=open(DOWNLOAD_FOLDER+'summary.txt', 'r+',encoding='utf8')
+		content_summary = text_summary.read()
+		text_summary.close()
+	return render_template('multi_files_upload.html', 
+		filenames=filenames,
+		text_errors=content_errors,
+		text_correct=content_correct,
+		text_errors_report=content_errors_report,
+		text_warnings=content_warnings,
+		text_summary=content_summary)
 
 
 @application.route('/report/<filename>')
