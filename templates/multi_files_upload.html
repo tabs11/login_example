@@ -7,16 +7,38 @@
 	<div class="multi_upload_index">
 		<h2 class="text-muted">UPLOADED FILES:</h2>
 
-			<p>Below the overview report (issues.txt) and the screened file with data to upload and detailed issues (report.xlsx): .</p>
+			<p>Below screened file with data to upload and detailed issues (...report.xlsx): .</p>
 			<ul>
 				{% for file in filenames %}
 					<li><a href="{{url_for('uploaded_file', filename=file)}}">{{file}}</a></li>
 				{% endfor %}
 			</ul>
 		<hr/>
-		<h2 class="text-muted">DATA SUMMARY AND ISSUES FOUND:</h2>
-		<pre>
-			{{ text }}
-		</pre>
+		<h2 style="color:red;" class="text-muted">ERRORS:</h2>
+			<h2 style="color:green;">
+			<pre>
+				{{ text_correct }}
+			</pre>
+		</h2>
+		<h2 style="color:red;">
+			<pre>
+				{{ text_errors_report }}
+			</pre>
+		</h2>
+			<pre>
+				{{ text_errors }}
+			</pre>
+		
+
+		<h2 style="color:orange;" class="text-muted">Warnings:</h2>
+			<pre>
+				{{ text_warnings }}
+			</pre>
+		
+		<h2 style="color:black;" class="text-muted">Summary</h2>
+			<pre>
+				{{ text_summary}}
+			</pre>
+
 	</div>
  {% endblock %}  
