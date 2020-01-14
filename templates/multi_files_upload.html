@@ -1,5 +1,6 @@
 {% extends "login_layout.html" %}
 {% block content %}
+ <!-- Login Form -->
 
 <p class="big"></p>
 <p class="big"></p>
@@ -14,19 +15,36 @@
 			</ul>
 		<hr/>
 		<h2 style="color:red;" class="text-muted">ERRORS:</h2>
+			<pre>
+				{{ text_errors_Cis }}
+			</pre>
+			
 			<h2 style="color:green;">
+				<pre>
+					{{ text_correct_Cis }}
+				</pre>
+			</h2>
+			<h2 style="color:red;">
+				<pre>
+					{{ text_errors_report_Cis }}
+				</pre>
+			</h2>
+			
+
 			<pre>
-				{{ text_correct }}
+				{{ text_errors_Sites }}
 			</pre>
-		</h2>
-		<h2 style="color:red;">
-			<pre>
-				{{ text_errors_report }}
-			</pre>
-		</h2>
-			<pre>
-				{{ text_errors }}
-			</pre>
+			
+			<h2 style="color:green;">
+				<pre>
+					{{ text_correct_Sites }}
+				</pre>
+			</h2>
+			<h2 style="color:red;">
+				<pre>
+					{{ text_errors_report_Sites }}
+				</pre>
+			</h2>
 		
 
 		<h2 style="color:orange;" class="text-muted">Warnings:</h2>
@@ -41,4 +59,3 @@
 
 	</div>
  {% endblock %}  
-
