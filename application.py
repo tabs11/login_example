@@ -233,15 +233,31 @@ def upload():
 	if len(os.listdir(UPLOAD_FOLDER))>0:
 		process_data.process_file(path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER,history=ITSM_FOLDER)
 		filenames = [f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith('.xlsx')]
-		text_errors=open(DOWNLOAD_FOLDER+'errors.txt', 'r+',encoding='utf8')
-		content_errors = text_errors.read()
-		text_errors.close()
-		text_correct=open(DOWNLOAD_FOLDER+'correct_data.txt', 'r+',encoding='utf8')
-		content_correct = text_correct.read()
-		text_correct.close()
-		text_errors_report=open(DOWNLOAD_FOLDER+'errors_report.txt', 'r+',encoding='utf8')
-		content_errors_report = text_errors_report.read()
-		text_errors_report.close()
+		text_errors_Cis=open(DOWNLOAD_FOLDER+'errorsCIs.txt', 'r+',encoding='utf8')
+		content_errors_Cis = text_errors_Cis.read()
+		text_errors_Cis.close()
+
+		text_errors_Sites=open(DOWNLOAD_FOLDER+'errorsSites.txt', 'r+',encoding='utf8')
+		content_errors_Sites = text_errors_Sites.read()
+		text_errors_Sites.close()
+
+		
+
+		text_correct_Sites=open(DOWNLOAD_FOLDER+'correct_dataSites.txt', 'r+',encoding='utf8')
+		content_correct_Sites = text_correct_Sites.read()
+		text_correct_Sites.close()
+		text_errors_report_Sites=open(DOWNLOAD_FOLDER+'errors_reportSites.txt', 'r+',encoding='utf8')
+		content_errors_report_Sites = text_errors_report_Sites.read()
+		text_errors_report_Sites.close()
+
+		text_correct_Cis=open(DOWNLOAD_FOLDER+'correct_dataCIs.txt', 'r+',encoding='utf8')
+		content_correct_Cis = text_correct_Cis.read()
+		text_correct_Cis.close()
+		text_errors_report_Cis=open(DOWNLOAD_FOLDER+'errors_reportCIs.txt', 'r+',encoding='utf8')
+		content_errors_report_Cis = text_errors_report_Cis.read()
+		text_errors_report_Cis.close()
+
+		
 		text_warnings=open(DOWNLOAD_FOLDER+'warnings.txt', 'r+',encoding='utf8')
 		content_warnings = text_warnings.read()
 		text_warnings.close()
@@ -250,67 +266,14 @@ def upload():
 		text_summary.close()
 	return render_template('multi_files_upload.html', 
 		filenames=filenames,
-		text_errors=content_errors,
-		text_correct=content_correct,
-		text_errors_report=content_errors_report,
+		text_errors_Cis=content_errors_Cis,
+		text_errors_Sites=content_errors_Sites,
+		text_correct_Sites=content_correct_Sites,
+		text_correct_Cis=content_correct_Cis,
+		text_errors_report_Sites=content_errors_report_Sites,
+		text_errors_report_Cis=content_errors_report_Cis,
 		text_warnings=content_warnings,
 		text_summary=content_summary)
-
-
-
-#@application.route('/upload', methods=['POST'])
-##@cache.cached(timeout=500)
-#@login_required
-#def upload():
-#	ID_FOLDER=session['filename']
-#	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites/'
-#	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
-#	DOWNLOAD_FOLDER=ID_FOLDER+'/Report/'
-#	os.makedirs(DOWNLOAD_FOLDER)
-#	if len(os.listdir(UPLOAD_FOLDER))>0:
-#		process_data.process_file(path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER,history=ITSM_FOLDER)
-#		filenames = [f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith('.xlsx')]
-#		text_errors_Cis=open(DOWNLOAD_FOLDER+'errorsCIs.txt', 'r+',encoding='utf8')
-#		content_errors_Cis = text_errors_Cis.read()
-#		text_errors_Cis.close()
-#
-#		text_errors_Sites=open(DOWNLOAD_FOLDER+'errorsSites.txt', 'r+',encoding='utf8')
-#		content_errors_Sites = text_errors_Sites.read()
-#		text_errors_Sites.close()
-#
-#		
-#
-#		text_correct_Sites=open(DOWNLOAD_FOLDER+'correct_dataSites.txt', 'r+',encoding='utf8')
-#		content_correct_Sites = text_correct_Sites.read()
-#		text_correct_Sites.close()
-#		text_errors_report_Sites=open(DOWNLOAD_FOLDER+'errors_reportSites.txt', 'r+',encoding='utf8')
-#		content_errors_report_Sites = text_errors_report_Sites.read()
-#		text_errors_report_Sites.close()
-#
-#		text_correct_Cis=open(DOWNLOAD_FOLDER+'correct_dataCIs.txt', 'r+',encoding='utf8')
-#		content_correct_Cis = text_correct_Cis.read()
-#		text_correct_Cis.close()
-#		text_errors_report_Cis=open(DOWNLOAD_FOLDER+'errors_reportCIs.txt', 'r+',encoding='utf8')
-#		content_errors_report_Cis = text_errors_report_Cis.read()
-#		text_errors_report_Cis.close()
-#
-#		
-#		text_warnings=open(DOWNLOAD_FOLDER+'warnings.txt', 'r+',encoding='utf8')
-#		content_warnings = text_warnings.read()
-#		text_warnings.close()
-#		text_summary=open(DOWNLOAD_FOLDER+'summary.txt', 'r+',encoding='utf8')
-#		content_summary = text_summary.read()
-#		text_summary.close()
-#	return render_template('multi_files_upload.html', 
-#		filenames=filenames,
-#		text_errors_Cis=content_errors_Cis,
-#		text_errors_Sites=content_errors_Sites,
-#		text_correct_Sites=content_correct_Sites,
-#		text_correct_Cis=content_correct_Cis,
-#		text_errors_report_Sites=content_errors_report_Sites,
-#		text_errors_report_Cis=content_errors_report_Cis,
-#		text_warnings=content_warnings,
-#		text_summary=content_summary)
 
 
 @application.route('/report/<filename>')
@@ -320,69 +283,6 @@ def uploaded_file(filename):
 	DOWNLOAD_FOLDER=ID_FOLDER+'/Report/'
 	return send_from_directory(DOWNLOAD_FOLDER,filename)
 
-#############################################################################
-
-#@application.route('/get_priorities', methods=['GET','POST'])
-#def get_priorities():
-#	msg4=None
-#	session['filename']=session['company']+'_'+str(uuid.uuid1())
-#	PRIO_FOLDER=session['filename']
-#	PRIO_UPLOAD=PRIO_FOLDER+'/PRIO_files/'
-#	PRIO_REPORT=PRIO_FOLDER +'/Report/'
-#	
-#	# Get the name of the uploaded files
-#	uploaded_files = request.files.getlist("file[]")
-#	for file in uploaded_files:
-#		# Check if the file is one of the allowed types/extensions
-#		if file and allowed_file(file.filename):
-#			# Make the filename safe, remove unsupported chars
-#			filename = secure_filename(file.filename)
-#			if not os.path.exists(PRIO_FOLDER):
-#				os.makedirs(PRIO_FOLDER)
-#				os.makedirs(PRIO_UPLOAD)
-#				os.makedirs(PRIO_REPORT)
-#			# Move the file form the temporal folder to the upload
-#			
-#			file.save(os.path.join(PRIO_UPLOAD, filename))
-#			filenames=os.listdir(PRIO_UPLOAD)
-#			msg4=filenames
-#		else:
-#			msg4='Please select a valid extension (.xls or .xlsx)'
-#	return render_template('priority_index.html',msg4=msg4)
-
-
-#@application.route('/prio_upload', methods=['GET'])
-#def prio_upload():
-#	PRIO_FOLDER=session['filename']
-#	PRIO_UPLOAD=PRIO_FOLDER+'/PRIO_files/'
-#	PRIO_REPORT=PRIO_FOLDER +'/Report/'
-#	# Get the name of the uploaded files
-#	if len(os.listdir(PRIO_UPLOAD))>0:
-#		up_prio.update_priority(path=PRIO_UPLOAD,company=PRIO_FOLDER.split('_')[0],prio_report=PRIO_REPORT)
-#		prio_filenames=os.listdir(PRIO_REPORT)
-#		print(prio_filenames)
-#
-#	return render_template('prio_files_upload.html', prio_filenames=prio_filenames)
-#
-#
-#@application.route('/PRIO_Report/<filename>')
-#def uploaded_PRIO_file(filename):
-#	PRIO_FOLDER=session['filename']
-#	PRIO_REPORT=PRIO_FOLDER +'/Report/'
-#	return send_from_directory(PRIO_REPORT,filename)
-
-
-##############################################
-
-#@application.route('/noam', methods=['GET', 'POST'])
-#def comp_noam():
-#	msg= None
-#	if request.method == 'POST':
-#		company_noam = request.form['company_noam']
-#		session['company_noam']=company_noam
-#		
-#		msg = 'Successfull'
-#	return render_template('index_NOAM_company.html',msg=msg)
 
 
 @application.route('/noam_data', methods=['GET','POST'])
