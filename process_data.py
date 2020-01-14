@@ -115,7 +115,7 @@ def process_file(path,company,report,history):
 			#print('Characteres per field:'.upper(),'-'*len('Characteres per field:'),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			if len(c)>0:
 				#print(c,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-				print('Fields exceeding the number of characteres:'.upper(),'-'*len('Characteres per field:'),c,'',sep='\n',file=open(report +'warnings.txt','a',encoding='utf8'))
+				print('Fields exceeding the number of characteres:'.upper(),'-'*len('Fields exceeding the number of characteres:'.upper()'),c,'',sep='\n',file=open(report +'warnings.txt','a',encoding='utf8'))
 
 			else:
 				None
@@ -142,11 +142,11 @@ def process_file(path,company,report,history):
 				null_fields=null_fields.merge(all_fields.iloc[:,:-1],on='Field',how='inner').drop_duplicates()
 			#	#print('Fields with Null Values:'.upper(),'-'*len('Field with Null Values:'),null_fields,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 				if (null_fields['Mandatory']=='No').any():
-					print('Fields with Null Values:'.upper(),'-'*len('Field with Null Values:'),null_fields[null_fields['Mandatory']=='No'],'',sep='\n',file=open(report +'warnings.txt','a',encoding='utf8'))
+					print('Fields with Null Values:'.upper(),'-'*len('Fields with Null Values:'),null_fields[null_fields['Mandatory']=='No'],'',sep='\n',file=open(report +'warnings.txt','a',encoding='utf8'))
 				else:
 					None
 				if (null_fields['Mandatory']=='Yes').any():
-					print('Fields with Null Values:'.upper(),'-'*len('Field with Null Values:'),null_fields[null_fields['Mandatory']=='Yes'],'',sep='\n',file=open(report +'errors'+names[j]+'.txt','a',encoding='utf8'))
+					print('Fields with Null Values:'.upper(),'-'*len('Fields with Null Values:'),null_fields[null_fields['Mandatory']=='Yes'],'',sep='\n',file=open(report +'errors'+names[j]+'.txt','a',encoding='utf8'))
 #
 				else:
 					None
@@ -256,7 +256,7 @@ def process_file(path,company,report,history):
 				cis_chars=pd.DataFrame(cis[0][cis[0]['CI Name'].astype(str).str.contains("\"|\'|´",regex=True)].drop_duplicates())
 				if np.shape(cis_chars)[0]>0:
 					cis[0]['CI Name']=cis[0]['CI Name'].astype(str).apply(lambda x: re.sub("\'|\"|\´", "",x))
-					print('CIs with quotes (Quotes Auto Removed):'.upper(),'-'*len('CIs with quotes (Quotes Auto Removed):'.upper(),'#: ' + str(np.shape(cis_chars)[0]),'',sep='\n',file=open(report +'warnings.txt','a',encoding='utf8'))
+					print('CIs with quotes (Quotes Auto Removed):'.upper(),'-'*len('CIs with quotes (Quotes Auto Removed):'.upper()),'#: ' + str(np.shape(cis_chars)[0]),'',sep='\n',file=open(report +'warnings.txt','a',encoding='utf8'))
 				else:
 					None
 				#site_name=cis[0][cis[0].columns[~cis[0].columns.str.contains('Group',case=False)].tolist()].filter(regex=re.compile('SITE',re.IGNORECASE))
