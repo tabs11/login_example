@@ -115,7 +115,7 @@ def process_file(path,company,report,history):
 			#print('Characteres per field:'.upper(),'-'*len('Characteres per field:'),'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
 			if len(c)>0:
 				#print(c,'',sep='\n',file=open(report +'issues.txt','a',encoding='utf8'))
-				print('Fields exceeding the number of characteres:'.upper(),'-'*len('Fields exceeding the number of characteres:'.upper()'),c,'',sep='\n',file=open(report +'warnings.txt','a',encoding='utf8'))
+				print('Fields exceeding the number of characteres:'.upper(),'-'*len('Fields exceeding the number of characteres:'.upper()),c,'',sep='\n',file=open(report +'warnings.txt','a',encoding='utf8'))
 			else:
 				None
 				
