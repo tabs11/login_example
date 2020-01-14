@@ -1,4 +1,4 @@
-{% extends "login_layout.html" %}
+<!--{% extends "login_layout.html" %}
 {% block content %}
 
 <p class="big"></p>
@@ -27,6 +27,69 @@
 			<pre>
 				{{ text_errors }}
 			</pre>
+		
+
+		<h2 style="color:orange;" class="text-muted">Warnings:</h2>
+			<pre>
+				{{ text_warnings }}
+			</pre>
+		
+		<h2 style="color:black;" class="text-muted">Summary</h2>
+			<pre>
+				{{ text_summary}}
+			</pre>
+
+	</div>
+ {% endblock %}  
+-->
+
+{% extends "login_layout.html" %}
+{% block content %}
+ <!-- Login Form -->
+
+<p class="big"></p>
+<p class="big"></p>
+	<div class="multi_upload_index">
+		<h2 class="text-muted">UPLOADED FILES:</h2>
+
+			<p>Below screened file with data to upload and detailed issues (...report.xlsx): .</p>
+			<ul>
+				{% for file in filenames %}
+					<li><a href="{{url_for('uploaded_file', filename=file)}}">{{file}}</a></li>
+				{% endfor %}
+			</ul>
+		<hr/>
+		<h2 style="color:red;" class="text-muted">ERRORS:</h2>
+			<pre>
+				{{ text_errors_Cis }}
+			</pre>
+			
+			<h2 style="color:green;">
+				<pre>
+					{{ text_correct_Cis }}
+				</pre>
+			</h2>
+			<h2 style="color:red;">
+				<pre>
+					{{ text_errors_report_Cis }}
+				</pre>
+			</h2>
+			
+
+			<pre>
+				{{ text_errors_Sites }}
+			</pre>
+			
+			<h2 style="color:green;">
+				<pre>
+					{{ text_correct_Sites }}
+				</pre>
+			</h2>
+			<h2 style="color:red;">
+				<pre>
+					{{ text_errors_report_Sites }}
+				</pre>
+			</h2>
 		
 
 		<h2 style="color:orange;" class="text-muted">Warnings:</h2>
