@@ -161,10 +161,10 @@ def home():
 	return render_template('home.html',msg=msg)
 
 #######
-@application.route('/cmdb', methods=['GET','POST'])
-@login_required
-def cmdb():
-	return render_template('cmdb_validation.html')
+#@application.route('/cmdb', methods=['GET','POST'])
+#@login_required
+#def cmdb():
+#	return render_template('cmdb_validation.html')
 #######
 
 @application.route('/files', methods=['GET','POST'])
@@ -221,6 +221,43 @@ def data_to_validate():
 	return render_template('multi_upload_index.html',msg3=msg3)
 
 
+#@application.route('/upload', methods=['POST'])
+##@cache.cached(timeout=500)
+#@login_required
+#def upload():
+#	ID_FOLDER=session['filename']
+#	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites/'
+#	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
+#	DOWNLOAD_FOLDER=ID_FOLDER+'/Report/'
+#	os.makedirs(DOWNLOAD_FOLDER)
+#	if len(os.listdir(UPLOAD_FOLDER))>0:
+#		process_data.process_file(path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER,history=ITSM_FOLDER)
+#		filenames = [f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith('.xlsx')]
+#		text_errors=open(DOWNLOAD_FOLDER+'errors.txt', 'r+',encoding='utf8')
+#		content_errors = text_errors.read()
+#		text_errors.close()
+#		text_correct=open(DOWNLOAD_FOLDER+'correct_data.txt', 'r+',encoding='utf8')
+#		content_correct = text_correct.read()
+#		text_correct.close()
+#		text_errors_report=open(DOWNLOAD_FOLDER+'errors_report.txt', 'r+',encoding='utf8')
+#		content_errors_report = text_errors_report.read()
+#		text_errors_report.close()
+#		text_warnings=open(DOWNLOAD_FOLDER+'warnings.txt', 'r+',encoding='utf8')
+#		content_warnings = text_warnings.read()
+#		text_warnings.close()
+#		text_summary=open(DOWNLOAD_FOLDER+'summary.txt', 'r+',encoding='utf8')
+#		content_summary = text_summary.read()
+#		text_summary.close()
+#	return render_template('multi_files_upload.html', 
+#		filenames=filenames,
+#		text_errors=content_errors,
+#		text_correct=content_correct,
+#		text_errors_report=content_errors_report,
+#		text_warnings=content_warnings,
+#		text_summary=content_summary)
+
+
+
 @application.route('/upload', methods=['POST'])
 #@cache.cached(timeout=500)
 @login_required
@@ -233,15 +270,31 @@ def upload():
 	if len(os.listdir(UPLOAD_FOLDER))>0:
 		process_data.process_file(path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER,history=ITSM_FOLDER)
 		filenames = [f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith('.xlsx')]
-		text_errors=open(DOWNLOAD_FOLDER+'errors.txt', 'r+',encoding='utf8')
-		content_errors = text_errors.read()
-		text_errors.close()
-		text_correct=open(DOWNLOAD_FOLDER+'correct_data.txt', 'r+',encoding='utf8')
-		content_correct = text_correct.read()
-		text_correct.close()
-		text_errors_report=open(DOWNLOAD_FOLDER+'errors_report.txt', 'r+',encoding='utf8')
-		content_errors_report = text_errors_report.read()
-		text_errors_report.close()
+		text_errors_Cis=open(DOWNLOAD_FOLDER+'errorsCIs.txt', 'r+',encoding='utf8')
+		content_errors_Cis = text_errors_Cis.read()
+		text_errors_Cis.close()
+
+		text_errors_Sites=open(DOWNLOAD_FOLDER+'errorsSites.txt', 'r+',encoding='utf8')
+		content_errors_Sites = text_errors_Sites.read()
+		text_errors_Sites.close()
+
+		
+
+		text_correct_Sites=open(DOWNLOAD_FOLDER+'correct_dataSites.txt', 'r+',encoding='utf8')
+		content_correct_Sites = text_correct_Sites.read()
+		text_correct_Sites.close()
+		text_errors_report_Sites=open(DOWNLOAD_FOLDER+'errors_reportSites.txt', 'r+',encoding='utf8')
+		content_errors_report_Sites = text_errors_report_Sites.read()
+		text_errors_report_Sites.close()
+
+		text_correct_Cis=open(DOWNLOAD_FOLDER+'correct_dataCIs.txt', 'r+',encoding='utf8')
+		content_correct_Cis = text_correct_Cis.read()
+		text_correct_Cis.close()
+		text_errors_report_Cis=open(DOWNLOAD_FOLDER+'errors_reportCIs.txt', 'r+',encoding='utf8')
+		content_errors_report_Cis = text_errors_report_Cis.read()
+		text_errors_report_Cis.close()
+
+		
 		text_warnings=open(DOWNLOAD_FOLDER+'warnings.txt', 'r+',encoding='utf8')
 		content_warnings = text_warnings.read()
 		text_warnings.close()
@@ -250,9 +303,12 @@ def upload():
 		text_summary.close()
 	return render_template('multi_files_upload.html', 
 		filenames=filenames,
-		text_errors=content_errors,
-		text_correct=content_correct,
-		text_errors_report=content_errors_report,
+		text_errors_Cis=content_errors_Cis,
+		text_errors_Sites=content_errors_Sites,
+		text_correct_Sites=content_correct_Sites,
+		text_correct_Cis=content_correct_Cis,
+		text_errors_report_Sites=content_errors_report_Sites,
+		text_errors_report_Cis=content_errors_report_Cis,
 		text_warnings=content_warnings,
 		text_summary=content_summary)
 
