@@ -130,7 +130,7 @@ def process_file(path,company,report,history):
 			blanks=pd.concat([pd.Series(sheets[j].columns).rename('Field'),pd.Series(blank_cases).apply(lambda x: len(x)).rename('Count'),pd.Series(blank_cases).rename('Case example'),],axis=1)
 			if np.shape(blanks[blanks['Case example']!='None'])[0]>0:
 				blank_spaces=blanks[blanks['Case example']!='None']
-				print('Fields with blanks spaces: (Auto Removed)'.upper(),'-'*len('Fields with blanks spaces: (Auto Removed)'),blank_spaces,'',sep='\n',file=open(report +'warnings.txt','a',encoding='utf8'))
+				print('Fields with blanks spaces: (Auto Removed)'.upper(),'-'*len('Fields with blanks spaces: (Auto Removed)'.upper()),blank_spaces,'',sep='\n',file=open(report +'warnings.txt','a',encoding='utf8'))
 
 			else:
 				None
@@ -256,7 +256,7 @@ def process_file(path,company,report,history):
 				cis_chars=pd.DataFrame(cis[0][cis[0]['CI Name'].astype(str).str.contains("\"|\'|´",regex=True)].drop_duplicates())
 				if np.shape(cis_chars)[0]>0:
 					cis[0]['CI Name']=cis[0]['CI Name'].astype(str).apply(lambda x: re.sub("\'|\"|\´", "",x))
-					print('CIs with quotes (Quotes Auto Removed):'.upper(),'-'*len('CIs with quotes (Auto Removed'),'#: ' + str(np.shape(cis_chars)[0]),'',sep='\n',file=open(report +'warnings.txt','a',encoding='utf8'))
+					print('CIs with quotes (Quotes Auto Removed):'.upper(),'-'*len('CIs with quotes (Quotes Auto Removed):'.upper(),'#: ' + str(np.shape(cis_chars)[0]),'',sep='\n',file=open(report +'warnings.txt','a',encoding='utf8'))
 				else:
 					None
 				#site_name=cis[0][cis[0].columns[~cis[0].columns.str.contains('Group',case=False)].tolist()].filter(regex=re.compile('SITE',re.IGNORECASE))
