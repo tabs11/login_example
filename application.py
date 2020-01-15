@@ -276,15 +276,11 @@ def upload():
 		
 
 	return render_template('multi_files_upload.html', 
-		filenames=filenames,
-		text_errors_Cis=content_errors_Cis,
-		text_errors_Sites=content_errors_Sites,
-		#text_correct_Sites=content_correct_Sites,
-		#text_correct_Cis=content_correct_Cis,
-		#text_errors_report_Sites=content_errors_report_Sites,
-		#text_errors_report_Cis=content_errors_report_Cis,
-		text_warnings=content_warnings,
-		text_summary=content_summary,msg=msg,msg2=msg2,msg3=msg3,msg4=msg4,msg5=msg5,msg6=msg6)
+			       filenames=filenames,
+			       text_errors_Cis=content_errors_Cis,
+			       text_errors_Sites=content_errors_Sites,
+			       text_warnings=content_warnings,
+			       text_summary=content_summary,msg=msg,msg2=msg2,msg3=msg3,msg4=msg4,msg5=msg5,msg6=msg6)
 #@application.route('/upload', methods=['POST'])
 ##@cache.cached(timeout=500)
 #@login_required
