@@ -125,7 +125,7 @@ def process_file(path,company,report,history):
 			blanks=pd.concat([pd.Series(sheets[j].columns).rename('Field'),pd.Series(blank_cases).apply(lambda x: len(x)).rename('Count'),pd.Series(blank_cases).rename('Case example'),],axis=1)
 			if np.shape(blanks[blanks['Case example']!='None'])[0]>0:
 				blank_spaces=blanks[blanks['Case example']!='None']
-				print('','Fields with blanks spaces: (Auto Removed)'.upper(),'-'*len('Fields with blanks spaces: (Auto Removed)'),blank_spaces.drop(columns=['Case example']),'',sep='\n',file=open(report +'warnings.txt','a',encoding='utf8'))
+				print('','Fields with blanks spaces: (Auto Corrected)'.upper(),'-'*len('Fields with blanks spaces: (Auto Corrected)'),blank_spaces.drop(columns=['Case example']),'',sep='\n',file=open(report +'warnings.txt','a',encoding='utf8'))
 
 			else:
 				None
