@@ -802,27 +802,7 @@ def upload():
 			msg13='SUMMARY:'
 		else:
 			content_summary_Sites=''
-			
-
-
-		
-		
-		
-
-	return render_template('multi_files_upload.html', 
-		filenames=filenames,
-		text_errors_Cis=content_errors_Cis,
-		text_errors_Sites=content_errors_Sites,
-		#text_correct_Sites=content_correct_Sites,
-		#text_correct_Cis=content_correct_Cis,
-		#text_errors_report_Sites=content_errors_report_Sites,
-		#text_errors_report_Cis=content_errors_report_Cis,
-		text_warnings_Cis=content_warnings_Cis,
-		text_warnings_Sites=content_warnings_Sites,
-		text_summary_Cis=content_summary_Cis,
-		text_summary_Sites=content_summary_Sites,
-		msgCIs=msgCIs,msgSites=msgSites,msg=msg,msg2=msg2,msg3=msg3,msg4=msg4,msg5=msg5,msg6=msg6,msg7=msg7,
-		msg8=msg8,msg9=msg9,msg10=msg10,msg11=msg11,msg12=msg12,msg13=msg13,msg14=msg14,msg15=msg15,msg16=msg16)
+	return render_template('multi_files_upload.html',filenames=filenames,text_errors_Cis=content_errors_Cis,text_errors_Sites=content_errors_Sites,text_warnings_Cis=content_warnings_Cis,text_warnings_Sites=content_warnings_Sites,text_summary_Cis=content_summary_Cis,text_summary_Sites=content_summary_Sites,msgCIs=msgCIs,msgSites=msgSites,msg=msg,msg2=msg2,msg3=msg3,msg4=msg4,msg5=msg5,msg6=msg6,msg7=msg7,msg8=msg8,msg9=msg9,msg10=msg10,msg11=msg11,msg12=msg12,msg13=msg13,msg14=msg14,msg15=msg15,msg16=msg16)
 
 
 @application.route('/report/<filename>')
