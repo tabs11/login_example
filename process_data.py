@@ -138,7 +138,7 @@ def process_file(path,company,report,history):
 			###duplicated rows
 			if np.shape(sheets[j][sheets[j].duplicated()])[0]>0:
 				dup_rows=np.shape(sheets[j][sheets[j].duplicated()])[0]
-				print('','Number of Duplicated rows (Auto Removed): '.upper()+dup_rows,'-'*len('Number of Duplicated rows (Auto Removed): '),'',sep='\n',file=open(report +'warnings'+names[j]+'.txt','a',encoding='utf8'))
+				print('','Number of Duplicated rows (Auto Removed): '.upper()+str(dup_rows),'-'*len('Number of Duplicated rows (Auto Removed): '),'',sep='\n',file=open(report +'warnings'+names[j]+'.txt','a',encoding='utf8'))
 			else:
 				None
 			
