@@ -22,6 +22,7 @@ def noam_files(file_path,company,NOAM_report):
 	sheets=[]
 	cis=[]
 	sites=[]
+	files=pd.DataFrame()
 	for j in range(len(glob.glob(file_path+'/*'))):
 		files=pd.read_excel(glob.glob(file_path+'*')[j],sheet_name=None)
 		for frame in files.keys():
