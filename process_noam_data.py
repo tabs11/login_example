@@ -23,8 +23,11 @@ def noam_files(file_path,company,NOAM_report):
 	cis=[]
 	sites=[]
 	for j in range(len(glob.glob(file_path+'/*'))):
-		for k in range(len(pd.ExcelFile(glob.glob(file_path+'*')[j]).sheet_names)):
-			sheets.append(pd.read_excel(glob.glob(file_path+'*')[j],pd.ExcelFile(glob.glob(file_path+'*')[j]).sheet_names[k]))     
+		files=pd.read_excel(glob.glob(file_path+'*')[j],sheet_name=None)
+        	for frame in files.keys():
+            		sheets.append(files[frame])
+		#for k in range(len(pd.ExcelFile(glob.glob(file_path+'*')[j]).sheet_names)):
+		#	sheets.append(pd.read_excel(glob.glob(file_path+'*')[j],pd.ExcelFile(glob.glob(file_path+'*')[j]).sheet_names[k]))     
 	
 	for j in range(len(sheets)):
 		if (~sheets[j].columns.str.contains('CI N',case=False).any()) & (sheets[j].columns.str.contains('SITE N|SITE+|SITE*',case=False).any()):
