@@ -22,13 +22,9 @@ def noam_files(file_path,company,NOAM_report):
 	sheets=[]
 	cis=[]
 	sites=[]
-	files=pd.DataFrame()
 	for j in range(len(glob.glob(file_path+'/*'))):
-		files=pd.read_excel(glob.glob(file_path+'*')[j],sheet_name=None)
-		for frame in files.keys():
-			sheets.append(files[frame])
-		#for k in range(len(pd.ExcelFile(glob.glob(file_path+'*')[j]).sheet_names)):
-		#	sheets.append(pd.read_excel(glob.glob(file_path+'*')[j],pd.ExcelFile(glob.glob(file_path+'*')[j]).sheet_names[k]))     
+		for k in range(len(pd.ExcelFile(glob.glob(file_path+'*')[j]).sheet_names)):
+			sheets.append(pd.read_excel(glob.glob(file_path+'*')[j],pd.ExcelFile(glob.glob(file_path+'*')[j]).sheet_names[k]))     
 	
 	for j in range(len(sheets)):
 		if (~sheets[j].columns.str.contains('CI N',case=False).any()) & (sheets[j].columns.str.contains('SITE N|SITE+|SITE*',case=False).any()):
@@ -44,6 +40,12 @@ def noam_files(file_path,company,NOAM_report):
 	if len(sites)>0:
 		sites=sites[0]
 		sites.fillna('',inplace=True)
+		#sites_region=sites[['Region','Company','Status']]
+		#sites_groups=sites[['Site Group','Description','Region','Company','Status']]
+		#sites_region.loc[sites_region['Region'].duplicated()] = ''
+		#sites_region.sort_values([sites_region.columns[0]],ascending=False).reset_index(drop=True,inplace=True)
+		#sites=sites.reindex(sites_region.index)
+
 		#site_alias=sites.copy()
 		#sites.drop('Site Alias',axis=1, inplace=True)
 		#sites.drop_duplicates(inplace=True)
@@ -72,7 +74,7 @@ def noam_files(file_path,company,NOAM_report):
 			w_sheet1_sites['Q' +str(4+i)]=sites['Additional Site Details'][i]
 		
 			
-			#status
+			##status
 			if (sites['Status']=='').any():
 				w_sheet1_sites['R' +str(4+i)]='Enabled'
 				w_sheet2_sites['C' +str(4+i)]='Enabled'
@@ -83,7 +85,7 @@ def noam_files(file_path,company,NOAM_report):
 				w_sheet2_sites['C' +str(4+i)]=sites['Status'][i]
 				w_sheet3_sites['E' +str(4+i)]=sites['Status'][i]
 				w_sheet4_sites['E' +str(4+i)]=sites['Status'][i]
-		
+		#
 # 		
 			#Latitude
 			w_sheet1_sites['S' +str(4+i)]=sites['Latitude'][i]
@@ -99,7 +101,7 @@ def noam_files(file_path,company,NOAM_report):
 			
 			w_sheet4_sites['C' +str(4+i)]=sites['Region'][i]
 			#company
-			w_sheet2_sites['B' +str(4+i)]=sites['Company'][i]
+			#w_sheet2_sites['B' +str(4+i)]=sites['Company'][i]
 			w_sheet3_sites['B' +str(4+i)]=sites['Company'][i]
 			w_sheet4_sites['B' +str(4+i)]=sites['Company'][i]
 			#Site Group
@@ -113,6 +115,7 @@ def noam_files(file_path,company,NOAM_report):
 		cis=cis[0]
 		cis.fillna('',inplace=True)
 		for i in range(np.shape(cis)[0]):
+			#print(i)
 			#static fields
 			w_sheet2_cis['DJ' +str(4+i)]='migrator'
 			w_sheet2_cis['DN' +str(4+i)]='Computer System'

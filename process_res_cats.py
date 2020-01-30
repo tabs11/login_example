@@ -8,7 +8,7 @@ import glob
 from difflib import get_close_matches
 
 def op_res_cats_files(file_path,company,op_res_cats_report):
-    print('','#'*47,'#' +' Operational Resolution Categories validation'.upper()+ '#','#'*47,'',sep='\n',file=open(op_res_cats_report +'issues.txt','a',encoding='utf8'))
+    #print('','#'*47,'#' +' Operational Resolution Categories validation'.upper()+ '#','#'*47,'',sep='\n',file=open(op_res_cats_report +'issues.txt','a',encoding='utf8'))
     ##Operational Category
     op_cats=load_workbook('CMDB_templates/OperationalCatalog.xlsm',read_only=False, keep_vba=True)
     sheets_ops = op_cats.sheetnames
@@ -52,25 +52,26 @@ def op_res_cats_files(file_path,company,op_res_cats_report):
         wrong_Tier1=res.loc[~res.iloc[:,2].isin(templates[1].iloc[:,2]) & res.iloc[:,3].isin(templates[1].iloc[:,3])].drop_duplicates()
         wrong_Tier1['Wrong Tier'] ='Tier 1'
         wrong_Tier1['Possible match Tier 1']=wrong_Tier1.iloc[:,2].apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else get_close_matches(x,templates[1].iloc[:,2].astype(str).unique().tolist(),1)).apply(lambda x: 'Not Found' if len(x)==0 or pd.isnull(x) or type(x)==float or type(x)==int else ''.join(x))
-        wrong_Tier1['Possible match Tier 2']=''
+        wrong_Tier1['Possible match Tier 2']=np.nan
         wrong_Tier2=res.loc[~res.iloc[:,3].isin(templates[1].iloc[:,3]) & res.iloc[:,2].isin(templates[1].iloc[:,2])].drop_duplicates()
         wrong_Tier2['Wrong Tier'] ='Tier 2'
-        wrong_Tier2['Possible match Tier 1']=''
+        wrong_Tier2['Possible match Tier 1']=np.nan
         wrong_Tier2['Possible match Tier 2']=wrong_Tier2.iloc[:,3].apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else get_close_matches(x,templates[1].iloc[:,3].astype(str).unique().tolist(),1)).apply(lambda x: 'Not Found' if len(x)==0 or pd.isnull(x) or type(x)==float or type(x)==int else ''.join(x))
         wrong_Tier1_2=res.loc[~res.iloc[:,2].isin(templates[1].iloc[:,2]) & ~res.iloc[:,3].isin(templates[1].iloc[:,3])].drop_duplicates()
         wrong_Tier1_2['Wrong Tier'] ='Tier 1 and 2'
         wrong_Tier1_2['Possible match Tier 1']=wrong_Tier1_2.iloc[:,2].apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else get_close_matches(x,templates[1].iloc[:,2].astype(str).unique().tolist(),1)).apply(lambda x: 'Not Found' if len(x)==0 or pd.isnull(x) or type(x)==float or type(x)==int else ''.join(x))
         wrong_Tier1_2['Possible match Tier 2']=wrong_Tier1_2.iloc[:,3].apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else get_close_matches(x,templates[1].iloc[:,3].astype(str).unique().tolist(),1)).apply(lambda x: 'Not Found' if len(x)==0 or pd.isnull(x) or type(x)==float or type(x)==int else ''.join(x))
         wrong_Tiers=pd.concat([wrong_Tier1,wrong_Tier2,wrong_Tier1_2],axis=0)
-        wrong_res=wrong_Tiers.iloc[:,[0,1,2,3,4,7,5,6]]
-        if len(wrong_res)>0:
-            print('Wrong Resolution Categories found:'.upper() + str(np.shape(wrong_res)[0]),'',sep='\n',file=open(op_res_cats_report +'issues.txt','a',encoding='utf8'))
+        wrong_Tiers.dropna(axis='columns',how='all',inplace=True)
+        #wrong_res=wrong_Tiers.iloc[:,[0,1,2,3,4,7,5,6]]
+        if len(wrong_Tiers)>0:
+            print('','COUNT: '+str(np.shape(wrong_Tiers)[0]),'',sep='\n',file=open(op_res_cats_report +'res_issues.txt','a',encoding='utf8'))
             with pd.ExcelWriter(op_res_cats_report + company + '_res_cats_issues'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
-                wrong_res.to_excel(writer, 'wrong_res',index=False)
+                wrong_Tiers.to_excel(writer, 'wrong_res',index=False)
                 writer.save()
 
         else:
-            print('Resolution Categories are correct.'.upper(),'',sep='\n',file=open(op_res_cats_report +'issues.txt','a',encoding='utf8'))
+            print('',sep='\n',file=open(op_res_cats_report +'res_issues.txt','a',encoding='utf8'))
             for i in range(res.shape[0]):
                 w_sheet1_res_cats['A' +str(4+i)]='Resolution Category'
                 w_sheet1_res_cats['B' +str(4+i)]=res.filter(regex=re.compile('ResCat1',re.IGNORECASE)).iloc[:,0].values[i]
@@ -98,24 +99,25 @@ def op_res_cats_files(file_path,company,op_res_cats_report):
         wrong_Tier1=ops.loc[~ops.iloc[:,2].isin(templates[0].iloc[:,2]) & ops.iloc[:,3].isin(templates[0].iloc[:,3])].drop_duplicates()
         wrong_Tier1['Wrong Tier'] ='Tier 1'
         wrong_Tier1['Possible match Tier 1']=wrong_Tier1.iloc[:,2].apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else get_close_matches(x,templates[0].iloc[:,2].astype(str).unique().tolist(),1)).apply(lambda x: 'Not Found' if len(x)==0 or pd.isnull(x) or type(x)==float or type(x)==int else ''.join(x))
-        wrong_Tier1['Possible match Tier 2']=''
+        wrong_Tier1['Possible match Tier 2']=np.nan
         wrong_Tier2=ops.loc[~ops.iloc[:,3].isin(templates[0].iloc[:,3]) & ops.iloc[:,2].isin(templates[0].iloc[:,2])].drop_duplicates()
         wrong_Tier2['Wrong Tier'] ='Tier 2'
-        wrong_Tier2['Possible match Tier 1']=''
+        wrong_Tier2['Possible match Tier 1']=np.nan
         wrong_Tier2['Possible match Tier 2']=wrong_Tier2.iloc[:,3].apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else get_close_matches(x,templates[0].iloc[:,3].astype(str).unique().tolist(),1)).apply(lambda x: 'Not Found' if len(x)==0 or pd.isnull(x) or type(x)==float or type(x)==int else ''.join(x))
         wrong_Tier1_2=ops.loc[~sheets[j].iloc[:,2].isin(templates[0].iloc[:,2]) & ~ops.iloc[:,3].isin(templates[0].iloc[:,3])].drop_duplicates()
         wrong_Tier1_2['Wrong Tier'] ='Tier 1 and 2'
         wrong_Tier1_2['Possible match Tier 1']=wrong_Tier1_2.iloc[:,2].apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else get_close_matches(x,templates[0].iloc[:,2].astype(str).unique().tolist(),1)).apply(lambda x: 'Not Found' if len(x)==0 or pd.isnull(x) or type(x)==float or type(x)==int else ''.join(x))
         wrong_Tier1_2['Possible match Tier 2']=wrong_Tier1_2.iloc[:,3].apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else get_close_matches(x,templates[0].iloc[:,3].astype(str).unique().tolist(),1)).apply(lambda x: 'Not Found' if len(x)==0 or pd.isnull(x) or type(x)==float or type(x)==int else ''.join(x))
         wrong_Tiers=pd.concat([wrong_Tier1,wrong_Tier2,wrong_Tier1_2],axis=0)
-        wrong_ops=wrong_Tiers.iloc[:,[0,1,2,3,4,7,5,6]]
-        if len(wrong_ops)>0:
-            print('Wrong Operational Categories:'.upper() + str(np.shape(wrong_ops)[0]),'',sep='\n',file=open(op_res_cats_report +'issues.txt','a',encoding='utf8'))
+        wrong_Tiers.dropna(axis='columns',how='all',inplace=True)
+        #wrong_ops=wrong_Tiers.iloc[:,[0,1,2,3,4,7,5,6]]
+        if len(wrong_Tiers)>0:
+            print('','COUNT: '+str(np.shape(wrong_Tiers)[0]),'',sep='\n',file=open(op_res_cats_report +'op_issues.txt','a',encoding='utf8'))
             with pd.ExcelWriter(op_res_cats_report + company + '_op_cats_issues'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
-                wrong_ops.to_excel(writer, 'wrong_ops',index=False)
+                wrong_Tiers.to_excel(writer, 'wrong_ops',index=False)
                 writer.save()
         else:
-            print('Operational Categories are correct.'.upper(),'',sep='\n',file=open(op_res_cats_report +'issues.txt','a',encoding='utf8'))
+            print('',sep='\n',file=open(op_res_cats_report +'op_issues.txt','a',encoding='utf8'))
             ops['inc_values'] = np.where(ops['Module'] == "Incident Management", 'Yes', None)
             ops['prb_values'] = np.where(ops['Module'] == "Problem Management", 'Yes', None)
             ops['chg_values'] = np.where(ops['Module'] == "Change Management", 'Yes', None)
