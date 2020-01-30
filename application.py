@@ -242,99 +242,111 @@ def upload():
 	msg14=None
 	msg15=None
 	msg16=None
+	msg17=None
+	msg18=None
 	ID_FOLDER=session['filename']
 	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites/'
 	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
 	DOWNLOAD_FOLDER=ID_FOLDER+'/Report/'
 	os.makedirs(DOWNLOAD_FOLDER)
 	if len(os.listdir(UPLOAD_FOLDER))>0:
+		#process_data.process_file(path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER,history=ITSM_FOLDER)
+		#process_data_v3.open_input_file(path=UPLOAD_FOLDER,report=DOWNLOAD_FOLDER)
 		process_data.process_file(path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER,history=ITSM_FOLDER)
-		filenames = [f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith('.xlsx')]
-		msgCIs="CI'S VALIDATION:"
 		
-		if 'errorsCIs.txt' in os.listdir(DOWNLOAD_FOLDER):
-			text_errors_Cis=open(DOWNLOAD_FOLDER+'errorsCIs.txt', 'r+',encoding='utf8')
-			content_errors_Cis = text_errors_Cis.read()
-			text_errors_Cis.close()
-			if len(content_errors_Cis)>1:
-				msg='Errors found in CIs data. Please download the report and check the sheets.'
+		#process_data_v2.check_correct_fields(report=DOWNLOAD_FOLDER)
+		#process_data_v2.common_validation(path=UPLOAD_FOLDER,report=DOWNLOAD_FOLDER)
+		#process_data_v2.specific_validation(report=DOWNLOAD_FOLDER,history=ITSM_FOLDER)
+		filenames = [f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith(('.xlsx','csv'))]
+		content_errors_Cis=''
+		content_warnings_Cis=''
+		content_summary_Cis=''	
+		content_errors_Sites=''
+		content_warnings_Sites=''
+		content_summary_Sites=''
+		if 'Mismatched_fields.txt' in os.listdir(DOWNLOAD_FOLDER):
+			text_mis_fields=open(DOWNLOAD_FOLDER+'Mismatched_fields.txt', 'r+',encoding='utf8')
+			content_mis_fields = text_mis_fields.read()
+			text_mis_fields.close()
+			msg17='WRONG TEMPLATE USED OR FIELDS ARE MISSING FROM ORIGINAL TEMPLATE.'
+			msg18='PLEASE USE THE CORRECT TEMPLATES PROVIDED IN HOMEPAGE.'
+		else:
+			content_mis_fields=''
+			msgCIs="CI'S VALIDATION:"
+			if 'errorsCIs.txt' in os.listdir(DOWNLOAD_FOLDER):
+				text_errors_Cis=open(DOWNLOAD_FOLDER+'errorsCIs.txt', 'r+',encoding='utf8')
+				content_errors_Cis = text_errors_Cis.read()
+				text_errors_Cis.close()
+				if len(content_errors_Cis)>1:
+					msg='Errors found in CIs data. Please download the report and check the sheets.'
+				else:
+					msg2='Your CIs data has no errors and is ready to be uploaded.'
 			else:
-				content_errors_Cis=''
-				msg2='Your CIs data has no errors. is ready to be uploaded.'
-		else:
-			content_errors_Cis=''
-			msg3='CIS FILE NOT FOUND.'
-
-		if 'warningsCIs.txt' in os.listdir(DOWNLOAD_FOLDER):
-			text_warnings_Cis=open(DOWNLOAD_FOLDER+'warningsCIs.txt', 'r+',encoding='utf8')
-			content_warnings_Cis = text_warnings_Cis.read()
-			text_warnings_Cis.close()
-			if len(content_warnings_Cis)>1:
-				msg7='WARNINGS:'
+				msg3='CIS FILE NOT FOUND.'
+	
+			if 'warningsCIs.txt' in os.listdir(DOWNLOAD_FOLDER):
+				text_warnings_Cis=open(DOWNLOAD_FOLDER+'warningsCIs.txt', 'r+',encoding='utf8')
+				content_warnings_Cis = text_warnings_Cis.read()
+				text_warnings_Cis.close()
+				if len(content_warnings_Cis)>1:
+					msg7='WARNINGS:'
+				else:
+					content_warnings_Cis=''
+					msg8='YOUR CIS DATA HAS NO WARNINGS.'
 			else:
-				content_warnings_Cis=''
-				msg8='YOUR CIS DATA HAS NO WARNINGS.'
-		else:
-			content_warnings_Cis=''
-			msg9='CIS FILE NOT FOUND.'
-
-		if 'summaryCIs.txt' in os.listdir(DOWNLOAD_FOLDER):
-			text_summary_Cis=open(DOWNLOAD_FOLDER+'summaryCIs.txt', 'r+',encoding='utf8')
-			content_summary_Cis = text_summary_Cis.read()
-			text_summary_Cis.close()
-			msg15='SUMMARY:'
-		else:
-			content_summary_Cis=''	
-
-		msgSites="SITES VALIDATION"
-		if 'errorsSites.txt' in os.listdir(DOWNLOAD_FOLDER):
-			text_errors_Sites=open(DOWNLOAD_FOLDER+'errorsSites.txt', 'r+',encoding='utf8')
-			content_errors_Sites = text_errors_Sites.read()
-			text_errors_Sites.close()
-			if len(content_errors_Sites)>1:
-				msg4='Errors found in Sites data. Please download the report and check the sheets.'
+				None
+	
+			if 'summaryCIs.txt' in os.listdir(DOWNLOAD_FOLDER):
+				text_summary_Cis=open(DOWNLOAD_FOLDER+'summaryCIs.txt', 'r+',encoding='utf8')
+				content_summary_Cis = text_summary_Cis.read()
+				text_summary_Cis.close()
+				msg15='SUMMARY:'
 			else:
-				content_errors_Sites=''
-				msg5='Your Sites data has no errors. is ready to be uploaded. check the possible warnings.'
-		else:
-			content_errors_Sites=''
-			msg6='SITES FILE NOT FOUND'
+				None
 
-		
-		if 'warningsSites.txt' in os.listdir(DOWNLOAD_FOLDER):
-			text_warnings_Sites=open(DOWNLOAD_FOLDER+'warningsSites.txt', 'r+',encoding='utf8')
-			content_warnings_Sites = text_warnings_Sites.read()
-			text_warnings_Sites.close()
-			if len(content_warnings_Sites)>1:
-				msg10='WARNINGS:'
+			msgSites="SITES VALIDATION"
+			if 'errorsSites.txt' in os.listdir(DOWNLOAD_FOLDER):
+				text_errors_Sites=open(DOWNLOAD_FOLDER+'errorsSites.txt', 'r+',encoding='utf8')
+				content_errors_Sites = text_errors_Sites.read()
+				text_errors_Sites.close()
+				if len(content_errors_Sites)>1:
+					msg4='Errors found in Sites data. Please download the report and check the sheets.'
+				else:
+					msg5='Your Sites data has no errors and is ready to be uploaded.'
 			else:
-				content_warnings_Sites=''
-				msg11='YOUR SITES DATA HAS NO WARNINGS.'
-		else:
-			content_warnings_Sites=''
+				msg6='SITES FILE NOT FOUND'
+	
 			
-
-		if 'summarySites.txt' in os.listdir(DOWNLOAD_FOLDER):
-			text_summary_Sites=open(DOWNLOAD_FOLDER+'summarySites.txt', 'r+',encoding='utf8')
-			content_summary_Sites = text_summary_Sites.read()
-			text_summary_Sites.close()
-			msg13='SUMMARY:'
-		else:
-			content_summary_Sites=''
+			if 'warningsSites.txt' in os.listdir(DOWNLOAD_FOLDER):
+				text_warnings_Sites=open(DOWNLOAD_FOLDER+'warningsSites.txt', 'r+',encoding='utf8')
+				content_warnings_Sites = text_warnings_Sites.read()
+				text_warnings_Sites.close()
+				if len(content_warnings_Sites)>1:
+					msg10='WARNINGS:'
+				else:
+					msg11='YOUR SITES DATA HAS NO WARNINGS.'
+			else:
+				None
+				
+	
+			if 'summarySites.txt' in os.listdir(DOWNLOAD_FOLDER):
+				text_summary_Sites=open(DOWNLOAD_FOLDER+'summarySites.txt', 'r+',encoding='utf8')
+				content_summary_Sites = text_summary_Sites.read()
+				text_summary_Sites.close()
+				msg13='SUMMARY:'
+			else:
+				None
 	return render_template('multi_files_upload.html', 
 		filenames=filenames,
+		text_mis_fields=content_mis_fields,
 		text_errors_Cis=content_errors_Cis,
 		text_errors_Sites=content_errors_Sites,
-		#text_correct_Sites=content_correct_Sites,
-		#text_correct_Cis=content_correct_Cis,
-		#text_errors_report_Sites=content_errors_report_Sites,
-		#text_errors_report_Cis=content_errors_report_Cis,
 		text_warnings_Cis=content_warnings_Cis,
 		text_warnings_Sites=content_warnings_Sites,
 		text_summary_Cis=content_summary_Cis,
 		text_summary_Sites=content_summary_Sites,
 		msgCIs=msgCIs,msgSites=msgSites,msg=msg,msg2=msg2,msg3=msg3,msg4=msg4,msg5=msg5,msg6=msg6,msg7=msg7,
-		msg8=msg8,msg9=msg9,msg10=msg10,msg11=msg11,msg12=msg12,msg13=msg13,msg14=msg14,msg15=msg15,msg16=msg16)
+		msg8=msg8,msg9=msg9,msg10=msg10,msg11=msg11,msg12=msg12,msg13=msg13,msg14=msg14,msg15=msg15,msg16=msg16,msg17=msg17,msg18=msg18)
 
 
 @application.route('/report/<filename>')
@@ -429,17 +441,53 @@ def op_res_cats_data():
 @application.route('/op_res_cats_upload', methods=['GET'])
 @login_required
 def op_res_cats_data_upload():
+	msg=None
+	msg2=None
+	msg3=None
+	msg_res=None
+	msg4=None
+	msg5=None
+	msg6=None
+	msg_ops=None
 	OP_RES_FOLDER=session['filename']
 	OP_RES_UPLOAD=OP_RES_FOLDER+'/op_res_cats_files/'
 	OP_RES_REPORT=OP_RES_FOLDER +'/Report/'
 	# Get the name of the uploaded files
 	if len(os.listdir(OP_RES_UPLOAD))>0:
 		process_res_cats.op_res_cats_files(file_path=OP_RES_UPLOAD,company=OP_RES_UPLOAD.split('_')[0],op_res_cats_report=OP_RES_REPORT)
-		op_res_filenames=os.listdir(OP_RES_REPORT)
-		text = open(OP_RES_REPORT+'issues.txt', 'r+',encoding='utf8')
-		content = text.read()
-		text.close()
-	return render_template('res_cats_upload.html', op_res_filenames=op_res_filenames,text=content)
+		op_res_filenames=[f for f in os.listdir(OP_RES_REPORT) if f.endswith(('.xlsm','xlsx'))]
+		content_res=''
+		content_ops=''
+		msg_res="RESOLUTION CATEGORIES VALIDATION:"
+		if 'res_issues.txt' in os.listdir(OP_RES_REPORT):
+			text_res=open(OP_RES_REPORT+'res_issues.txt', 'r+',encoding='utf8')
+			content_res = text_res.read()
+			text_res.close()
+			if len(content_res)>1:
+				msg='Errors found in Resolution Categories. Please check the Catalogue.'
+			else:
+				msg2='Your Resolution Categories are correct and ready to be uploaded.'
+		else:
+			msg3='Resolution Categories not found.'
+		
+		msg_ops="OPERATIONAL CATEGORIES VALIDATION:"
+		if 'op_issues.txt' in os.listdir(OP_RES_REPORT):
+			text_ops=open(OP_RES_REPORT+'op_issues.txt', 'r+',encoding='utf8')
+			content_ops = text_ops.read()
+			text_ops.close()
+			if len(content_ops)>1:
+				msg4='Errors found in Operational Categories. Please check the Catalogue.'
+			else:
+				msg5='Your Operational Categories are correct and ready to be uploaded.'
+		else:
+			msg6='Operational Categories not found.'
+	return render_template('res_cats_upload.html', 
+		op_res_filenames=op_res_filenames,
+		text_res=content_res,
+		text_ops=content_ops,
+		msg_res=msg_res,
+		msg_ops=msg_ops,
+		msg=msg,msg2=msg2,msg3=msg3,msg4=msg4,msg5=msg5,msg6=msg6)
 
 
 @application.route('/OP_RES_UPLOAD_Report/<filename>')
