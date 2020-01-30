@@ -320,7 +320,7 @@ def process_file(path,company,report,history):
 					print('','WRONG VALUES IN PRODUCT CATEGORIZATION:','-'*len('WRONG VALUES IN PRODUCT CATEGORIZATION:'),wrong_catalogue.set_index(wrong_catalogue.columns[0]),'',sep='\n',file=open(report +'errors'+names[j]+'.txt','a',encoding='utf8'))              
 				else:
 					None
-		if len(cis>0):			
+		if (len(cis)>0):			
 			#cis.to_csv(report + company + '_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.csv',sep=';',mode='w',index=False)
 			cis_sites_locations=[]
 			if (len(sites)>0):
