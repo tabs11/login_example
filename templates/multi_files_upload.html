@@ -5,96 +5,108 @@
 <p class="big"></p>
 <p class="big"></p>
 	<div class="multi_upload_index">
-		<h2 class="text-muted">UPLOADED FILES:</h2>
 
-			<p>Below screened file with data to upload and detailed issues (...report.xlsx): .</p>
+		{% if msg17 %}
+			<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg17 }}</h2>
+		
+			<pre>
+				{{ text_mis_fields }}
+			</pre>
+			<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg18 }}</h2>
+		{% endif %}
+		
+		{% if msgCIs %}
+		<h2 style="color:black;background-color:#ffe6e6" class="text-muted"><b>REPORT:</b></h2>
+
+		<h2 style="color:black;" class="text-muted">Below screened file with data to upload and detailed issues (...report.xlsx):</h2>
 			<ul>
 				{% for file in filenames %}
 					<li><a href="{{url_for('uploaded_file', filename=file)}}">{{file}}</a></li>
 				{% endfor %}
 			</ul>
 		<hr/>
-		{% if msgCIs %}
-			<u><h2 style="color:black;" class="text-muted">{{ msgCIs }}</h2></u>
+			<u><h2 style="color:black;background-color:#cccccc" class="text-muted">{{ msgCIs }}</h2></u>
 		{% endif %}
+
+		{% if msg15 %}
+			<h2 style="color:blue;background-color:#e6f2ff" class="text-muted">{{ msg15 }}</h2>
+		{% endif %}
+		{% if msg16 %}
+			<h2 style="color:blue;background-color:#e6f2ff" class="text-muted">{{ msg16 }}</h2>
+		{% endif %}
+			<pre>
+				{{ text_summary_Cis }}
+			</pre>
 		{% if msg %}
-			<h2 style="color:red;" class="text-muted">{{ msg }}</h2>
+			<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg }}</h2>
 		{% endif %}
 		{% if msg2 %}
-			<h2 style="color:green;" class="text-muted">{{ msg2 }}</h2>
+			<h2 style="color:green;background-color:#ccffcc" class="text-muted">{{ msg2 }}</h2>
 		{% endif %}
 		{% if msg3 %}
-			<h2 style="color:blue;" class="text-muted">{{ msg3 }}</h2>
-		{% endif %}  
-
-			<pre>
-				{{ text_errors_Cis }}
-			</pre>
+			<h2 style="color:blue;background-color:#e6f2ff" class="text-muted">{{ msg3 }}</h2>
+		{% endif %}
+			
+				<pre>
+					{{ text_errors_Cis }}
+				</pre>
 
 
 		{% if msg7 %}
-			<h2 style="color:orange;" class="text-muted">{{ msg7 }}</h2>
+			<h2 style="color:orange;background-color:#ffe6cc" class="text-muted">{{ msg7 }}</h2>
 		{% endif %}
 		{% if msg8 %}
-			<h2 style="color:green;" class="text-muted">{{ msg8 }}</h2>
+			<h2 style="color:green;background-color:#ccffcc" class="text-muted">{{ msg8 }}</h2>
 		{% endif %}
 		{% if msg9 %}
-			<h2 style="color:blue;" class="text-muted">{{ msg9 }}</h2>
+			<h2 style="color:blue;background-color:#e6f2ff" class="text-muted">{{ msg9 }}</h2>
 		{% endif %}
 			<pre>
 				{{ text_warnings_Cis }}
 			</pre>
 
 
-		{% if msg15 %}
-			<h2 style="color:blue;" class="text-muted">{{ msg15 }}</h2>
+		{% if msgSites %}
+		<hr/>
+			<u><h2 style="color:black;background-color:#cccccc" class="text-muted">{{ msgSites }}</h2></u>
 		{% endif %}
-		{% if msg16 %}
-			<h2 style="color:blue;" class="text-muted">{{ msg16 }}</h2>
+		{% if msg13 %}
+			<h2 style="color:blue;background-color:#e6f2ff" class="text-muted">{{ msg13 }}</h2>
+		{% endif %}
+		{% if msg14 %}
+			<h2 style="color:blue;background-color:#e6f2ff" class="text-muted">{{ msg14 }}</h2>
 		{% endif %}
 			<pre>
-				{{ text_summary_Cis }}
+				{{ text_summary_Sites }}
 			</pre>
-<hr/>
-		{% if msgSites %}
-			<u><h2 style="color:black;" class="text-muted">{{ msgSites }}</h2></u>
-		{% endif %}
 		{% if msg4 %}
-			<h2 style="color:red;" class="text-muted">{{ msg4 }}</h2>
+			<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg4 }}</h2>
 		{% endif %}
 		{% if msg5 %}
-			<h2 style="color:green;" class="text-muted">{{ msg5 }}</h2>
+			<h2 style="color:green;background-color:#ccffcc" class="text-muted">{{ msg5 }}</h2>
 		{% endif %}
 		{% if msg6 %}
-			<h2 style="color:blue;" class="text-muted">{{ msg6 }}</h2>
+			<h2 style="color:blue;background-color:#e6f2ff" class="text-muted">{{ msg6 }}</h2>
 		{% endif %}
 			<pre>
 				{{ text_errors_Sites }}
 			</pre>
 
 		{% if msg10 %}
-			<h2 style="color:orange;" class="text-muted">{{ msg10 }}</h2>
+			<h2 style="color:orange;background-color:#ffe6cc" class="text-muted">{{ msg10 }}</h2>
 		{% endif %}
 		{% if msg11 %}
-			<h2 style="color:green;" class="text-muted">{{ msg11 }}</h2>
+			<h2 style="color:green;background-color:#ccffcc" class="text-muted">{{ msg11 }}</h2>
 		{% endif %}
 		{% if msg12 %}
-			<h2 style="color:blue;" class="text-muted">{{ msg12 }}</h2>
+			<h2 style="color:blue;background-color:#e6f2ff" class="text-muted">{{ msg12 }}</h2>
 		{% endif %}
 			<pre>
 				{{ text_warnings_Sites }}
 			</pre>
 
 
-		{% if msg13 %}
-			<h2 style="color:blue;" class="text-muted">{{ msg13 }}</h2>
-		{% endif %}
-		{% if msg14 %}
-			<h2 style="color:blue;" class="text-muted">{{ msg14 }}</h2>
-		{% endif %}
-			<pre>
-				{{ text_summary_Sites }}
-			</pre>
+		
 
 	</div>
  {% endblock %}  

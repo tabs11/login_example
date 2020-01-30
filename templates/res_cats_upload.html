@@ -3,19 +3,47 @@
 <!-- Login Form -->
 
 	<div class="multi_upload_index">
-		<h2 class="text-muted">NOAM FILES:</h2>
+		<h2 style="color:black;" class="text-muted"><b>REPORT:</b></h2>
 
-			<p>Below the file with data to upload in NOAM template format: .</p>
+			<h2 style="color:black;background-color:#cccccc" class="text-muted">Below the files and the report (xlsx in case of issues, xlsm if no issues):</h2>
 			<ul>
 				{% for file in op_res_filenames %}
 					<li><a href="{{url_for('uploaded_RES_CATS_file', filename=file)}}">{{file}}</a></li>
 				{% endfor %}
 			</ul>
-		
 		<hr/>
-			<h2 class="text-muted">DATA SUMMARY AND ISSUES FOUND:</h2>
-		<pre>
-			{{ text }}
-		</pre>
+		{% if msg_res %}
+			<u><h2 style="color:black;background-color:#cccccc" class="text-muted">{{ msg_res }}</h2></u>
+		{% endif %}
+		{% if msg %}
+			<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg }}</h2>
+		{% endif %}
+		{% if msg2 %}
+			<h2 style="color:green;background-color:#ccffcc" class="text-muted">{{ msg2 }}</h2>
+		{% endif %}
+		{% if msg3 %}
+			<h2 style="color:blue;background-color:#e6f2ff" class="text-muted">{{ msg3 }}</h2>
+		{% endif %}
+			
+				<b><pre>
+					{{ text_res }}
+				</pre></b>
+
+		{% if msg_ops %}
+			<u><h2 style="color:black;background-color:#cccccc" class="text-muted">{{ msg_ops }}</h2></u>
+		{% endif %}
+		{% if msg4 %}
+			<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg4 }}</h2>
+		{% endif %}
+		{% if msg5 %}
+			<h2 style="color:green;background-color:#ccffcc" class="text-muted">{{ msg5 }}</h2>
+		{% endif %}
+		{% if msg6 %}
+			<h2 style="color:blue;background-color:#e6f2ff" class="text-muted">{{ msg6 }}</h2>
+		{% endif %}
+			
+				<b><pre>
+					{{ text_ops }}
+				</pre></b>
 	</div>
  {% endblock %} 

@@ -2,9 +2,9 @@
 {% block content %}
 
 <div class="multi_upload_index">
-	<h2 class="text-muted">NOAM FILES:</h2>
+	<h2 style="color:black;background-color:#cccccc" class="text-muted"><b>REPORT:</b></h2>
 
-		<p>Below the file with data to upload in NOAM template format: .</p>
+		<h2 style="color:black;" class="text-muted">Below the file with data to upload in NOAM template format:</h2>
 		<ul>
 			{% for file in noam_filenames %}
 				<li><a href="{{url_for('uploaded_NOAM_file', filename=file)}}">{{file}}</a></li>
