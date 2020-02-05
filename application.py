@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from flask import Flask, request, redirect, url_for, render_template, send_from_directory,send_file,flash,session
 from werkzeug.utils import secure_filename
 from flask_login import LoginManager
@@ -14,11 +15,9 @@ from datetime import datetime
 import process_data
 import process_noam_data
 import process_res_cats
+import process_site_history
 import process_zte
 import update_priority as up_prio
-#from flask_caching import Cache
-
-
 class User(UserMixin):
 	def __init__(self, username,password):
 		super(User, self).__init__()
@@ -62,30 +61,21 @@ USERS = { # dictionary (username, User)
 	
 }
 
-#config = {
-#    "DEBUG": True,          # some Flask specific configs
-#    "CACHE_TYPE": "simple", # Flask-Caching related configs
-#    "CACHE_DEFAULT_TIMEOUT": 300
-#}
-#
-## application base
 application = Flask(__name__)
-# tell Flask to use the above defined config
-#application.config.from_mapping(config)
-#cache = Cache(application)
+
 
 SECRET_KEY='bla'#str(uuid.uuid1())
 application.secret_key = SECRET_KEY
 CMDB_FOLDER = 'CMDB_templates/'
 application.config['CMDB_FOLDER']=CMDB_FOLDER
-
-# These are the extension that we are accepting to be uploaded
 application.config['ALLOWED_EXTENSIONS'] = set(['xlsx','xls','csv'])
-# default route
-@application.route('/', methods=['GET'])
+
+
+@application.route('/test', methods=['GET'])
 def index():
 	
-	return redirect("/home", code=302)
+	return redirect("/", code=302)
+
 
 # login views
 @application.route('/login', methods=['GET'])
@@ -100,7 +90,7 @@ def login_post():
 	# get  user
 	try:
 		user = USERS[username]
-		#session['username']=str(uuid.uuid1())
+		session['username']=str(username)
 	except KeyError:
 		user = None
 	# validate user
@@ -116,13 +106,13 @@ def login_post():
 
 
 
-# For a given file, return whether it's an allowed type or not
 def allowed_file(filename):
 	return '.' in filename and \
 		   filename.rsplit('.', 1)[1] in application.config['ALLOWED_EXTENSIONS']
 
 
-
+##########################################################################
+#####download templates
 @application.route('/return-file/')
 @login_required
 def return_file():
@@ -130,86 +120,89 @@ def return_file():
 	return send_file(os.path.join(application.config['CMDB_FOLDER'])+filename,attachment_filename=filename, as_attachment=True)
 
 
-@application.route('/home')
+@application.route('/test')
 @login_required
 def file_downloads():
 	return render_template('home.html')
 
 
-# home route
+@application.route('/')
+def drop():
+	return render_template(
+		'home.html',
+		data=['Dummy Company','ALTAN Mexico','AT&T US','Airtel Chad','Airtel Congo B','Airtel Gabon','Airtel KE','Airtel Kenya','Airtel Madagascar','Airtel Malawi','Airtel Niger','Airtel Seychelles','Airtel Tanzania','Airtel Uganda','Airtel Zambia','Avantel CO','BHI NI','Bharti India','Capita TfL GB','Chorus NZ','Deutsche Telekom EAN DE','EMTS NG','Feenix NZ','IIJ Japan','ISAT EAN DE','MTN SIG HUB','NESC','Nexera PL','Nokia AVA','Optus AU','Orange Burkina Faso','Orange CALICO FR','Orange RIP FR','Rakuten JP','S-Bahn Berlin DE','T-Mobile US','TTN DK','Telenor DK','Telenor PK','Telia DK','Three Ireland','Vodacom TZ','Vodacom ZA','Vodacom ZA DWDM','Vodafone QA','Wing EU','Wing EU ATT US','Wing EU Marubeni JP','Wing EU TELE2','ZEOP RE'])
 
-@application.route('/home', methods=['POST'])
-@login_required
+
+
+@application.route("/test" , methods=['GET', 'POST'])
 def home():
-	data=[s for s in os.listdir(os.getcwd()) if len(s) > 20]
-	paths_to_del=[]
-	dates=[]
-	for i in range(len(data)):
-		paths_to_del.append(os.getcwd()+ '/' + data[i])
-		dates.append((dt.datetime.now()-datetime.fromtimestamp(os.path.getctime(paths_to_del[i]))).days)
-		if dates[i]>0:
-			shutil.rmtree(paths_to_del[i])	
-		else:
-			None
-	msg=None
+	select = request.form.get('comp_select')
 	if request.method == 'POST':
-		company = request.form['company']
-		session['company']=company
-		msg = 'Successfull'
-			#msg=dates
-	return render_template('home.html',msg=msg)
+		user=session['username']
+		session['company']=str(select)
+		session['filename']=session['company']+'_'+str(uuid.uuid1())
+		ID_FOLDER=session['filename']
+		UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
+		os.makedirs(ID_FOLDER)
+		os.makedirs(UPLOAD_FOLDER)
+			#msg = 'Successfull'
+		if user!='numartin' and user!='paulof':
+			print(user)
+			return render_template('multi_upload_index.html')
+		else:
+			return render_template('cmdb_validation_admin.html')
 
-#######
-@application.route('/cmdb', methods=['GET','POST'])
-@login_required
-def cmdb():
-	return render_template('cmdb_validation.html')
-#######
 
-@application.route('/files', methods=['GET','POST'])
+
+##############################################
+####CMDB inventory
+@application.route('/site_data', methods=['GET','POST'])
 @login_required
-def sites_history():
+def site_data():
 	session['filename']=session['company']+'_'+str(uuid.uuid1())
-	ID_FOLDER=session['filename']
-	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites/'
-	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
-	msg=None
-	if request.method == 'POST':
-		if 'file' not in request.files:
-			print('No file attached in request')
-			return redirect(request.url)
-		file = request.files['file']
-		if file.filename == '':
-			print('No file selected')
-			return redirect(request.url)
-		if file and allowed_file(file.filename):
-			os.makedirs(ID_FOLDER)
-			os.makedirs(ITSM_FOLDER)
-			os.makedirs(UPLOAD_FOLDER)
-			filename = secure_filename(file.filename)
-			file.save(os.path.join(ITSM_FOLDER, filename))
-			msg=filename
-		else:
-			msg='Please select a valid extension (.xls or .xlsx)'
-	return render_template('multi_upload_index.html',msg=msg)
+	SITE_FOLDER=session['filename']
+	SITE_REPORT=SITE_FOLDER +'/Report/'
+	os.makedirs(SITE_FOLDER)
+	os.makedirs(SITE_REPORT)
+	return render_template('site_index.html')
+
+
+@application.route('/site_upload', methods=['GET'])
+@login_required
+def site_upload():
+	
+	SITE_FOLDER=session['filename']
+	msg=SITE_FOLDER.split('_')[0]
+	SITE_REPORT=SITE_FOLDER +'/Report/'
+	process_site_history.sites_cis_report(company=SITE_FOLDER.split('_')[0],site_report=SITE_REPORT)
+	site_filenames=os.listdir(SITE_REPORT)
+	return render_template('site_upload.html', site_filenames=site_filenames,mgs=msg)
+
+@application.route('/site_report/<filename>')
+@login_required
+def uploaded_site_file(filename):
+	SITE_FOLDER=session['filename']
+	SITE_REPORT=SITE_FOLDER +'/Report/'
+	return send_from_directory(SITE_REPORT,filename)
+
+######################################################################
+
+#####input files to validate
 
 
 @application.route('/data', methods=['GET','POST'])
-@login_required
 def data_to_validate():
 	ID_FOLDER=session['filename']
 	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
-	DOWNLOAD_FOLDER=ID_FOLDER+'/Report/'
 	msg3=None
 	uploaded_files = request.files.getlist("file[]")
 	for file in uploaded_files:
 		# Check if the file is one of the allowed types/extensions
 		if file and allowed_file(file.filename):
+			
 			# Make the filename safe, remove unsupported chars
 			filename = secure_filename(file.filename)
-			if not os.path.exists(UPLOAD_FOLDER):
-				os.makedirs(UPLOAD_FOLDER)
-			
+
 			# Move the file form the temporal folder to the upload
 			file.save(os.path.join(UPLOAD_FOLDER, filename))
 			filenames=os.listdir(UPLOAD_FOLDER)
@@ -219,11 +212,13 @@ def data_to_validate():
 
 	return render_template('multi_upload_index.html',msg3=msg3)
 
-
 @application.route('/upload', methods=['POST'])
 #@cache.cached(timeout=500)
 @login_required
 def upload():
+	msg_company=None
+	msg_cmdb1=None
+	msg_cmdb2=None
 	msgCIs=None
 	msgSites=None
 	msg=None
@@ -239,31 +234,33 @@ def upload():
 	msg11=None
 	msg12=None
 	msg13=None
-	msg14=None
+	#msg14=None
 	msg15=None
-	msg16=None
+	#msg16=None
 	msg17=None
 	msg18=None
 	ID_FOLDER=session['filename']
-	ITSM_FOLDER=ID_FOLDER + '/ITSM_sites/'
+	#ITSM_FOLDER=ID_FOLDER + '/ITSM_sites/'
 	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
 	DOWNLOAD_FOLDER=ID_FOLDER+'/Report/'
 	os.makedirs(DOWNLOAD_FOLDER)
 	if len(os.listdir(UPLOAD_FOLDER))>0:
 		#process_data.process_file(path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER,history=ITSM_FOLDER)
 		#process_data_v3.open_input_file(path=UPLOAD_FOLDER,report=DOWNLOAD_FOLDER)
-		process_data.process_file(path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER,history=ITSM_FOLDER)
+		process_data.process_file(path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER)
 		
 		#process_data_v2.check_correct_fields(report=DOWNLOAD_FOLDER)
 		#process_data_v2.common_validation(path=UPLOAD_FOLDER,report=DOWNLOAD_FOLDER)
 		#process_data_v2.specific_validation(report=DOWNLOAD_FOLDER,history=ITSM_FOLDER)
 		filenames = [f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith(('.xlsx','csv'))]
+		content_cmdb=''
 		content_errors_Cis=''
 		content_warnings_Cis=''
 		content_summary_Cis=''	
 		content_errors_Sites=''
 		content_warnings_Sites=''
 		content_summary_Sites=''
+		msg_company=ID_FOLDER.split('_')[0]
 		if 'Mismatched_fields.txt' in os.listdir(DOWNLOAD_FOLDER):
 			text_mis_fields=open(DOWNLOAD_FOLDER+'Mismatched_fields.txt', 'r+',encoding='utf8')
 			content_mis_fields = text_mis_fields.read()
@@ -272,6 +269,13 @@ def upload():
 			msg18='PLEASE USE THE CORRECT TEMPLATES PROVIDED IN HOMEPAGE.'
 		else:
 			content_mis_fields=''
+			if 'summary_CMDB.txt' in os.listdir(DOWNLOAD_FOLDER):
+				text_cmdb=open(DOWNLOAD_FOLDER+'summary_CMDB.txt', 'r+',encoding='utf8')
+				content_cmdb = text_cmdb.read()
+				text_cmdb.close()
+				msg_cmdb1='CMDB size: '.upper()
+			else:
+				msg_cmdb2='Missing CMDB inventory'.upper()
 			msgCIs="CI'S VALIDATION:"
 			if 'errorsCIs.txt' in os.listdir(DOWNLOAD_FOLDER):
 				text_errors_Cis=open(DOWNLOAD_FOLDER+'errorsCIs.txt', 'r+',encoding='utf8')
@@ -338,6 +342,7 @@ def upload():
 				None
 	return render_template('multi_files_upload.html', 
 		filenames=filenames,
+		text_cmdb=content_cmdb,
 		text_mis_fields=content_mis_fields,
 		text_errors_Cis=content_errors_Cis,
 		text_errors_Sites=content_errors_Sites,
@@ -345,8 +350,8 @@ def upload():
 		text_warnings_Sites=content_warnings_Sites,
 		text_summary_Cis=content_summary_Cis,
 		text_summary_Sites=content_summary_Sites,
-		msgCIs=msgCIs,msgSites=msgSites,msg=msg,msg2=msg2,msg3=msg3,msg4=msg4,msg5=msg5,msg6=msg6,msg7=msg7,
-		msg8=msg8,msg9=msg9,msg10=msg10,msg11=msg11,msg12=msg12,msg13=msg13,msg14=msg14,msg15=msg15,msg16=msg16,msg17=msg17,msg18=msg18)
+		msg_company=msg_company,msg_cmdb1=msg_cmdb1,msg_cmdb2=msg_cmdb2,msgCIs=msgCIs,msgSites=msgSites,msg=msg,msg2=msg2,msg3=msg3,msg4=msg4,msg5=msg5,msg6=msg6,msg7=msg7,
+		msg8=msg8,msg9=msg9,msg10=msg10,msg11=msg11,msg12=msg12,msg13=msg13,msg15=msg15,msg17=msg17,msg18=msg18)
 
 
 @application.route('/report/<filename>')
@@ -357,6 +362,8 @@ def uploaded_file(filename):
 	return send_from_directory(DOWNLOAD_FOLDER,filename)
 
 
+##################################################################
+################convert to NOAM
 
 @application.route('/noam_data', methods=['GET','POST'])
 def noam_data():
@@ -407,6 +414,7 @@ def uploaded_NOAM_file(filename):
 	return send_from_directory(NOAM_REPORT,filename)
 
 ##########################################################
+###RESOLUTION AND OPERATIONAL Categories valdidation
 @application.route('/op_res_cats', methods=['GET','POST'])
 @login_required
 def op_res_cats_data():
@@ -454,7 +462,7 @@ def op_res_cats_data_upload():
 	OP_RES_REPORT=OP_RES_FOLDER +'/Report/'
 	# Get the name of the uploaded files
 	if len(os.listdir(OP_RES_UPLOAD))>0:
-		process_res_cats.op_res_cats_files(file_path=OP_RES_UPLOAD,company=OP_RES_UPLOAD.split('_')[0],op_res_cats_report=OP_RES_REPORT)
+		process_res_cats.op_res_cats_files(path=OP_RES_UPLOAD,company=OP_RES_UPLOAD.split('_')[0],op_res_cats_report=OP_RES_REPORT)
 		op_res_filenames=[f for f in os.listdir(OP_RES_REPORT) if f.endswith(('.xlsm','xlsx'))]
 		content_res=''
 		content_ops=''
@@ -496,8 +504,9 @@ def uploaded_RES_CATS_file(filename):
 	OP_RES_FOLDER=session['filename']
 	OP_RES_REPORT=OP_RES_FOLDER +'/Report/'
 	return send_from_directory(OP_RES_REPORT,filename)
-#############################################################
 
+#############################################################
+######ZTE split files
 @application.route('/eia', methods=['GET','POST'])
 @login_required
 def eia_data():
@@ -571,16 +580,5 @@ login_manager.login_view = 'login_get'
 @login_manager.user_loader
 def load_user(userid):
 	return USERS[userid]
-
-#port = int(os.environ.get("PORT", 5000))
-
-if __name__ == '__main__':
-	#application.run(
-	#	host='0.0.0.0', 
-	#	port=port
-	#)
-	application.run(
-		#host='0.0.0.0', 
-		#port=3000, 
-		threaded=True
-	)
+if __name__=='__main__':
+	application.run(debug=True)
