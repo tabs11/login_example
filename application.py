@@ -15,7 +15,6 @@ from datetime import datetime
 import process_data
 import process_noam_data
 import process_res_cats
-#import process_site_history
 import process_zte
 import update_priority as up_prio
 class User(UserMixin):
@@ -54,7 +53,11 @@ USERS = { # dictionary (username, User)
 	'rserban' : User('rserban','rserban'),
 	'matheka' : User('matheka','matheka'),
 	'fjoseph' : User('fjoseph','fjoseph'),
-	'difrance' : User('difrance','difrance')	
+	'difrance' : User('difrance','difrance')
+	
+
+
+	
 }
 
 application = Flask(__name__)
@@ -151,7 +154,7 @@ def home():
 
 
 ##############################################
-#####CMDB inventory
+####CMDB inventory
 #@application.route('/site_data', methods=['GET','POST'])
 #@login_required
 #def site_data():
