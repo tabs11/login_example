@@ -151,35 +151,35 @@ def home():
 
 
 ##############################################
-####CMDB inventory
-@application.route('/site_data', methods=['GET','POST'])
-@login_required
-def site_data():
-	session['filename']=session['company']+'_'+str(uuid.uuid1())
-	SITE_FOLDER=session['filename']
-	SITE_REPORT=SITE_FOLDER +'/Report/'
-	os.makedirs(SITE_FOLDER)
-	os.makedirs(SITE_REPORT)
-	return render_template('site_index.html')
-
-
-@application.route('/site_upload', methods=['GET'])
-@login_required
-def site_upload():
-	
-	SITE_FOLDER=session['filename']
-	msg=SITE_FOLDER.split('_')[0]
-	SITE_REPORT=SITE_FOLDER +'/Report/'
-	process_site_history.sites_cis_report(company=SITE_FOLDER.split('_')[0],site_report=SITE_REPORT)
-	site_filenames=os.listdir(SITE_REPORT)
-	return render_template('site_upload.html', site_filenames=site_filenames,mgs=msg)
-
-@application.route('/site_report/<filename>')
-@login_required
-def uploaded_site_file(filename):
-	SITE_FOLDER=session['filename']
-	SITE_REPORT=SITE_FOLDER +'/Report/'
-	return send_from_directory(SITE_REPORT,filename)
+#####CMDB inventory
+#@application.route('/site_data', methods=['GET','POST'])
+#@login_required
+#def site_data():
+#	session['filename']=session['company']+'_'+str(uuid.uuid1())
+#	SITE_FOLDER=session['filename']
+#	SITE_REPORT=SITE_FOLDER +'/Report/'
+#	os.makedirs(SITE_FOLDER)
+#	os.makedirs(SITE_REPORT)
+#	return render_template('site_index.html')
+#
+#
+#@application.route('/site_upload', methods=['GET'])
+#@login_required
+#def site_upload():
+#	
+#	SITE_FOLDER=session['filename']
+#	msg=SITE_FOLDER.split('_')[0]
+#	SITE_REPORT=SITE_FOLDER +'/Report/'
+#	process_site_history.sites_cis_report(company=SITE_FOLDER.split('_')[0],site_report=SITE_REPORT)
+#	site_filenames=os.listdir(SITE_REPORT)
+#	return render_template('site_upload.html', site_filenames=site_filenames,mgs=msg)
+#
+#@application.route('/site_report/<filename>')
+#@login_required
+#def uploaded_site_file(filename):
+#	SITE_FOLDER=session['filename']
+#	SITE_REPORT=SITE_FOLDER +'/Report/'
+#	return send_from_directory(SITE_REPORT,filename)
 
 ######################################################################
 
@@ -503,55 +503,55 @@ def uploaded_RES_CATS_file(filename):
 
 #############################################################
 ######ZTE split files
-#@application.route('/eia', methods=['GET','POST'])
-#@login_required
-#def eia_data():
-#	msg=None
-#	session['filename']=str(uuid.uuid1())
-#	EIA_FOLDER=session['filename']
-#	EIA_UPLOAD=EIA_FOLDER+'/eia_files/'
-#	EIA_REPORT=EIA_FOLDER +'/Report/'
-#	
-#	# Get the name of the uploaded files
-#	uploaded_files = request.files.getlist("file[]")
-#	for file in uploaded_files:
-#		# Check if the file is one of the allowed types/extensions
-#		if file and allowed_file(file.filename):
-#			# Make the filename safe, remove unsupported chars
-#			filename = secure_filename(file.filename)
-#			if not os.path.exists(EIA_FOLDER):
-#				os.makedirs(EIA_FOLDER)
-#				os.makedirs(EIA_UPLOAD)
-#				os.makedirs(EIA_REPORT)
-#			# Move the file form the temporal folder to the upload
-#			
-#			file.save(os.path.join(EIA_UPLOAD, filename))
-#			filenames=os.listdir(EIA_UPLOAD)
-#			msg=filenames
-#		else:
-#			msg='Please select a valid extension (.xls, .xlsx or .csv)'
-#	return render_template('index_eia.html',msg=msg)
-#
-#@application.route('/eia_upload', methods=['GET'])
-#@login_required
-#def eia_upload():
-#	EIA_FOLDER=session['filename']
-#	EIA_UPLOAD=EIA_FOLDER+'/eia_files/'
-#	EIA_REPORT=EIA_FOLDER +'/Report/'
-#	# Get the name of the uploaded files
-#	if len(os.listdir(EIA_UPLOAD))>0:
-#		process_zte.split_zte_file(path=EIA_UPLOAD,report=EIA_REPORT)
-#		eia_filenames=os.listdir(EIA_REPORT)
-#	return render_template('eia_upload.html', eia_filenames=eia_filenames)
-#
-#
-#
-#@application.route('/EIA_Report/<filename>')
-#@login_required
-#def uploaded_EIA_file(filename):
-#	EIA_FOLDER=session['filename']
-#	EIA_REPORT=EIA_FOLDER +'/Report/'
-#	return send_from_directory(EIA_REPORT,filename)
+@application.route('/eia', methods=['GET','POST'])
+@login_required
+def eia_data():
+	msg=None
+	session['filename']=str(uuid.uuid1())
+	EIA_FOLDER=session['filename']
+	EIA_UPLOAD=EIA_FOLDER+'/eia_files/'
+	EIA_REPORT=EIA_FOLDER +'/Report/'
+	
+	# Get the name of the uploaded files
+	uploaded_files = request.files.getlist("file[]")
+	for file in uploaded_files:
+		# Check if the file is one of the allowed types/extensions
+		if file and allowed_file(file.filename):
+			# Make the filename safe, remove unsupported chars
+			filename = secure_filename(file.filename)
+			if not os.path.exists(EIA_FOLDER):
+				os.makedirs(EIA_FOLDER)
+				os.makedirs(EIA_UPLOAD)
+				os.makedirs(EIA_REPORT)
+			# Move the file form the temporal folder to the upload
+			
+			file.save(os.path.join(EIA_UPLOAD, filename))
+			filenames=os.listdir(EIA_UPLOAD)
+			msg=filenames
+		else:
+			msg='Please select a valid extension (.xls, .xlsx or .csv)'
+	return render_template('index_eia.html',msg=msg)
+
+@application.route('/eia_upload', methods=['GET'])
+@login_required
+def eia_upload():
+	EIA_FOLDER=session['filename']
+	EIA_UPLOAD=EIA_FOLDER+'/eia_files/'
+	EIA_REPORT=EIA_FOLDER +'/Report/'
+	# Get the name of the uploaded files
+	if len(os.listdir(EIA_UPLOAD))>0:
+		process_zte.split_zte_file(path=EIA_UPLOAD,report=EIA_REPORT)
+		eia_filenames=os.listdir(EIA_REPORT)
+	return render_template('eia_upload.html', eia_filenames=eia_filenames)
+
+
+
+@application.route('/EIA_Report/<filename>')
+@login_required
+def uploaded_EIA_file(filename):
+	EIA_FOLDER=session['filename']
+	EIA_REPORT=EIA_FOLDER +'/Report/'
+	return send_from_directory(EIA_REPORT,filename)
 
 
 
