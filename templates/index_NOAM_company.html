@@ -3,54 +3,61 @@
 <!-- Login Form -->
   
 <h2>CONVERT CMDB TEMPLATES IN NOAM TEMPLATES:</h2>
-<form class="button" align="right" method="post" action="noam_data" enctype="multipart/form-data">
-    <table>
-    <tr>
+<table>
+  <tr>
+    <form class="button" align="right" method="post" action="noam_data" enctype="multipart/form-data">
       <td><label id="#bb"> Select Files
         <input type="file" multiple="" name="file[]" class="span3" /></td>
       <td> 
-      {% if msg3 %}
-        <p><strong></strong> {{ msg3 }}
-      {% endif %}
-    <input class="mybutton" type="submit" value="Submit"  class="span2"></td>
-    </tr>
-    </table>
-  </form>
-  <h2></h2>
-  <form class="button" align="right" method="GET" action="noam_upload" enctype="multipart/form-data">
-    <table>
-    <tr>
-    <input class="mybutton" type="submit" value="RUN conversion"  class="span2"></td>
-    </tr>
-    </table> 
-  </form>
+        {% if msg3 %}
+          <p><strong></strong> {{ msg3 }}
+        {% endif %}
+        <input class="mybutton" type="submit" value="Submit"  class="span2">
+      </td>
+    </form>
+  </tr>
+</table> 
+
+<h2></h2>
+
+<table>
+  <tr>
+    <form class="button" align="right" method="GET" action="noam_upload" enctype="multipart/form-data">
+      <input class="mybutton" type="submit" value="RUN conversion"  class="span2"></td>
+    </form>
+  </tr>
+</table> 
+
+
 <hr/>
+
+
 <h2>CONVERT RESCATS AND OPCATS TEMPLATES TO NOAM TEMPLATES:</h2>
-<form class="button" method="post" action="op_res_cats" enctype="multipart/form-data">
-  <table>
-    <tr>
+<table>
+  <tr>
+    <form class="button" method="post" action="op_res_cats" enctype="multipart/form-data">
       <td><label id="#bb"> Select Files
         <input type="file" multiple="" name="file[]" class="span3" /></td>
       <td> 
-      {% if msg4 %}
-        <p><strong></strong> {{ msg4 }}
-      {% endif %}
-    <input class="mybutton" type="submit" value="Submit"  class="span2"></td>
-    </tr>
-    </table>
-  </form>
+        {% if msg4 %}
+          <p><strong></strong> {{ msg4 }}
+        {% endif %}
+        <input class="mybutton" type="submit" value="Submit"  class="span2">
+      </td>
+    </form>
+  </tr>
+</table>
 
 
  <h2></h2>
   
-
+<table>
+  <tr>
   <form class="button" align="right" method="GET" action="op_res_cats_upload" enctype="multipart/form-data">
-    <table>
-    <tr>
-    <input class="mybutton" type="submit" value="RUN conversion"  class="span2"></td>
-    </tr>
-    </table>   
-  </form>
 
+    <input class="mybutton" type="submit" value="RUN conversion"  class="span2"></td>  
+  </form>
+  </tr>
+    </table> 
 
 {% endblock %}

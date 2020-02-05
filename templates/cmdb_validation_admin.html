@@ -1,0 +1,50 @@
+{% extends "login_layout.html" %}
+{% block content %}
+
+<h2>Please select the desired action:</h2>
+
+<table>
+    <tr>
+      <form class="button" align="right" method="post" action="/data" enctype="multipart/form-data">
+         <input class="mybutton" type="submit" value=" CMDB DATA VALIDATION "  class="span2"></td>
+          Select this option to validate CIs and Sites.
+      </form>
+     
+ </tr>
+    </table>
+
+<h2></h2>
+
+<table>
+    <tr>
+    <form class="button" method="post" action=/noam_data enctype="multipart/form-data">
+      <input class="mybutton" type="submit" value="TEMPLATES CONVERSION"  class="span2"></td>    
+      Select this option to convert CIs and Sites in NOAM templates
+    </form>
+      </form>
+ </tr>
+    </table>
+    <h2></h2>
+
+<table>
+    <tr>
+    <form class="button" align="right" method="post" action=/site_data enctype="multipart/form-data">
+      <input class="mybutton" type="submit" value="    CMDB DATA REPORT     "  class="span2"></td> 
+      Select this option to download a CMDB report (workaround).
+    </form>
+ </tr>
+    </table>
+<h2></h2>
+
+<table>
+    <tr>
+    <form class="button" align="right" method="post" action=/rap enctype="multipart/form-data">
+      <input class="mybutton" type="submit" value="RA (RAP TOOL) TEMPLATE"  class="span2"></td>
+      Select this option to validate RA template for RAP Tool (To implement).
+    </form>
+  </tr>
+    </table>   
+
+
+
+{% endblock %}

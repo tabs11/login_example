@@ -1,0 +1,14 @@
+{% extends "login_layout.html" %}
+{% block content %}
+<!-- Login Form -->
+
+	<div class="multi_upload_index">
+		<h2 class="text-muted">{{msg}}CMDB REPORT:</h2>
+
+			<ul>
+				{% for file in site_filenames %}
+					<li><a href="{{url_for('uploaded_site_file', filename=file)}}">{{file}}</a></li>
+				{% endfor %}
+			</ul>
+	</div>
+ {% endblock %}

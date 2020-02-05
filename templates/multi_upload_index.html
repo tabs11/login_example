@@ -1,6 +1,6 @@
 {% extends "login_layout.html" %}
 {% block content %}
- <!-- Login Form -->
+ <!-- Login Form 
 
   <h2>Upload existing Sites in CMDB:</h2>
   <form class="button" method=post enctype=multipart/form-data>
@@ -18,34 +18,39 @@
         <input class="mybutton" type=submit value=Submit>
     </tr>
     </table>
-  </form> 
+  </form> -->
   
  <h2>Upload data to validate:</h2>
-
-  <form class="button" align="right" method="post" action="data" enctype="multipart/form-data">
-    <table>
-    <tr>
+<table>
+  <tr>
+    <form class="button" align="right" method="post" action="data" enctype="multipart/form-data">
       <td><label id="#bb"> Select Files
         <input type="file" multiple="" name="file[]" class="span3" /></td>
       <td> 
-      {% if msg3 %}
-        <p><strong></strong> {{ msg3 }}
-      {% endif %}
-    <input class="mybutton" type="submit" value="Submit"  class="span2"></td>
-    </tr>
-    </table>
-  </form>
+        {% if msg3 %}
+          <p><strong></strong> {{ msg3 }}
+        {% endif %}
+      <input class="mybutton" type="submit" value="Submit"  class="span2"></td>
+    </form>
+  </tr>
+</table>
  <h2></h2>
 
-  <form class="button" align="right" method="post" action="upload" enctype="multipart/form-data">
-    <table>
-    <tr>
-    <input class="mybutton" id="btnload" type="submit" value="RUN Validation"  class="span2"></td>
-    </tr>
-    </table>
-   
-  </form>
+<table>
+  <tr>
+    <form class="button" align="right" method="post" action="upload" enctype="multipart/form-data">
+      <input class="mybutton" id="btnload" type="submit" value="RUN Validation"  class="span2"></td>
+    </form>
+  </tr>
+</table>
 
+ <h2></h2>
+
+ {% if msg %}
+    <font size="2"><p><strong></strong> {{ msg }}</font>
+  {% endif %}  
+
+  
 <div class="multi_upload_index">
   <h2>INPUT FILES RULES:</h2>
   <hr/>
@@ -59,15 +64,14 @@
         <li><p> 2 files with one sheet each, one for Sites and the other for CIs;</li>
         <li><p> 1 file only with one sheet only, containing Sites or CIs data;</li>
       </ul>
-      <li><p><b></b> When needed a file with all sites existing in ITSM.</li>
     </ul>
   </ul>
 
   <ul>  
   <li><b> OUTPUT:</b></li>
     <ul>  
-      <li><p> File with a brief summary and issues overview found in data ("issues.txt");</li>
-      <li><p> Excel file with the data screened and the issues found (Report.xlsx).</li>
+      <li><p> a  brief report printed in the screen;</li>
+      <li><p> Excel file with the data screened and the issues found (...Report_"date".xlsx).</li>
     </ul>
   </ul>
 </div>
