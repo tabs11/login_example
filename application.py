@@ -17,6 +17,8 @@ import process_noam_data
 import process_res_cats
 import process_zte
 import update_priority as up_prio
+
+
 class User(UserMixin):
 	def __init__(self, username,password):
 		super(User, self).__init__()
@@ -70,7 +72,7 @@ application.config['CMDB_FOLDER']=CMDB_FOLDER
 application.config['ALLOWED_EXTENSIONS'] = set(['xlsx','xls','csv'])
 
 
-@application.route('/test', methods=['GET'])
+@application.route('/action', methods=['GET'])
 def index():
 	
 	return redirect("/", code=302)
@@ -79,10 +81,12 @@ def index():
 # login views
 @application.route('/login', methods=['GET'])
 def login_get():
+
 	return render_template('login.html')
 
 @application.route('/login', methods=['POST'])
 def login_post():
+
 	# get details from post request
 	username = request.form['username']
 	password = request.form['password']
@@ -119,13 +123,14 @@ def return_file():
 	return send_file(os.path.join(application.config['CMDB_FOLDER'])+filename,attachment_filename=filename, as_attachment=True)
 
 
-@application.route('/test')
+@application.route('/action')
 @login_required
 def file_downloads():
 	return render_template('home.html')
 
 
 @application.route('/')
+@login_required
 def drop():
 	return render_template(
 		'home.html',
@@ -133,7 +138,8 @@ def drop():
 
 
 
-@application.route("/test" , methods=['GET', 'POST'])
+@application.route("/action" , methods=['GET', 'POST'])
+@login_required
 def home():
 	select = request.form.get('comp_select')
 	if request.method == 'POST':
@@ -562,9 +568,9 @@ def uploaded_EIA_file(filename):
 @application.route('/logout', methods=['GET'])
 @login_required
 def logout():
-	ID_FOLDER=session['filename']
-	if os.path.exists(ID_FOLDER):
-		shutil.rmtree(ID_FOLDER)
+	#ID_FOLDER=session['filename']
+	#if os.path.exists(ID_FOLDER):
+	#	shutil.rmtree(ID_FOLDER)
 	logout_user()
 	return redirect('login')
 
@@ -579,5 +585,6 @@ login_manager.login_view = 'login_get'
 @login_manager.user_loader
 def load_user(userid):
 	return USERS[userid]
+
 if __name__=='__main__':
 	application.run(debug=True)
