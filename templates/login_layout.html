@@ -8,19 +8,21 @@
   </head>
   <body>
     <header>
-        <h1 class="logo">Nokia</h1>
+        <h1 class="logo">&nbsp;Nokia</h1>
         <strong><nav>
           <ul class="menu">
             <li><a href="{{ url_for('home') }}"><h1>HOME</h1></a></li>
           </ul>
+          <div align="right">
+            <form action="/logout" method="GET">
+              <button class="mybutton" type="submit">LOGOUT</button>
+            </form>
+          </div>
         </nav></strong>
+       
     </header>
     <div class="container">
-       <div align="right">
-       <form action="/logout" method="GET">
-          <button class="mybutton" class="fadeIn fourth" type="submit" value="Logout">Logout</button>
-       </form>
-       </div>
+       
     <h3 class=title><b>DATA VALIDATION FOR ONE ITSM CONFIGURATION</b></h3>
       {% block content %}
       {% endblock %}
