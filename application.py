@@ -104,7 +104,7 @@ def login_post():
 		else:
 			return redirect('/')
 	else:
-		flash("wrong username or password")
+		flash("wrong Username or Password")
 		return render_template('login.html')
 
 
@@ -196,6 +196,7 @@ def home():
 
 
 @application.route('/data', methods=['GET','POST'])
+@login_required
 def data_to_validate():
 	ID_FOLDER=session['filename']
 	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
@@ -371,6 +372,7 @@ def uploaded_file(filename):
 ################convert to NOAM
 
 @application.route('/noam_data', methods=['GET','POST'])
+@login_required
 def noam_data():
 	msg3=None
 	session['filename']=session['company']+'_'+str(uuid.uuid1())
@@ -400,6 +402,7 @@ def noam_data():
 
 
 @application.route('/noam_upload', methods=['GET'])
+@login_required
 def noam_upload():
 	NOAM_FOLDER=session['filename']
 	NOAM_UPLOAD=NOAM_FOLDER+'/NOAM_files/'
@@ -413,6 +416,7 @@ def noam_upload():
 
 
 @application.route('/NOAM_Report/<filename>')
+@login_required
 def uploaded_NOAM_file(filename):
 	NOAM_FOLDER=session['filename']
 	NOAM_REPORT=NOAM_FOLDER +'/Report/'
