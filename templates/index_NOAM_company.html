@@ -1,18 +1,19 @@
 {% extends "login_layout.html" %}
 {% block content %}
 <!-- Login Form -->
-  
+ <p>&nbsp;</p>
+ 
 <h2>CONVERT CMDB TEMPLATES IN NOAM TEMPLATES:</h2>
 <table>
   <tr>
     <form class="button" align="right" method="post" action="noam_data" enctype="multipart/form-data">
-      <td><label id="#bb"> Select Files
+      <td><label id="#bb"> SELECT FILES
         <input type="file" multiple="" name="file[]" class="span3" /></td>
       <td> 
         {% if msg3 %}
           <p><strong></strong> {{ msg3 }}
         {% endif %}
-        <input class="mybutton" type="submit" value="Submit"  class="span2">
+        <input class="mybutton" type="submit" value="SUBMIT"  class="span2">
       </td>
     </form>
   </tr>
@@ -23,11 +24,12 @@
 <table>
   <tr>
     <form class="button" align="right" method="GET" action="noam_upload" enctype="multipart/form-data">
-      <input class="mybutton" type="submit" value="RUN conversion"  class="span2"></td>
+      <input class="mybutton" type="submit" value="RUN CONVERSION"  class="span2"></td>
     </form>
   </tr>
 </table> 
 
+ <p>&nbsp;</p>
 
 <hr/>
 
@@ -36,13 +38,13 @@
 <table>
   <tr>
     <form class="button" method="post" action="op_res_cats" enctype="multipart/form-data">
-      <td><label id="#bb"> Select Files
+      <td><label id="#bb"> SELECT FILES
         <input type="file" multiple="" name="file[]" class="span3" /></td>
       <td> 
         {% if msg4 %}
           <p><strong></strong> {{ msg4 }}
         {% endif %}
-        <input class="mybutton" type="submit" value="Submit"  class="span2">
+        <input class="mybutton" type="submit" value="SUBMIT"  class="span2">
       </td>
     </form>
   </tr>
@@ -55,7 +57,7 @@
   <tr>
   <form class="button" align="right" method="GET" action="op_res_cats_upload" enctype="multipart/form-data">
 
-    <input class="mybutton" type="submit" value="RUN conversion"  class="span2"></td>  
+    <input class="mybutton" type="submit" value="RUN CONVERSION"  class="span2"></td>  
   </form>
   </tr>
     </table> 
