@@ -17,7 +17,7 @@ import process_noam_data
 import process_res_cats
 import process_zte
 import update_priority as up_prio
-
+import process_site_history
 
 class User(UserMixin):
 	def __init__(self, username,password):
@@ -104,7 +104,7 @@ def login_post():
 		else:
 			return redirect('/')
 	else:
-		flash("wrong Username or Password")
+		flash("Wrong Username or Password")
 		return render_template('login.html')
 
 
@@ -141,6 +141,16 @@ def drop():
 @application.route("/action" , methods=['GET', 'POST'])
 @login_required
 def home():
+	data=[s for s in os.listdir(os.getcwd()) if len(s) > 30]
+	paths_to_del=[]
+	dates=[]
+	for i in range(len(data)):
+		paths_to_del.append(os.getcwd()+ '/' + data[i])
+		dates.append((dt.datetime.now()-datetime.fromtimestamp(os.path.getctime(paths_to_del[i]))).days)
+		if dates[i]>0:
+			shutil.rmtree(paths_to_del[i])	
+		else:
+			None
 	select = request.form.get('comp_select')
 	if request.method == 'POST':
 		user=session['username']
@@ -170,25 +180,27 @@ def home():
 #	os.makedirs(SITE_FOLDER)
 #	os.makedirs(SITE_REPORT)
 #	return render_template('site_index.html')
-#
-#
-#@application.route('/site_upload', methods=['GET'])
-#@login_required
-#def site_upload():
-#	
-#	SITE_FOLDER=session['filename']
-#	msg=SITE_FOLDER.split('_')[0]
-#	SITE_REPORT=SITE_FOLDER +'/Report/'
-#	process_site_history.sites_cis_report(company=SITE_FOLDER.split('_')[0],site_report=SITE_REPORT)
-#	site_filenames=os.listdir(SITE_REPORT)
-#	return render_template('site_upload.html', site_filenames=site_filenames,mgs=msg)
-#
-#@application.route('/site_report/<filename>')
-#@login_required
-#def uploaded_site_file(filename):
-#	SITE_FOLDER=session['filename']
-#	SITE_REPORT=SITE_FOLDER +'/Report/'
-#	return send_from_directory(SITE_REPORT,filename)
+
+
+@application.route('/site_upload', methods=['GET'])
+@login_required
+def site_upload():
+	session['filename']=session['company']+'_'+str(uuid.uuid1())
+	SITE_FOLDER=session['filename']
+	SITE_REPORT=SITE_FOLDER +'/Report/'
+	os.makedirs(SITE_FOLDER)
+	os.makedirs(SITE_REPORT)
+	msg=SITE_FOLDER.split('_')[0]
+	process_site_history.sites_cis_report(company=SITE_FOLDER.split('_')[0],site_report=SITE_REPORT)
+	site_filenames=os.listdir(SITE_REPORT)
+	return render_template('site_upload.html', site_filenames=site_filenames,mgs=msg)
+
+@application.route('/site_report/<filename>')
+@login_required
+def uploaded_site_file(filename):
+	SITE_FOLDER=session['filename']
+	SITE_REPORT=SITE_FOLDER +'/Report/'
+	return send_from_directory(SITE_REPORT,filename)
 
 ######################################################################
 
@@ -279,7 +291,7 @@ def upload():
 				text_cmdb=open(DOWNLOAD_FOLDER+'summary_CMDB.txt', 'r+',encoding='utf8')
 				content_cmdb = text_cmdb.read()
 				text_cmdb.close()
-				msg_cmdb1='CMDB size: '.upper()
+				msg_cmdb1=ID_FOLDER.split('_')[0].upper() + ' Current CMDB size in ITSM: '.upper()
 			else:
 				msg_cmdb2='Missing CMDB inventory'.upper()
 			msgCIs="CI'S VALIDATION:"
@@ -565,6 +577,21 @@ def uploaded_EIA_file(filename):
 	EIA_FOLDER=session['filename']
 	EIA_REPORT=EIA_FOLDER +'/Report/'
 	return send_from_directory(EIA_REPORT,filename)
+
+####CHANGE MODULE
+
+@application.route('/chg_mod', methods=['GET'])
+@login_required
+def chg_mod():
+	msg='TO BE IMPLEMENTED'
+	return render_template('chg_mod.html',msg=msg)
+
+###RAP
+@application.route('/rap', methods=['GET'])
+@login_required
+def rap():
+	msg2='TO BE IMPLEMENTED'
+	return render_template('rap.html',msg2=msg2)
 
 
 
