@@ -17,7 +17,7 @@ import process_noam_data
 import process_res_cats
 import process_zte
 import update_priority as up_prio
-import process_site_history
+#import process_site_history
 
 class User(UserMixin):
 	def __init__(self, username,password):
@@ -182,25 +182,25 @@ def home():
 #	return render_template('site_index.html')
 
 
-@application.route('/site_upload', methods=['GET'])
-@login_required
-def site_upload():
-	session['filename']=session['company']+'_'+str(uuid.uuid1())
-	SITE_FOLDER=session['filename']
-	SITE_REPORT=SITE_FOLDER +'/Report/'
-	os.makedirs(SITE_FOLDER)
-	os.makedirs(SITE_REPORT)
-	msg=SITE_FOLDER.split('_')[0]
-	process_site_history.sites_cis_report(company=SITE_FOLDER.split('_')[0],site_report=SITE_REPORT)
-	site_filenames=os.listdir(SITE_REPORT)
-	return render_template('site_upload.html', site_filenames=site_filenames,mgs=msg)
-
-@application.route('/site_report/<filename>')
-@login_required
-def uploaded_site_file(filename):
-	SITE_FOLDER=session['filename']
-	SITE_REPORT=SITE_FOLDER +'/Report/'
-	return send_from_directory(SITE_REPORT,filename)
+#@application.route('/site_upload', methods=['GET'])
+#@login_required
+#def site_upload():
+#	session['filename']=session['company']+'_'+str(uuid.uuid1())
+#	SITE_FOLDER=session['filename']
+#	SITE_REPORT=SITE_FOLDER +'/Report/'
+#	os.makedirs(SITE_FOLDER)
+#	os.makedirs(SITE_REPORT)
+#	msg=SITE_FOLDER.split('_')[0]
+#	process_site_history.sites_cis_report(company=SITE_FOLDER.split('_')[0],site_report=SITE_REPORT)
+#	site_filenames=os.listdir(SITE_REPORT)
+#	return render_template('site_upload.html', site_filenames=site_filenames,mgs=msg)
+#
+#@application.route('/site_report/<filename>')
+#@login_required
+#def uploaded_site_file(filename):
+#	SITE_FOLDER=session['filename']
+#	SITE_REPORT=SITE_FOLDER +'/Report/'
+#	return send_from_directory(SITE_REPORT,filename)
 
 ######################################################################
 
