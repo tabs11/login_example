@@ -9,16 +9,17 @@
 
 		{% if msg17 %}
 			<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg17 }}</h2>
-		
-			<pre>
-				{{ text_mis_fields }}
-			</pre>
+			<h2 style="color:#b30000">
+				<pre>
+					{{ text_mis_fields }}
+				</pre>
+			</h2>
 			<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg18 }}</h2>
 		{% endif %}
 		
 		{% if msgCIs %}
 		{% if msg_company %}
-			<h2 style="color:black;background-color:#cccccc" class="text-muted"><b>{{ msg_company }} REPORT:</b></h2>
+			<h2 style="color:black;background-color:#cccccc" class="text-muted"><b><font size="5">{{ msg_company }} REPORT:</font></b></h2>
 		{% endif %}
 		<h2 style="color:black;" class="text-muted">Below the screened file with data to upload and detailed issues (...report_"date".xlsx):</h2>
 			<ul>
@@ -39,13 +40,13 @@
 					{{ text_cmdb }}
 				</pre>
 			</h2>
-			<u><h2 style="color:black;background-color:#cccccc" class="text-muted">{{ msgCIs }}</h2></u>
+			<u><h2 style="color:black;background-color:#cccccc" class="text-muted"><font size="5">{{ msgCIs }}</font></h2></u>
 		{% endif %}
 
 		{% if msg15 %}
 			<h2 style="color:#0059b3;background-color:#e6f2ff" class="text-muted">{{ msg15 }}</h2>
 		{% endif %}
-		<h2 style="color:#0059b3;">
+		<h2 style="color:#004d99;">
 			<pre>
 				{{ text_summary_Cis }}
 			</pre>
@@ -74,19 +75,19 @@
 		{% if msg9 %}
 			<h2 style="color:blue;background-color:#e6f2ff" class="text-muted">{{ msg9 }}</h2>
 		{% endif %}
-		<h2 style="color:#e65c00">
+		<h2 style="color:#b34700">
 			<pre>
 				{{ text_warnings_Cis }}
 			</pre>
 		</h2>
 		{% if msgSites %}
 		<hr/>
-			<u><h2 style="color:black;background-color:#cccccc" class="text-muted">{{ msgSites }}</h2></u>
+			<u><h2 style="color:black;background-color:#cccccc" class="text-muted"><font size="5">{{ msgSites }}</font></h2></u>
 		{% endif %}
 		{% if msg13 %}
 			<h2 style="color:#0059b3;background-color:#e6f2ff" class="text-muted">{{ msg13 }}</h2>
 		{% endif %}
-		<h2 style="color:#0059b3">
+		<h2 style="color:#004d99">
 			<pre>
 				{{ text_summary_Sites }}
 			</pre>
@@ -114,7 +115,7 @@
 		{% if msg12 %}
 			<h2 style="color:blue;background-color:#e6f2ff" class="text-muted">{{ msg12 }}</h2>
 		{% endif %}
-		<h2 style="color:#e65c00">
+		<h2 style="color:#b34700">
 			<pre>
 				{{ text_warnings_Sites }}
 			</pre>

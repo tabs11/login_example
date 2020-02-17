@@ -1,0 +1,11 @@
+{% extends "login_layout.html" %}
+{% block content %}
+<!-- Login Form -->
+
+	<div class="multi_upload_index">
+		<h2 class="text-muted">CHANGE MODULE:</h2>
+			{% if msg %}
+				<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg }}</h2>
+			{% endif %}
+	</div>
+ {% endblock %}

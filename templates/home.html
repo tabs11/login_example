@@ -1,6 +1,7 @@
 {% extends "login_layout.html" %}
 {% block content %}
-<p>&nbsp;</p>
+  <p>&nbsp;</p>
+
 
 <h1>
 Hello, <b>{{ current_user.username}}</b>
@@ -12,28 +13,34 @@ Hello, <b>{{ current_user.username}}</b>
     </form>
 </div>
 -->
-<p>&nbsp;</p>
- <font size="2"><h2> Type and submit the related company in the box bellow.</h2></font>
+  <p>&nbsp;</p>
+
+ <font size="2"><h2> Select the company in the box bellow:</h2></font>
  <h2> 
+
 <form class="form-inline" method="POST" action="{{ url_for('home') }}">
   <div class="form-group">
     <div class="input-group">
         
-            <select name="comp_select" style="color:black;background-color:#e6e6e6" class="mybutton2">
+            <select name="comp_select" style="color:black;background-color:#e6e6e6" class="button">
+
               {% for o in data %}
-              <option value="{{ o }}">{{ o }}</option>
+
+              <option value="{{ o }}" >{{ o }} </option>
               {% endfor %}
             </select>
              <button type="submit" class= "mybutton">SUBMIT</button>
     </div>
+
    
   </div>
 </form>
 </h2>
 <p>&nbsp;</p>
+
  <div class="multi_upload_index">
   <h2>Instructions for the upload templates -  <b>CI's</b> and/or <b>Sites</b>:</h2>
-      <a href = "/return-file/" target ="blank"><button class="mybutton2">Download Templates</button></a>
+      <a href = "/return-file/" target ="blank"><button class="mybutton2">DOWNLOAD TEMPLATES</button></a>
   <hr/>
     <ul>  
       <li><p> During onboarding/deployment the Sites or CI data has to be analyzed and defined in the CMDB data model first;</li>
