@@ -101,7 +101,7 @@ def noam_files(file_path,company,NOAM_report):
 			
 			w_sheet4_sites['C' +str(4+i)]=sites['Region'][i]
 			#company
-			#w_sheet2_sites['B' +str(4+i)]=sites['Company'][i]
+			w_sheet2_sites['B' +str(4+i)]=sites['Company'][i]
 			w_sheet3_sites['B' +str(4+i)]=sites['Company'][i]
 			w_sheet4_sites['B' +str(4+i)]=sites['Company'][i]
 			#Site Group
