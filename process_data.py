@@ -22,7 +22,7 @@ def process_file(path,company,report):
 	cis=pd.DataFrame()
 	sites=pd.DataFrame()
 	files=pd.DataFrame()
-	column_names=['sites','cis']
+	column_names=['sites','cis','Site Data Template','CI Data Template Comp Syst']
 	count_issues=[]
 	for j in range(len(glob.glob(path+'/*'))):
 		if glob.glob(path+'/*')[j].endswith(('.xls','.xlsx')):
