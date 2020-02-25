@@ -1,0 +1,29 @@
+Company;CI Name;Site;Region;Site Group;CI Description;DNS Host Name;System Role;Product Name;Tier 1;Tier 2;Tier 3;Manufacturer;Model Version;Additional Information;Tag Number;CI ID;NbrCells;Domain;Status;Reconciliation Identity;Priority
+Orange RIP FR;LVL-MRG-PSS32-1;ORIP-LVL-MRG;Mayenne;RIP Laval;TBD;LVL-MRG-PSS32-1;WDM;1830 PSS-4/16/32/36;Transmission;DWDM/OMSN;DWDM/WDM/DXC;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-LOX-OLT-1;ORIP-LVL-LOX;Mayenne;RIP Laval;TBD;LVL-LOX-OLT-1;OLT;7360 ISAM FX;FAIP;Fixed Access;DSLAM;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-LGX-OLT-1;ORIP-LVL-LGX;Mayenne;RIP Laval;TBD;LVL-LGX-OLT-1;OLT;7360 ISAM FX;FAIP;Fixed Access;DSLAM;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-SEN-PSS32-1;ORIP-LVL-SEN;Mayenne;RIP Laval;TBD;LVL-SEN-PSS32-1;WDM;1830 PSS-4/16/32/36;Transmission;DWDM/OMSN;DWDM/WDM/DXC;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-SEN-RTR-1;ORIP-LVL-SEN;Mayenne;RIP Laval;TBD;LVL-SEN-RTR-1;ROUTER;7750 SR;FAIP;IP Core Backbone;Core Router;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;MAY-SMS-OLT-1;ORIP-MAY-MXX;Mayenne;RIP Mayenne;MAY-SMS-OLT-1 | Mayenne | RIP Mayenne;MAY-SMS-OLT-1;OLT;7360 ISAM FX;FAIP;Fixed Access;DSLAM;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;GIR-SMS-OLT-2;ORIP-GIR-GXX;Gironde;RIP Gironde;GIR-SMS-OLT-2 | Gironde | RIP Gironde;GIR-SMS-OLT-2;OLT;7360 ISAM FX;FAIP;Fixed Access;DSLAM;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;VAR-SMS-OLT-5;ORIP-VAR-VXX;Var;RIP Var;VAR-SMS-OLT-5 | Var | RIP Var;VAR-SMS-OLT-5;OLT;7360 ISAM FX;FAIP;Fixed Access;DSLAM;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-LOX-PSS4-1;ORIP-LVL-LOX;Mayenne;RIP Laval;TBD;LVL-LOX-PSS4-1;WDM;1830 PSS-4/16/32/36;Transmission;DWDM/OMSN;DWDM/WDM/DXC;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;BFC-SMS-OLT-4;ORIP-BFC-BXX;BFC;RIP BFC;BFC-SMS-OLT-4 | BFC | RIP BFC;BFC-SMS-OLT-4;OLT;7360 ISAM FX;FAIP;Fixed Access;DSLAM;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-LGX-PSS4-1;ORIP-LVL-LGX;Mayenne;RIP Laval;TBD;LVL-LGX-PSS4-1;WDM;1830 PSS-4/16/32/36;Transmission;DWDM/OMSN;DWDM/WDM/DXC;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-BEX-PSS4-2;ORIP-LVL-BEX;Mayenne;RIP Laval;TBD;LVL-BEX-PSS4-2;WDM;1830 PSS-4/16/32/36;Transmission;DWDM/OMSN;DWDM/WDM/DXC;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-SEN-FW-1;ORIP-LVL-SEN;Mayenne;RIP Laval;TBD;LVL-SEN-FW-1;FIREWALL;SN310;FAIP;IP Security;Firewall;Stormshield;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-MRG-FW-1;ORIP-LVL-MRG;Mayenne;RIP Laval;TBD;LVL-MRG-FW-1;FIREWALL;SN310;FAIP;IP Security;Firewall;Stormshield;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-GAX-OLT-1;ORIP-LVL-GAX;Mayenne;RIP Laval;TBD;LVL-GAX-OLT-1;OLT;7360 ISAM FX;FAIP;Fixed Access;DSLAM;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-BEX-RTR-1;ORIP-LVL-BEX;Mayenne;RIP Laval;TBD;LVL-BEX-RTR-1;SWITCH;7210 SAS;FAIP;IP Backhaul;Switch;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-CXX-OLT-1;ORIP-LVL-CXX;Mayenne;RIP Laval;TBD;LVL-CXX-OLT-1;OLT;7360 ISAM FX;FAIP;Fixed Access;DSLAM;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-BEX-PSS4-1;ORIP-LVL-BEX;Mayenne;RIP Laval;TBD;LVL-BEX-PSS4-1;WDM;1830 PSS-4/16/32/36;Transmission;DWDM/OMSN;DWDM/WDM/DXC;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-GAX-PSS32-1;ORIP-LVL-GAX;Mayenne;RIP Laval;TBD;LVL-GAX-PSS32-1;WDM;1830 PSS-4/16/32/36;Transmission;DWDM/OMSN;DWDM/WDM/DXC;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-FXX-OLT-1;ORIP-LVL-FXX;Mayenne;RIP Laval;TBD;LVL-FXX-OLT-1;OLT;7360 ISAM FX;FAIP;Fixed Access;DSLAM;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-BEX-OLT-1;ORIP-LVL-BEX;Mayenne;RIP Laval;TBD;LVL-BEX-OLT-1;OLT;7360 ISAM FX;FAIP;Fixed Access;DSLAM;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-FXX-PSS4-1;ORIP-LVL-FXX;Mayenne;RIP Laval;TBD;LVL-FXX-PSS4-1;WDM;1830 PSS-4/16/32/36;Transmission;DWDM/OMSN;DWDM/WDM/DXC;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-MRG-RTR-2;ORIP-LVL-MRG;Mayenne;RIP Laval;TBD;LVL-MRG-RTR-2;SWITCH;7210 SAS;FAIP;IP Backhaul;Switch;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-CXX-PSS4-1;ORIP-LVL-CXX;Mayenne;RIP Laval;TBD;LVL-CXX-PSS4-1;WDM;1830 PSS-4/16/32/36;Transmission;DWDM/OMSN;DWDM/WDM/DXC;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-MRG-RTR-1;ORIP-LVL-MRG;Mayenne;RIP Laval;TBD;LVL-MRG-RTR-1;ROUTER;7750 SR;FAIP;Core Router;Core Router;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;LVL-SEN-RTR-2;ORIP-LVL-SEN;Mayenne;RIP Laval;TBD;LVL-SEN-RTR-2;SWITCH;7210 SAS;FAIP;IP Backhaul;Switch;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;ALL-SMS-OLT-3;ORIP-ALL-AXX;ALL;RIP ALL;ALL-SMS-OLT-3 | ALL | RIP ALL;ALL-SMS-OLT-3;OLT;7360 ISAM FX;FAIP;Fixed Access;DSLAM;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
+Orange RIP FR;ALL-SMS-OLT-3;ORIP-ALL-AXX;ALL;RIP ALL;ALL-SMS-OLT-3 | ALL | RIP ALL;ALL-SMS-OLT-3;OLT;7360 ISAM FX;FAIP;Fixed Access;DSLAM;Alcatel-Lucent;;;;;;.;Deployed;;PRIORITY_5
