@@ -1,25 +1,41 @@
 Company;Site Name;Site Alias;Description;Region;Site Group;Street;Country;City;Latitude;Longitude;Maintenance Circle Name;Site Type;Location ID;PrimAlias;Additional Site Details;Status
-Orange RIP FR;ORIP-LVL-MRG;LVL-MRG;MEURGER;Mayenne;RIP Laval;11 Rue Emile Brault 53000 Laval;France;Laval;;;;Shelter;MRG;1;;Enabled
-Orange RIP FR;ORIP-LVL-MRG;ORIP-LVL-MRG;MEURGER;Mayenne;RIP Laval;11 Rue Emile Brault 53000 Laval;France;Laval;;;;Shelter;MRG;0;;Enabled
+Orange RIP FR;ORIP-MAY-MXX;ORIP-MAY-MXX;;Mayenne;RIP Mayenne;;France;Mayenne;;;;;;0;;Enabled
+Orange RIP FR;ORIP-MAY-SJE  Q_19A;ORIP-MAY-SJE  Q_19A;;Mayenne;RIP Mayenne;"""Mairie 53270 Saint Jean sur Evre""";France;Saint Jean sur Evre;;;;;;0;;Enabled
+Orange RIP FR;ORIP-MAY-VAI Q_17A;MAY-VAI Q_17A;;Mayenne;RIP Mayenne;"""Route de Saint Pierre sur Evre 53480 Vaiges""";France;Vaiges;;;;;;1;;Enabled
+Orange RIP FR;ORIP-MAY-VAI Q_17A;ORIP-MAY-VAI Q_17A;;Mayenne;RIP Mayenne;"""Route de Saint Pierre sur Evre 53480 Vaiges""";France;Vaiges;;;;;;0;;Enabled
+Orange RIP FR;ORIP-GIR-33108TIW;GIR-33108TIW;;Gironde;RIP Gironde;"""52 Avenue Camille Maumey 33350 Castillon-la-Bataille""     ,     ,     ,,";France;Castillon-la-Bataille;;;;;;1;;Enabled
+Orange RIP FR;ORIP-GIR-33108TIW;ORIP-GIR-33108TIW;;Gironde;RIP Gironde;"""52 Avenue Camille Maumey 33350 Castillon-la-Bataille""     ,     ,     ,,";France;Castillon-la-Bataille;;;;;;0;;Enabled
+Orange RIP FR;ORIP-GIR-LAT;GIR-LAT;;Gironde;RIP Gironde;"""Route de la Seleyre - D10,33160 Latresne""     ,     ,     ,,";France;Latresne;;;;;;1;;Enabled
+Orange RIP FR;ORIP-GIR-LAT;ORIP-GIR-LAT;;Gironde;RIP Gironde;"""Route de la Seleyre - D10,33160 Latresne""     ,     ,     ,,";France;Latresne;;;;;;0;;Enabled
+Orange RIP FR;ORIP-MAY-ERV M_19B;MAY-ERV M_19B;;Mayenne;RIP Mayenne;"""Rue des jardins 53600 Evron""";France;Evron;;;;;;1;;Enabled
+Orange RIP FR;ORIP-MAY-ERV M_19B;ORIP-MAY-ERV M_19B;;Mayenne;RIP Mayenne;"""Rue des jardins 53600 Evron""";France;Evron;;;;;;0;;Enabled
+Orange RIP FR;ORIP-GIR-LBS;GIR-LBS;;Gironde;RIP Gironde;"""Intersection chemin Barateau / RD242,33450 Saint Loubes""     ,     ,     ,,";France; Saint Loubes;;;;;;1;;Enabled
+Orange RIP FR;ORIP-GIR-LBS;ORIP-GIR-LBS;;Gironde;RIP Gironde;"""Intersection chemin Barateau / RD242,33450 Saint Loubes""     ,     ,     ,,";France; Saint Loubes;;;;;;0;;Enabled
+Orange RIP FR;ORIP-GIR-TOC;GIR-TOC;;Gironde;RIP Gironde;"""Chemin Judieux,33610 CESTAS""     ,     ,     ,,";France;CESTAS;;;;;;1;;Enabled
+Orange RIP FR;ORIP-GIR-TOC;ORIP-GIR-TOC;;Gironde;RIP Gironde;"""Chemin Judieux,33610 CESTAS""     ,     ,     ,,";France;CESTAS;;;;;;0;;Enabled
+Orange RIP FR;ORIP-ALL-AXX;ORIP-ALL-AXX;;ALL;RIP ALL;;France;ALL;;;;;;0;;Enabled
+Orange RIP FR;ORIP-BFC-BXX;ORIP-BFC-BXX;;BFC;RIP BFC;;France;BFC;;;;;;0;;Enabled
+Orange RIP FR;ORIP-GIR-BFT;GIR-BFT;;Gironde;RIP Gironde;"""Allee de Petrucail,33290 Le Pian-Medoc""     ,     ,     ,,,     ,     ,,";France;Le Pian-Medoc;;;;;;1;;Enabled
+Orange RIP FR;ORIP-GIR-BFT;ORIP-GIR-BFT;;Gironde;RIP Gironde;"""Allee de Petrucail,33290 Le Pian-Medoc""     ,     ,     ,,,     ,     ,,";France;Le Pian-Medoc;;;;;;0;;Enabled
+Orange RIP FR;ORIP-VAR-VXX;ORIP-VAR-VXX;;Var;RIP Var;;France;Var;;;;;;0;;Enabled
+Orange RIP FR;ORIP-GIR-GXX;ORIP-GIR-GXX;;Gironde;RIP Gironde;;France;Gironde;;;;;;0;;Enabled
+Orange RIP FR;ORIP-MAY-SSU O_19A;MAY-SSU O_19A;;Mayenne;RIP Mayenne;"""157 Rue de la Liberation 53270 Sainte-Suzanne-et-Chammes (a cote de La Poste)""";France;Sainte-Suzanne-et-Chammes;;;;;;1;;Enabled
+Orange RIP FR;ORIP-MAY-SSU O_19A;ORIP-MAY-SSU O_19A;;Mayenne;RIP Mayenne;"""157 Rue de la Liberation 53270 Sainte-Suzanne-et-Chammes (a cote de La Poste)""";France;Sainte-Suzanne-et-Chammes;;;;;;0;;Enabled
 Orange RIP FR;ORIP-LVL-SEN;LVL-SEN;SENELLE;Mayenne;RIP Laval;Impasse du Clos de la Senelle 53000 Laval;France;Laval;;;;Shelter;SEN;1;;Enabled
 Orange RIP FR;ORIP-LVL-SEN;ORIP-LVL-SEN;SENELLE;Mayenne;RIP Laval;Impasse du Clos de la Senelle 53000 Laval;France;Laval;;;;Shelter;SEN;0;;Enabled
+Orange RIP FR;ORIP-LVL-MRG;LVL-MRG;MEURGER;Mayenne;RIP Laval;11 Rue Emile Brault 53000 Laval;France;Laval;;;;Shelter;MRG;1;;Enabled
+Orange RIP FR;ORIP-LVL-MRG;ORIP-LVL-MRG;MEURGER;Mayenne;RIP Laval;11 Rue Emile Brault 53000 Laval;France;Laval;;;;Shelter;MRG;0;;Enabled
 Orange RIP FR;ORIP-LVL-CXX;LVL-CXX;CHANGE;Mayenne;RIP Laval;Rue de la chataigneraie 53810 Change;France;Change;;;;Shelter;CXX;1;;Enabled
 Orange RIP FR;ORIP-LVL-CXX;ORIP-LVL-CXX;CHANGE;Mayenne;RIP Laval;Rue de la chataigneraie 53810 Change;France;Change;;;;Shelter;CXX;0;;Enabled
-Orange RIP FR;ORIP-LVL-LOX;LVL-LOX;LOUVERNE;Mayenne;RIP Laval;9-15 Rue Auguste Renoir 53950 Louverne;France;Louverne;;;;Shelter;LOX;1;;Enabled
-Orange RIP FR;ORIP-LVL-LOX;ORIP-LVL-LOX;LOUVERNE;Mayenne;RIP Laval;9-15 Rue Auguste Renoir 53950 Louverne;France;Louverne;;;;Shelter;LOX;0;;Enabled
 Orange RIP FR;ORIP-LVL-FXX;LVL-FXX;FORCE;Mayenne;RIP Laval;Chemin de l'huilerie 53260 Force;France;Force;;;;Shelter;FXX;1;;Enabled
 Orange RIP FR;ORIP-LVL-FXX;ORIP-LVL-FXX;FORCE;Mayenne;RIP Laval;Chemin de l'huilerie 53260 Force;France;Force;;;;Shelter;FXX;0;;Enabled
+Orange RIP FR;ORIP-LVL-LOX;LVL-LOX;LOUVERNE;Mayenne;RIP Laval;9-15 Rue Auguste Renoir 53950 Louverne;France;Louverne;;;;Shelter;LOX;1;;Enabled
+Orange RIP FR;ORIP-LVL-LOX;ORIP-LVL-LOX;LOUVERNE;Mayenne;RIP Laval;9-15 Rue Auguste Renoir 53950 Louverne;France;Louverne;;;;Shelter;LOX;0;;Enabled
 Orange RIP FR;ORIP-LVL-BEX;LVL-BEX;SAINT BERTHEVIN;Mayenne;RIP Laval;Avenue de Paris Saint 53940 Saint Berthevin;France;Saint Berthevin;;;;Shelter;BEX;1;;Enabled
 Orange RIP FR;ORIP-LVL-BEX;ORIP-LVL-BEX;SAINT BERTHEVIN;Mayenne;RIP Laval;Avenue de Paris Saint 53940 Saint Berthevin;France;Saint Berthevin;;;;Shelter;BEX;0;;Enabled
 Orange RIP FR;ORIP-LVL-GAX;LVL-GAX;GAUFRE;Mayenne;RIP Laval;Boulevard Lucien Daniel 53000 Laval;France;Gaufre;;;;Shelter;GAX;1;;Enabled
 Orange RIP FR;ORIP-LVL-GAX;ORIP-LVL-GAX;GAUFRE;Mayenne;RIP Laval;Boulevard Lucien Daniel 53000 Laval;France;Gaufre;;;;Shelter;GAX;0;;Enabled
 Orange RIP FR;ORIP-LVL-LGX;LVL-LGX;LOUVIGNE;Mayenne;RIP Laval;ZA de la Chauviniere 53210 Louvigne;France;Louvigne;;;;Shelter;LGX;1;;Enabled
 Orange RIP FR;ORIP-LVL-LGX;ORIP-LVL-LGX;LOUVIGNE;Mayenne;RIP Laval;ZA de la Chauviniere 53210 Louvigne;France;Louvigne;;;;Shelter;LGX;0;;Enabled
-Orange RIP FR;BEL-OLT-GENK-trial;BEL-OLT-GENK-trial;;Limburg;Genk;;Belgium;Genk;;;;;;0;;Enabled
-Orange RIP FR;ORF-MAY-MXX;ORF-MAY-MXX;;Mayenne;RIP Mayenne;;Belgium;Mayenne;;;;;;0;;Enabled
-Orange RIP FR;ORIP-BFC-BXX;ORIP-BFC-BXX;;BFC;RIP BFC;;France;BFC;;;;;;0;;Enabled
-Orange RIP FR;ORIP-MAY-MXX;ORIP-MAY-MXX;;Mayenne;RIP Mayenne;;France;Mayenne;;;;;;0;;Enabled
-Orange RIP FR;ORIP-GIR-GXX;ORIP-GIR-GXX;;Gironde;RIP Gironde;;France;Gironde;;;;;;0;;Enabled
-Orange RIP FR;ORIP-ALL-AXX;ORIP-ALL-AXX;;ALL;RIP ALL;;France;ALL;;;;;;0;;Enabled
-Orange RIP FR;ORIP-VAR-VXX;ORIP-VAR-VXX;;Var;RIP Var;;France;Var;;;;;;0;;Enabled
-Orange RIP FR;ORIP-VAR-VXX;ORIP-VAR-VXX;;Var;RIP Var;;France;Var;;;;;;0;;Enabled
+Orange RIP FR;ORIP-BEL-OLT-GENK-trial;ORIP-BEL-OLT-GENK-trial;;Limburg;Genk;;Belgium;Genk;;;;;;0;;Enabled
+Orange RIP FR;ORIP-BEL-OLT-GENK-trial;ORIP-BEL-OLT-GENK-trial;;Limburg;Genk;;Belgium;Genk;;;;;;0;;Enabled
