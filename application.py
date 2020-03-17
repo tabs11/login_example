@@ -13,7 +13,6 @@ import process_res_cats
 import process_res_cats_test
 import process_zte
 import update_priority as up_prio
-import process_site_history
 import process_site_history_users
 #import process_cmdb_inventory
 #import process_common_val
