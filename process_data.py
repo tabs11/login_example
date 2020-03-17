@@ -1,3 +1,4 @@
+
 import numpy as np
 import pandas as pd
 import re
@@ -5,11 +6,11 @@ import os
 import glob
 from difflib import get_close_matches
 import itertools
-#import sys
 import datetime as dt
 from tabulate import tabulate
-#from io import StringIO
-#import csv
+import sqlite3
+from pandas import DataFrame
+import process_cmdb_inventory
 
 def process_file(path,company,report):
 	startTime = dt.datetime.now()
@@ -28,6 +29,7 @@ def process_file(path,company,report):
 		if glob.glob(path+'/*')[j].endswith(('.xls','.xlsx')):
 			for k in range(len(list(set(pd.ExcelFile(glob.glob(path+'*')[j]).sheet_names).intersection(column_names)))):
 				sheets.append(pd.read_excel(glob.glob(path+'*')[j],list(set(pd.ExcelFile(glob.glob(path+'*')[j]).sheet_names).intersection(column_names))[k]))
+				print(max(j,k))
 			#files=pd.read_excel(glob.glob(path+'*')[j],sheet_name=None)
 			#for frame in files.keys():
 			#	sheets.append(files[frame])
@@ -62,47 +64,44 @@ def process_file(path,company,report):
 			else:
 				None
 		if len(list(itertools.chain(*unmatched_fields)))>0:
-			unmatched=pd.concat([pd.Series(['']*len(pd.Series(list(itertools.chain(*unmatched_fields))))).rename(''),pd.Series(list(itertools.chain(*unmatched_fields))).rename('FIELD')],axis=1)
+			unmatched=pd.DataFrame(pd.Series(list(itertools.chain(*unmatched_fields))).rename('FIELD'))
 			#print('',unmatched.set_index('FIELD'),'',sep='\n',file=open(report +'Mismatched_fields.txt','a',encoding='utf8'))
 			print('',tabulate(unmatched,headers="keys",tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(report +'Mismatched_fields.txt','a',encoding='utf8')) 
 			#print('','No Warnings to display'.upper(),'',sep='\n',file=open(report +'warnings'+names[j]+'.txt','a',encoding='utf8'))
 		else:
 			####cmdb inventory
-			if pd.Series(os.listdir('CMDB_inventory')).str.contains(company).any() & sheets[0]['Company'].str.contains(company).any():
-				sites_itsm=pd.read_csv(glob.glob('CMDB_inventory/'+company+'*Sites_report.csv')[0],sep=';',encoding='ISO-8859-1')
-	
-				sites_itsm=sites_itsm[['Site Name', 'Region', 'Site Group']].drop_duplicates()
-				cis_itsm=pd.read_csv(glob.glob('CMDB_inventory/'+company+'*CIs_report.csv')[0],sep=';',encoding='ISO-8859-1')
-				cis_itsm=cis_itsm[['CI Name']].drop_duplicates()
-				counts_cmb=pd.concat([pd.Series(['Sites','CIs']).rename('LEVEL'),pd.Series([len(sites_itsm),len(cis_itsm)]).rename('COUNT')],axis=1)
-				print('',tabulate(counts_cmb,headers="keys",tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(report +'summary_CMDB.txt','a',encoding='utf8'))      
-			
+			conn = sqlite3.connect('CMDB_inventory/CMDB_data.db')  # You can create a new database by changing the name within the quotes
+			c = conn.cursor() # The database will be saved in the location where your 'py' file is saved
+			quer_sites=r"""SELECT DISTINCT * FROM SITES WHERE Company='"""+company+"""'"""
+			quer_cis=r"""SELECT DISTINCT * FROM CIS WHERE Company='"""+company+"""'"""
+			###get sites
+			c.execute(quer_sites)
+			sites_itsm = DataFrame(c.fetchall(), columns=['Company','Site Name','Region','Site Group'])
+			sites_itsm.drop(['Company'],axis=1,inplace=True)
+			###get cis
+			c.execute(quer_cis)
+			cis_itsm = DataFrame(c.fetchall(), columns=['Company','CI Name'])
+			cis_itsm.drop(['Company'],axis=1,inplace=True)
+			conn.close()
+			if len(sites_itsm)>0:
+			    sites_size=len(sites_itsm)
 			else:
-				None
-				#print('Missing CMDB inventory','',sep='\n',file=open(report +'summary_CMDB.txt','a',encoding='utf8'))
-			#ITSM SITES report
-				#itsm_columns=['Site Name','Region','Site Group','City']
-				#if len(glob.glob(history+'/*'))==0:
-				#	sites_itsm=pd.DataFrame(columns=itsm_columns)
-				#	sites_itsm=sites_itsm[itsm_columns]
-				#	print('','All Existing Sites in CMDB: '.upper(),'-'*len('All Existing Sites in CMDB: '),'No CMDB Report: Suggest to get a full report of existing sites','',sep='\n',file=open(report +'warnings'+ names[j] + '.txt','a',encoding='utf8'))
-				#else:
-				#	sites_itsm=pd.read_csv(glob.glob(history+'/*Sites_report.csv')[0],sep=';')
-				#	#sites_itsm=pd.read_excel(glob.glob(history+'/*')[0],pd.ExcelFile(glob.glob(history+'/*')[0]).sheet_names[0])
-				#	cis_itsm=pd.read_csv(glob.glob(history+'/*CIs_report.csv')[0],sep=';')
-				#	cis_itsm=pd.DataFrame(cis_itsm['CI Name'])
-				#	#cis_itsm=pd.read_excel(glob.glob(history+'/*')[0],pd.ExcelFile(glob.glob(history+'/*')[0]).sheet_names[0])
-				#	sites_itsm=sites_itsm.filter(regex=re.compile('SITE N|REG|GROUP|CITY',re.IGNORECASE))
-				#	sites_itsm.rename(columns={
-				#		sites_itsm.columns[0]:'Site Name',
-				#		sites_itsm.columns[1]:'Region',
-				#		sites_itsm.columns[2]:'Site Group',
-				#		sites_itsm.columns[3]:'City'},inplace=True)
-				#	print('','All Existing Sites in CMDB: '.upper()+str(np.shape(sites_itsm)[0]),'-'*len('All Existing Sites in CMDB: '),'',sep='\n',file=open(report +'summary' + names[j] + '.txt','a',encoding='utf8'))      
-				
+			    sites_size='No Sites found in inventory'
+			
+			if len(cis_itsm)>0:
+			    cis_size=len(cis_itsm)
+			else:
+			    cis_size='No CIs found in inventory'
+			
+			counts_cmb=pd.concat([pd.Series(['Sites','CIs']).rename('LEVEL'),pd.Series([sites_size,cis_size]).rename('COUNT')],axis=1)
+
+			print('',tabulate(counts_cmb,headers="keys",tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(report +'summary_CMDB.txt','a',encoding='utf8'))      
 
 
-			##############
+			#
+
+
+			#############
 			all_fields=pd.concat([pd.Series(fields).rename('FIELD'),pd.Series(field_type).rename('MANDATORY'),pd.Series(char_num).rename('ALLOWED')],axis=1)
 			common_fields=[]
 			for j in range(len(sheets)):
@@ -130,11 +129,12 @@ def process_file(path,company,report):
 				###blanks and char num
 				for i in range(len(sheets[j].columns)):
 					blank_find=sheets[j].iloc[:,i][sheets[j].iloc[:,i].astype(str).apply(lambda x: x[0].isspace() or x[len(x)-1].isspace())]
-					if len(blank_find)>0:
-						blank_cases.append(blank_find.iloc[0])
+					blank_cases.append(pd.concat([pd.Series(blank_find.name).rename('FIELD'),pd.Series(len(blank_find)).rename('COUNT')],axis=1))
+					#if len(blank_find)>0:
+					#blank_cases.append(blank_find.iloc[0])
 	
-					else:
-						blank_cases.append('None')
+					#else:
+					#	blank_cases.append('None')
 					####count_chars
 					count_chars.append(sheets[j].iloc[:,i].apply(lambda x: x if pd.isnull(x) else (len(str(round(x,5))) if type(x)==float else len(str(x)))).max())
 					####remove blanks
@@ -151,12 +151,16 @@ def process_file(path,company,report):
 				else:
 					None
 				###all blanks
-				blanks=pd.concat([pd.Series(sheets[j].columns).rename('FIELD'),pd.Series(blank_cases).apply(lambda x: len(x)).rename('COUNT'),pd.Series(blank_cases).rename('Case example'),],axis=1)
-				if np.shape(blanks[blanks['Case example']!='None'])[0]>0:
-					blank_spaces=blanks[blanks['Case example']!='None']
-					blank_spaces=blank_spaces.drop(columns=['Case example'])
-					#blank_spaces.rename(columns={'FIELD':''},inplace=True)
-					print('','Fields with blanks spaces: (Blanks Auto Removed) '.upper(),'-'*len('Fields with blanks spaces: (Blanks Auto Removed) '),tabulate(blank_spaces,headers="keys",tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(report +'warnings'+names[j]+'.txt','a',encoding='utf8'))
+				#blanks=pd.concat([pd.Series(sheets[j].columns).rename('FIELD'),pd.Series(blank_cases).apply(lambda x: len(x)).rename('COUNT'),pd.Series(blank_cases).rename('Case example'),],axis=1)
+				#if np.shape(blanks[blanks['Case example']!='None'])[0]>0:
+				#	blank_spaces=blanks[blanks['Case example']!='None']
+				#	blank_spaces=blank_spaces.drop(columns=['Case example'])
+				blanks=pd.concat(blank_cases)
+				blanks=blanks[blanks['COUNT']>0]
+				if len(blanks)>0:
+					#print('','Fields with blanks spaces: (Blanks Auto Removed) '.upper(),'-'*len('Fields with blanks spaces: (Blanks Auto Removed) '),tabulate(blanks,headers="keys",tablefmt="fancy_grid",showindex=False),'',sep='\n')
+
+					print('','Fields with blanks spaces: (Blanks Auto Removed) '.upper(),'-'*len('Fields with blanks spaces: (Blanks Auto Removed) '),tabulate(blanks,headers="keys",tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(report +'warnings'+names[j]+'.txt','a',encoding='utf8'))
 				else:
 					None
 				###all nulls###
@@ -202,15 +206,12 @@ def process_file(path,company,report):
 						#print('','Location values:'.upper(),'-'*len('Location values:'),'Found Upper cases in ' + filtered_locations.columns[k],'',sep='\n',file=open(report +'warnings'+names[j]+'.txt','a',encoding='utf8'))
 					else:
 						None
-
-
 				print('',tabulate(pd.concat(summary_list),tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(report +'summary' + names[j] + '.txt','a',encoding='utf8'))
-
+				
 				###########################################################################################################################
 				#SITES
 				if (~sheets[j].columns.str.contains('CI N',case=False).any()):
 					sites=sheets[j]
-
 					##status
 					options=['Proposed','Enabled','Offline','Obsolete','Archive','Delete']
 					if len(list(set(sites['Status']) - set(options)))>0:
@@ -226,12 +227,15 @@ def process_file(path,company,report):
 					else:
 						None
 					##special characteres
-					sites_chars=pd.DataFrame(sites['Site Name'][sites['Site Name'].astype(str).str.contains("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\",regex=True)])
-					#sites_chars=sites[sites['Site Name'].astype(str).str.contains("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\",regex=True)]
+					sites_chars_changes=pd.DataFrame()
+					sites_chars=sites['Site Name'][sites['Site Name'].astype(str).str.contains("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\",regex=True)]
 					if np.shape(sites_chars)[0]>0:
-						sites['Site Name']=sites['Site Name'].astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))
-						print('','Sites with Special Characteres (Auto fixed): '.upper()+str(len(sites_chars)),'-'*len('Sites with Special Characteres (Auto fixed):'),tabulate(sites_chars.head(),headers=['SITE NAME (Only a sample displayed.)'],tablefmt='fancy_grid',showindex=False),'',sep='\n',file=open(report +'warnings'+names[j]+'.txt','a',encoding='utf8'))
-					else:#
+						sites_chars_corrected=sites_chars.astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))
+						sites_chars_changes=pd.concat([sites_chars,sites_chars_corrected.rename('Site Name corrected')],axis=1)
+						sites['Site Name']=sites['Site Name'].astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))					#cis['CI Name']=cis['CI Name'].astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))
+						print('','Sites with Special Characteres (Auto fixed): '.upper()+ str(len(sites_chars)),'-'*len('CIs with Special Characteres (Auto fixed):'),tabulate(sites_chars_changes.head(),headers='keys',tablefmt='fancy_grid',showindex=False),'',sep='\n',file=open(report +'warnings'+names[j]+'.txt','a',encoding='utf8'))
+
+					else:
 						None
 					###check coordinates
 					sites['Longitude_correct']=sites['Longitude'].astype(str).apply(lambda x: re.findall(r'-?\d+\.?\d*', re.sub('[^A-Za-z0-9]+', '.',x))).apply(lambda x: ''.join(x) if len(x)>0 else 'NaN').astype(float)
@@ -244,7 +248,8 @@ def process_file(path,company,report):
 					else:
 						None
 					if len(loc_issues)>0:
-						print(tabulate(pd.concat(loc_issues),headers=['LOCATION','ISSUE'],tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(report +'warnings' + names[j] + '.txt','a',encoding='utf8'))
+						print('','LOCATIONS ISSUES:','-'*len('LOCATIONS ISSUES:'),tabulate(pd.concat(loc_issues),headers=['LOCATION','ISSUE'],tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(report +'warnings' + names[j] + '.txt','a',encoding='utf8'))
+
 					else:
 						None
 
@@ -257,9 +262,12 @@ def process_file(path,company,report):
 					count_issues_sites=[]
 
 					if np.shape(sites_itsm)[0]>0:
+
 						all_sites=sites.merge(sites_itsm.set_index(sites_itsm.columns[0]),left_on=sites.filter(regex=re.compile('SITE',re.IGNORECASE)).columns[0],right_index=True,how='outer',indicator=True).drop_duplicates()
+						
 						###existing_sites##
 						existing_sites=all_sites[all_sites['_merge']=='both'].iloc[:,:-1]
+						print(existing_sites)
 						new_sites=all_sites[all_sites['_merge']=='left_only'].iloc[:,:-1]
 						###pick Site
 						existing_sites=pd.concat([existing_sites.filter(regex=re.compile('SITE',re.IGNORECASE)).iloc[:,0],existing_sites.filter(regex=re.compile('REG|SITE GROUP|CITY',re.IGNORECASE))],axis=1)
@@ -269,7 +277,9 @@ def process_file(path,company,report):
 							existing_sites.filter(regex=re.compile('SITE GROUP',re.IGNORECASE)).columns[0]:'Site Group in Sites',
 							existing_sites.filter(regex=re.compile('SITE GROUP',re.IGNORECASE)).columns[1]:'Site Group in ITSM Sites'},
 							inplace=True)
+						print(np.shape(existing_sites)[0])
 						if np.shape(existing_sites)[0]>0:
+							print(np.shape(existing_sites)[0])
 							###new sites
 							#print('','New sites to upload in CMDB: '.upper() + str(np.shape(new_sites)[0]),'-'*len('New Sites to upload in CMDB:'),'',sep='\n',file=open(report +'warnings'+names[j]+'.txt','a',encoding='utf8'))
 							wrong_locations_sites=pd.concat([existing_sites[(existing_sites['Region in Sites'])!=(existing_sites['Region in ITSM Sites'])],existing_sites[(existing_sites['Site Group in Sites'])!=(existing_sites['Site Group in ITSM Sites'])]],axis=0).drop_duplicates()
@@ -277,6 +287,7 @@ def process_file(path,company,report):
 							###already existing sites
 
 							if len(correct_locations_sites)>0:
+								print(len(correct_locations_sites))
 								count_issues_sites.append(pd.concat([pd.Series('Existing sites with same locations:'.upper()),pd.Series(len(correct_locations_sites))],axis=1))
 							
 								#print('','Existing sites with same locations: '.upper() +str(np.shape(correct_locations_sites)[0]),'-'*len('Existing sites with same locations:'),'',sep='\n',file=open(report +'errors'+names[j]+'.txt','a',encoding='utf8'))
@@ -285,6 +296,7 @@ def process_file(path,company,report):
 								None
 							###existing sites with different locations
 							if len(wrong_locations_sites)>0:
+								print(len(wrong_locations_sites))
 								count_issues_sites.append(pd.concat([pd.Series('Existing sites with mismatched locations:'.upper()),pd.Series(len(wrong_locations_sites))],axis=1))
 
 								#rint('','Existing sites with mismatched locations: '.upper() +str(np.shape(wrong_locations_sites)[0]),'-'*len('Existing sites with mismateched locations:'),'',sep='\n',file=open(report +'errors'+names[j]+'.txt','a',encoding='utf8'))
@@ -348,11 +360,13 @@ def process_file(path,company,report):
 						print('','WRONG PRIORITY VALUES: (AUTO FIXED)','-'*len('WRONG PRIORITY VALUES: (AUTO FIXED)'),tabulate(fixed_prios,headers="keys",tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(report +'warnings' + names[j] + '.txt','a',encoding='utf8'))
 					else:
 						None
-					#cis_chars=pd.DataFrame(cis[cis['CI Name'].astype(str).str.contains("\"|\'|´",regex=True)].drop_duplicates())
-					cis_chars=pd.DataFrame(cis['CI Name'][cis['CI Name'].astype(str).str.contains("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\",regex=True)])
+					cis_chars_changes=pd.DataFrame()
+					cis_chars=cis['CI Name'][cis['CI Name'].astype(str).str.contains("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\",regex=True)]
 					if np.shape(cis_chars)[0]>0:
-						cis['CI Name']=cis['CI Name'].astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))
-						print('','CIs with Special Characteres (Auto fixed): '.upper()+ str(len(cis_chars)),'-'*len('CIs with Special Characteres (Auto fixed):'),tabulate(cis_chars.head(),headers=['CI NAME (Only a sample displayed.)'],tablefmt='fancy_grid',showindex=False),'',sep='\n',file=open(report +'warnings'+names[j]+'.txt','a',encoding='utf8'))
+						cis_chars_corrected=cis_chars.astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))
+						cis_chars_changes=pd.concat([cis_chars,cis_chars_corrected.rename('CI Name corrected')],axis=1)
+						#cis['CI Name']=cis['CI Name'].astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))					#cis['CI Name']=cis['CI Name'].astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))
+						print('','CIs with Special Characteres (Auto fixed): '.upper()+ str(len(cis_chars)),'-'*len('CIs with Special Characteres (Auto fixed):'),tabulate(cis_chars_changes.head(),headers='keys',tablefmt='fancy_grid',showindex=False),'',sep='\n',file=open(report +'warnings'+names[j]+'.txt','a',encoding='utf8'))
 
 					else:
 						None
@@ -384,10 +398,11 @@ def process_file(path,company,report):
 					##DUPLICATED CIS
 					filtered_cis=cis.filter(regex=re.compile('CI N',re.IGNORECASE))
 					duplicate_cis=[]
+					###change####
 					dup_cis=pd.DataFrame(cis[filtered_cis.duplicated(keep=False)].drop_duplicates()).sort_values([filtered_cis.columns[0]])
 					duplicate_cis.append(dup_cis.groupby(filtered_cis.columns.values[0]).size().reset_index(name='counts'))
 					if len(dup_cis)>0:
-						dup_cis_count=pd.Series(len(duplicate_cis))
+						dup_cis_count=pd.Series(len(duplicate_cis[0]))
 						count_issues.append(pd.concat([pd.Series('Duplicated CI Names (excluding duplicate rows):'.upper()),dup_cis_count],axis=1))
 						#print('','Duplicated CI Names (excluding duplicate rows): '.upper(),'-'*len('Duplicated CI Names (excluding duplicate rows): '.upper()),tabulate(dup_cis_count,headers=['COUNT'],tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(report +'errors'+names[j]+'.txt','a',encoding='utf8'))
 
@@ -426,7 +441,7 @@ def process_file(path,company,report):
 					###check product catalogue
 					opcat_template='Prod_Cats_V2'
 					
-					template=pd.read_csv(glob.glob(opcat_template+'/*.csv')[0],sep=',')
+					template=pd.read_csv(glob.glob(opcat_template+'/*.csv')[0],sep=';')
 					template.rename(columns={template.columns[3]:'Product Name'},inplace=True)
 					template.rename(columns={template.columns[0]:'Tier 1 in catalogue',
 						template.columns[1]:'Tier 2 in catalogue',
@@ -474,7 +489,7 @@ def process_file(path,company,report):
 					else:
 						None
 					if len(loc_issues)>0:
-						print(tabulate(pd.concat(loc_issues),headers=['LOCATION','ISSUE'],tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(report +'warnings' + names[j] + '.txt','a',encoding='utf8'))
+						print('','LOCATIONS ISSUES:','-'*len('LOCATIONS ISSUES:'),tabulate(pd.concat(loc_issues),headers=['LOCATION','ISSUE'],tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(report +'warnings' + names[j] + '.txt','a',encoding='utf8'))
 					else:
 						None
 				else:
@@ -533,10 +548,6 @@ def process_file(path,company,report):
 		with pd.ExcelWriter(report + company + '_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
 			if len(sites)>0:
 				sites.to_excel(writer, 'sites',index=False)
-				if np.shape(sites_chars)[0]>0:
-					sites_chars.to_excel(writer,'Sites with special characteres',index=False)
-				else:
-					None
 				if np.shape(new_sites)[0]>0:
 					new_sites.to_excel(writer,'New Sites',index=False)
 				else:
@@ -551,6 +562,10 @@ def process_file(path,company,report):
 					None
 				if len(wrong_locations_sites_list)>0:
 					wrong_locations_sites_list[0].to_excel(writer, 'Region Issues in Sites',index=False)
+				else:
+					None
+				if np.shape(sites_chars_changes)[0]>0:
+					sites_chars_changes.to_excel(writer, 'Sites with Special Characteres',index=False)
 				else:
 					None
 			else:
@@ -578,6 +593,11 @@ def process_file(path,company,report):
 					dup_cis.to_excel(writer, 'Duplicate CIs',index=False)
 				else:
 					None
+				if np.shape(cis_chars_changes)[0]>0:
+					cis_chars_changes.to_excel(writer, 'CIs with Special Characteres',index=False)
+				else:
+					None
+					
 				if len(wrong_Tiers)>0:
 					wrong_Tiers.to_excel(writer,'wrong_tiers',index=False)
 				else:
@@ -587,13 +607,9 @@ def process_file(path,company,report):
 	
 				else:
 					None
-				if len(cis_chars)>0:
-					cis_chars.to_excel(writer,'CIs with special Characters',index=False)
-	
-				else:
-					None
+				
 				  
 			else:
 				print('','No CIs data to validate'.upper(),sep='\n',file=open(report +'summary' + names[j] + 'CIs.txt','a',encoding='utf8'))
 			writer.save()
-		print(dt.datetime.now() - startTime)	
+		print(dt.datetime.now() - startTime)	#
