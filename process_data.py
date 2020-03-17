@@ -441,7 +441,7 @@ def process_file(path,company,report):
 					###check product catalogue
 					opcat_template='Prod_Cats_V2'
 					
-					template=pd.read_csv(glob.glob(opcat_template+'/*.csv')[0],sep=';')
+					template=pd.read_csv(glob.glob(opcat_template+'/*.csv')[0],sep=',')
 					template.rename(columns={template.columns[3]:'Product Name'},inplace=True)
 					template.rename(columns={template.columns[0]:'Tier 1 in catalogue',
 						template.columns[1]:'Tier 2 in catalogue',
