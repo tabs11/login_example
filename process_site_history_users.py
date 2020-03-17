@@ -5,7 +5,7 @@ import sqlite3
 
 
 def sites_cis_report(company,report):
-    conn = sqlite3.connect('/Users/numartin/Desktop/DVT_PROPOSAL/CMDB_inventory/CMDB_data.db')  # You can create a new database by changing the name within the quotes
+    conn = sqlite3.connect('CMDB_inventory/CMDB_data.db')  # You can create a new database by changing the name within the quotes
     c = conn.cursor() # The database will be saved in the location where your 'py' file is saved
     quer_sites=r"""SELECT DISTINCT * FROM SITES WHERE Company='"""+company+"""'"""
     quer_cis=r"""SELECT DISTINCT * FROM CIS WHERE Company='"""+company+"""'"""
