@@ -10,7 +10,7 @@ import datetime as dt
 from tabulate import tabulate
 import sqlite3
 from pandas import DataFrame
-import process_cmdb_inventory
+
 
 def process_file(path,company,report):
 	startTime = dt.datetime.now()
