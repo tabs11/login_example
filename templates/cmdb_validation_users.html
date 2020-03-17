@@ -1,0 +1,31 @@
+{% extends "login_layout.html" %}
+{% block content %}
+<p>&nbsp;</p>
+<h2>Please select the desired action:</h2>
+<p>&nbsp;</p>
+<table>
+    <tr>
+      <form class="button" align="right" method="post" action="/data" enctype="multipart/form-data">
+         <input class="mybutton" type="submit" value=" CMDB DATA VALIDATION "  class="span2"></td>
+          Select this option to validate CIs and Sites.
+      </form>
+     
+ </tr>
+    </table>
+
+<h2></h2>
+
+<table>
+    <tr>
+    <form class="button" method="post" action=/op_res_cats enctype="multipart/form-data">
+      <input class="mybutton" type="submit" value="OP/RES CATEGORIES VALIDATION"  class="span2"></td>    
+      Select this option to validate the Operational and Resolution Categories.
+    </form>
+      </form>
+ </tr>
+    </table>
+    <h2></h2>
+
+
+
+{% endblock %}

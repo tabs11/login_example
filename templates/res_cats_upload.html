@@ -15,6 +15,16 @@
 		{% if msg_res %}
 			<u><h2 style="color:black;background-color:#cccccc" class="text-muted">{{ msg_res }}</h2></u>
 		{% endif %}
+		{% if msg_fields_res %}
+			<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg_fields_res }}</h2>
+			<h2 style="color:#b30000">
+				<pre>
+					{{ text_mis_fields_res }}
+				</pre>
+			</h2>
+		{% endif %}
+		
+		
 		{% if msg %}
 			<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg }}</h2>
 		{% endif %}
@@ -24,13 +34,25 @@
 		{% if msg3 %}
 			<h2 style="color:blue;background-color:#e6f2ff" class="text-muted">{{ msg3 }}</h2>
 		{% endif %}
-			
+		{% if add_msg_res %}
+			<h2 style="color:red;" class="text-muted">{{ add_msg_res }}</h2>
+		{% endif %}
+			<h2 style="color:#b30000">
 				<b><pre>
 					{{ text_res }}
 				</pre></b>
-
+			</h2>
 		{% if msg_ops %}
 			<u><h2 style="color:black;background-color:#cccccc" class="text-muted">{{ msg_ops }}</h2></u>
+		{% endif %}
+		{% if msg_fields_ops %}
+			<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg_fields_ops }}</h2>
+			<h2 style="color:#b30000">
+				<pre>
+					{{ text_mis_fields_ops }}
+				</pre>
+			</h2>
+			
 		{% endif %}
 		{% if msg4 %}
 			<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg4 }}</h2>
@@ -41,9 +63,13 @@
 		{% if msg6 %}
 			<h2 style="color:blue;background-color:#e6f2ff" class="text-muted">{{ msg6 }}</h2>
 		{% endif %}
-			
+		{% if add_msg_op %}
+			<h2 style="color:red;" class="text-muted">{{ add_msg_op }}</h2>
+		{% endif %}
+			<h2 style="color:#b30000">
 				<b><pre>
 					{{ text_ops }}
 				</pre></b>
+			</h2>
 	</div>
  {% endblock %} 

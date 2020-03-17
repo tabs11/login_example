@@ -1,11 +1,31 @@
 {% extends "login_layout.html" %}
 {% block content %}
-<!-- Login Form -->
+<p>&nbsp;</p>
 
-	<div class="multi_upload_index">
-		<h2 class="text-muted">RAP:</h2>
-			{% if msg2 %}
-				<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg2 }}</h2>
-			{% endif %}
-	</div>
+<h2>Upload RAP Template:</h2>
+<table>
+  <tr>
+  <form class="button" align="right" method=post action="rap" enctype=multipart/form-data>
+  	<td><label id="#bb"> SELECT FILES
+    	<input type="file" name=file />
+    </td>
+    <td>
+        {% if msg %}
+          <p><strong></strong> {{ msg }}
+        {% endif %}   
+        <input class="mybutton" type=submit value=SUBMIT>
+    </td>
+  </form>
+</tr>
+</table>
+
+ <h2></h2>
+
+<table>
+  <tr>
+    <form class="button" align="right" method="post" action="rap_upload" enctype="multipart/form-data">
+      <input class="mybutton" id="btnload" type="submit" value="RUN VALIDATION"  class="span2"></td>
+    </form>
+  </tr>
+</table>
  {% endblock %}

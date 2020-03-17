@@ -1,0 +1,20 @@
+{% extends "login_layout.html" %}
+{% block content %}
+
+<div class="multi_upload_index">
+	<h2 style="color:black;background-color:#cccccc" class="text-muted"><b>REPORT:</b></h2>
+
+		<h2 style="color:black;" class="text-muted">Below the RAP file:</h2>
+		<ul>
+			{% for file in rap_filenames %}
+				<li><a href="{{url_for('uploaded_RAP_file', filename=file)}}">{{file}}</a></li>
+			{% endfor %}
+		</ul>
+		{% if msg %}
+			<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg }}</h2>
+		{% endif %}
+		<pre>
+			{{ text_rap }}
+		</pre>
+</div>
+{% endblock %}  

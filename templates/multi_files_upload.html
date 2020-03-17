@@ -55,10 +55,13 @@
 			<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg }}</h2>
 		{% endif %}
 		{% if msg2 %}
-			<h2 style="color:green;background-color:#ccffcc" class="text-muted">{{ msg2 }}</h2>
+			<h2 style="color:green;background-color:#ccffcc" class="text-muted">{{ msg2 }} <span style='font-size:30px;'>&#128077;</span></h2>
 		{% endif %}
 		{% if msg3 %}
 			<h2 style="color:blue;background-color:#e6f2ff" class="text-muted">{{ msg3 }}</h2>
+		{% endif %}
+		{% if add_msg_cis %}
+			<h2 style="color:red;" class="text-muted">{{ add_msg_cis }}</h2>
 		{% endif %}
 			<h2 style="color:#b30000">
 				<pre>
@@ -101,6 +104,10 @@
 		{% if msg6 %}
 			<h2 style="color:blue;background-color:#e6f2ff" class="text-muted">{{ msg6 }}</h2>
 		{% endif %}
+		{% if add_msg_sites %}
+			<h2 style="color:red;" class="text-muted">{{ add_msg_sites }}</h2>
+		{% endif %}
+
 		<h2 style="color:#b30000">
 			<pre>
 				{{ text_errors_Sites }}
