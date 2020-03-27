@@ -56,11 +56,18 @@ USERS = { # dictionary (username, User)
 	'rserban' : User('rserban','rserban'),
 	'matheka' : User('matheka','matheka'),
 	'fjoseph' : User('fjoseph','fjoseph'),
-	'difrance' : User('difrance','difrance')
-	
-
-
-	
+	'difrance' : User('difrance','difrance'),
+	'canuto'   : User('canuto','canuto'),
+	'ciszewsk' : User('ciszewsk','ciszewsk'),
+	'sancosta' : User('sancosta','sancosta'),
+	'tdopiera' : User('tdopiera','tdopiera'),
+	'hassane'  : User('hassane','hassane'),
+	'sfikisz'  : User('sfikisz','sfikisz'),
+	'emomal'   : User('emomal','emomal'),
+	'jsantana' : User('jsantana','jsantana'),
+	'ssoaresd' : User('ssoaresd','ssoaresd'),
+	'jzeglicz' : User('jzeglicz','jzeglicz')
+		
 }
 
 application = Flask(__name__)
