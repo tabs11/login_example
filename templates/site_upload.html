@@ -1,14 +1,35 @@
 {% extends "login_layout.html" %}
 {% block content %}
 <!-- Login Form -->
+<form>
+  <input type="button" class="mybutton" method="GET" value=" &laquo; BACK" onclick="history.go(-1);">
+</form>
+<p>&nbsp;</p>
+
 
 	<div class="multi_upload_index">
-		<h2 class="text-muted">{{msg}}CMDB REPORT:</h2>
+		{% if msg_company %}
+			<h2 style="color:black;background-color:#cccccc" class="text-muted"><b><font size="5">{{ msg_company }} REPORT:</font></b></h2>
+		{% endif %}
+		
+		<hr/>
 
+		{% if msg_cmdb1 %}
+			<h2 style="color:black;" class="text-muted">Below the screened file with data to upload and detailed issues (...report_"date".xlsx):</h2>
 			<ul>
 				{% for file in site_filenames %}
 					<li><a href="{{url_for('uploaded_site_file', filename=file)}}">{{file}}</a></li>
 				{% endfor %}
 			</ul>
+			<h2 style="color:green;background-color:#ccffcc" class="text-muted">{{ msg_cmdb1 }}</h2>
+		{% endif %}
+		{% if msg_cmdb2 %}
+			<h2 style="color:blue;background-color:#e6f2ff" class="text-muted">{{ msg_cmdb2 }}</h2>
+		{% endif %}
+			<h2 style="color:green">
+				<pre>
+					{{ text_cmdb }}
+				</pre>
+			</h2>
 	</div>
  {% endblock %}

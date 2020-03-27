@@ -1,12 +1,17 @@
 {% extends "login_layout.html" %}
 {% block content %}
  <!-- Login Form -->
-
+<form>
+  <input type="button" class="mybutton" method="GET" value=" &laquo; BACK" onclick="history.go(-1);">
+</form>
 <p class="big"></p>
 <p class="big"></p>
 	<div class="multi_upload_index">
 
-
+		{% if msg_miss_file %}
+			<h2 style="color:red;background-color:#ffe6e6"" class="text-muted">{{ msg_miss_file }}</h2>
+		{% endif %}
+		
 		{% if msg17 %}
 			<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg17 }}</h2>
 			<h2 style="color:#b30000">
@@ -52,10 +57,10 @@
 			</pre>
 		</h2>
 		{% if msg %}
-			<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg }}</h2>
+			<h2 style="color:red;background-color:#ffe6e6" class="text-muted"><iframe src="https://giphy.com/embed/TFxzSQGEkQp846Hx1b" width="80" height="20" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>{{ msg }}</h2>			
 		{% endif %}
 		{% if msg2 %}
-			<h2 style="color:green;background-color:#ccffcc" class="text-muted">{{ msg2 }} <span style='font-size:30px;'>&#128077;</span></h2>
+			<h2 style="color:green;background-color:#ccffcc" class="text-muted"><iframe src="https://giphy.com/embed/7NUJEtLY4zXcL8GKfr" width="80" height="20" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>{{ msg2 }} </h2>
 		{% endif %}
 		{% if msg3 %}
 			<h2 style="color:blue;background-color:#e6f2ff" class="text-muted">{{ msg3 }}</h2>
@@ -96,10 +101,10 @@
 			</pre>
 		</h2>
 		{% if msg4 %}
-			<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg4 }}</h2>
+			<h2 style="color:red;background-color:#ffe6e6" class="text-muted"><iframe src="https://giphy.com/embed/TFxzSQGEkQp846Hx1b" width="80" height="20" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>{{ msg4 }}</h2>
 		{% endif %}
 		{% if msg5 %}
-			<h2 style="color:green;background-color:#ccffcc" class="text-muted">{{ msg5 }}</h2>
+			<h2 style="color:green;background-color:#ccffcc" class="text-muted"><iframe src="https://giphy.com/embed/7NUJEtLY4zXcL8GKfr" width="80" height="20" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>{{ msg5 }}</h2>
 		{% endif %}
 		{% if msg6 %}
 			<h2 style="color:blue;background-color:#e6f2ff" class="text-muted">{{ msg6 }}</h2>

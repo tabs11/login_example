@@ -1,27 +1,17 @@
 {% extends "login_layout.html" %}
 {% block content %}
-<p>&nbsp;</p>
- <!-- Login Form 
 
-  <h2>Upload existing Sites in CMDB:</h2>
-  <form class="button" method=post enctype=multipart/form-data>
-    <table>
-    <tr> 
-      <td>
-        <label id="#bb"> Select File
-          <input type="file" name=file>
-        </label> 
-        
-      <td>
-        {% if msg %}
-          <p><strong>Filename:</strong> {{ msg }}
-        {% endif %}   
-        <input class="mybutton" type=submit value=Submit>
-    </tr>
-    </table>
-  </form> -->
-  
- <h2>Upload data to validate:</h2>
+<form>
+  <input type="button" class="mybutton" method="GET" value=" &laquo; BACK" onclick="history.go(-1);">
+</form>
+
+<p>&nbsp;</p>
+
+
+{% if msg_company %}
+    <h2>Upload data to validate for:</h2>
+    <h2 style="color:#004fab;" class="text-muted"><b>{{ msg_company }}</b></h2>
+{% endif %}
 <table>
   <tr>
     <form class="button" align="right" method="post" action="data" enctype="multipart/form-data">
@@ -52,6 +42,10 @@
 
  {% if msg %}
     <font size="2"><p><strong></strong> {{ msg }}</font>
+  {% endif %} 
+
+  {% if msg_miss_file %}
+    <font size="2"><p><strong></strong> {{ msg_miss_file }}</font>
   {% endif %}  
 
 <p>&nbsp;</p>

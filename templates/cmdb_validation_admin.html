@@ -1,12 +1,17 @@
 {% extends "login_layout.html" %}
 {% block content %}
 <p>&nbsp;</p>
-<h2>Please select the desired action:</h2>
+
+{% if msg %}
+    <h2>Please select the desired action for:</h2>
+    <h2 style="color:#004fab;" class="text-muted"><b>{{ msg }}</b></h2>
+{% endif %}
 <p>&nbsp;</p>
+
 <table>
     <tr>
       <form class="button" align="right" method="post" action="/data" enctype="multipart/form-data">
-         <input class="mybutton" type="submit" value=" CMDB DATA VALIDATION "  class="span2"></td>
+         <input class="btngroup" type="submit" value="CMDB DATA VALIDATION"  class="span2"></td>
           Select this option to validate CIs and Sites.
       </form>
      
@@ -15,21 +20,33 @@
 
 <h2></h2>
 
+
 <table>
     <tr>
     <form class="button" method="post" action='/op_res_cats' enctype="multipart/form-data">
-      <input class="mybutton" type="submit" value="OP/RES CAT VALIDATION "  class="span2"></td>    
+      <input class="btngroup" type="submit" value="OP/RES CAT VALIDATION"  class="span2"></td>    
       Select this option to validate and convert the Operational and Resolution Categories in NOAM templates.
     </form>
       </form>
  </tr>
     </table>
     <h2></h2>
+
+<table>
+  <tr> 
+    <form class="button" method="get" action="site_upload" enctype="multipart/form-data">
+        <input class="btngroup" type="SUBMIT" value="CMDB DATA REPORT"  class="span2"></td>
+         Select this option to download a CMDB report (workaround).
+    </form>
+  </tr>
+</table>
+ <h2></h2>
+
     
 <table>
     <tr>
     <form class="button" method="post" action=/noam_data enctype="multipart/form-data">
-      <input class="mybutton" type="submit" value="CMDB DATA CONVERSION"  class="span2"></td>    
+      <input class="btngroup" type="submit" value="CMDB DATA CONVERSION"  class="span2"></td>    
       Select this option to convert CIs and Sites in NOAM templates.
     </form>
       </form>
@@ -43,7 +60,7 @@
 <table>
     <tr>
     <form class="button" align="right" method="get" action="rap" enctype="multipart/form-data">
-      <input class="mybutton" type="submit" value="RA (RAP TOOL) TEMPLATE"  class="span2"></td>
+      <input class="btngroup" type="submit" value="RA (RAP TOOL) TEMPLATE"  class="span2"></td>
       Select this option to validate RA template for RAP Tool (To implement).
     </form>
   </tr>
@@ -66,22 +83,14 @@
 <table>
   <tr> 
     <form class="button" method="get" action="chg_mod" enctype="multipart/form-data">
-        <input class="mybutton" type="SUBMIT" value="      CHANGE MODULE       "  class="span2"></td>
-         Select this option to validate the Change Module.
+        <input class="btngroup" type="SUBMIT" value="CHANGE MODULE"  class="span2"></td>
+         Select this option to validate the Change Module (To implement).
     </form>
   </tr>
 </table>
  <h2></h2>
 
 
-<table>
-  <tr> 
-    <form class="button" method="get" action="site_upload" enctype="multipart/form-data">
-        <input class="mybutton" type="SUBMIT" value="    CMDB DATA REPORT     "  class="span2"></td>
-         Select this option to download a CMDB report (workaround).
-    </form>
-  </tr>
-</table>
- <h2></h2>
+
 
 {% endblock %}

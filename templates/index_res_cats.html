@@ -1,11 +1,18 @@
 {% extends "login_layout.html" %}
 {% block content %}
 <!-- Login Form -->
- <p>&nbsp;</p>
- 
+<form>
+  <input type="button" class="mybutton" method="GET" value=" &laquo; BACK" onclick="history.go(-1);">
+</form>
+
+<p>&nbsp;</p>
 
 
-<h2>RESCATS AND OPCATS VALIDATION:</h2>
+{% if msg_company %}
+    <h2>Validate Resolution and Operational Categories for:</h2>
+    <h2 style="color:#004fab;" class="text-muted"><b>{{ msg_company }}</b></h2>
+{% endif %}
+
 <table>
   <tr>
     <form class="button" method="post" action="op_res_cats" enctype="multipart/form-data">
@@ -32,5 +39,7 @@
   </form>
   </tr>
     </table> 
-
+{% if msg_miss_file %}
+    <font size="2"><p><strong></strong> {{ msg_miss_file }}</font>
+  {% endif %}  
 {% endblock %}
