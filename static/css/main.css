@@ -187,7 +187,6 @@ h3 {
   display:inline-block;
   cursor:pointer;
   color:#000000;
-  font-family:myFirstFont2;
   font-size:14px;
   /*font-weight:bold;*/
   padding:8px 10px;
@@ -314,3 +313,29 @@ label:hover, label:active, input:hover+label, input:active+label {
 input[type="file"] {
     display: none;
 }
+
+.btngroup {
+  
+  background-color:#004fab;
+  -moz-border-radius:2px;
+  -webkit-border-radius:5px;
+  border-radius:2px;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-family:myFirstFont2;
+  font-size:14px;
+  width:15%;
+  /*font-weight:bold;*/
+  padding:8px 10px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #000000;
+
+}
+.btngroup:hover {
+  background-color:#e6e6e6;
+  color:#000000;
+}
+.btngroup {
+  :active {
+  position:relative
