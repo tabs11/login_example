@@ -13,6 +13,7 @@ import process_res_cats
 import process_res_cats_test
 import process_zte
 import update_priority as up_prio
+import process_site_history
 import process_site_history_users
 #import process_cmdb_inventory
 #import process_common_val
@@ -72,10 +73,7 @@ application.config['CMDB_FOLDER']=CMDB_FOLDER
 application.config['ALLOWED_EXTENSIONS'] = set(['xlsx','xls','csv'])
 
 
-@application.route('/action', methods=['GET'])
-def index():
-	
-	return redirect("/", code=302)
+
 
 
 # login views
@@ -116,18 +114,52 @@ def allowed_file(filename):
 
 ##########################################################################
 #####download templates
-@application.route('/return-file/')
-@login_required
-def return_file():
-	filename='Templates.zip'
-	return send_file(os.path.join(application.config['CMDB_FOLDER'])+filename,attachment_filename=filename, as_attachment=True)
+#@application.route('/return-file/')
+#@login_required
+#def return_file():
+#	filename='Templates.zip'
+#	return send_file(os.path.join(application.config['CMDB_FOLDER'])+filename,attachment_filename=filename, as_attachment=True)
+
+@application.route('/action', methods=['GET'])
+def index():
+	return redirect("/", code=302)
 
 
-@application.route('/action')
+@application.route('/templates')
 @login_required
 def file_downloads():
 	return render_template('home.html')
 
+@application.route('/prod_cat' , methods=['GET', 'POST'])
+@login_required
+def prod_cat():
+	return render_template('update_prod_cat.html')
+
+####update prodCat
+@application.route('/update_prod_cat', methods=['GET','POST'])
+@login_required
+def update_prod_cat():
+	msg_company=None
+	msg3=None
+	#shutil.rmtree('Prod_Cats_V2/')	
+	UPLOAD_FOLDER='Prod_Cats_V2/'
+	#os.makedirs(UPLOAD_FOLDER)
+	uploaded_files = request.files.getlist("file[]")
+	for file in uploaded_files:
+		# Check if the file is one of the allowed types/extensions
+		if file and allowed_file(file.filename):
+			
+			# Make the filename safe, remove unsupported chars
+			filename = secure_filename(file.filename)
+			
+			# Move the file form the temporal folder to the upload
+			file.save(os.path.join(UPLOAD_FOLDER, filename))
+			filenames=os.listdir(UPLOAD_FOLDER)
+			msg3=filenames
+		else:
+			msg3='Please select a valid extension (.xls(x) or .csv)'
+
+	return render_template('update_prod_cat.html',msg3=msg3)
 
 @application.route('/')
 @login_required
@@ -155,18 +187,18 @@ def home():
 	if request.method == 'POST':
 		user=session['username']
 		session['company']=str(select)
-		session['filename']=session['company']+'_'+str(uuid.uuid1())
-		ID_FOLDER=session['filename']
-		UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
-		os.makedirs(ID_FOLDER)
-		os.makedirs(UPLOAD_FOLDER)
+		#session['filename']=session['company']+'_'+str(uuid.uuid1())
+		#ID_FOLDER=session['filename']
+		#UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
+		#os.makedirs(ID_FOLDER)
+		#os.makedirs(UPLOAD_FOLDER)
+		msg=session['company']
 			#msg = 'Successfull'
 		if user!='numartin' and user!='paulof':
-			print(user)
 			#return render_template('multi_upload_index.html')
-			return render_template('cmdb_validation_users.html')
+			return render_template('cmdb_validation_users.html',msg=msg)
 		else:
-			return render_template('cmdb_validation_admin.html')
+			return render_template('cmdb_validation_admin.html',msg=msg)
 
 
 
@@ -183,17 +215,69 @@ def home():
 #	return render_template('site_index.html')
 
 
+#@application.route('/site_upload', methods=['GET'])
+#@login_required
+#def site_upload():
+#	msg_cmdb1=None
+#	msg_cmdb2=None
+#	session['filename']=session['company']+'_'+str(uuid.uuid1())
+#	
+#	ID_FOLDER=session['filename']
+#	DOWNLOAD_FOLDER=ID_FOLDER +'/Report/'
+#	os.makedirs(ID_FOLDER)
+#	os.makedirs(DOWNLOAD_FOLDER)
+#
+#	msg_company=ID_FOLDER.split('_')[0]
+#	process_site_history_users.sites_cis_report(company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER)
+#	site_filenames=[f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith(('.xlsx','csv'))]
+#	if 'SQLDB_CMDB.txt' in os.listdir(DOWNLOAD_FOLDER):
+#		text_cmdb=open(DOWNLOAD_FOLDER+'SQLDB_CMDB.txt', 'r+',encoding='utf8')
+#		content_cmdb = text_cmdb.read()
+#		text_cmdb.close()
+#		if 'found in inven' in content_cmdb:
+#			msg_cmdb2='Missing CMDB inventory'.upper()
+#		else:
+#			msg_cmdb1=ID_FOLDER.split('_')[0].upper() + ' Current CMDB size in ITSM: '.upper()
+#	else:
+#		msg_cmdb2='Missing CMDB inventory'.upper()
+#	return render_template('site_upload.html', 
+#		site_filenames=site_filenames,
+#		msg_company=msg_company,
+#		msg_cmdb1=msg_cmdb1,
+#		text_cmdb=content_cmdb,
+#		msg_cmdb2=msg_cmdb2)
+
 @application.route('/site_upload', methods=['GET'])
 @login_required
 def site_upload():
+	msg_cmdb1=None
+	msg_cmdb2=None
+	session['filename']=session['company']+'_'+str(uuid.uuid1())
 	ID_FOLDER=session['filename']
 	DOWNLOAD_FOLDER=ID_FOLDER +'/Report/'
+	os.makedirs(ID_FOLDER)
 	os.makedirs(DOWNLOAD_FOLDER)
+	msg_company=ID_FOLDER.split('_')[0]
+	#process_site_history.sites_cis_report(company=ID_FOLDER.split('_')[0],site_report=DOWNLOAD_FOLDER)
+	process_site_history_users.sites_cis_report(company=ID_FOLDER.split('_')[0],site_report=DOWNLOAD_FOLDER)
+	site_filenames=[f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith(('.xlsx','csv'))]
+	if 'SQLDB_CMDB.txt' in os.listdir(DOWNLOAD_FOLDER):
+		text_cmdb=open(DOWNLOAD_FOLDER+'SQLDB_CMDB.txt', 'r+',encoding='utf8')
+		content_cmdb = text_cmdb.read()
+		text_cmdb.close()
+		if 'found in inven' in content_cmdb:
+			msg_cmdb2='Missing CMDB inventory'.upper()
+		else:
+			msg_cmdb1=ID_FOLDER.split('_')[0].upper() + ' Current CMDB size in ITSM: '.upper()
+	else:
+		msg_cmdb2='Missing CMDB inventory'.upper()
+	return render_template('site_upload.html', 
+		site_filenames=site_filenames,
+		msg_company=msg_company,
+		msg_cmdb1=msg_cmdb1,
+		text_cmdb=content_cmdb,
+		msg_cmdb2=msg_cmdb2)
 
-	msg=ID_FOLDER.split('_')[0]
-	process_site_history_users.sites_cis_report(company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER)
-	site_filenames=os.listdir(DOWNLOAD_FOLDER)
-	return render_template('site_upload.html', site_filenames=site_filenames,mgs=msg)
 
 @application.route('/site_report/<filename>')
 @login_required
@@ -210,9 +294,12 @@ def uploaded_site_file(filename):
 @application.route('/data', methods=['GET','POST'])
 @login_required
 def data_to_validate():
-	ID_FOLDER=session['filename']
-	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
+	msg_company=None
 	msg3=None
+	session['filename']=session['company']+'_'+str(uuid.uuid1())
+	ID_FOLDER=session['filename']
+	msg_company=ID_FOLDER.split('_')[0]
+	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
 	uploaded_files = request.files.getlist("file[]")
 	for file in uploaded_files:
 		# Check if the file is one of the allowed types/extensions
@@ -220,7 +307,10 @@ def data_to_validate():
 			
 			# Make the filename safe, remove unsupported chars
 			filename = secure_filename(file.filename)
-
+			
+			if not os.path.exists(ID_FOLDER):
+				os.makedirs(ID_FOLDER)
+				os.makedirs(UPLOAD_FOLDER)
 			# Move the file form the temporal folder to the upload
 			file.save(os.path.join(UPLOAD_FOLDER, filename))
 			filenames=os.listdir(UPLOAD_FOLDER)
@@ -228,12 +318,13 @@ def data_to_validate():
 		else:
 			msg3='Please select a valid extension (.xls or .xlsx)'
 
-	return render_template('multi_upload_index.html',msg3=msg3)
+	return render_template('multi_upload_index.html',msg3=msg3,msg_company=msg_company)
 
 @application.route('/upload', methods=['POST'])
 #@cache.cached(timeout=500)
 @login_required
 def upload():
+	msg_miss_file=None
 	msg_company=None
 	msg_cmdb1=None
 	msg_cmdb2=None
@@ -257,14 +348,27 @@ def upload():
 	#msg16=None
 	msg17=None
 	msg18=None
-	add_msg_cis=None
-	add_msg_sites=None
+	add_msg_cis=''
+	add_msg_sites=''
+	content_mis_fields=''
+	content_cmdb=''
+	content_errors_Cis=''
+	content_warnings_Cis=''
+	content_summary_Cis=''
+	content_errors_Sites=''
+	content_warnings_Sites=''
+	content_summary_Sites=''
 	ID_FOLDER=session['filename']
 	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
 	DOWNLOAD_FOLDER=ID_FOLDER+'/Report/'
 	os.makedirs(DOWNLOAD_FOLDER)
-	if len(os.listdir(UPLOAD_FOLDER))>0:
-		
+	filenames = []
+	msg_company=ID_FOLDER.split('_')[0]
+	if not os.path.exists(UPLOAD_FOLDER):
+		msg_miss_file='PLEASE INSERT THE INPUT FILE(S) BEFORE RUN THE VALIDATION'
+		return render_template('multi_upload_index.html',msg_miss_file=msg_miss_file,msg_company=msg_company)
+	else:
+	#if len(os.listdir(UPLOAD_FOLDER))>0:	
 		process_data.process_file(path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER)
 		#process_common_val.common_validation(path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER)
 		#process_specific_val.specific_validation(path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER)
@@ -273,13 +377,6 @@ def upload():
 		#process_cmdb_inventory.call_cmdb_inventory(company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER)
 		
 		filenames = [f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith(('.xlsx','csv'))]
-		content_cmdb=''
-		content_errors_Cis=''
-		content_warnings_Cis=''
-		content_summary_Cis=''	
-		content_errors_Sites=''
-		content_warnings_Sites=''
-		content_summary_Sites=''
 		msg_company=ID_FOLDER.split('_')[0]
 		if 'Mismatched_fields.txt' in os.listdir(DOWNLOAD_FOLDER):
 			text_mis_fields=open(DOWNLOAD_FOLDER+'Mismatched_fields.txt', 'r+',encoding='utf8')
@@ -363,20 +460,21 @@ def upload():
 				msg13='SUMMARY:'
 			else:
 				None
-	return render_template('multi_files_upload.html',
-		filenames=filenames,
-		text_cmdb=content_cmdb,
-		add_msg_cis=add_msg_cis,
-		add_msg_sites=add_msg_sites,
-		text_mis_fields=content_mis_fields,
-		text_errors_Cis=content_errors_Cis,
-		text_errors_Sites=content_errors_Sites,
-		text_warnings_Cis=content_warnings_Cis,
-		text_warnings_Sites=content_warnings_Sites,
-		text_summary_Cis=content_summary_Cis,
-		text_summary_Sites=content_summary_Sites,
-		msg_company=msg_company,msg_cmdb1=msg_cmdb1,msg_cmdb2=msg_cmdb2,msgCIs=msgCIs,msgSites=msgSites,msg=msg,msg2=msg2,msg3=msg3,msg4=msg4,msg5=msg5,msg6=msg6,msg7=msg7,
-		msg8=msg8,msg9=msg9,msg10=msg10,msg11=msg11,msg12=msg12,msg13=msg13,msg15=msg15,msg17=msg17,msg18=msg18)
+		return render_template('multi_files_upload.html',
+			filenames=filenames,
+			msg_miss_file=msg_miss_file,
+			text_cmdb=content_cmdb,
+			add_msg_cis=add_msg_cis,
+			add_msg_sites=add_msg_sites,
+			text_mis_fields=content_mis_fields,
+			text_errors_Cis=content_errors_Cis,
+			text_errors_Sites=content_errors_Sites,
+			text_warnings_Cis=content_warnings_Cis,
+			text_warnings_Sites=content_warnings_Sites,
+			text_summary_Cis=content_summary_Cis,
+			text_summary_Sites=content_summary_Sites,
+			msg_company=msg_company,msg_cmdb1=msg_cmdb1,msg_cmdb2=msg_cmdb2,msgCIs=msgCIs,msgSites=msgSites,msg=msg,msg2=msg2,msg3=msg3,msg4=msg4,msg5=msg5,msg6=msg6,msg7=msg7,
+			msg8=msg8,msg9=msg9,msg10=msg10,msg11=msg11,msg12=msg12,msg13=msg13,msg15=msg15,msg17=msg17,msg18=msg18)
 
 
 @application.route('/report/<filename>')
@@ -393,14 +491,12 @@ def uploaded_file(filename):
 @application.route('/noam_data', methods=['GET','POST'])
 @login_required
 def noam_data():
+	msg_company=None
 	msg3=None
+	session['filename']=session['company']+'_'+str(uuid.uuid1())
 	ID_FOLDER=session['filename']
 	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
-	#session['filename']=session['company']+'_'+str(uuid.uuid1())
-	#NOAM_FOLDER=session['filename']
-	#NOAM_UPLOAD=NOAM_FOLDER+'/NOAM_files/'
-	#NOAM_REPORT=NOAM_FOLDER +'/Report/'
-	
+	msg_company=ID_FOLDER.split('_')[0]
 	# Get the name of the uploaded files
 	uploaded_files = request.files.getlist("file[]")
 	for file in uploaded_files:
@@ -411,7 +507,6 @@ def noam_data():
 			if not os.path.exists(ID_FOLDER):
 				os.makedirs(ID_FOLDER)
 				os.makedirs(UPLOAD_FOLDER)
-				#os.makedirs(NOAM_REPORT)
 			# Move the file form the temporal folder to the upload
 			
 			file.save(os.path.join(UPLOAD_FOLDER, filename))
@@ -419,26 +514,30 @@ def noam_data():
 			msg3=filenames
 		else:
 			msg3='Please select a valid extension (.xls or .xlsx)'
-	return render_template('index_NOAM_company.html',msg3=msg3)
+	return render_template('index_NOAM_company.html',msg3=msg3,msg_company=msg_company)
 
 
 @application.route('/noam_upload', methods=['GET'])
 @login_required
 def noam_upload():
+	msg_company=None
+	msg_miss_file=None
 	ID_FOLDER=session['filename']
+	msg_company=ID_FOLDER.split('_')[0]
 	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
 	DOWNLOAD_FOLDER=ID_FOLDER+'/Report/'
 	os.makedirs(DOWNLOAD_FOLDER)
-	#NOAM_FOLDER=session['filename']
-	#NOAM_UPLOAD=NOAM_FOLDER+'/NOAM_files/'
-	#NOAM_REPORT=NOAM_FOLDER +'/Report/'
-
+	
 	# Get the name of the uploaded files
-	if len(os.listdir(UPLOAD_FOLDER))>0:
+	if not os.path.exists(UPLOAD_FOLDER):
+		msg_miss_file='PLEASE INSERT THE INPUT FILE(S) BEFORE RUN THE VALIDATION'
+		return render_template('index_NOAM_company.html',msg_miss_file=msg_miss_file,msg_company=msg_company)
+	else:
+	#if len(os.listdir(UPLOAD_FOLDER))>0:
 		process_noam_data.noam_files(file_path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],NOAM_report=DOWNLOAD_FOLDER)
 		noam_filenames=os.listdir(DOWNLOAD_FOLDER)
 
-	return render_template('noam_files_upload.html', noam_filenames=noam_filenames)
+		return render_template('noam_files_upload.html', noam_filenames=noam_filenames,msg_company=msg_company)
 
 
 @application.route('/NOAM_Report/<filename>')
@@ -453,21 +552,19 @@ def uploaded_NOAM_file(filename):
 @application.route('/op_res_cats', methods=['GET','POST'])
 @login_required
 def op_res_cats_data():
+	msg_company=None
 	msg4=None
+	session['filename']=session['company']+'_'+str(uuid.uuid1())
 	ID_FOLDER=session['filename']
+	msg_company=ID_FOLDER.split('_')[0]
 	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
-	#session['filename']=session['company']+'_'+str(uuid.uuid1())
-	#OP_RES_FOLDER=session['filename']
-	#OP_RES_UPLOAD=OP_RES_FOLDER+'/op_res_cats_files/'
-	#OP_RES_REPORT=OP_RES_FOLDER +'/Report/'
-	
-	# Get the name of the uploaded files
 	uploaded_files = request.files.getlist("file[]")
 	for file in uploaded_files:
 		# Check if the file is one of the allowed types/extensions
 		if file and allowed_file(file.filename):
 			# Make the filename safe, remove unsupported chars
 			filename = secure_filename(file.filename)
+			
 			if not os.path.exists(ID_FOLDER):
 				os.makedirs(ID_FOLDER)
 				os.makedirs(UPLOAD_FOLDER)
@@ -478,7 +575,7 @@ def op_res_cats_data():
 			msg4=filenames
 		else:
 			msg4='Please select a valid extension (.xls or .xlsx)'
-	return render_template('index_res_cats.html',msg4=msg4)
+	return render_template('index_res_cats.html',msg4=msg4,msg_company=msg_company)
 
 
 
@@ -486,6 +583,7 @@ def op_res_cats_data():
 @login_required
 def op_res_cats_data_upload():
 	user=session['username']
+	msg_company=None
 	msg=None
 	msg2=None
 	msg3=None
@@ -502,6 +600,8 @@ def op_res_cats_data_upload():
 	text_mis_fields_ops=None
 	#msg_fields_2=None
 	ID_FOLDER=session['filename']
+	msg_company=ID_FOLDER.split('_')[0]
+
 	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
 	DOWNLOAD_FOLDER=ID_FOLDER+'/Report/'
 	os.makedirs(DOWNLOAD_FOLDER)
@@ -509,7 +609,10 @@ def op_res_cats_data_upload():
 	#OP_RES_UPLOAD=OP_RES_FOLDER+'/op_res_cats_files/'
 	#OP_RES_REPORT=OP_RES_FOLDER +'/Report/'
 	# Get the name of the uploaded files
-	if len(os.listdir(UPLOAD_FOLDER))>0:
+	if not os.path.exists(UPLOAD_FOLDER):
+		msg_miss_file='PLEASE INSERT THE INPUT FILE(S) BEFORE RUN THE VALIDATION'
+		return render_template('index_res_cats.html',msg_miss_file=msg_miss_file,msg_company=msg_company)
+	else:
 		###type of user form selection
 		if user!='numartin' and user!='paulof':
 			process_res_cats_test.op_res_cats_files(path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],op_res_cats_report=DOWNLOAD_FOLDER)
@@ -566,17 +669,18 @@ def op_res_cats_data_upload():
 			else:
 				msg6='Operational Categories not found.'
 				add_msg_op='(If you still want to validate Operational Categories, make sure you enter the correct file or the correct sheetname file - OpCat).'
-	return render_template('res_cats_upload.html', 
-		msg_fields_res=msg_fields_res,
-		text_mis_fields_res=content_mis_fields_res,
-		msg_fields_ops=msg_fields_ops,
-		text_mis_fields_ops=content_mis_fields_ops,
-		op_res_filenames=op_res_filenames,
-		text_res=content_res,
-		text_ops=content_ops,
-		msg_res=msg_res,
-		msg_ops=msg_ops,
-		msg=msg,msg2=msg2,msg3=msg3,add_msg_res=add_msg_res,msg4=msg4,msg5=msg5,msg6=msg6,add_msg_op=add_msg_op)
+		return render_template('res_cats_upload.html',
+			msg_company=msg_company,
+			msg_fields_res=msg_fields_res,
+			text_mis_fields_res=content_mis_fields_res,
+			msg_fields_ops=msg_fields_ops,
+			text_mis_fields_ops=content_mis_fields_ops,
+			op_res_filenames=op_res_filenames,
+			text_res=content_res,
+			text_ops=content_ops,
+			msg_res=msg_res,
+			msg_ops=msg_ops,
+			msg=msg,msg2=msg2,msg3=msg3,add_msg_res=add_msg_res,msg4=msg4,msg5=msg5,msg6=msg6,add_msg_op=add_msg_op)
 
 
 @application.route('/OP_RES_UPLOAD_Report/<filename>')
@@ -705,6 +809,10 @@ def uploaded_RAP_file(filename):
 	ID_FOLDER=session['filename']
 	DOWNLOAD_FOLDER=ID_FOLDER +'/Report/'
 	return send_from_directory(DOWNLOAD_FOLDER,filename)
+
+
+
+###update Prod Cat
 
 
 @application.route('/logout', methods=['GET'])
