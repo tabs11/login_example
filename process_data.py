@@ -435,9 +435,12 @@ def process_file(path,company,report):
 			
 					else:
 						None
-
-					print('','CONCATENATED FIELDS','-'*len('CONCATENATED FIELDS'),tabulate(pd.concat(conc_fields),headers=['FIELD','SUGGESTION'],tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(report +'warnings' + names[j] + '.txt','a',encoding='utf8'))
-
+					####
+					if len(conc_fields)>0:
+						print('','CONCATENATED FIELDS','-'*len('CONCATENATED FIELDS'),tabulate(pd.concat(conc_fields),headers=['FIELD','SUGGESTION'],tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(report +'warnings' + names[j] + '.txt','a',encoding='utf8'))
+					else:
+						None
+					#####
 					###check product catalogue
 					opcat_template='Prod_Cats_V2'
 					
