@@ -22,10 +22,25 @@ def noam_files(file_path,company,NOAM_report):
 	sheets=[]
 	cis=[]
 	sites=[]
+	#for j in range(len(glob.glob(file_path+'/*'))):
+	#	for k in range(len(pd.ExcelFile(glob.glob(file_path+'*')[j]).sheet_names)):
+	#		sheets.append(pd.read_excel(glob.glob(file_path+'*')[j],pd.ExcelFile(glob.glob(file_path+'*')[j]).sheet_names[k]))     
+	#
+	column_names=['sites','cis','Site Data Template','CI Data Template Comp Syst']
+	count_issues=[]
 	for j in range(len(glob.glob(file_path+'/*'))):
-		for k in range(len(pd.ExcelFile(glob.glob(file_path+'*')[j]).sheet_names)):
-			sheets.append(pd.read_excel(glob.glob(file_path+'*')[j],pd.ExcelFile(glob.glob(file_path+'*')[j]).sheet_names[k]))     
-	
+		if glob.glob(file_path+'/*')[j].endswith(('.xls','.xlsx')):
+			for k in range(len(list(set(pd.ExcelFile(glob.glob(file_path+'*')[j]).sheet_names).intersection(column_names)))):
+				sheets.append(pd.read_excel(glob.glob(file_path+'*')[j],list(set(pd.ExcelFile(glob.glob(file_path+'*')[j]).sheet_names).intersection(column_names))[k]))
+			#files=pd.read_excel(glob.glob(path+'*')[j],sheet_name=None)
+			#for frame in files.keys():
+			#	sheets.append(files[frame])
+		elif glob.glob(file_path+'/*')[j].endswith('.csv'):
+			sheets.append(pd.read_csv(glob.glob(file_path+'*')[j],sep=";",encoding='ISO-8859-1'))
+		else:
+			None
+
+
 	for j in range(len(sheets)):
 		if (~sheets[j].columns.str.contains('CI N',case=False).any()) & (sheets[j].columns.str.contains('SITE N|SITE+|SITE*',case=False).any()):
 			sites.append(sheets[j])
