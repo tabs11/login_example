@@ -76,12 +76,13 @@ def process_file(path,company,report):
 			quer_cis=r"""SELECT DISTINCT * FROM CIS WHERE Company='"""+company+"""'"""
 			###get sites
 			c.execute(quer_sites)
-			sites_itsm = DataFrame(c.fetchall(), columns=['Company','Site Name','Region','Site Group'])
-			sites_itsm.drop(['Company'],axis=1,inplace=True)
+			sites_itsm = DataFrame(c.fetchall(), columns=['Company','Site Name','Site Alias','Description','Region','Site Group','Street','Country','City','Latitude','Longitude','Maintenance Circle Name','Site Type','Location ID','PrimAlias','Additional Site Details','Status','Date'])
+			sites_itsm=sites_itsm[['Site Name','Region','Site Group']]
 			###get cis
 			c.execute(quer_cis)
-			cis_itsm = DataFrame(c.fetchall(), columns=['Company','CI Name'])
-			cis_itsm.drop(['Company'],axis=1,inplace=True)
+			cis_itsm = DataFrame(c.fetchall(), columns=['Company','CI Name','Site','Region','Site Group','CI Description','DNS Host Name','System Role','Product Name','Tier 1','Tier 2','Tier 3','Manufacturer','Model Version','Additional Information','Tag Number','CI ID','NbrCells','Domain','Status','Reconciliation Identity','Priority','Date'])
+			cis_itsm=cis_itsm[['CI Name']]
+	
 			conn.close()
 			if len(sites_itsm)>0:
 			    sites_size=len(sites_itsm)
