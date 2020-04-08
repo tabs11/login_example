@@ -41,7 +41,6 @@ USERS = { # dictionary (username, User)
 	'abociat' : User('abociat','abociat'),
 	'mariusgc' : User('mariusgc','mariusgc'),
 	'gelei' : User('gelei','gelei'),
-	'abociat' : User('abociat','abociat'),
 	'marcinkl' : User('marcinkl','marcinkl'),
 	'mayayada' : User('mayayada','mayayada'),
 	'dees' : User('dees','dees'),
@@ -66,8 +65,28 @@ USERS = { # dictionary (username, User)
 	'emomal'   : User('emomal','emomal'),
 	'jsantana' : User('jsantana','jsantana'),
 	'ssoaresd' : User('ssoaresd','ssoaresd'),
-	'jzeglicz' : User('jzeglicz','jzeglicz')
-		
+	'jzeglicz' : User('jzeglicz','jzeglicz'),
+	'wmok':User('wmok','wmok'),
+	'gocs':User('gocs','gocs'),
+	'camaelo':User('camaelo','camaelo'),
+	'cmirceai':User('cmirceai','cmirceai'),
+	'duncant':User('duncant','duncant'),
+	'roprita':User('roprita','roprita'),
+	'copene':User('copene','copene'),
+	'mtn_sig_mayayada':User('mtn_sig_mayayada','mtn_sig_mayayada'),
+	'arunrm':User('arunrm','arunrm'),
+	'kramanuj':User('kramanuj','kramanuj'),
+	'pedrorod':User('pedrorod','pedrorod'),
+	'pt100712':User('pt100712','pt100712'),
+	'andrea':User('andrea','andrea'),
+	'ashmarh':User('ashmarh','ashmarh'),
+	'ancam':User('ancam','ancam'),
+	'ancam':User('ancam','ancam'),
+	'arunrm':User('arunrm','arunrm'),
+	'abhanand':User('abhanand','abhanand'),
+	'rathod':User('rathod','rathod'),
+	'roprita':User('roprita','roprita'),
+	'bharam':User('bharam','bharam')
 }
 
 application = Flask(__name__)
