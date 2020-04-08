@@ -257,6 +257,7 @@ def home():
 def site_upload():
 	msg_cmdb1=None
 	msg_cmdb2=None
+	user=session['username']
 	session['filename']=session['company']+'_'+str(uuid.uuid1())
 	ID_FOLDER=session['filename']
 	DOWNLOAD_FOLDER=ID_FOLDER +'/Report/'
@@ -264,7 +265,7 @@ def site_upload():
 	os.makedirs(DOWNLOAD_FOLDER)
 	msg_company=ID_FOLDER.split('_')[0]
 	#process_site_history.sites_cis_report(company=ID_FOLDER.split('_')[0],site_report=DOWNLOAD_FOLDER)
-	process_site_history_users.sites_cis_report(company=ID_FOLDER.split('_')[0],site_report=DOWNLOAD_FOLDER)
+	process_site_history_users.sites_cis_report(user=user,company=ID_FOLDER.split('_')[0],site_report=DOWNLOAD_FOLDER)
 	site_filenames=[f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith(('.xlsx','csv'))]
 	if 'SQLDB_CMDB.txt' in os.listdir(DOWNLOAD_FOLDER):
 		text_cmdb=open(DOWNLOAD_FOLDER+'SQLDB_CMDB.txt', 'r+',encoding='utf8')
