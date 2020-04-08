@@ -173,10 +173,13 @@ def update_prod_cat():
 def drop():
 	return render_template(
 		'home.html',
-		data=['Dummy Company','ALTAN Mexico','AT&T US','Airtel Chad','Airtel Congo B','Airtel Gabon','Airtel KE','Airtel Kenya','Airtel Madagascar','Airtel Malawi','Airtel Niger','Airtel Seychelles','Airtel Tanzania','Airtel Uganda','Airtel Zambia','Avantel CO','BHI NI','Bharti India','Capita TfL GB','Chorus NZ','Deutsche Telekom EAN DE','EMTS NG','Feenix NZ','IIJ Japan','ISAT EAN DE','MTN SIG HUB','NESC','Nexera PL','Nokia AVA','Optus AU','Orange Burkina Faso','Orange CALICO FR','Orange RIP FR','Rakuten JP','S-Bahn Berlin DE','T-Mobile US','TTN DK','Telenor DK','Telenor PK','Telia DK','Three Ireland','Vodacom TZ','Vodacom ZA','Vodacom ZA DWDM','Vodafone QA','Wing EU','Wing EU ATT US','Wing EU Marubeni JP','Wing EU TELE2','ZEOP RE'])
-
-
-
+		data=['Dummy Company','Airtel Chad','Airtel Congo B','Airtel Gabon','Airtel KE','Airtel Kenya','Airtel Kenya (LOCAL)','Airtel Madagascar','Airtel Malawi','Airtel Niger','Airtel Seychelles','Airtel Tanzania','Airtel Uganda','Airtel Zambia','ALTAN Mexico','AT&T US','Bharti India','BHI NI','Capita TfL GB','Chorus NZ','Deutsche Telekom EAN DE','EMTS NG','IIJ Japan','ISAT EAN DE','Mobily SA','MTN SIG HUB','NESC','Nexera PL','Orange Burkina Faso','Orange CALICO FR','Orange RIP FR','Rakuten JP','S-Bahn Berlin DE','Telenor DK','Telenor PK','Telia DK','Three Ireland','T-Mobile US','TTN DK','Vodacom TZ','Vodacom ZA','Vodacom ZA DWDM','Wing EU','Wing EU ATT US','Wing EU Marubeni JP','Wing EU TELE2'])
+@application.route('/')
+@login_required
+def drop():
+	return render_template(
+		'home.html',
+		data=['Dummy Company','Airtel Chad','Airtel Congo B','Airtel Gabon','Airtel KE','Airtel Kenya','Airtel Kenya (LOCAL)','Airtel Madagascar','Airtel Malawi','Airtel Niger','Airtel Seychelles','Airtel Tanzania','Airtel Uganda','Airtel Zambia','ALTAN Mexico','AT&T US','Bharti India','BHI NI','Capita TfL GB','Chorus NZ','Deutsche Telekom EAN DE','EMTS NG','IIJ Japan','ISAT EAN DE','Mobily SA','MTN SIG HUB','NESC','Nexera PL','Orange Burkina Faso','Orange CALICO FR','Orange RIP FR','Rakuten JP','S-Bahn Berlin DE','Telenor DK','Telenor PK','Telia DK','Three Ireland','T-Mobile US','TTN DK','Vodacom TZ','Vodacom ZA','Vodacom ZA DWDM','Wing EU','Wing EU ATT US','Wing EU Marubeni JP','Wing EU TELE2'])
 @application.route("/action" , methods=['GET', 'POST'])
 @login_required
 def home():
