@@ -86,7 +86,9 @@ USERS = { # dictionary (username, User)
 	'abhanand':User('abhanand','abhanand'),
 	'rathod':User('rathod','rathod'),
 	'roprita':User('roprita','roprita'),
-	'bharam':User('bharam','bharam')
+	'bharam':User('bharam','bharam'),
+	'arotaru':User('arotaru','arotaru')
+	
 }
 
 application = Flask(__name__)
