@@ -87,7 +87,8 @@ USERS = { # dictionary (username, User)
 	'rathod':User('rathod','rathod'),
 	'roprita':User('roprita','roprita'),
 	'bharam':User('bharam','bharam'),
-	'arotaru':User('arotaru','arotaru')
+	'arotaru':User('arotaru','arotaru'),
+	'bnanu':User(bnanu','bnanu')
 	
 }
 
