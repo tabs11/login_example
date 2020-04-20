@@ -1,0 +1,22 @@
+{% extends "login_layout.html" %}
+{% block content %}
+<form>
+  <input type="button" class="mybutton" method="GET" value=" &laquo; BACK" onclick="history.go(-1);">
+</form>
+<p class="big"></p>
+<p class="big"></p>
+
+<div class="multi_upload_index">
+	{% if msg_company %}
+		<h2 style="color:black;background-color:#cccccc" class="text-muted"><b><font size="5">{{ msg_company }} REPORT:</font></b></h2>
+	{% endif %}
+	
+
+		<h2 style="color:black;" class="text-muted">Below the file with data to upload in NOAM template format:</h2>
+		<ul>
+			{% for file in noam_filenames %}
+				<li><a href="{{url_for('uploaded_NOAM_rap', filename=file)}}">{{file}}</a></li>
+			{% endfor %}
+		</ul>
+</div>
+{% endblock %}  
