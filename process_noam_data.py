@@ -27,7 +27,6 @@ def noam_files(file_path,company,NOAM_report):
 	#		sheets.append(pd.read_excel(glob.glob(file_path+'*')[j],pd.ExcelFile(glob.glob(file_path+'*')[j]).sheet_names[k]))     
 	#
 	column_names=['sites','cis','Site Data Template','CI Data Template Comp Syst']
-	count_issues=[]
 	for j in range(len(glob.glob(file_path+'/*'))):
 		if glob.glob(file_path+'/*')[j].endswith(('.xls','.xlsx')):
 			for k in range(len(list(set(pd.ExcelFile(glob.glob(file_path+'*')[j]).sheet_names).intersection(column_names)))):

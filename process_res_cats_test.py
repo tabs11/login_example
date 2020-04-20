@@ -40,6 +40,7 @@ def op_res_cats_files(path,company,op_res_cats_report):
             for k in range(len(sheets[j].columns)):
                 sheets[j].iloc[:,k]=pd.Series(np.where(sheets[j].iloc[:,k].str.contains('None'),'- None -',sheets[j].iloc[:,k]))
                 sheets[j].iloc[:,k]=sheets[j].iloc[:,k].apply(lambda x: x.strip() if type(x)==str else x)
+            sheets[j].drop_duplicates(inplace=True)
             #res
             if (sheets[j].columns.str.contains('ResCat',case=False).any()):
                 res=sheets[j]

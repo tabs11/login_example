@@ -13,9 +13,11 @@ import process_res_cats
 import process_res_cats_test
 import process_zte
 import update_priority as up_prio
-#import process_site_history
+import process_site_history
 import process_site_history_users
-#import process_cmdb_inventory
+import process_cmdb_inventory
+import process_rap
+import process_rap_noam
 #import process_common_val
 #import process_specific_val
 
@@ -89,13 +91,14 @@ USERS = { # dictionary (username, User)
 	'bharam':User('bharam','bharam'),
 	'arotaru':User('arotaru','arotaru'),
 	'bnanu':User('bnanu','bnanu')
-	
+
+		
 }
 
 application = Flask(__name__)
 
 
-SECRET_KEY='bla'#str(uuid.uuid1())
+SECRET_KEY='bla'
 application.secret_key = SECRET_KEY
 CMDB_FOLDER = 'CMDB_templates/'
 application.config['CMDB_FOLDER']=CMDB_FOLDER
@@ -207,16 +210,12 @@ def drop():
 		'home.html',data=data
 		)
 
-#@application.route('/')
-#@login_required
-#def drop():
-#	return render_template(
-#		'home.html',
-#		data=['Dummy Company','Airtel Chad','Airtel Congo B','Airtel Gabon','Airtel KE','Airtel Kenya','Airtel Kenya (LOCAL)','Airtel Madagascar','Airtel Malawi','Airtel Niger','Airtel Seychelles','Airtel Tanzania','Airtel Uganda','Airtel Zambia','ALTAN Mexico','AT&T US','Bharti India','BHI NI','Capita TfL GB','Chorus NZ','Deutsche Telekom EAN DE','EMTS NG','IIJ Japan','ISAT EAN DE','Mobily SA','MTN SIG HUB','NESC','Nexera PL','Orange Burkina Faso','Orange CALICO FR','Orange RIP FR','Rakuten JP','S-Bahn Berlin DE','Telenor DK','Telenor PK','Telia DK','Three Ireland','T-Mobile US','TTN DK','Vodacom TZ','Vodacom ZA','Vodacom ZA DWDM','Wing EU','Wing EU ATT US','Wing EU Marubeni JP','Wing EU TELE2'])
+
 
 @application.route("/action" , methods=['GET', 'POST'])
 @login_required
 def home():
+
 	data=[s for s in os.listdir(os.getcwd()) if len(s) > 30]
 	paths_to_del=[]
 	dates=[]
@@ -799,8 +798,11 @@ def chg_mod():
 @application.route('/rap', methods=['GET','POST'])
 @login_required
 def rap():
+	session['filename']=session['company']+'_'+str(uuid.uuid1())
 	ID_FOLDER=session['filename']
+	msg_company=ID_FOLDER.split('_')[0]
 	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
+
 	msg=None
 	if request.method == 'POST':
 		if 'file' not in request.files:
@@ -812,6 +814,9 @@ def rap():
 			return redirect(request.url)
 		if file and allowed_file(file.filename):
 			filename = secure_filename(file.filename)
+			if not os.path.exists(ID_FOLDER):
+				os.makedirs(ID_FOLDER)
+				os.makedirs(UPLOAD_FOLDER)
 			file.save(os.path.join(UPLOAD_FOLDER, filename))
 			msg=filename
 		else:
@@ -851,6 +856,71 @@ def rap_upload():
 @application.route('/RAP_Report/<filename>')
 @login_required
 def uploaded_RAP_file(filename):
+	ID_FOLDER=session['filename']
+	DOWNLOAD_FOLDER=ID_FOLDER +'/Report/'
+	return send_from_directory(DOWNLOAD_FOLDER,filename)
+
+
+###########################convert rap to noam
+
+##################################################################
+################convert to NOAM
+
+@application.route('/noam_rap', methods=['GET','POST'])
+@login_required
+def noam_rap():
+	msg_company=None
+	msg3=None
+	session['filename']=session['company']+'_'+str(uuid.uuid1())
+	ID_FOLDER=session['filename']
+	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
+	msg_company=ID_FOLDER.split('_')[0]
+	# Get the name of the uploaded files
+	uploaded_files = request.files.getlist("file[]")
+	for file in uploaded_files:
+		# Check if the file is one of the allowed types/extensions
+		if file and allowed_file(file.filename):
+			# Make the filename safe, remove unsupported chars
+			filename = secure_filename(file.filename)
+			if not os.path.exists(ID_FOLDER):
+				os.makedirs(ID_FOLDER)
+				os.makedirs(UPLOAD_FOLDER)
+			# Move the file form the temporal folder to the upload
+			
+			file.save(os.path.join(UPLOAD_FOLDER, filename))
+			filenames=os.listdir(UPLOAD_FOLDER)
+			msg3=filenames
+		else:
+			msg3='Please select a valid extension (.xls or .xlsx)'
+	return render_template('index_NOAM_rap.html',msg3=msg3,msg_company=msg_company)
+
+
+@application.route('/rap_noam_upload', methods=['GET'])
+@login_required
+def noam_rap_upload():
+	msg_company=None
+	msg_miss_file=None
+	ID_FOLDER=session['filename']
+	msg_company=ID_FOLDER.split('_')[0]
+	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
+	DOWNLOAD_FOLDER=ID_FOLDER+'/Report/'
+	os.makedirs(DOWNLOAD_FOLDER)
+	
+	# Get the name of the uploaded files
+	if not os.path.exists(UPLOAD_FOLDER):
+		msg_miss_file='PLEASE INSERT THE INPUT FILE(S) BEFORE RUN THE VALIDATION'
+		return render_template('index_NOAM_rap.html',msg_miss_file=msg_miss_file,msg_company=msg_company)
+	else:
+	#if len(os.listdir(UPLOAD_FOLDER))>0:
+		process_rap_noam.noam_rap(file_path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],NOAM_report=DOWNLOAD_FOLDER)
+		noam_filenames=os.listdir(DOWNLOAD_FOLDER)
+
+		return render_template('noam_rap_upload.html', noam_filenames=noam_filenames,msg_company=msg_company)
+
+
+@application.route('/NOAM_rap_Report/<filename>')
+@login_required
+def uploaded_NOAM_rap(filename):
 	ID_FOLDER=session['filename']
 	DOWNLOAD_FOLDER=ID_FOLDER +'/Report/'
 	return send_from_directory(DOWNLOAD_FOLDER,filename)

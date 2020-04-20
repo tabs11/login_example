@@ -82,7 +82,6 @@ def process_file(path,company,report):
 			c.execute(quer_cis)
 			cis_itsm = DataFrame(c.fetchall(), columns=['Company','CI Name','Site','Region','Site Group','CI Description','DNS Host Name','System Role','Product Name','Tier 1','Tier 2','Tier 3','Manufacturer','Model Version','Additional Information','Tag Number','CI ID','NbrCells','Domain','Status','Reconciliation Identity','Priority','Date'])
 			cis_itsm=cis_itsm[['CI Name']]
-	
 			conn.close()
 			if len(sites_itsm)>0:
 			    sites_size=len(sites_itsm)
@@ -233,8 +232,8 @@ def process_file(path,company,report):
 					if np.shape(sites_chars)[0]>0:
 						sites_chars_corrected=sites_chars.astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))
 						sites_chars_changes=pd.concat([sites_chars,sites_chars_corrected.rename('Site Name corrected')],axis=1)
-						#sites['Site Name']=sites['Site Name'].astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))					#cis['CI Name']=cis['CI Name'].astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))
-						print('','Sites with Special Characteres (Auto fixed - to be implemented): '.upper()+ str(len(sites_chars)),'-'*len('CIs with Special Characteres (Auto fixed):'),tabulate(sites_chars_changes.head(),headers='keys',tablefmt='fancy_grid',showindex=False),'',sep='\n',file=open(report +'warnings'+names[j]+'.txt','a',encoding='utf8'))
+						sites['Site Name']=sites['Site Name'].astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))					#cis['CI Name']=cis['CI Name'].astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))
+						print('','Sites with Special Characteres (Auto fixed): '.upper()+ str(len(sites_chars)),'-'*len('CIs with Special Characteres (Auto fixed):'),tabulate(sites_chars_changes.head(),headers='keys',tablefmt='fancy_grid',showindex=False),'',sep='\n',file=open(report +'warnings'+names[j]+'.txt','a',encoding='utf8'))
 
 					else:
 						None
@@ -265,7 +264,7 @@ def process_file(path,company,report):
 					if np.shape(sites_itsm)[0]>0:
 
 						all_sites=sites.merge(sites_itsm.set_index(sites_itsm.columns[0]),left_on=sites.filter(regex=re.compile('SITE',re.IGNORECASE)).columns[0],right_index=True,how='outer',indicator=True).drop_duplicates()
-						
+						print(all_sites)
 						###existing_sites##
 						existing_sites=all_sites[all_sites['_merge']=='both'].iloc[:,:-1]
 						print(existing_sites)
@@ -367,7 +366,7 @@ def process_file(path,company,report):
 						cis_chars_corrected=cis_chars.astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))
 						cis_chars_changes=pd.concat([cis_chars,cis_chars_corrected.rename('CI Name corrected')],axis=1)
 						#cis['CI Name']=cis['CI Name'].astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))					#cis['CI Name']=cis['CI Name'].astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))
-						print('','CIs with Special Characteres (Auto fixed - to be Implemented): '.upper()+ str(len(cis_chars)),'-'*len('CIs with Special Characteres (Auto fixed):'),tabulate(cis_chars_changes.head(),headers='keys',tablefmt='fancy_grid',showindex=False),'',sep='\n',file=open(report +'warnings'+names[j]+'.txt','a',encoding='utf8'))
+						print('','CIs with Special Characteres (Auto fixed): '.upper()+ str(len(cis_chars)),'-'*len('CIs with Special Characteres (Auto fixed):'),tabulate(cis_chars_changes.head(),headers='keys',tablefmt='fancy_grid',showindex=False),'',sep='\n',file=open(report +'warnings'+names[j]+'.txt','a',encoding='utf8'))
 
 					else:
 						None
@@ -436,12 +435,11 @@ def process_file(path,company,report):
 			
 					else:
 						None
-					####
+					
 					if len(conc_fields)>0:
 						print('','CONCATENATED FIELDS','-'*len('CONCATENATED FIELDS'),tabulate(pd.concat(conc_fields),headers=['FIELD','SUGGESTION'],tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(report +'warnings' + names[j] + '.txt','a',encoding='utf8'))
 					else:
 						None
-					#####
 					###check product catalogue
 					opcat_template='Prod_Cats_V2'
 					

@@ -7,8 +7,9 @@ from tabulate import tabulate
 
 
 def sites_cis_report(user,company,site_report):
-    #cmdb_owners=pd.read_excel('CMDB_templates/cmdb Owners_list.xlsx')
-    #if ((cmdb_owners['Login ID']==user) & (cmdb_owners['Company']==company)).any() | (user in ['numartin','bnanu','paulof','mccavitt','paagrawa'] or company=='Dummy Company'):
+    #cmdb_owners=pd.read_excel('CMDB_templates/cmdb Owners_full_list.xlsx')
+    #if ((cmdb_owners['Login ID']==user) & (cmdb_owners['Company']==company)).any() | (user in ['numartin','paulof','mccavitt','paagrawa'] or company=='Dummy Company'):
+
     conn = sqlite3.connect('CMDB_inventory/CMDB_data.db')  # You can create a new database by changing the name within the quotes
     c = conn.cursor() # The database will be saved in the location where your 'py' file is saved
     quer_sites=r"""SELECT DISTINCT * FROM SITES WHERE Company='"""+company+"""'"""
@@ -30,10 +31,27 @@ def sites_cis_report(user,company,site_report):
         cis_size=len(cis_itsm)
     else:
         cis_size='No CIs found in inventory'
+    #####
+    ###count all sites per company
+    #c.execute('''SELECT Company,COUNT(Company),COUNT(DISTINCT([Site Name]))
+    #FROM SITES
+    #GROUP BY Company''')
+    #all_sites=pd.DataFrame(c.fetchall())
+    ####count all cis per company
+    #c.execute('''SELECT Company, COUNT(Company)
+    #FROM CIS
+    #GROUP BY Company''')
+    #all_cis=pd.concat([pd.DataFrame(c.fetchall()),pd.DataFrame([pd.Series(['T-Mobile US','records not found'])])],axis=0)
     conn.commit()
     conn.close()
     counts_cmb=pd.concat([pd.Series(['Sites','CIs']).rename('LEVEL'),pd.Series([sites_size,cis_size]).rename('COUNT'),pd.Series([np.unique(sites_itsm['Date'])[0],np.unique(cis_itsm['Date'])[0]]).rename('Last Date Report')],axis=1)
     print('',tabulate(counts_cmb,headers="keys",tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(site_report +'SQLDB_CMDB.txt','a',encoding='utf8'))
+    
+    ####all cmdb
+    #all_cmdb=all_sites.merge(all_cis,on=0,how='inner').rename(columns={0:'Company','1_x':'Total Sites (including Alias)',2:'Total Sites','1_y':'CIS Total'})
+    #print('Count of all CMDB',tabulate(all_cmdb,headers="keys",tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(site_report +'SQLDB_CMDB.txt','a',encoding='utf8'))
+
+
     #else:
     #    print('','Not authorized user for this CMDB','',sep='\n',file=open(site_report +'SQLDB_CMDB.txt','a',encoding='utf8'))
 
