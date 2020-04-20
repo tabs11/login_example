@@ -193,9 +193,26 @@ def update_prod_cat():
 @application.route('/')
 @login_required
 def drop():
+	data=pd.DataFrame=()
+	user=session['username']
+	cmdb_owners=pd.read_excel('CMDB_templates/cmdb Owners_full_list.xlsx')
+	if user in ['numartin','paulof','mccavitt','paagrawa','hassane','bnanu']:
+		data=cmdb_owners['Company']
+	else:
+		data=cmdb_owners['Company'][cmdb_owners['Login ID']==user]
+	data=np.unique(data).tolist()
+	data.insert(0,'Dummy Company')
+	#data=['Dummy Company','Airtel Chad','Airtel Congo B','Airtel Gabon','Airtel KE','Airtel Kenya (LOCAL)','Airtel Madagascar','Airtel Malawi','Airtel Niger','Airtel Seychelles','Airtel Tanzania','Airtel Uganda','Airtel Zambia','AT&T US','BHI NI','Capita TfL GB','Chorus NZ','Deutsche Telekom EAN DE','EMTS NG','IIJ Japan','ISAT EAN DE','Mobily SA','MTN SIG HUB','NESC','Nexera PL','Orange Burkina Faso','Orange CALICO FR','Orange RIP FR','Optus AU','S-Bahn Berlin DE','Telenor DK','Telenor PK','Telia DK','Three Ireland','T-Mobile US','TTN DK','Vodacom TZ','Vodacom ZA','Vodacom ZA DWDM','Wing EU']
 	return render_template(
-		'home.html',
-		data=['Dummy Company','Airtel Chad','Airtel Congo B','Airtel Gabon','Airtel KE','Airtel Kenya','Airtel Kenya (LOCAL)','Airtel Madagascar','Airtel Malawi','Airtel Niger','Airtel Seychelles','Airtel Tanzania','Airtel Uganda','Airtel Zambia','ALTAN Mexico','AT&T US','Bharti India','BHI NI','Capita TfL GB','Chorus NZ','Deutsche Telekom EAN DE','EMTS NG','IIJ Japan','ISAT EAN DE','Mobily SA','MTN SIG HUB','NESC','Nexera PL','Orange Burkina Faso','Orange CALICO FR','Orange RIP FR','Rakuten JP','S-Bahn Berlin DE','Telenor DK','Telenor PK','Telia DK','Three Ireland','T-Mobile US','TTN DK','Vodacom TZ','Vodacom ZA','Vodacom ZA DWDM','Wing EU','Wing EU ATT US','Wing EU Marubeni JP','Wing EU TELE2'])
+		'home.html',data=data
+		)
+
+#@application.route('/')
+#@login_required
+#def drop():
+#	return render_template(
+#		'home.html',
+#		data=['Dummy Company','Airtel Chad','Airtel Congo B','Airtel Gabon','Airtel KE','Airtel Kenya','Airtel Kenya (LOCAL)','Airtel Madagascar','Airtel Malawi','Airtel Niger','Airtel Seychelles','Airtel Tanzania','Airtel Uganda','Airtel Zambia','ALTAN Mexico','AT&T US','Bharti India','BHI NI','Capita TfL GB','Chorus NZ','Deutsche Telekom EAN DE','EMTS NG','IIJ Japan','ISAT EAN DE','Mobily SA','MTN SIG HUB','NESC','Nexera PL','Orange Burkina Faso','Orange CALICO FR','Orange RIP FR','Rakuten JP','S-Bahn Berlin DE','Telenor DK','Telenor PK','Telia DK','Three Ireland','T-Mobile US','TTN DK','Vodacom TZ','Vodacom ZA','Vodacom ZA DWDM','Wing EU','Wing EU ATT US','Wing EU Marubeni JP','Wing EU TELE2'])
 
 @application.route("/action" , methods=['GET', 'POST'])
 @login_required
