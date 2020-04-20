@@ -193,7 +193,7 @@ def update_prod_cat():
 @application.route('/')
 @login_required
 def drop():
-	data=pd.DataFrame=()
+	data=pd.DataFrame()
 	user=session['username']
 	cmdb_owners=pd.read_excel('CMDB_templates/cmdb Owners_full_list.xlsx')
 	if user in ['numartin','paulof','mccavitt','paagrawa','hassane','bnanu']:
