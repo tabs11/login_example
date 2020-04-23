@@ -125,6 +125,7 @@ def process_file(path,company,report):
 				blank_cases=[]
 				count_chars=[]
 				#check null values
+				sheets[j]['Company']=company
 				null_columns=sheets[j][sheets[j].columns[sheets[j].isnull().any()]]  		
 				###blanks and char num
 				for i in range(len(sheets[j].columns)):
