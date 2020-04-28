@@ -328,6 +328,8 @@ def process_file(path,company,report):
 						print('','DUPLICATION AND LOCATIONS ISSUES:','-'*len('DUPLICATION AND LOCATIONS ISSUES:'),tabulate(pd.concat(count_issues_sites),headers=['ISSUE','COUNT'],tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(report +'errors'+names[j]+'.txt','a',encoding='utf8'))
 					else:
 						None
+					sites.to_csv(report + company + '_SITES_SCREENED_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S")+'.csv',sep=';',mode='w',index=False)
+
 				else:
 					None
 				###CIS
@@ -495,6 +497,7 @@ def process_file(path,company,report):
 						print('','LOCATIONS ISSUES:','-'*len('LOCATIONS ISSUES:'),tabulate(pd.concat(loc_issues),headers=['LOCATION','ISSUE'],tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(report +'warnings' + names[j] + '.txt','a',encoding='utf8'))
 					else:
 						None
+					cis.to_csv(report + company + '_CIS_SCREENED_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S")+'.csv',sep=';',mode='w',index=False)
 				else:
 					None
 			
@@ -548,9 +551,9 @@ def process_file(path,company,report):
 				None
 
 
-		with pd.ExcelWriter(report + company + '_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
+		with pd.ExcelWriter(report + company + '_ERRORS_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
 			if len(sites)>0:
-				sites.to_excel(writer, 'sites',index=False)
+				#sites.to_excel(writer, 'sites',index=False)
 				if np.shape(new_sites)[0]>0:
 					new_sites.to_excel(writer,'New Sites',index=False)
 				else:
@@ -574,7 +577,7 @@ def process_file(path,company,report):
 			else:
 				print('','No Sites data to validate'.upper(),sep='\n',file=open(report +'summary' + names[j] + 'Sites.txt','a',encoding='utf8'))
 			if len(cis)>0:
-				cis.to_excel(writer, 'cis',index=False)
+				#cis.to_excel(writer, 'cis',index=False)
 				if np.shape(existing_cis)[0]>0:
 					existing_cis.to_excel(writer,'CIs already in CMDB',index=False)
 				else:
