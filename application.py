@@ -419,8 +419,9 @@ def upload():
 #
 		#process_cmdb_inventory.read_file(path=UPLOAD_FOLDER)
 		#process_cmdb_inventory.call_cmdb_inventory(company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER)
-		
-		filenames = [f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith(('.xlsx','csv'))]
+		filenames = [f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith(('csv'))]
+		filenames_errors = [f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith(('.xlsx'))]
+		#filenames = [f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith(('.xlsx','csv'))]
 		msg_company=ID_FOLDER.split('_')[0]
 		if 'Mismatched_fields.txt' in os.listdir(DOWNLOAD_FOLDER):
 			text_mis_fields=open(DOWNLOAD_FOLDER+'Mismatched_fields.txt', 'r+',encoding='utf8')
@@ -506,6 +507,7 @@ def upload():
 				None
 		return render_template('multi_files_upload.html',
 			filenames=filenames,
+			filenames_errors=filenames_errors,
 			msg_miss_file=msg_miss_file,
 			text_cmdb=content_cmdb,
 			add_msg_cis=add_msg_cis,
