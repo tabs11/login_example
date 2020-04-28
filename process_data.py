@@ -417,7 +417,7 @@ def process_file(path,company,report):
 					filtered_site_group=cis.filter(regex=re.compile('SITE GROUP',re.IGNORECASE))
 					filtered_dns=cis.filter(regex=re.compile('DNS',re.IGNORECASE))      
 					with_region=(cis[filtered_desc.columns[0]]==cis[filtered_cis.columns[0]] + ' | ' + cis[filtered_region.columns[0]]).all()
-					with_sitegroup=(cis[filtered_desc.columns[0]]==cis[filtered_cis.columns[0]] + ' | ' + cis[filtered_site_group.columns[0]]).all()
+					with_sitegroup=(cis[filtered_desc.columns[0]]==cis[filtered_cis.columns[0]] + ' | ' + cis[filtered_site_group.columns[0]].astype(str)).all()
 					well_conc=[with_region,with_sitegroup]
 					conc_fields=[]
 					if well_conc[0]==False & well_conc[1]==False:
