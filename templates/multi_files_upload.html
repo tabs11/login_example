@@ -26,9 +26,18 @@
 		{% if msg_company %}
 			<h2 style="color:black;background-color:#cccccc" class="text-muted"><b><font size="5">{{ msg_company }} REPORT:</font></b></h2>
 		{% endif %}
-		<h2 style="color:black;" class="text-muted">Below the screened file with data to upload and detailed issues (...report_"date".xlsx):</h2>
+		<h2 style="color:black;" class="text-muted">Below the screened input file(s) ('.csv') and an additional file with all the issues found detailed (...report_"date".xlsx):</h2>
+
 			<ul>
+				<h2>Input files with the auto fixing errors found:</h2>
 				{% for file in filenames %}
+					<li><a href="{{url_for('uploaded_file', filename=file)}}">{{file}}</a></li>
+				{% endfor %}
+			</ul>
+
+			<ul>
+				<h2>File with all the possible errors found:</h2>
+				{% for file in filenames_errors %}
 					<li><a href="{{url_for('uploaded_file', filename=file)}}">{{file}}</a></li>
 				{% endfor %}
 			</ul>
