@@ -265,10 +265,10 @@ def process_file(path,company,report):
 					if np.shape(sites_itsm)[0]>0:
 
 						all_sites=sites.merge(sites_itsm.set_index(sites_itsm.columns[0]),left_on=sites.filter(regex=re.compile('SITE',re.IGNORECASE)).columns[0],right_index=True,how='outer',indicator=True).drop_duplicates()
-						print(all_sites)
+						#print(all_sites)
 						###existing_sites##
 						existing_sites=all_sites[all_sites['_merge']=='both'].iloc[:,:-1]
-						print(existing_sites)
+						#print(existing_sites)
 						new_sites=all_sites[all_sites['_merge']=='left_only'].iloc[:,:-1]
 						###pick Site
 						existing_sites=pd.concat([existing_sites.filter(regex=re.compile('SITE',re.IGNORECASE)).iloc[:,0],existing_sites.filter(regex=re.compile('REG|SITE GROUP|CITY',re.IGNORECASE))],axis=1)
@@ -280,7 +280,7 @@ def process_file(path,company,report):
 							inplace=True)
 						print(np.shape(existing_sites)[0])
 						if np.shape(existing_sites)[0]>0:
-							print(np.shape(existing_sites)[0])
+							#print(np.shape(existing_sites)[0])
 							###new sites
 							#print('','New sites to upload in CMDB: '.upper() + str(np.shape(new_sites)[0]),'-'*len('New Sites to upload in CMDB:'),'',sep='\n',file=open(report +'warnings'+names[j]+'.txt','a',encoding='utf8'))
 							wrong_locations_sites=pd.concat([existing_sites[(existing_sites['Region in Sites'])!=(existing_sites['Region in ITSM Sites'])],existing_sites[(existing_sites['Site Group in Sites'])!=(existing_sites['Site Group in ITSM Sites'])]],axis=0).drop_duplicates()
@@ -288,7 +288,7 @@ def process_file(path,company,report):
 							###already existing sites
 
 							if len(correct_locations_sites)>0:
-								print(len(correct_locations_sites))
+								#print(len(correct_locations_sites))
 								count_issues_sites.append(pd.concat([pd.Series('Existing sites with same locations:'.upper()),pd.Series(len(correct_locations_sites))],axis=1))
 							
 								#print('','Existing sites with same locations: '.upper() +str(np.shape(correct_locations_sites)[0]),'-'*len('Existing sites with same locations:'),'',sep='\n',file=open(report +'errors'+names[j]+'.txt','a',encoding='utf8'))
@@ -297,7 +297,7 @@ def process_file(path,company,report):
 								None
 							###existing sites with different locations
 							if len(wrong_locations_sites)>0:
-								print(len(wrong_locations_sites))
+								#print(len(wrong_locations_sites))
 								count_issues_sites.append(pd.concat([pd.Series('Existing sites with mismatched locations:'.upper()),pd.Series(len(wrong_locations_sites))],axis=1))
 
 								#rint('','Existing sites with mismatched locations: '.upper() +str(np.shape(wrong_locations_sites)[0]),'-'*len('Existing sites with mismateched locations:'),'',sep='\n',file=open(report +'errors'+names[j]+'.txt','a',encoding='utf8'))
