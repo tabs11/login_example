@@ -954,4 +954,4 @@ def load_user(userid):
 	return USERS[userid]
 
 if __name__=='__main__':
-	application.run(debug=True)
+	application.run(debug=True,threaded=True)
