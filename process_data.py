@@ -554,10 +554,10 @@ def process_file(path,company,report):
 		with pd.ExcelWriter(report + company + '_ERRORS_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
 			if len(sites)>0:
 				#sites.to_excel(writer, 'sites',index=False)
-				if np.shape(new_sites)[0]>0:
-					new_sites.to_excel(writer,'New Sites',index=False)
-				else:
-					None    		
+				#if np.shape(new_sites)[0]>0:
+				#	new_sites.to_excel(writer,'New Sites',index=False)
+				#else:
+				#	None    		
 				if np.shape(dup_sites)[0]>0:
 					dup_sites.to_excel(writer, 'Duplicate Sites',index=False)
 				else:
