@@ -77,11 +77,11 @@ def process_file(path,company,report):
 			###get sites
 			c.execute(quer_sites)
 			sites_itsm = DataFrame(c.fetchall(), columns=['Company','Site Name','Site Alias','Description','Region','Site Group','Street','Country','City','Latitude','Longitude','Maintenance Circle Name','Site Type','Location ID','PrimAlias','Additional Site Details','Status','Date'])
-			sites_itsm=sites_itsm[['Site Name','Region','Site Group']]
+			#sites_itsm=sites_itsm[['Site Name','Region','Site Group']]
 			###get cis
 			c.execute(quer_cis)
 			cis_itsm = DataFrame(c.fetchall(), columns=['Company','CI Name','Site','Region','Site Group','CI Description','DNS Host Name','System Role','Product Name','Tier 1','Tier 2','Tier 3','Manufacturer','Model Version','Additional Information','Tag Number','CI ID','NbrCells','Domain','Status','Reconciliation Identity','Priority','Date'])
-			cis_itsm=cis_itsm[['CI Name']]
+			#cis_itsm=cis_itsm[['CI Name']]
 			conn.close()
 			if len(sites_itsm)>0:
 			    sites_size=len(sites_itsm)
@@ -93,8 +93,10 @@ def process_file(path,company,report):
 			else:
 			    cis_size='No CIs found in inventory'
 			
-			counts_cmb=pd.concat([pd.Series(['Sites','CIs']).rename('LEVEL'),pd.Series([sites_size,cis_size]).rename('COUNT')],axis=1)
-
+			#counts_cmb=pd.concat([pd.Series(['Sites','CIs']).rename('LEVEL'),pd.Series([sites_size,cis_size]).rename('COUNT')],axis=1)
+			counts_cmb=pd.concat([pd.Series(['Sites','CIs']).rename('LEVEL'),pd.Series([sites_size,cis_size]).rename('COUNT'),pd.Series([np.unique(sites_itsm['Date'])[0],np.unique(cis_itsm['Date'])[0]]).rename('Last Date Report')],axis=1)
+			sites_itsm=sites_itsm[['Site Name','Region','Site Group']]
+			cis_itsm=cis_itsm[['CI Name']]
 			print('',tabulate(counts_cmb,headers="keys",tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(report +'summary_CMDB.txt','a',encoding='utf8'))      
 
 
