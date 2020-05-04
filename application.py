@@ -929,7 +929,47 @@ def uploaded_NOAM_rap(filename):
 
 
 
-###update Prod Cat
+###update CMDB####
+
+####update prodCat############
+@application.route('/update_cmdb', methods=['GET','POST'])
+@login_required
+def update_cmdb():
+	msg3=None
+	session['filename']=session['company']+'_'+str(uuid.uuid1())
+	ID_FOLDER=session['filename']
+	TEMP_FOLDER=ID_FOLDER +'/update_cmdb/'
+	msg_company=ID_FOLDER.split('_')[0]
+	uploaded_files = request.files.getlist("file[]")
+	for file in uploaded_files:
+		# Check if the file is one of the allowed types/extensions
+		if file and allowed_file(file.filename):
+			
+			# Make the filename safe, remove unsupported chars
+			filename = secure_filename(file.filename)
+			if not os.path.exists(TEMP_FOLDER):
+				os.makedirs(ID_FOLDER)
+				os.makedirs(TEMP_FOLDER)
+			# Move the file form the temporary folder to the upload
+			file.save(os.path.join(TEMP_FOLDER, filename))
+			filenames=os.listdir(TEMP_FOLDER)
+			msg3=filenames
+		else:
+			msg3='Please select a valid extension (.xls(x) or .csv)'
+
+	return render_template('update_cmdb.html',msg3=msg3,msg_company=msg_company)
+
+#######upload prod_cat
+
+@application.route('/cmdb_upload', methods=['GET'])
+@login_required
+def cmdb_upload():
+	ID_FOLDER=session['filename']
+	TEMP_FOLDER=ID_FOLDER +'/update_cmdb/'
+	msg_company=ID_FOLDER.split('_')[0]
+	process_cmdb_update.cmdb_update(path=TEMP_FOLDER,company=ID_FOLDER.split('_')[0])
+	#cmdb_filenames=[f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith(('.xlsx','csv'))]
+	return render_template('upload_cmdb.html',msg_company=msg_company)
 
 
 @application.route('/logout', methods=['GET'])
