@@ -1,0 +1,15 @@
+{% extends "login_layout.html" %}
+{% block content %}
+<!-- Login Form -->
+<form>
+  <input type="button" class="mybutton" method="GET" value=" &laquo; BACK" onclick="history.go(-1);">
+</form>
+<p>&nbsp;</p>
+{% if msg_company %}
+    <h2 style="color:#004fab;" class="text-muted"><b><font size="6">{{ msg_company }}</font>
+{% endif %}
+
+	<div class="multi_upload_index">
+	<h2 style="color:black;background-color:#cccccc" class="text-muted"><b><font size="5">CMDB UPDATED:</font></b></h2>
+	</div>
+ {% endblock %}

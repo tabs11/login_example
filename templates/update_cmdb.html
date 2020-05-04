@@ -1,0 +1,31 @@
+{% extends "login_layout.html" %}
+{% block content %}
+{% if msg_company %}
+    <h2 style="color:#004fab;" class="text-muted"><b><font size="6">{{ msg_company }}</font>
+{% endif %}
+<h2>Update CMDB:</h2>
+<table>
+  <tr>
+    <form class="button" align="right" method="post" action="update_cmdb" enctype="multipart/form-data">
+      <td><label id="#bb"> SELECT FILES
+        <input type="file" multiple="" name="file[]" class="span3" />
+      </td>
+      <td> 
+        {% if msg3 %}
+          <p><strong></strong> {{ msg3 }}
+        {% endif %}
+      <input class="mybutton" type="submit" value="SUBMIT"  class="span2">
+    </td>
+    </form>
+  </tr>
+</table>
+
+
+<table>
+  <tr>
+    <form class="button" align="right" method="GET" action="cmdb_upload" enctype="multipart/form-data">
+      <input class="mybutton" type="submit" value="RUN UPDATE"  class="span2"></td>
+    </form>
+  </tr>
+</table> 
+{% endblock %}
