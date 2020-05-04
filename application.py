@@ -18,6 +18,7 @@ import process_site_history_users
 import process_cmdb_inventory
 import process_rap
 import process_rap_noam
+import process_cmdb_update
 #import process_common_val
 #import process_specific_val
 
