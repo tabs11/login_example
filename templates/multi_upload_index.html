@@ -62,6 +62,10 @@
     <b><font size="4" style="color:red;"><p><strong></strong> {{ msg_to_many_files}}</font>
 {% else %}
   {% if msg3 %}
+  <h2></h2>
+    {% for i in filenames %}
+      <b><div style="color:#004fab;"><li>{{i}}</li></div> </b>
+    {% endfor %}  
     <p><b><div style="color:#004fab;"> {{msg3 }}</div></b></p>
     <table>
     <tr>
