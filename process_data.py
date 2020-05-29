@@ -241,7 +241,7 @@ def process_file(path,company,report,instance):
 					sites_chars=sites['Site Name'][sites['Site Name'].astype(str).str.contains("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\",regex=True)]
 					if np.shape(sites_chars)[0]>0:
 						sites_chars_corrected=sites_chars.astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))
-						sites_chars_changes=pd.concat([sites_chars,sites_chars_corrected.rename('Possible corrected Site Name)],axis=1)
+						sites_chars_changes=pd.concat([sites_chars,sites_chars_corrected.rename('Possible corrected Site Name')],axis=1)
 						#sites['Site Name']=sites['Site Name'].astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))					#cis['CI Name']=cis['CI Name'].astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))
 						print('','Sites with Special Characteres (Auto fixing to be implemented): '.upper()+ str(len(sites_chars)),'-'*len('CIs with Special Characteres (Auto fixed):'),tabulate(sites_chars_changes.head(),headers='keys',tablefmt='fancy_grid',showindex=False),'',sep='\n',file=open(report +'warnings'+names[j]+'.txt','a',encoding='utf8'))
 
