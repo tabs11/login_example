@@ -240,8 +240,8 @@ def process_file(path,company,report,instance):
 					sites_chars_changes=pd.DataFrame()
 					sites_chars=sites['Site Name'][sites['Site Name'].astype(str).str.contains("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\",regex=True)]
 					if np.shape(sites_chars)[0]>0:
-						sites_chars_corrected=sites_chars.astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))
-						sites_chars_changes=pd.concat([sites_chars,sites_chars_corrected.rename('Site Name corrected')],axis=1)
+						#sites_chars_corrected=sites_chars.astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))
+						sites_chars_changes=pd.concat([sites_chars,sites_chars.rename('Site Name corrected')],axis=1)
 						sites['Site Name']=sites['Site Name'].astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))					#cis['CI Name']=cis['CI Name'].astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))
 						print('','Sites with Special Characteres (Auto fixing to be implemented): '.upper()+ str(len(sites_chars)),'-'*len('CIs with Special Characteres (Auto fixed):'),tabulate(sites_chars_changes.head(),headers='keys',tablefmt='fancy_grid',showindex=False),'',sep='\n',file=open(report +'warnings'+names[j]+'.txt','a',encoding='utf8'))
 
@@ -367,8 +367,8 @@ def process_file(path,company,report,instance):
 					cis_chars_changes=pd.DataFrame()
 					cis_chars=cis['CI Name'][cis['CI Name'].astype(str).str.contains("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\",regex=True)]
 					if np.shape(cis_chars)[0]>0:
-						cis_chars_corrected=cis_chars.astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))
-						cis_chars_changes=pd.concat([cis_chars,cis_chars_corrected.rename('CI Name corrected')],axis=1)
+						#cis_chars_corrected=cis_chars.astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))
+						cis_chars_changes=pd.concat([cis_chars,cis_chars.rename('CI Name corrected')],axis=1)
 						#cis['CI Name']=cis['CI Name'].astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))					#cis['CI Name']=cis['CI Name'].astype(str).apply(lambda x: re.sub("\(|\)|\{|\}|\[|\]|\'|\"|\´|\»|\«|\/|\\\\", "",x))
 						print('','CIs with Special Characteres (Auto fixing to be implemented): '.upper()+ str(len(cis_chars)),'-'*len('CIs with Special Characteres (Auto fixed):'),tabulate(cis_chars_changes.head(),headers='keys',tablefmt='fancy_grid',showindex=False),'',sep='\n',file=open(report +'warnings'+names[j]+'.txt','a',encoding='utf8'))
 
@@ -564,10 +564,10 @@ def process_file(path,company,report,instance):
 		with pd.ExcelWriter(report + company + '_ERRORS_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
 			if len(sites)>0:
 				#sites.to_excel(writer, 'sites',index=False)
-				#if np.shape(new_sites)[0]>0:
-				#	new_sites.to_excel(writer,'New Sites',index=False)
-				#else:
-				#	None    		
+				if np.shape(new_sites)[0]>0:
+					new_sites.to_excel(writer,'New Sites',index=False)
+				else:
+					None    		
 				if np.shape(dup_sites)[0]>0:
 					dup_sites.to_excel(writer, '1.Duplicate Sites',index=False)
 				else:
