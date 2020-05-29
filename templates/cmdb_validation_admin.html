@@ -1,10 +1,16 @@
 {% extends "login_layout.html" %}
 {% block content %}
+
+
+<form>
+  <input type="button" class="mybutton" method="GET" value=" &laquo; BACK" onclick="history.go(-1);">
+</form>
 <p>&nbsp;</p>
+
 
 {% if msg %}
     <h2>Please select the desired action for:</h2>
-    <h2 style="color:#004fab;" class="text-muted"><b>{{ msg }}</b></h2>
+    <h2 style="color:#004fab;" class="text-muted"><b><font size="6">{{ msg }}</font></b></h2>
 {% endif %}
 <p>&nbsp;</p>
 
@@ -33,20 +39,6 @@
 </table>
  <h2></h2>
 
-  
-<table>
-    <tr>
-    <form class="button" method="post" action="noam_data" enctype="multipart/form-data">
-      <input class="btngroup" type="submit" value="CMDB DATA CONVERSION"  class="span2"></td>    
-      Select this option to convert CIs and Sites in NOAM templates.
-    </form>
-      </form>
- </tr>
-    </table>
-
-
-<h2></h2>
-
 
  <table>
   <tr> 
@@ -58,18 +50,17 @@
 </table>
  <h2></h2>
 
-
-<table>
-    <tr>
-    <form class="button" method="post" action='/op_res_cats' enctype="multipart/form-data">
-      <input class="btngroup" type="submit" value="OP/RES CAT VALIDATION"  class="span2"></td>    
-      Select this option to validate and convert the Operational and Resolution Categories in NOAM templates.
+ <table>
+  <tr> 
+    <form class="button" method="get" action="update_cmdb" enctype="multipart/form-data">
+        <input class="btngroup" type="SUBMIT" value="CMDB UPDATE"  class="span2"></td>
+         Select this option to update the CMDB.
     </form>
-      </form>
- </tr>
-    </table>
+  </tr>
+</table>
+ <h2></h2>
 
-<h2></h2>
+
 
 <table>
     <tr>
@@ -83,18 +74,6 @@
  <h2></h2>
 
 <table>
-    <tr>
-    <form class="button" method="post" action=/noam_rap enctype="multipart/form-data">
-      <input class="btngroup" type="submit" value="RA DATA CONVERSION"  class="span2"></td>    
-      Select this option to convert RA in NOAM templates.
-    </form>
-      </form>
- </tr>
-    </table>
-<h2></h2>
-
-
-<table>
   <tr> 
     <form class="button" method="get" action="chg_mod" enctype="multipart/form-data">
         <input class="btngroup" type="SUBMIT" value="CHANGE MODULE"  class="span2"></td>
@@ -103,9 +82,5 @@
   </tr>
 </table>
  
-
-
-
-
 
 {% endblock %}

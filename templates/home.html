@@ -1,6 +1,8 @@
 {% extends "login_layout.html" %}
 {% block content %}
-  <p>&nbsp;</p>
+ 
+
+
 
 
 <h1>
@@ -18,9 +20,11 @@ Hello, <b>{{ current_user.username}}</b>
  <font size="2"><h2> Select the company in the box bellow:</h2></font>
  <h2> 
 
+
 <form method="POST" action="{{ url_for('home') }}">
     <select name="comp_select" style="color:black;background-color:#e6e6e6" class="button">
       {% for o in data %}
+      
         <option value="{{ o }}" >{{ o }} </option>
       {% endfor %}
     </select>
@@ -28,6 +32,10 @@ Hello, <b>{{ current_user.username}}</b>
 </form>
 </h2>
 <p>&nbsp;</p>
+
+
+
+
 <script>
 function openWin() {
   window.open("https://nokia.sharepoint.com/sites/DEToolsMS/SitePages/CMDB-Data-Validation_FrontPage.aspx");
@@ -47,8 +55,25 @@ function openWin() {
       <li><p> Do not remove any field form the template nor delete or change any sheetnames present in the original template;</li>
       <li><p> Follow the instructions provided in each template and fill the required fields;</li>
     </ul>
-  
+ <p>&nbsp;</p>
+ 
+<table>
+  <tr> 
+    <form class="button" method="get" action="user_guide" enctype="multipart/form-data">
+        <input class="mybutton2" type="SUBMIT" value="USER_GUIDE"  class="span2"></td>
+         Select this option to read the USER GUIDE.
+    </form>
+  </tr>
+</table>
 
+<table>
+  <tr> 
+    <form class="button" method="get" action="user_guide_v2" enctype="multipart/form-data">
+        <input class="mybutton2" type="SUBMIT" value="USER_GUIDE_v2"  class="span2"></td>
+         Select this option to read the USER GUIDE.
+    </form>
+  </tr>
+</table>
 <!--
 <table>
     <tr>
@@ -70,4 +95,7 @@ function openWin() {
       <li><p> The fields, white/unmarked, must be filled based on the rules of the CMDB data model. When blank, the rules may vary per project.</li>
     </ul>
   </div>-->
+
+
+
 {% endblock %}

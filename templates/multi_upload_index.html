@@ -5,53 +5,97 @@
   <input type="button" class="mybutton" method="GET" value=" &laquo; BACK" onclick="history.go(-1);">
 </form>
 
-<p>&nbsp;</p>
+
+<!--company name-->
+<h2 style="color:#004fab;" class="text-muted"><font size="6">{{ msg_company }}</font>
+&emsp;&emsp;&emsp;&emsp;&emsp;
+{% if msg_company!='Dummy Company' %}
+<!--Data Model-->
+  <font size="4"><b>CMDB Data Model:</b></font>
+  {% if urls %}
+    <input class="mybutton" type="button" value="VIEW" onclick="openWin()">
+  {% else %}
+    <font style="color:red;" size="3"><b>NOT AVAILABLE.</b></font>
+  {% endif %}
+<!--CMDB Owners-->
+  <div style="width:12%; margin:auto;">
+  <font size="4">CMDB Owners:</font>
+    <div style="display:inline-block; width:131%;text-align:left;">
+      <form>
+        {% for i in email %}
+          <font size="2.5"> <a href="mailto:{{i}}" style="color:black;">{{i}}</a></font>
+        {% endfor %}  
+      </form>
+    </div>
+  </div>    
+{% else %}
+  <p>&nbsp;</p>
+{% endif%}
+</h2>
 
 
-{% if msg_company %}
-    <h2>Upload data to validate for:</h2>
-    <h2 style="color:#004fab;" class="text-muted"><b>{{ msg_company }}</b></h2>
-{% endif %}
+
+
+    
+
+<!--Data to validate-->
+<h2>Upload data to validate:</h2>
 <table>
   <tr>
     <form class="button" align="right" method="post" action="data" enctype="multipart/form-data">
-      <td><label id="#bb"> SELECT FILES
-        <input type="file" multiple="" name="file[]" class="span3" />
+     <td><label id="#bb"> SELECT FILES
+        <input type="file" name="file[]" id="file" multiple onchange="javascript:updateList()" />
+      </label>
+    
+       <h2></h2>
+
+        <b><div style="color:#004fab;" id="fileList"></div></b>
+        <h2></h2>
+        <input class="mybutton" type="submit" value="SUBMIT FILES"  class="span2">
+
       </td>
-      <td> 
-        {% if msg3 %}
-          <p><strong></strong> {{ msg3 }}
-        {% endif %}
-      <input class="mybutton" type="submit" value="SUBMIT"  class="span2">
-    </td>
-    </form>
-  </tr>
-</table>
- <h2></h2>
-
-<table>
-  <tr>
-    <form class="button" align="right" method="post" action="upload" enctype="multipart/form-data">
-      <input class="mybutton" id="btnload" type="submit" value="RUN VALIDATION"  class="span2"></td>
-      
     </form>
   </tr>
 </table>
 
+{% if msg_to_many_files %}
+    <b><font size="4" style="color:red;"><p><strong></strong> {{ msg_to_many_files}}</font>
+{% else %}
+  {% if msg3 %}
+    <p><b><div style="color:#004fab;"> {{msg3 }}</div></b></p>
+    <table>
+    <tr>
+      <form class="button" align="right" method="post" action="upload" enctype="multipart/form-data">
+        <input onclick="move()" style="font-size:18px;font-weight:bold" class="mybutton" id="btnload" type="submit" value="RUN VALIDATION"  class="span2"></td>
+        
+      </form>
+    </tr>
+    </table>
+   
+    <!--<progress class='progressBar' id="progressBar" value="0" max="100" style="width:1400px;height:30px;"></progress>
+     <b><span id="status" style="color:#004fab";></span></b>
+   -->
+    <div id="myProgress">
+      <div id="myBar"></div>
+    </div>
+     <b><span id="status" style="color:#004fab";></span></b>
+    <h2></h2>
+    {% if msg %}
+      <font size="2"><p><strong></strong> {{ msg }}</font>
+    {% endif %}   
+  {% endif %}
+{% endif %}
+
  <h2></h2>
 
- {% if msg %}
-    <font size="2"><p><strong></strong> {{ msg }}</font>
-  {% endif %} 
-
-  {% if msg_miss_file %}
-    <font size="2"><p><strong></strong> {{ msg_miss_file }}</font>
-  {% endif %}  
-
-<p>&nbsp;</p>
 <div class="multi_upload_index">
-  <h2>INPUT FILES RULES:</h2>
-  <hr/>
+
+
+
+  <h2>INPUT FILES RULES: 
+    
+  </h2>
+  
   <ul>  
   <li><b> INPUT:</b></li>
     <ul>  

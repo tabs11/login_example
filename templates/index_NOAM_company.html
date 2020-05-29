@@ -15,32 +15,39 @@
 <table>
   <tr>
     <form class="button" align="right" method="post" action="noam_data" enctype="multipart/form-data">
-      <td><label id="#bb"> SELECT FILES
-        <input type="file" multiple="" name="file[]" class="span3" /></td>
-      <td> 
-        {% if msg3 %}
-          <p><strong></strong> {{ msg3 }}
-        {% endif %}
-        <input class="mybutton" type="submit" value="SUBMIT"  class="span2">
+     <td><label id="#bb"> SELECT FILES
+        <input type="file" name="file[]" id="file" multiple onchange="javascript:updateList()" />
+      </label>
+    
+       <h2></h2>
+
+        <b><div style="color:#004fab;" id="fileList"></div></b>
+        <h2></h2>
+        <input class="mybutton" type="submit" value="SUBMIT FILES"  class="span2">
       </td>
     </form>
+
   </tr>
-</table> 
+</table>
 
 <h2></h2>
-
-<table>
-  <tr>
-    <form class="button" align="right" method="GET" action="noam_upload" enctype="multipart/form-data">
-      <input class="mybutton" type="submit" value="RUN CONVERSION"  class="span2"></td>
-    </form>
-  </tr>
-</table> 
-{% if msg_miss_file %}
-    <font size="2"><p><strong></strong> {{ msg_miss_file }}</font>
-  {% endif %}  
-<p>&nbsp;</p>
-
-<hr/>
+{% if msg_to_many_files %}
+    <b><font size="4" style="color:red;"><p><strong></strong> {{ msg_to_many_files}}</font>
+{% else %}
+  {% if msg3 %}
+    <p><b><div style="color:#004fab;"> {{msg3 }}</div></b></p>
+    <table>
+    <tr>
+      <form class="button" align="right" method="GET" action="noam_upload" enctype="multipart/form-data">
+        <input onclick="move()" style="font-size:18px;font-weight:bold" class="mybutton" id="btnload" type="submit" value="RUN CONVERSION"  class="span2"></td>
+      </form>
+    </tr>
+  </table>
+  <div id="myProgress">
+    <div id="myBar"></div>
+  </div>
+  <b><span id="status" style="color:#004fab";></span></b>
+  {% endif %}
+{% endif %}
 
 {% endblock %}

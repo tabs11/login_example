@@ -21,6 +21,81 @@
         </nav></strong>
   
     </header>
+    <style>
+
+#myProgress {
+  width: 100%;
+  background-color: #ddd;
+}
+
+#myBar {
+  width: 1%;
+  height: 25px;
+  background-color: #004fab;
+}
+</style>
+
+<script>
+//show cmdb oweners
+function openWin() {
+  var urls='{{ urls }}';
+  window.open(urls);
+}
+//show filenames
+updateList = function() {
+  var input = document.getElementById('file');
+  var output = document.getElementById('fileList');
+
+  output.innerHTML = '';
+  for (var i = 0; i < input.files.length; ++i) {
+    output.innerHTML += '<li>' + input.files.item(i).name + '</li>';
+  }
+  output.innerHTML += '';
+}
+
+
+
+//function start(al) {
+//  var bar = document.getElementById('progressBar');
+//  var status = document.getElementById('status');
+//  status.innerHTML = 'Loading'//al + "%";
+//  bar.value = al;
+//  al++;
+//  var sim = setTimeout("start(" + al + ")", 700);
+//  if (al == 100) {
+//    status.innerHTML = "100%";
+//    bar.value = 100;
+//    clearTimeout(sim);
+//    //var finalMessage = document.getElementById('finalMessage');
+//    //finalMessage.innerHTML = "Process is complete";
+//  }
+//}
+//var amountLoaded = 0;
+
+//progress bar
+var i = 0;
+function move() {
+  if (i == 0) {
+    i = 1;
+    var elem = document.getElementById("myBar");
+    var status = document.getElementById('status');
+    status.innerHTML = 'Loading'//al + "%";
+    var width = 1;
+    var id = setInterval(frame, 700);
+    function frame() {
+      if (width >= 100) {
+        clearInterval(id);
+        i = 0;
+      } else {
+        width++;
+        elem.style.width = width + "%";
+      }
+    }
+  }
+}
+
+</script>
+
     <div class="container">
        
     <h3 class=title><b>DATA VALIDATION FOR ONE ITSM CONFIGURATION</b></h3>
@@ -34,7 +109,9 @@
       </div>
     </div>
     </body>
-    <script 
+
+
+<script 
     src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
     crossorigin="anonymous">

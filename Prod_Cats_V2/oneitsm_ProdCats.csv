@@ -1,0 +1,828 @@
+﻿Product Categorization Tier 1;Product Categorization Tier 2;Product Categorization Tier 3;Product Name;Manufacturer;Model Version
+Infrastructure;Access;Access Control;;;
+Infrastructure;Fuel;Fuel;;;
+Infrastructure;HAVAC;Heating, Ventilation, Airconditioning;;;
+Infrastructure;Power Supply;Power Supply;;;
+Infrastructure;- None -;- None -;;;
+VAS/NEMS;NEMS;NEMS_VOIP;1300 XMC;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_VOIP;1310 OMC-P;Alcatel-Lucent;
+Multicore;Converged Core;NGN/IMS/MGW;1342 QoSAC;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_TX;1350 OMS;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_TX;1353 NM;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_MOB;1353 UMTS OMC-R;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_TX;1354 BM-ETH;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_TX;1354 RM;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_MOB;1357 ULIS;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_TX;1359 IOO;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_IP;1360 COM;Alcatel-Lucent;
+Transmission;DWDM/OMSN;DWDM/WDM/DXC;1626 LM;Alcatel-Lucent;
+Transmission;DWDM/OMSN;OMSN;1640 FOX;Alcatel-Lucent;
+Transmission;DWDM/OMSN;DWDM/WDM/DXC;1640 WM/OADM;Alcatel-Lucent;
+Transmission;SDH/PDH;SDH;1641 SM;Alcatel-Lucent;
+Transmission;DWDM/OMSN;OMSN;1642 EM;Alcatel-Lucent;
+Transmission;DWDM/OMSN;OMSN;1642 EM_Link;Alcatel-Lucent;
+Transmission;DWDM/OMSN;OMSN;1642 EMC;Alcatel-Lucent;
+Transmission;SDH/PDH;SDH;1643 AMS;Alcatel-Lucent;
+Transmission;DWDM/OMSN;OMSN;1650 SMC;Alcatel-Lucent;
+Transmission;DWDM/OMSN;OMSN;1650 SMC_Link;Alcatel-Lucent;
+Transmission;SDH/PDH;SDH;1651 SM;Alcatel-Lucent;
+Transmission;DWDM/OMSN;OMSN;1660 SM;Alcatel-Lucent;
+Transmission;DWDM/OMSN;OMSN;1660 SM_Link;Alcatel-Lucent;
+Transmission;SDH/PDH;SDH;1661 SMC;Alcatel-Lucent;
+Transmission;DWDM/OMSN;OMSN;1662 SMC;Alcatel-Lucent;
+Transmission;SDH/PDH;SDH;1663 ADMu;Alcatel-Lucent;
+Transmission;SDH/PDH;SDH;1664 SM;Alcatel-Lucent;
+Transmission;SDH/PDH;SDH;1670 SM;Alcatel-Lucent;
+Transmission;SDH/PDH;SDH;1675 LambdaUnite MSS;Alcatel-Lucent;
+Transmission;DWDM/OMSN;DWDM/WDM/DXC;1678 MCC;Alcatel-Lucent;
+Transmission;DWDM/OMSN;DWDM/WDM/DXC;1696 Metrospan;Alcatel-Lucent;
+Transmission;DWDM/OMSN;DWDM/WDM/DXC;1830 PSS-16/32/36;Alcatel-Lucent;1830 PSS-32
+Transmission;DWDM/OMSN;DWDM/WDM/DXC;1830 PSS-16/32/36;Alcatel-Lucent;1830 PSS-16
+Transmission;DWDM/OMSN;DWDM/WDM/DXC;1830 PSS-16/32/36;Alcatel-Lucent;1830 PSS-4
+Transmission;DWDM/OMSN;OTN;1830 PSS-36/64;Alcatel-Lucent;
+Transmission;DWDM/OMSN;DWDM/WDM/DXC;1830 PSS-4/16/32/36;Alcatel-Lucent;1830 PSS-4
+Transmission;DWDM/OMSN;DWDM/WDM/DXC;1830 PSS-4/16/32/36;Alcatel-Lucent;1830 PSS-32
+Transmission;DWDM/OMSN;DWDM/WDM/DXC;1830 PSS-4/16/32/36;Alcatel-Lucent;1830 PSS-8
+Transmission;DWDM/OMSN;DWDM/WDM/DXC;1830 VWM;Alcatel-Lucent;
+Transmission;SDH/PDH;SDH;1850 TSS-10;Alcatel-Lucent;
+Transmission;DWDM/OMSN;DWDM/WDM/DXC;1850 TSS-230;Alcatel-Lucent;
+Multicore;Converged Core;NGN/IMS/MGW;5020 IWF;Alcatel-Lucent;
+Multicore;Converged Core;NGN/IMS/MGW;5060 IBC-4;Alcatel-Lucent;
+Multicore;Converged Core;NGN/IMS/MGW;5060 ICS;Alcatel-Lucent;
+Multicore;Converged Core;NGN/IMS/MGW;5060 MGC-8;Alcatel-Lucent;
+Multicore;Wireless Core;MSC/MSS;5060 WCS;Alcatel-Lucent;5060 WCS - UMTS
+Multicore;Signaling;STP;5078 STP;Alcatel-Lucent;
+VAS/NEMS;VAS;VAS_TELCO;5100 CMS;Alcatel-Lucent;
+VAS/NEMS;VAS;VAS_APPS;5115 SMSC-G;Alcatel-Lucent;
+VAS/NEMS;VAS;VAS_TELCO;5375 CNP;Alcatel-Lucent;
+Multicore;Converged Core;NGN/IMS/MGW;5410 PS;Alcatel-Lucent;
+Multicore;Converged Core;NGN/IMS/MGW;5410 XDMS;Alcatel-Lucent;
+Multicore;Converged Core;NGN/IMS/MGW;5420 CTS;Alcatel-Lucent;
+Multicore;Converged Core;NGN/IMS/MGW;5420 PCM;Alcatel-Lucent;
+Multicore;Converged Core;NGN/IMS/MGW;5420 SCG;Alcatel-Lucent;
+Multicore;Converged Core;NGN/IMS/MGW;5430 MMIM;Alcatel-Lucent;
+Multicore;Converged Core;NGN/IMS/MGW;5450 ISC;Alcatel-Lucent;ATCA
+VAS/NEMS;NEMS;NEMS_FA;5520 AMS;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_FA;5520 AMS External TL1 GW;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_FA;5523 AWS;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_FA;5529 IDM;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_FA;5529 OAD;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_FA;5529 SDC;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_FA;5530 NA-C;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_FA;5530 NA-F;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_FA;5620 NM;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_IP;5620 SAM;Alcatel-Lucent;5620 SAM Release 12.0 R3
+Multicore;Packet Core;PCRF;5780 DSC;Alcatel-Lucent;
+Multicore;Converged Core;NGN/IMS/MGW;5900 MRF;Alcatel-Lucent;
+Multicore;Converged Core;NGN/IMS/MGW;5900 PRBT;Alcatel-Lucent;
+VAS/NEMS;VAS;VAS_APPS;5900 SRP;Alcatel-Lucent;
+RAN;(NR) 5G;Base Station;5G-BTS;Nokia;ASIA
+Transmission;WTD/Microwave;Microwave;6391;Ericsson;
+Transmission;WTD/Microwave;Microwave;6691;Ericsson;
+Transmission;WTD/Microwave;Microwave;6692;Ericsson;
+Transmission;WTD/Microwave;Microwave;6693;Ericsson;
+FAIP;IP Core Backbone;Switch;7150 Series;Arista;
+FAIP;IP Backhaul;Switch;7210 SAS;Alcatel-Lucent;7210 SAS-E
+FAIP;IP Backhaul;Switch;7210 SAS;Alcatel-Lucent;7210 SAS-D
+FAIP;IP Backhaul;Switch;7210 SAS;Alcatel-Lucent;7210 SAS-R6
+FAIP;IP Backhaul;Switch;7210 SAS;Alcatel-Lucent;7210 SAS-T
+FAIP;IP Backhaul;Switch;7210 SAS;Alcatel-Lucent;7210 SAS-R-E
+FAIP;IP Backhaul;Switch;7210 SAS;Alcatel-Lucent;7210 SAS-K
+FAIP;IP Backhaul;Switch;7210 SAS;Alcatel-Lucent;7210 SAS-Mxp
+FAIP;IP Backhaul;Switch;7210 SAS;Alcatel-Lucent;7210 SAS-M
+FAIP;IP Core Backbone;Core Router;7250 IXR;Nokia;
+FAIP;Fixed Access;DSLAM;7300 ASAM;Alcatel-Lucent;
+FAIP;Fixed Access;DSLAM;7302 ISAM;Alcatel-Lucent;7302 ISAM-XD
+FAIP;Fixed Access;DSLAM;7302 ISAM;Alcatel-Lucent;7302 ISAM-FD
+FAIP;Fixed Access;DSLAM;7302 ISAM;Alcatel-Lucent;7302 ISAM GPON
+FAIP;Fixed Access;DSLAM;7302 ISAM;Alcatel-Lucent;7302 ISAM OLT
+FAIP;Fixed Access;DSLAM;7302 ISAM;Alcatel-Lucent;7302 ISAM-XD DSL
+FAIP;Fixed Access;DSLAM;7302 ISAM;Alcatel-Lucent;7302 ISAM-FD DSL
+FAIP;Fixed Access;DSLAM;7330 ISAM;Alcatel-Lucent;7330 ISAM FTTN
+FAIP;Fixed Access;DSLAM;7340 FTTU;Alcatel-Lucent;
+FAIP;Fixed Access;DSLAM;7360 ISAM FX;Alcatel-Lucent;7360 ISAM FX-4 GPON
+FAIP;Fixed Access;DSLAM;7360 ISAM FX;Alcatel-Lucent;7360 ISAM FX-8 GPON
+FAIP;Fixed Access;DSLAM;7360 ISAM FX;Alcatel-Lucent;7360 ISAM FX-16 GPON
+FAIP;Fixed Access;DSLAM;7360 ISAM FX;Alcatel-Lucent;7360 ISAM FX-12 GPON
+FAIP;Fixed Access;DSLAM;7362 ISAM DF;Alcatel-Lucent;7362 ISAM DF-16GW
+FAIP;Fixed Access;DSLAM;7362 ISAM DF-16GW;Alcatel-Lucent;
+FAIP;Fixed Access;DSLAM;7367 ISAM SX/DX;Alcatel-Lucent;7367 ISAM SX DSL
+FAIP;IP Core Backbone;Core Router;7450 ESS;Alcatel-Lucent;7450 ESS-1
+FAIP;IP Core Backbone;Core Router;7450 ESS;Alcatel-Lucent;7450 ESS-7
+FAIP;IP Core Backbone;Core Router;7450 ESS;Alcatel-Lucent;7450 ESS-12
+Transmission;FR/ATM;ATM;7470 MSP;Nokia;
+Multicore;Packet Core;GGSN;7500 GGSN;Alcatel-Lucent;
+Multicore;Packet Core;SGSN;7500 SGSN;Alcatel-Lucent;
+Multicore;Converged Core;NGN/IMS/MGW;7510 MGW;Alcatel-Lucent;
+Multicore;Converged Core;NGN/IMS/MGW;7540 WMG;Alcatel-Lucent;
+Multicore;Converged Core;NGN/IMS/MGW;7549 MGW;Alcatel-Lucent;
+Transmission;FR/ATM;ATM;7670 RSP;Nokia;
+FAIP;IP Core Backbone;Core Router;7705 SAR;Alcatel-Lucent;7705 SAR-F
+FAIP;IP Core Backbone;Core Router;7705 SAR;Alcatel-Lucent;7705 SAR-8
+FAIP;IP Core Backbone;Core Router;7705 SAR;Alcatel-Lucent;7705 SAR-18
+FAIP;IP Core Backbone;Core Router;7705 SAR;Alcatel-Lucent;7705 SAR-A
+FAIP;IP Core Backbone;Core Router;7705 SAR;Alcatel-Lucent;7705 SAR-X
+FAIP;IP Core Backbone;Core Router;7710 SR;Alcatel-Lucent;
+FAIP;IP Core Backbone;Core Router;7750 SR;Alcatel-Lucent;7750 SR-7
+FAIP;IP Core Backbone;Core Router;7750 SR;Alcatel-Lucent;7750 SR-12
+FAIP;IP Core Backbone;Core Router;7750 SR;Alcatel-Lucent;7750 SR-1
+FAIP;IP Core Backbone;Core Router;7750 SR;Alcatel-Lucent;7750 SR-c12
+FAIP;IP Core Backbone;Core Router;7750 SR;Alcatel-Lucent;7750 SR-a8
+FAIP;IP Core Backbone;Core Router;7750 SR;Alcatel-Lucent;7750 SR-a4
+FAIP;IP Core Backbone;Core Router;7750 SR;Alcatel-Lucent;7750 SR-12e
+FAIP;IP Core Backbone;Core Router;7750 SR;Alcatel-Lucent;7750 SR-3e
+FAIP;IP Core Backbone;Core Router;7750 SR;Alcatel-Lucent;7750 SR-2e
+VAS/NEMS;NEMS;NEMS_IP;7810 VX;Alcatel-Lucent;7810 VxTC
+FAIP;IP Core Backbone;Core Router;7950 XRS;Alcatel-Lucent;7950 XRS-20
+VAS/NEMS;VAS;VAS_TELCO;8610 ICC;Alcatel-Lucent;
+Multicore;Converged Core;NGN/IMS/MGW;8615 IeCCF;Alcatel-Lucent;
+VAS/NEMS;VAS;VAS_TELCO;8620 SurePay;Alcatel-Lucent;
+Multicore;Converged Core;HSS, Services;8650 SDM;Alcatel-Lucent;8650 SDM HSS
+Multicore;Converged Core;HSS, Services;8650 SDM;Alcatel-Lucent;8650 SDM HLR
+Multicore;Converged Core;HSS, Services;8650 SDM Expert;Alcatel-Lucent;
+VAS/NEMS;VAS;VAS_TELCO;8690 OSP;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_IP;8915 GSEM;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_NPR;8920 SQM;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_IP;8950 AAA;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_MOB;8950 Motive SAM;Alcatel-Lucent;
+VAS/NEMS;VAS;VAS_TELCO;8965 C3S;Alcatel-Lucent;
+VAS/NEMS;VAS;VAS_APPS;8985 MP;Alcatel-Lucent;
+RAN;GSM (2G);BTS;9100 BTS;Alcatel-Lucent;9110 mBTS
+RAN;GSM (2G);BTS;9100 MBS;Alcatel-Lucent;MBO2
+RAN;GSM (2G);BSC;9120 BSC;Alcatel-Lucent;
+RAN;GSM (2G);Repeater, Transcoder;9125 TC;Alcatel-Lucent;
+RAN;GSM (2G);BSC;9130 BSC;Alcatel-Lucent;ATERMUX
+RAN;GSM (2G);MFS;9130 MFS;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_MOB;9153 OMC-R;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_NPR;9159 NPO;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_MOB;9253 OMC-RAN;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_MOB;9254 OMC-RAN Compact;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_MOB;9290 MM;Alcatel-Lucent;
+RAN;WCDMA/UMTS (3G);NodeB;9311 Macro NodeB;Alcatel-Lucent;9315 Street NodeB
+RAN;WCDMA/UMTS (3G);NodeB;9312 Compact NodeB;Alcatel-Lucent;
+RAN;WCDMA/UMTS (3G);NodeB;9313 Micro NodeB;Alcatel-Lucent;
+RAN;WCDMA/UMTS (3G);NodeB;9326 d2U NodeB;Alcatel-Lucent;9326 digital 2U Node B-V2
+RAN;WCDMA/UMTS (3G);NodeB;9326 d2U NodeB;Alcatel-Lucent;U2100
+RAN;WCDMA/UMTS (3G);NodeB;9326 d2U/d4U;Alcatel-Lucent;
+RAN;WCDMA/UMTS (3G);NodeB;9341 RRH;Alcatel-Lucent;
+RAN;Small Cells;Femto, BSG, CPE, IPC;9352 WPS Small Cells;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_MOB;9353 WMS;Alcatel-Lucent;
+RAN;Small Cells;Femto, BSG, CPE, IPC;9353 WMS Small Cells;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_NPR;9359 NPO;Alcatel-Lucent;
+Multicore;Packet Core;LTE Packet Gateway;9365 BSR Gateway;Alcatel-Lucent;
+RAN;WCDMA/UMTS (3G);RNC;9370 RNC;Alcatel-Lucent;9370 RNC 1500
+RAN;WCDMA/UMTS (3G);NodeB;939x NodeB;Alcatel-Lucent;
+Transmission;WTD/Microwave;Microwave;9400 AWY;Alcatel-Lucent;
+Transmission;WTD/Microwave;Microwave;9400 AWY_Link;Alcatel-Lucent;
+Multicore;Packet Core;SGSN;9471 WMM;Alcatel-Lucent;
+Transmission;WTD/Microwave;Microwave;9500 MPR;Alcatel-Lucent;
+Transmission;WTD/Microwave;Microwave;9500 MPR_Link;Alcatel-Lucent;
+Transmission;WTD/Microwave;Microwave;9500 MPT;Alcatel-Lucent;
+Transmission;WTD/Microwave;Microwave;9500 MSS;Alcatel-Lucent;
+Transmission;WTD/Microwave;Microwave;9500 MXC;Alcatel-Lucent;
+Transmission;WTD/Microwave;Microwave;9500 MXC_Link;Alcatel-Lucent;
+Transmission;WTD/Microwave;Microwave;9600 LSY;Alcatel-Lucent;
+Transmission;WTD/Microwave;Microwave;9600 LSY_Link;Alcatel-Lucent;
+Transmission;WTD/Microwave;Microwave;9600 USY;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_NPR;9900 WNG;Alcatel-Lucent;
+RAN;WCDMA/UMTS (3G);NodeB;9926 DBS-WCDMA;Alcatel-Lucent;
+RAN;WCDMA/UMTS (3G);NodeB;9941 Smart Base Station;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_NPR;9959 NPO;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_IP;9981 CMS;Alcatel-Lucent;
+Multicore;Converged Core;HSS, Services;AAA;Nokia;
+Multicore;Converged Core;NGN/IMS/MGW;Acme Packet Net-Net 4000;Acme Packet;Net-Net 4500
+FAIP;IP Security;Firewall;Acme Packet Net-Net 9000;Acme Packet;Net-Net 9200
+VAS/NEMS;NEMS;NEMS_IP;Acme Packet Net-Net EMS;Acme Packet;
+Cloud;Infrastructure;Hardware;AirFrame;Nokia;
+RAN;LTE (4G);eNodeB;AirScale;Nokia;
+RAN;GSM (2G);BSC;AirScale BSC;Nokia;
+RAN;WCDMA/UMTS (3G);RNC;AirScale RNC;Nokia;
+Transmission;WTD/Microwave;Microwave;AMM 20P;Ericsson;
+Transmission;WTD/Microwave;Microwave;AMM 20PB;Ericsson;
+Transmission;WTD/Microwave;Microwave;AMM 2P;Ericsson;
+Transmission;WTD/Microwave;Microwave;AMM 2PB;Ericsson;
+Transmission;WTD/Microwave;Microwave;AMM 6P;Ericsson;
+Transmission;WTD/Microwave;Microwave;AMM 6PB;Ericsson;
+Transmission;WTD/Microwave;Microwave;AMM 6PC;Ericsson;
+Transmission;WTD/Microwave;Microwave;AMM 6PD;Ericsson;
+Transmission;WTD/Microwave;Microwave;Antenna;generic;
+VAS/NEMS;VAS;VAS_TELCO;APIGW;generic;
+Multicore;Wireless Core;HLR/VLR;APZ 212 40;Ericsson;
+Multicore;Wireless Core;MSC/MSS;APZ 212 50;Ericsson;
+Multicore;Wireless Core;HLR/VLR;APZ 212 60;Ericsson;
+Multicore;Wireless Core;MSC/MSS;APZ 214;Ericsson;
+Transmission;WTD/Microwave;Router;AR3260;Huawei;
+FAIP;IP Security;DDOS;Arbor Peakflow;Arbor;
+FAIP;IP Core Backbone;Switch;Aruba 2530;Hewlett Packard;
+Multicore;Converged Core;NGN/IMS/MGW;ATCA-V2;Alcatel-Lucent;
+Transmission;WTD/Microwave;Router;ATN910B;Huawei;
+Transmission;WTD/Microwave;Router;ATN910C;Huawei;
+Transmission;WTD/Microwave;Microwave;ATN910I;Huawei;
+Transmission;WTD/Microwave;Microwave;ATN950C;Huawei;
+Multicore;Converged Core;OCS;Avantel Equipment;Nokia;
+FAIP;IP Core Backbone;Load Balancer, WAN Optimization, Terminal Server;AX 3000;A10 Networks;
+FAIP;IP Core Backbone;Load Balancer, WAN Optimization, Terminal Server;AX 5200;A10 Networks;
+RAN;Multi Techno;Repeater, Transcoder;Axell CSF;Axell Wireless;
+VAS/NEMS;VAS;VAS_TELCO;Azure;generic;
+Transmission;SDH/PDH;Multiplexer;BG-20;ECI Networks;
+Transmission;SDH/PDH;Multiplexer;BG-30;ECI Networks;
+Transmission;SDH/PDH;Multiplexer;BG-30E;ECI Networks;
+Transmission;SDH/PDH;Multiplexer;BG-40;ECI Networks;
+Transmission;SDH/PDH;Multiplexer;BG-64;ECI Networks;
+VAS/NEMS;VAS;VAS_TELCO;BI Technology;generic;
+FAIP;IP Security;IPSec;Blue Coat Director;Blue Coat Systems;
+FAIP;IP Security;Proxy;Blue Coat ProxySG;Blue Coat Systems;SG9000-20
+FAIP;IP Security;Proxy;Blue Coat ProxySG;Blue Coat Systems;ProxySG 9000
+VAS/NEMS;NEMS;NEMS_VOIP;Broadsoft Traces Server;BroadSoft;
+Multicore;Converged Core;NGN/IMS/MGW;BroadWorks;BroadSoft;
+Multicore;Converged Core;NGN/IMS/MGW;BroadWorks Application Server;BroadSoft;
+Multicore;Converged Core;NGN/IMS/MGW;BroadWorks EMS;BroadSoft;
+Multicore;Converged Core;NGN/IMS/MGW;BroadWorks Media Server;BroadSoft;
+Multicore;Converged Core;NGN/IMS/MGW;BroadWorks Network Server;BroadSoft;
+Multicore;Converged Core;NGN/IMS/MGW;BroadWorks Profile Server;BroadSoft;
+Multicore;Converged Core;NGN/IMS/MGW;BroadWorks Web Server;BroadSoft;
+RAN;GSM (2G);BSC;BSC3i;Nokia;
+RAN;GSM (2G);BSC;BSC6900;Huawei;
+RAN;WCDMA/UMTS (3G);NodeB;BSC6900-UMTS;Huawei;
+RAN;WCDMA/UMTS (3G);RNC;BSC6910;Huawei;
+RAN;GSM (2G);BSC;BSC-Ericsson;Ericsson;
+RAN;GSM (2G);BSC;BSC-Huawei;Huawei;
+RAN;GSM (2G);BSC;BSC-Nokia;Nokia;
+RAN;GSM (2G);BSC;BSC-ZTE;ZTE;
+RAN;LTE (4G);eNodeB;BTS3900 LTE;Huawei;
+RAN;GSM (2G);BTS;BTS-Ericsson;Ericsson;
+RAN;GSM (2G);BTS;BTS-Huawei;Huawei;
+RAN;GSM (2G);BTS;BTS-Nokia;Nokia;
+RAN;GSM (2G);BTS;BTS-ZTE;ZTE;
+VAS/NEMS;VAS;VAS_TELCO;BulkSMS;generic;
+VAS/NEMS;VAS;VAS_TELCO;BVS;generic;
+VAS/NEMS;VAS;VAS_APPS;Bytemobile Unison;Bytemobile Unison;
+FAIP;IP Core Backbone;Switch;Catalyst 2960-S Series;Cisco Systems Inc;
+FAIP;IP Core Backbone;Switch;Catalyst 3560 Series;Cisco Systems Inc;
+FAIP;IP Core Backbone;Switch;Catalyst 3750 Series;Cisco Systems Inc;
+FAIP;Fixed Access;Switch;Catalyst 3850 Series;Cisco Systems Inc;
+FAIP;IP Core Backbone;Switch;Catalyst 4500 Series;Cisco Systems Inc;
+FAIP;IP Core Backbone;Switch;Catalyst 4900 Series;Cisco Systems Inc;
+FAIP;IP Core Backbone;Switch;Catalyst 6500 Series;Cisco Systems Inc;
+Cloud;Infrastructure;Hardware;CB;Dell;
+Cloud;Application;Management;CBAM;Nokia;
+Cloud;Infrastructure;Software;CBIS;Nokia;
+Cloud;Management;Orchestrator;CBND;Nokia;
+VAS/NEMS;VAS;VAS_IN;CBS-Huawei;Huawei;
+OSS/BSS;OSS;NEMS_COR;CDP;ZEOP;
+Multicore;Converged Core;NGN/IMS/MGW;CDS;Nokia;
+FAIP;IP Core Backbone;Switch;CE12800;Huawei;
+OSS/BSS;OSS;Security;CentOS;Linux;
+Multicore;Converged Core;VoLTE;CFX-5000;Nokia;
+Multicore;Packet Core;CG;CG-Huawei;Huawei;
+Multicore;Converged Core;HSS, Services;CGNAT;Nokia;
+VAS/NEMS;VAS;VAS_TELCO;CGW;ZTE;
+Multicore;Wireless Core;CG;CG-Wireless Core;ZTE;
+Multicore;Packet Core;CG;CG-ZTE;ZTE;
+FAIP;IP Security;Firewall;Check Point IP Appliances;Check Point;
+VAS/NEMS;NEMS;NEMS_FA;Circee;Alcatel-Lucent;
+FAIP;IP Core Backbone;Core Router;Cisco 1800 Series;Cisco Systems Inc;1841
+FAIP;IP Core Backbone;Switch;Cisco 2600 Series;Cisco Systems Inc;
+FAIP;IP Core Backbone;Core Router;Cisco 2800 Series;Cisco Systems Inc;
+FAIP;IP Core Backbone;Switch;Cisco 3700 Series;Cisco Systems Inc;3750
+FAIP;IP Core Backbone;Switch;Cisco 3700 Series;Cisco Systems Inc;Catalyst 3750
+FAIP;IP Core Backbone;Switch;Cisco 3800 Series;Cisco Systems Inc;
+FAIP;IP Core Backbone;Router;Cisco 3900 Series;Cisco Systems Inc;
+FAIP;IP Core Backbone;Core Router;Cisco 7200 Series;Cisco Systems Inc;
+FAIP;IP Core Backbone;Core Router;Cisco 7600 Series;Cisco Systems Inc;
+FAIP;IP Core Backbone;Core Router;Cisco 800 Series;Cisco Systems Inc;
+FAIP;IP Core Backbone;Load Balancer, WAN Optimization, Terminal Server;Cisco ACE;Cisco Systems Inc;
+FAIP;IP Security;Firewall;Cisco ASA 5500 Series;Cisco Systems Inc;
+FAIP;IP Core Backbone;Router;Cisco ASA 5585-X;Cisco Systems Inc;
+FAIP;IP Core Backbone;Core Router;Cisco ASR 1000 Series;Cisco Systems Inc;
+Multicore;Packet Core;SGSN;Cisco ASR 5000 Series;Cisco Systems Inc;
+FAIP;IP Core Backbone;Core Router;Cisco ASR 900 Series;Cisco Systems Inc;
+FAIP;IP Core Backbone;Core Router;Cisco ASR 9000 Series;Cisco Systems Inc;
+FAIP;IP Security;Load Balancer, WAN Optimization, Terminal Server;Cisco Content Services Gateway;Cisco Systems Inc;
+FAIP;IP Core Backbone;Core Router;Cisco CRS Series 4;Cisco Systems Inc;
+FAIP;IP Security;Load Balancer, WAN Optimization, Terminal Server;Cisco CSS 11500 Series;Cisco Systems Inc;
+FAIP;IP Core Backbone;Core Router;Cisco ME 3400 Series;Cisco Systems Inc;ME 3400-24TS-D
+FAIP;IP Core Backbone;Router;Cisco Nexus 9000 Series;Cisco Systems Inc;
+VAS/NEMS;NEMS;NEMS_MOB;Cisco Prime;Cisco Systems Inc;
+FAIP;IP Core Backbone;Wireless LAN Controllers;Cisco Wireless LAN Controllers;Cisco Systems Inc;
+FAIP;IP Core Backbone;Core Router;Cisco xxxx Series;Cisco Systems Inc;
+Multicore;Packet Core;LTE Packet Gateway;Cloud Mobile Gateway;Alcatel-Lucent;
+Multicore;Packet Core;CMD;CMD;Nokia;
+Multicore;Packet Core;CMG;CMG;Nokia;
+OSS/BSS;BSS;Business Intelligence;CMP;Mavoco;
+Multicore;Converged Core;VoLTE;CM-Repository;Nokia;
+VAS/NEMS;VAS;VAS_TELCO;CMS;Mobisoft;
+Multicore;Converged Core;HSS, Services;CMS 8200;Nokia;
+FAIP;Fixed Access;DSLAM;Conklin FASTmux2000;Conklin Corporation;
+Transmission;WTD/Microwave;Microwave;Connector;Ericsson;
+WLS Core;MPBN;Router;Core Router-Ericsson;Ericsson;
+WLS Core;MPBN;Router;Core Router-Huawei;Huawei;
+WLS Core;MPBN;Router;Core Router-Juniper;Juniper Networks Inc.;
+WLS Core;MPBN;Router;Core Router-Nokia;Nokia;
+WLS Core;MPBN;Router;Core Router-Redback;Ericsson;
+WLS Core;MPBN;Router;Core Router-ZTE;ZTE;
+WLS Core;MPBN;Switch;Core Switch-Ericsson;Ericsson;
+WLS Core;MPBN;Switch;Core Switch-Extreme;Extreme Networks;
+WLS Core;MPBN;Switch;Core Switch-Huawei;Huawei;
+WLS Core;MPBN;Switch;Core Switch-Nokia;Nokia;
+WLS Core;MPBN;Switch;Core Switch-ZTE;ZTE;
+Multicore;Wireless Core;CPG;CPG-Huawei;Huawei;
+FAIP;Fixed Access;Grooming Mux;CPSMC1800;Transition Networks;
+VAS/NEMS;VAS;VAS_TELCO;CRM;generic;
+Cloud;Application;Software;CSD;Nokia;
+OSS/BSS;OSS;Configuration;CSM;Linux;
+Transmission;WTD/Microwave;Router;CTR 8540;Aviat;
+Multicore;Wireless Core;CTS;CTS-ZTE;ZTE;
+Transmission;WTD/Microwave;Router;CX600;Huawei;
+RAN;Multi Techno;Base Station;DBS3900;Huawei;
+RAN;GSM (2G);BTS;DBS3900-GSM;Huawei;
+RAN;WCDMA/UMTS (3G);NodeB;DBS3900-UMTS;Huawei;
+VAS/NEMS;VAS;VAS_TELCO;DC_Infra;generic;
+Multicore;Packet Core;PCRF;DCS;Nokia;
+Multicore;Wireless Core;MVNO;DDE;Nokia;
+OSS/BSS;OSS;Configuration;Dell 3048;Dell;
+FAIP;IP Backhaul;Switch;Dell 4048;Dell;
+OSS/BSS;OSS;Configuration;Dell blade M630p;Dell;
+VAS/NEMS;NEMS;NEMS_IP;Dell OptiPlex;Dell;
+OSS/BSS;OSS;Configuration;Dell VRTX Chassis;Dell;
+FAIP;IP Backhaul;Switch;Dell Z9100;Dell;
+FAIP;IP Backhaul;Switch;Dell-switch;Dell;
+VAS/NEMS;VAS;VAS_TELCO;Digital SnSC;generic;
+Transmission;WTD/Microwave;Microwave;DMC Radio;DMC Stratex;
+Transmission;WTD/Microwave;Microwave;DMnG-100H, DMnG-1000H;Fujitsu;DM2G-1000H 8M (1x8M)
+Transmission;WTD/Microwave;Microwave;DMnG-100H, DMnG-1000H;Fujitsu;DM7G-100H (1x 34)
+Transmission;WTD/Microwave;Microwave;DMnG-100H, DMnG-1000H;Fujitsu;DMnG-100H (140) Repeater
+Transmission;WTD/Microwave;Microwave;DMnG-100H, DMnG-1000H;Fujitsu;DMnG-100H (140) Terminal
+Transmission;WTD/Microwave;Microwave;DMnG-100H, DMnG-1000H;Fujitsu;DMnG-100H (2 x34)
+Transmission;WTD/Microwave;Microwave;DMnG-100H, DMnG-1000H;Fujitsu;DM2G-1000H 16M DMR (2x8M)
+Transmission;WTD/Microwave;Microwave;DMnG-100H, DMnG-1000H;Fujitsu;DMnG-1000H (140) Repeater
+Transmission;WTD/Microwave;Microwave;DMnG-100H, DMnG-1000H;Fujitsu;DMnG-1000H (140) Terminal
+Transmission;WTD/Microwave;Microwave;DMnG-100H, DMnG-1000H;Fujitsu;DM7G-1000H (1x 34)
+Transmission;WTD/Microwave;Microwave;DMnG-100H, DMnG-1000H;Fujitsu;DMnG-1000H (2 x34)
+Cloud;Application;Software;DNS;InfoBlox;
+Multicore;Packet Core;DNS;DNS-Ericsson;Ericsson;
+Multicore;Packet Core;DNS;DNS-Huawei;Huawei;
+Transmission;WTD/Microwave;Microwave;DR+ Radio;Tadiran Microwave;
+Multicore;Converged Core;VoLTE;DRA;Nokia;
+VAS/NEMS;VAS;VAS_TELCO;EAO;generic;
+OSS/BSS;OSS;Workflow;ECCNMC Pager;custom;
+Transmission;WTD/Microwave;Microwave;Eclipse;Aviat;Eclipse INU
+Transmission;WTD/Microwave;Microwave;Eclipse;Aviat;Eclipse IDU
+FAIP;Fixed Access;Switch;Eclipse INU;Aviat;
+VAS/NEMS;NEMS;NEMS_MOB;EdenNet;Nokia;EN18
+VAS/NEMS;VAS;VAS_TELCO;EDW Operations;generic;
+Multicore;Wireless Core;EIR;EIR-HP;Hewlett Packard;
+VAS/NEMS;NEMS;NEMS_IP;EMM;Alcatel-Lucent;
+Multicore;Converged Core;VoLTE;EMS;Nokia;
+VAS/NEMS;NEMS;NEMS_IP;EMS VBX Series;EMC;
+RAN;LTE (4G);eNodeB;eNodeB-Ericsson;Ericsson;
+RAN;LTE (4G);eNodeB;eNodeB-Huawei;Huawei;
+RAN;LTE (4G);eNodeB;eNodeB-Nokia;Nokia;
+RAN;LTE (4G);eNodeB;eNodeB-ZTE;ZTE;
+Cloud;Application;Management;eSight;Huawei;
+VAS/NEMS;VAS;VAS_TELCO;eSM;Alcatel-Lucent;
+OSS/BSS;OSS;Workflow;ESXi;VMWare;
+FAIP;IP Backhaul;Switch;ETM;ZTE;
+Transmission;WTD/Microwave;Microwave;ETU-Card;Ericsson;
+Multicore;Converged Core;Mediation;EventLink;Comptel;
+Transmission;WTD/Microwave;Microwave;EVOLUTION;Ceragon;
+Transmission;WTD/Microwave;Microwave;Evolution XPAND IP;Ceragon;
+VAS/NEMS;NEMS;NEMS_VOIP;Exfo Verifier;EXFO;Exfo BV4100
+VAS/NEMS;NEMS;NEMS_VOIP;Exfo Verifier;EXFO;Exfo BV4220
+VAS/NEMS;NEMS;NEMS_VOIP;Exfo Verifier;EXFO;Exfo BV4230
+OSS/BSS;OSS;Performance;Expandium QATS Railway;EMC;
+FAIP;IP Security;IP Sec Switch;F5 BIG-IP Application Switches;F5 Networks;
+FAIP;IP Core Backbone;Load Balancer, WAN Optimization, Terminal Server;F5 BIG-IP LoadBalancer 520;F5 Networks;
+FAIP;IP Security;Load Balancer, WAN Optimization, Terminal Server;F5 VIPRION;F5 Networks;
+FAIP;IP Security;Load Balancer, WAN Optimization, Terminal Server;F5-VIPRION;F5 Networks;
+OSS/BSS;OSS;Configuration;FAIMS;Axios Systems;
+Transmission;WTD/Microwave;Microwave;FAN;Ericsson;
+VAS/NEMS;NEMS;NEMS_FA;FastView;Conklin Corporation;
+Multicore;Wireline Core;PSTN Class 4/5 Switch;Feature Server 2500;Alcatel-Lucent;
+OSS/BSS;OSS;Configuration;FFI;Comptel;
+Transmission;WTD/Microwave;Microwave;FibeAir 3200T;Ceragon;
+Transmission;WTD/Microwave;Microwave;FibeAir IP-10;Ceragon;
+Transmission;WTD/Microwave;Microwave;Fiber;Ericsson;
+FAIP;IP Security;Firewall;Firewall;generic;
+WLS Core;MPBN;Firewall;Firewall-Ericsson;Ericsson;
+WLS Core;MPBN;Firewall;Firewall-Huawei;Huawei;
+WLS Core;MPBN;Firewall;Firewall-Juniper;Juniper Networks Inc.;
+WLS Core;MPBN;Firewall;Firewall-Nokia;Nokia;
+RAN;GSM (2G);BSC;Flexi BSC;Nokia;
+RAN;GSM (2G);BTS;Flexi Edge BTS;Nokia;ESMA
+RAN;Multi Techno;SingleRAN;Flexi MultiRadio 10;Nokia;FSMF
+RAN;Multi Techno;SingleRAN;Flexi MultiRadio BTS;Nokia;FSME
+RAN;Multi Techno;SingleRAN;Flexi MultiRadio BTS;Nokia;ESMC
+RAN;GSM (2G);BTS;Flexi MultiRadio BTS - 2G;Nokia;
+RAN;WCDMA/UMTS (3G);NodeB;Flexi MultiRadio BTS - 3G;Nokia;
+RAN;GSM (2G);BTS;Flexi MultiRadio Metrosite;Nokia;
+Multicore;Packet Core;GGSN;Flexi NG;Nokia;
+Multicore;Packet Core;SGSN;Flexi NS;Nokia;
+RAN;WCDMA/UMTS (3G);NodeB;Flexi WCDMA;Nokia;
+Transmission;WTD/Microwave;Microwave;FlexiHybrid;Nokia;
+Transmission;WTD/Microwave;Microwave;FlexiPacket MultiRadio;Nokia;
+Multicore;Converged Core;HSS, Services;FlowOne;Nokia;
+VAS/NEMS;VAS;VAS_TELCO;FMS;generic;
+VAS/NEMS;NEMS;NEMS_FA;Focal Point;Transition Networks;
+FAIP;IP Security;IPSec;Fortinet FortiAnalyzer;Fortinet Inc.;
+FAIP;IP Security;Firewall;Fortinet FortiCarrier;Fortinet Inc.;FortiCarrier-3950B
+FAIP;IP Security;Firewall;Fortinet FortiGate;Fortinet Inc.;FortiGate-620B
+FAIP;IP Security;Firewall;Fortinet FortiGate;Fortinet Inc.;FortiGate-300C
+FAIP;IP Security;Firewall;Fortinet FortiGate;Fortinet Inc.;FortiGate-310B
+FAIP;IP Security;Firewall;Fortinet FortiGate;Fortinet Inc.;FortiGate-60D
+FAIP;IP Security;Firewall;Fortinet FortiGate;Fortinet Inc.;FortiGate-400D
+FAIP;IP Security;Firewall;Fortinet FortiGate;Fortinet Inc.;FortiGate-200D
+FAIP;IP Security;Firewall;Fortinet FortiGate;Fortinet Inc.;FortiGate-1000C
+FAIP;IP Security;Firewall;Fortinet FortiMail;Fortinet Inc.;Fortimail-100C
+FAIP;IP Security;IPSec;Fortinet FortiManager;Fortinet Inc.;FortiManager-100
+FAIP;IP Security;IPSec;Fortinet FortiWeb;Fortinet Inc.;FortiWeb-1000C
+Transmission;SDH/PDH;SDH;FOT 155;SAGEM;FOT 155C
+Transmission;SDH/PDH;SDH;FOT 155;SAGEM;FOT 155T
+Transmission;WTD/Microwave;Microwave;FPH800;Nokia;
+VAS/NEMS;VAS;VAS_TELCO;FS_MagicBox;generic;
+OSS/BSS;OSS;Configuration;FSS-Axios;Axios Systems;
+VAS/NEMS;NEMS;NEMS_IP;Fujitsu Siemens PRIMERGY;Fujitsu;PRIMERGY TX150
+Multicore;Packet Core;GGSN;GGSN-Ericsson;Ericsson;
+Multicore;Packet Core;GGSN;GGSN-Huawei;Huawei;
+Multicore;Packet Core;GGSN;GGSN-ZTE;ZTE;
+Multicore;Packet Core;DNS;GiDNS-ZTE;ZTE;
+VAS/NEMS;VAS;VAS_APPS;GIS;General Electric;
+OSS/BSS;OSS;Configuration;Globalviewer;Extron Electronics;
+Multicore;Converged Core;NGN/IMS/MGW;GMV3;Ericsson;
+Multicore;Converged Core;NGN/IMS/MGW;GMV4;Ericsson;
+VAS/NEMS;VAS;VAS_FA;Go-Global;GraphOn;
+VAS/NEMS;VAS;VAS_TELCO;Grafana-TPK;Grafana;
+Multicore;Signaling;STP;GW-STP;generic;
+VAS/NEMS;VAS;VAS_TELCO;H2H & Payroll;generic;
+Multicore;Wireless Core;HLR/VLR;HLR-Ericsson;Ericsson;
+VAS/NEMS;NEMS;NEMS_FA;Home Device Manager;Alcatel-Lucent;
+FAIP;IP Core Backbone;Switch;HP 5510;Hewlett Packard;
+FAIP;IP Core Backbone;Switch;HP 5930;Hewlett Packard;
+Multicore;Converged Core;HSS, Services;HSM;Ultimaco;
+Multicore;Converged Core;HSS, Services;HSS-Ericsson;Ericsson;
+Multicore;Converged Core;HSS, Services;HSS-FE;Nokia;
+Multicore;Converged Core;HSS, Services;HSS-Huawei;Huawei;
+Multicore;Converged Core;HSS, Services;HSS-ZTE;ZTE;
+Multicore;Packet Core;CACHE;ICACHE-Huawei;Huawei;
+Multicore;Packet Core;CACHE;ICACHE-ZTE;ZTE;
+OSS/BSS;OSS;Configuration;ICMS;Axios Systems;
+VAS/NEMS;VAS;VAS_TELCO;ICS;ZTE;
+Transmission;WTD/Microwave;Microwave;IF Cable;Ericsson;
+Multicore;Wireless Core;IGWB;iGWB;Huawei;
+VAS/NEMS;NEMS;NEMS_NPR;iManager PRS;Huawei;
+VAS/NEMS;NEMS;NEMS_MOB;iManager U2000_RAN;Huawei;
+VAS/NEMS;NEMS;NEMS_TX;iManager U2000_TRX;Huawei;
+Multicore;Converged Core;IMEIDB;IMEIDB;Nokia;
+Multicore;Converged Core;NGN/IMS/MGW;IMSHW;Nokia;
+VAS/NEMS;VAS;VAS_IN;IN;Huawei;
+Multicore;Packet Core;DNS;InfoBlox;Nokia;
+OSS/BSS;OSS;Workflow;INMS;custom;
+VAS/NEMS;NEMS;NEMS_IP;In-Sight;IN-Sight Technologies;
+Multicore;Converged Core;NGN/IMS/MGW;iNUM;Nokia;
+Multicore;Wireless Core;MVNO;iOMS;Nokia;
+Transmission;WTD/Microwave;Microwave;IP20;Ceragon;
+Transmission;WTD/Microwave;Microwave;IP-20N;Ceragon;
+Transmission;WTD/Microwave;Microwave;iPASOLINK;NEC;iPASOLINK 400
+Transmission;WTD/Microwave;Microwave;iPASOLINK;NEC;iPASOLINK VR4
+Transmission;WTD/Microwave;Microwave;iPASOLINK;NEC;iPASOLINK 1000
+Transmission;WTD/Microwave;Microwave;iPASOLINK;NEC;iPASOLINK 200
+VAS/NEMS;VAS;VAS_TELCO;IPCC-Huawei;Huawei;
+OSS/BSS;OSS;Performance;IPNet;Veronisoft;
+FAIP;Fixed Access;Multi Access Radio;IRT1500;Alcatel-Lucent;Central Station
+FAIP;Fixed Access;Multi Access Radio;IRT1500;Alcatel-Lucent;Terminal Station
+FAIP;Fixed Access;Multi Access Radio;IRT1500;Alcatel-Lucent;Repeater Station
+FAIP;Fixed Access;Multi Access Radio;IRT2000;Alcatel-Lucent;Central Station
+FAIP;Fixed Access;Multi Access Radio;IRT2000;Alcatel-Lucent;Repeater Station
+FAIP;Fixed Access;Multi Access Radio;IRT2000;Alcatel-Lucent;Terminal Station
+FAIP;Fixed Access;Multi Access Radio;IRT2000G;Alcatel-Lucent;Central Station
+FAIP;Fixed Access;Multi Access Radio;IRT2000G;Alcatel-Lucent;Terminal Station
+FAIP;Fixed Access;Multi Access Radio;IRT2000G;Alcatel-Lucent;Repeater Station
+Transmission;DWDM/OMSN;OMSN;ISA-ES;Alcatel-Lucent;ISA-ES16
+Transmission;DWDM/OMSN;OMSN;ISA-ES;Alcatel-Lucent;ES1-8FE
+Transmission;DWDM/OMSN;OMSN;ISA-ES;Alcatel-Lucent;ES4-8FE
+Multicore;Wireless Core;SBC;iSBC;Ribbon;
+VAS/NEMS;VAS;VAS_TELCO;iVAS;ZTE;
+VAS/NEMS;VAS;VAS_TELCO;JBoss;generic;
+FAIP;IP Core Backbone;Switch;Juniper EX Series;Juniper Networks Inc.;EX9200
+FAIP;IP Core Backbone;Switch;Juniper EX Series;Juniper Networks Inc.;EX9100
+FAIP;IP Core Backbone;Switch;Juniper EX Series;Juniper Networks Inc.;EX4500
+FAIP;IP Core Backbone;Switch;Juniper EX Series;Juniper Networks Inc.;EX4300
+FAIP;IP Core Backbone;Router;Juniper J 2320 Series;Juniper Networks Inc.;
+FAIP;IP Core Backbone;Router;Juniper MX Series;Juniper Networks Inc.;
+FAIP;IP Security;Firewall;Juniper NetScreen;Juniper Networks Inc.;NetScreen-500
+FAIP;IP Security;Firewall;Juniper SRX Series;Juniper Networks Inc.;SRX650
+RAN;GSM (2G);BSC;Kapsch BSC;Kapsch;
+RAN;GSM (2G);BTS;Kapsch BTS;Kapsch;
+OSS/BSS;OSS;Configuration;Kapsch OMC-R;Kapsch;
+FAIP;Fixed Access;Switch;LAN Switch (Server);generic;
+FAIP;Fixed Access;Switch;LAN Switch (WAN);generic;
+Transmission;WTD/Microwave;Microwave;Legacy TX PDH;generic;
+VAS/NEMS;VAS;VAS_TELCO;Liferay Portal;Liferay;
+Multicore;Wireless Core;LIG;LIG-Wireless Core;ZTE;
+Multicore;Packet Core;LIG;LIG-ZTE;ZTE;
+OSS/BSS;OSS;Configuration;LSM;Linux;
+FAIP;IP Security;Firewall;LSMS;Alcatel-Lucent;
+Transmission;SDH/PDH;SDH;Lucent ADM155C;Lucent;
+Multicore;Signaling;STP;MACH7-iSTP;Telesys;
+VAS/NEMS;VAS;VAS_TELCO;MagicBox;generic;
+VAS/NEMS;VAS;VAS_TELCO;MagicScreen;generic;
+RAN;GSM (2G);BSC;mcBSC;Nokia;
+RAN;WCDMA/UMTS (3G);RNC;mcRNC;Nokia;
+VAS/NEMS;VAS;VAS_APPS;MCTEL MMSC;MCTEL;
+VAS/NEMS;VAS;VAS_TELCO;Mediation;generic;
+Transmission;SDH/PDH;Synchronization;Meinberg LANTIME;Meinberg;LANTIME M300/GPS
+VAS/NEMS;VAS;VAS_TELCO;Messaging Gateway;Mobisoft;
+Multicore;Converged Core;NGN/IMS/MGW;MGCF;Ribbon;
+Multicore;Converged Core;NGN/IMS/MGW;MGW;Nokia;
+Multicore;Converged Core;NGN/IMS/MGW;MGW-Ericsson;Ericsson;
+Multicore;Converged Core;NGN/IMS/MGW;MGW-Huawei;Huawei;
+Multicore;Converged Core;NGN/IMS/MGW;MGW-ZTE;ZTE;
+VAS/NEMS;VAS;VAS_TELCO;MiddleWare;generic;
+VAS/NEMS;VAS;VAS_TELCO;Migration;generic;
+VAS/NEMS;VAS;VAS_TELCO;MiLife Application Server;Alcatel-Lucent;
+Multicore;Converged Core;NGN/IMS/MGW;MiLife eVPN;Alcatel-Lucent;
+Transmission;WTD/Microwave;Microwave;MINI-LINK Radio;Ericsson;MINI-LINK LH
+Transmission;WTD/Microwave;Microwave;MINI-LINK Radio;Ericsson;MINI-LINK TN
+Transmission;WTD/Microwave;Microwave;MINI-LINK Radio;Ericsson;MINI-LINK CN
+Transmission;WTD/Microwave;Microwave;MINI-LINK Radio;Ericsson;Mini-Link E 34M DMR (16x2M)
+Transmission;WTD/Microwave;Microwave;MINI-LINK Radio;Ericsson;Mini-Link E 36M DMR (17x2M)
+Transmission;WTD/Microwave;Microwave;MINI-LINK Radio;Ericsson;Mini-Link E 8M DMR (4x2M)
+Transmission;WTD/Microwave;Microwave;MINI-LINK Radio;Ericsson;MINI-LINK E
+FAIP;Fixed Access;xDSL;ML600;Actelis;ML628
+FAIP;Fixed Access;xDSL;ML600;Actelis;ML658
+FAIP;Fixed Access;xDSL;ML600;Actelis;ML658S
+Multicore;Packet Core;MME;MME;Nokia;
+Multicore;Packet Core;MME;MME-ZTE;ZTE;
+VAS/NEMS;VAS;VAS_TELCO;MMSC;ZTE;
+VAS/NEMS;VAS;VAS_APPS;MMSC ICS;Infinite Convergence;
+Transmission;WTD/Microwave;Microwave;MMU Card;Ericsson;
+Multicore;Converged Core;MNP;MNP FE;Nokia;
+Multicore;Converged Core;MNP;MNP MS/SM;Nokia;
+VAS/NEMS;NEMS;NEMS_IP;Motive AAA;Nokia;
+FAIP;IP Core Backbone;Switch;MRV-Switch;MRV;
+Multicore;Wireless Core;MSC/MSS;MSC;Nokia;
+Multicore;Wireless Core;MSC/MSS;MSC-Ericsson;Ericsson;
+FAIP;IP Core Backbone;Router;MSR3024;Hewlett Packard;
+Multicore;Wireless Core;MSC/MSS;MSS-Ericsson;Ericsson;
+Multicore;Wireless Core;MSC/MSS;MSS-Huawei;Huawei;
+Multicore;Wireless Core;MSC/MSS;MSS-Nokia;Nokia;
+Multicore;Wireless Core;MSC/MSS;MSS-ZTE;ZTE;
+Transmission;SDH/PDH;SDH;MXA1;SAGEM;MXA1 V1
+Transmission;SDH/PDH;SDH;MXA1;SAGEM;MTD SAT
+Transmission;SDH/PDH;SDH;MXA16;SAGEM;MXC16 CS3
+Transmission;SDH/PDH;SDH;MXA16;SAGEM;MXC16 CS2
+Transmission;SDH/PDH;SDH;MXA16;SAGEM;MXC16 CS2x
+Transmission;SDH/PDH;SDH;MXA4;SAGEM;
+VAS/NEMS;VAS;VAS_TELCO;Nagios;Nagios;
+VAS/NEMS;NEMS;NEMS_MOB;Navis Voice Activation Manager;Alcatel-Lucent;
+Multicore;Converged Core;HSS, Services;NCM;Nokia;
+Transmission;WTD/Microwave;Router;NE40E;Huawei;NE40E-X16A
+Transmission;WTD/Microwave;Router;NE40E;Huawei;NE40E-X3A
+Transmission;WTD/Microwave;Router;NE40E;Huawei;NE40E-X8A
+OSS/BSS;OSS;Configuration;NEBT;Nokia;
+FAIP;IP Security;Proxy;Net Optics Director;Net Optics;DIR5400DC
+FAIP;IP Core Backbone;TAP;Net Optics iLink;Net Optics;LA-2415-DC
+FAIP;IP Core Backbone;TAP;Net Optics iLink;Net Optics;LA-2408-DC
+FAIP;IP Core Backbone;TAP;Net Optics Span Regen Tap;Net Optics;
+VAS/NEMS;NEMS;NEMS_MOB;NetAct;Nokia;NA18
+OSS/BSS;OSS;Fault Management;Netcool Probe;IBM, Corp.;
+OSS/BSS;OSS;Inventory_GIS;NetMAP;GE Smallworld;
+Multicore;Converged Core;VoLTE;NetNumber;Nokia;
+OSS/BSS;OSS;Configuration;NetRec;custom;
+OSS/BSS;OSS;Inventory;NETSOC;custom;
+OSS/BSS;OSS;Fault Management;Netviewer;Nokia;
+VAS/NEMS;VAS;VAS_APPS;NewNet SMSC;NewNet;
+VAS/NEMS;VAS;VAS_APPS;NewNet SMServer;NewNet;
+VAS/NEMS;NEMS;NEMS_IP;NFM-P;Nokia;
+VAS/NEMS;NEMS;NEMS_TX;NFM-T;Nokia;
+VAS/NEMS;VAS;VAS_TELCO;NGIN Suite;Alcatel-Lucent;
+Multicore;Converged Core;HSS, Services;NLS;Nokia;
+RAN;WCDMA/UMTS (3G);NodeB;NodeB-Ericsson;Ericsson;
+RAN;WCDMA/UMTS (3G);NodeB;NodeB-Huawei;Huawei;
+RAN;WCDMA/UMTS (3G);NodeB;NodeB-Nokia;Nokia;
+RAN;WCDMA/UMTS (3G);NodeB;NodeB-ZTE;ZTE;
+OSS/BSS;OSS;Performance;Nokia Simulator;Nokia;
+OSS/BSS;OSS;Performance;NPM;Nokia;
+Transmission;SDH/PDH;Multiplexer;NPT-1200;ECI Networks;
+Transmission;SDH/PDH;Multiplexer;NPT-1600;ECI Networks;
+Transmission;WTD/Microwave;Microwave;NPU-Card;Ericsson;
+VAS/NEMS;NEMS;NEMS_IP;NSP;Nokia;
+Multicore;Wireless Core;HLR/VLR;NT-HLR;Nokia;
+Multicore;Wireless Core;HLR/VLR;NT-HLR-FE;Nokia;
+Cloud;Infrastructure;SDN;Nuage-WBX;Nokia;
+Multicore;Converged Core;VoLTE;OBGW;Nokia;
+Multicore;Converged Core;NGN/IMS/MGW;OMGW;Nokia;
+FAIP;IP Security;IP Sec Switch;OmniStack 6200;Alcatel-Lucent;OmniStack 6212
+FAIP;IP Security;IP Sec Switch;OmniStack 6200;Alcatel-Lucent;OmniStack 6224
+FAIP;IP Security;IP Sec Switch;OmniSwitch 10K;Alcatel-Lucent;
+FAIP;IP Security;IP Sec Switch;OmniSwitch 6250;Alcatel-Lucent;
+FAIP;IP Security;IP Sec Switch;OmniSwitch 6450;Alcatel-Lucent;
+FAIP;IP Security;IP Sec Switch;OmniSwitch 6600;Alcatel-Lucent;
+FAIP;IP Security;IP Sec Switch;OmniSwitch 6850;Alcatel-Lucent;OmniSwitch 6850-48
+FAIP;IP Security;IP Sec Switch;OmniSwitch 6850E;Alcatel-Lucent;
+FAIP;IP Security;IP Sec Switch;OmniSwitch 6855;Alcatel-Lucent;
+OSS/BSS;OSS;Configuration;OmniVista 2500/2700;Alcatel-Lucent;
+OSS/BSS;OSS;Configuration;OmniVista 8770;Alcatel-Lucent;
+VAS/NEMS;VAS;VAS_TELCO;OnBoardingPortal;generic;
+Multicore;Converged Core;NGN/IMS/MGW;One-EIR;Nokia;
+Multicore;Converged Core;NGN/IMS/MGW;One-NDS;Nokia;
+Transmission;DWDM/OMSN;OTN;OptiX Metro 1000;Huawei;
+Transmission;DWDM/OMSN;OTN;OptiX OSN 1500;Huawei;
+Transmission;DWDM/OMSN;OTN;OptiX OSN 1800;Huawei;OptiX OSN 1800
+Transmission;DWDM/OMSN;OTN;OptiX OSN 1800;Huawei;OptiX OSN 1800 V
+Transmission;DWDM/OMSN;OTN;OptiX OSN 2500;Huawei;
+Transmission;WTD/Microwave;Microwave;OptiX OSN 3500;Huawei;
+Transmission;WTD/Microwave;Microwave;OptiX OSN 550;Huawei;
+Transmission;DWDM/OMSN;OTN;OptiX OSN 7500;Huawei;
+Transmission;WTD/Microwave;Microwave;OptiX OSN 800;Huawei;
+Transmission;DWDM/OMSN;OTN;OptiX OSN 8800;Huawei;OptiX OSN 8800 T16
+Transmission;DWDM/OMSN;OTN;OptiX OSN 8800;Huawei;OptiX OSN 8800 T32
+Transmission;WTD/Microwave;Microwave;OptiX OSN 9800;Huawei;
+Transmission;WTD/Microwave;Microwave;OptiX PTN 3900;Huawei;
+Transmission;WTD/Microwave;Microwave;OptiX RTN 905;Huawei;
+Transmission;WTD/Microwave;Microwave;OptiX RTN 910;Huawei;
+Transmission;WTD/Microwave;Microwave;OptiX RTN 950;Huawei;
+Transmission;WTD/Microwave;Microwave;OptiX RTN 950A;Huawei;
+Transmission;WTD/Microwave;Microwave;OptiX RTN 980;Huawei;
+Multicore;Packet Core;OCS;OSC-Huawei;Huawei;
+Transmission;DWDM/OMSN;OTN;OSN8800;Huawei;T32
+VAS/NEMS;VAS;VAS_TELCO;OSS;generic;
+Multicore;Converged Core;VoLTE;OTAS;Nokia;
+FAIP;IP Security;Firewall;PA-220;Palo Alto;
+FAIP;IP Security;Firewall;PA-5220;Palo Alto;
+VAS/NEMS;NEMS;NEMS_MOB;Pandora FMS;Pandora;
+Transmission;WTD/Microwave;Microwave;PASOLINK;NEC;
+VAS/NEMS;VAS;VAS_TELCO;Password Manager;generic;
+Multicore;Packet Core;PCRF;PCRF-Huawei;Huawei;
+Multicore;Packet Core;PCRF;PCRF-ZTE;ZTE;
+Multicore;Packet Core;PCRF;PCS500;Optiva;
+Multicore;Packet Core;DNS;PDNS-Infblox/Huawei;Huawei;
+OSS/BSS;OSS;Performance;Pentaho;Pentaho;
+Transmission;SDH/PDH;SDH;Philips ADM155;Philips;
+FAIP;IP Core Backbone;DPI Platform;PL1000 Series;Procera Networks;
+FAIP;IP Core Backbone;DPI Platform;PL10000;Procera Networks;
+FAIP;IP Core Backbone;DPI Platform;PL20000 Series;Procera Networks;
+Transmission;WTD/Microwave;Microwave;PMP;CBNL;
+OSS/BSS;OSS;Fault Management;Prime;Cisco Systems Inc;
+VAS/NEMS;VAS;VAS_TELCO;Print Server;generic;
+FAIP;IP Core Backbone;DPI Platform;Procera PacketLogic;Procera Networks;
+VAS/NEMS;VAS;VAS_TELCO;Prometheus-TPK;Prometheus;
+VAS/NEMS;VAS;VAS_TELCO;Provident;generic;
+OSS/BSS;OSS;Performance;Provisio;Provisio Systems Ltd;
+VAS/NEMS;NEMS;NEMS_IP;Provisioning Server;generic;
+Multicore;Converged Core;VoLTE;PSX;Ribbon;
+Cloud;Infrastructure;Hardware;QFX/MX/LX;Juniper;
+Multicore;Packet Core;Radius;Radius;Ericsson;
+VAS/NEMS;VAS;VAS_APPS;Radware Alteon;Radware Ltd;Alteon 5412
+FAIP;IP Security;Proxy;Radware AppDirector;Radware Ltd;AppDirector_100
+FAIP;IP Core Backbone;Switch;Radware DefensePro 30420;Radware Ltd;
+FAIP;IP Core Backbone;Load Balancer, WAN Optimization, Terminal Server;Radware Loadbalancer;Radware Ltd;
+FAIP;IP Core Backbone;Switch;Radware x420 Series;Radware Ltd;
+Transmission;WTD/Microwave;Microwave;RAU;Ericsson;
+VAS/NEMS;VAS;VAS_TELCO;RBT;ZTE;
+Transmission;WTD/Microwave;Microwave;Repeater;generic;
+Transmission;WTD/Microwave;Microwave;RMM;Ericsson;
+VAS/NEMS;VAS;VAS_TELCO;RMO;generic;
+RAN;WCDMA/UMTS (3G);RNC;RNC-Ericsson;Ericsson;
+RAN;WCDMA/UMTS (3G);RNC;RNC-Huawei;Huawei;
+RAN;WCDMA/UMTS (3G);RNC;RNC-Nokia;Nokia;
+RAN;WCDMA/UMTS (3G);RNC;RNC-ZTE;ZTE;
+FAIP;IP Core Backbone;Switch;S2300;Huawei;
+FAIP;IP Backhaul;Switch;S3048;Dell;
+FAIP;IP Core Backbone;Switch;S5300;Huawei;
+Transmission;WTD/Microwave;Switch;S5328C-EI-24S;Huawei;
+VAS/NEMS;VAS;VAS_TELCO;SADM;Nokia;
+Multicore;Packet Core;SAE;SAE-GW;Nokia;
+RAN;LTE (4G);eNodeB;Samsung LTE;Samsung;
+Multicore;Packet Core;MME;Samsung MME;Samsung;
+Multicore;Packet Core;SAE;Samsung SAE-GW;Samsung;
+Multicore;Packet Core;PCRF;SAPC;Ericsson;
+OSS/BSS;OSS;Configuration;SBC;Linux;
+Multicore;Wireless Core;SBC;SBC-Huawei;Huawei;
+Multicore;Wireless Core;SBC;SBC-Nokia;Nokia;
+Multicore;Wireless Core;SBC;SBC-Oracle;Oracle, Corp.;
+Multicore;Wireless Core;SBC;SBC-ZTE;ZTE;
+RAN;Multi Techno;SingleRAN;SBTS-Ericsson;Ericsson;
+RAN;Multi Techno;SingleRAN;SBTS-ZTE;ZTE;
+VAS/NEMS;NEMS;NEMS_FA;Scorpio;Alcatel-Lucent;
+Multicore;Converged Core;HSS, Services;SDM;Nokia;
+VAS/NEMS;VAS;VAS_TELCO;SDP;ZTE;
+Multicore;Wireless Core;SBC;SE2900 CPG;Huawei;
+VAS/NEMS;VAS;VAS_TELCO;SecOps;generic;
+OSS/BSS;OSS;Security;Security Server;generic;
+FAIP;IP Security;Security;Security Service Stoke;Stroke;
+OSS/BSS;OSS;Configuration;Server;Linux;
+VAS/NEMS;NEMS;NEMS_IP;Service Portal;Alcatel-Lucent;
+Transmission;WTD/Microwave;Microwave;SFP module;Ericsson;
+Multicore;Packet Core;SGSN;SGSN-Ericsson;Ericsson;
+Multicore;Packet Core;SGSN;SGSN-Huawei;Huawei;
+Multicore;Packet Core;SGSN;SGSN-ZTE;ZTE;
+VAS/NEMS;VAS;VAS_TELCO;Siebel;generic;
+FAIP;IP Core Backbone;Switch;Silicom DDOS Switch IBS10G;Silicom;
+VAS/NEMS;VAS;VAS_TELCO;Sip/EzProv;generic;
+VAS/NEMS;VAS;VAS_TELCO;SMSC;ZTE;
+VAS/NEMS;VAS;VAS_APPS;SMSC ICS;Infinite Convergence;
+VAS/NEMS;VAS;VAS_APPS;SMSC-Jinny;Jinny;
+FAIP;IP Security;Firewall;SN310;Stormshield;SN310
+VAS/NEMS;NEMS;NEMS_TX;SO-EM;Ericsson;DMR 23GHz
+Transmission;WTD/Microwave;Microwave;SolarWinds;SolarWinds;
+RAN;Multi Techno;Repeater, Transcoder;SOLiD DAU;SOLiD;
+VAS/NEMS;NEMS;NEMS_MOB;SOLiD DMS3000;SOLiD;
+RAN;Multi Techno;Repeater, Transcoder;SOLiD HCU;SOLiD;
+RAN;Multi Techno;Repeater, Transcoder;SOLiD HRN;SOLiD;
+RAN;Multi Techno;Repeater, Transcoder;SOLiD LRN;SOLiD;
+Transmission;WTD/Microwave;Microwave;SP110;Ericsson;
+VAS/NEMS;VAS;VAS_TELCO;SPAMDB;ZTE;
+FAIP;Fixed Access;Splitter;Splitter Level 1;generic;
+FAIP;Fixed Access;Splitter;Splitter Level 2;generic;
+OSS/BSS;BSS;Business Intelligence;Splunk;Splunk;
+Multicore;Converged Core;HSS, Services;SPR;ZTE;
+Multicore;Signaling;STP;SPS;Huawei;
+Multicore;Signaling;STP;SPS-Nokia;Nokia;
+FAIP;Fixed Access;Multi Access Radio;SR 500-IP;SR Telecom;Central Station
+FAIP;Fixed Access;Multi Access Radio;SR 500-IP;SR Telecom;Terminal Station
+FAIP;Fixed Access;Multi Access Radio;SR 500-IP;SR Telecom;Repeater Station
+Transmission;SDH/PDH;SDH;SRT;Nokia;
+OSS/BSS;OSS;Configuration;SSM;Linux;
+Cloud;Application;Software;STP;Telesys;
+Multicore;Signaling;STP;STP TITAN;NetNumber;
+Multicore;Signaling;STP;STP-Huawei;Huawei;
+Multicore;Signaling;STP;STP-Tekelec;Tekelec;
+Multicore;Signaling;STP;STP-ZTE;ZTE;
+VAS/NEMS;VAS;VAS_TELCO;StreamWIDE VMS;StreamWIDE;
+Cloud;Infrastructure;Hardware;Switch;Dell;
+Transmission;SDH/PDH;Synchronization;Symmetricom TimeProvider;Symmetricom;
+VAS/NEMS;NEMS;NEMS_IP;TDM ComNode;TDM;
+VAS/NEMS;NEMS;NEMS_VOIP;TDM SFT;TDM;
+Multicore;Signaling;STP;Tektronix GeoProbe;Tektronix;
+VAS/NEMS;VAS;VAS_TELCO;Telenor Velocity;generic;
+OSS/BSS;OSS;Workflow;Terminal Server;generic;
+VAS/NEMS;NEMS;NEMS_FA;TIAMS;Nokia;
+VAS/NEMS;VAS;VAS_TELCO;Tibco;generic;
+OSS/BSS;OSS;Configuration;TLRD;custom;
+Transmission;SDH/PDH;DNS;TNMS-ADM;Nokia;
+Multicore;Packet Core;ToP;TP5000;Nokia;
+VAS/NEMS;VAS;VAS_TELCO;Tracker;generic;
+VAS/NEMS;VAS;VAS_APPS;Traffica;Nokia;
+OSS/BSS;OSS;Inventory;TRAID;custom;
+VAS/NEMS;NEMS;NEMS_TX;U2000;Huawei;
+RAN;GSM (2G);BTS;Ultra BTS;Nokia;
+VAS/NEMS;VAS;VAS_APPS;UMF;Sun;
+Multicore;Wireless Core;UPCC;UPCC-Huawei;Huawei;
+Multicore;Wireless Core;USCDB;USCDB-Huawei;Huawei;
+Multicore;Wireless Core;USCDB;USCDB-ZTE;ZTE;
+Transmission;DWDM/OMSN;DWDM/WDM/DXC;uSDM;ECI Networks;
+VAS/NEMS;VAS;VAS_TELCO;USSD;ZTE;
+RAN;LTE (4G);eNodeB;USU3910;Huawei;
+VAS/NEMS;VAS;VAS_TELCO;VAS;generic;
+Multicore;Packet Core;DRA;vDRA-Huawei;Huawei;
+Multicore;Packet Core;GGSN;vGW-ZTE;ZTE;
+Multicore;Converged Core;HSS, Services;vHSS;Nokia;
+OSS/BSS;OSS;Performance;VitalNet;Alcatel-Lucent;
+VAS/NEMS;NEMS;NEMS_IP;VitalQIP;Alcatel-Lucent;
+Multicore;Packet Core;DNS;VitalQIP 1220;Nokia;
+Multicore;Packet Core;DNS;VitalQIP 720;Nokia;
+Cloud;Infrastructure;SDN;vLB;Nokia;
+Multicore;Packet Core;LTE Packet Gateway;VMAX-ZTE;ZTE;
+Multicore;Packet Core;MME;vMME;ZTE;
+VAS/NEMS;VAS;VAS_TELCO;VMS;ZTE;
+Multicore;Wireless Core;MSC/MSS;vMSS-ZTE;ZTE;
+OSS/BSS;OSS;Configuration;VMWare vCenter;VMWare;
+OSS/BSS;OSS;Configuration;VMWare Virtual Platform;VMWare;
+Cloud;Infrastructure;SDN;vNetguard;Nokia;
+Multicore;Wireless Core;VNFM;VNFM-ZTE;ZTE;
+Multicore;Wireless Core;MSC/MSS;vNFM-ZTE;ZTE;
+FAIP;IP Security;Firewall;VPN Firewall Brick;Alcatel-Lucent;
+Cloud;Infrastructure;SDN;vRR;Nokia;
+VAS/NEMS;VAS;VAS_TELCO;WAP;ZTE;
+OSS/BSS;OSS;Workflow;Whispir;custom;
+VAS/NEMS;VAS;VAS_APPS;Wifi Access Controller;Ruckus;
+VAS/NEMS;VAS;VAS_APPS;Wifi Access Point;Ruckus;
+OSS/BSS;OSS;Voice Recording;WINGcon BBRC;WingCon;
+OSS/BSS;OSS;Workflow;WMS;custom;
+Transmission;SDH/PDH;Multiplexer;XDM-1000;ECI Networks;
+Transmission;SDH/PDH;Multiplexer;XDM-300;ECI Networks;
+Transmission;SDH/PDH;Multiplexer;XDM-900;ECI Networks;
+VAS/NEMS;NEMS;NEMS_IP;XPS;CIE TELEMATICA;
+FAIP;IP Backhaul;Switch;ZXCTN 6110;ZTE;
+FAIP;IP Backhaul;Router;ZXCTN 6150;ZTE;
+FAIP;IP Backhaul;Switch;ZXCTN 6200;ZTE;
+FAIP;IP Backhaul;Switch;ZXCTN 6300;ZTE;
+FAIP;IP Backhaul;Router;ZXCTN 9000;ZTE;ZXCTN 9000-3E
+FAIP;IP Backhaul;Router;ZXCTN 9000;ZTE;ZXCTN 9000-5E
+FAIP;IP Backhaul;Router;ZXCTN 9000;ZTE;ZXCTN 9000-2E4
+FAIP;IP Backhaul;Switch;ZXCTN 9004;ZTE;
+FAIP;IP Backhaul;Switch;ZXCTN 9008;ZTE;
+Transmission;SDH/PDH;SDH;ZXMP S385;ZTE;
+Transmission;DWDM/OMSN;OTN;ZXONE 9700;ZTE;
+FAIP;IP Core Backbone;Switch;ZXR10 5928;ZTE;ZXR10 5928E(V2)
+FAIP;IP Core Backbone;Switch;ZXR10 5952;ZTE;ZXR10 5952E
+FAIP;IP Core Backbone;Switch;ZXR10 5952;ZTE;ZXR10 5952E(V2)
+FAIP;IP Core Backbone;Switch;ZXR10 8905;ZTE;ZXR10 8905
+FAIP;IP Core Backbone;Switch;ZXR10 8905;ZTE;ZXR10 8905E
+FAIP;IP Core Backbone;Switch;ZXR10 8908;ZTE;ZXR10 8908E
+FAIP;IP Core Backbone;Switch;ZXR10 8908;ZTE;ZXR10 8908E-H
+FAIP;IP Core Backbone;Core Router;ZXR10 M6000;ZTE;ZXR10 M6000-8S Plus
+FAIP;IP Core Backbone;Core Router;ZXR10 M6000;ZTE;ZXR10 M6000-8
+FAIP;IP Core Backbone;Core Router;ZXR10 M6000;ZTE;ZXR10 M6000-18S
+FAIP;IP Core Backbone;Core Router;ZXR10 T8000;ZTE;ZXR10 T8000-16

@@ -1,0 +1,21 @@
+{% extends "login_layout.html" %}
+{% block content %}
+<!-- Login Form -->
+<form>
+  <input type="button" class="mybutton" method="GET" value=" &laquo; BACK" onclick="history.go(-1);">
+</form>
+<p>&nbsp;</p>
+
+
+	<div class="multi_upload_index">
+	<h2 style="color:black;background-color:#cccccc" class="text-muted"><b><font size="5">PRODUCT CATALOGUE UPDATED:</font></b></h2>
+		
+		
+		<hr/>
+		{% for file in prod_filenames %}
+			<li><a href="{{url_for('uploaded_prod', filename=file)}}">{{file}}</a></li>
+		{% endfor %}
+			</ul>
+			<h2 style="color:green;background-color:#ccffcc" class="text-muted">{{ msg_cmdb1 }}</h2>
+	</div>
+ {% endblock %}

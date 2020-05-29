@@ -1,0 +1,94 @@
+{% extends "login_layout.html" %}
+{% block content %}
+
+<div>
+
+
+<style>
+
+#toc_container {
+  background: #e6e6e6 none repeat scroll 0 0;
+  display: table;
+  font-size: 100%;
+  margin-bottom: 2em;
+  padding: 30px;
+  width: auto;
+}
+
+.toc_title {
+    font-weight: 700;
+    text-align: left;
+}
+
+#toc_container li, #toc_container ul, #toc_container ul li{
+    list-style: outside none none !important;
+}
+</style>
+
+<h2>FUNCTIONALITIES AND USER GUIDE</h2>
+
+<div id="toc_container">
+<p class="toc_title">CONTENTS</p>
+<ul class="toc_list">
+  <li><a href="#Introduction">1 Introduction</a></li></p>
+  <li><a href="#Functionalities">2 Functionalities</a></p>
+  <ul>
+    <li><a href="#User Templates Validation">2.1 User Templates Validation</a></li></p>
+   
+    <li><a href="#NOAM Templates Conversion">2.2 NOAM Templates Conversion</a></li></p>
+  </ul>
+</li>
+<li><a href="#User Guide">3 User Guide</a></li></p>
+<ul>
+    <li><a href="#How to Login">3.1 How to Login</a></li></p>
+</ul>
+<li><a href="#Third_Point_Header">3.2 Home Page - Choosing the project</a></li></p>
+
+<li><a href="#Validation page">3.3 Validation page</a></li></p>
+
+<li><a href="#Third_Point_Header">3.4 </a></li></p>
+
+
+
+
+</ul>
+
+</div>
+
+ <p>&nbsp;</p>
+<h2 style="color:black;background-color:#e6e6e6" class="text-muted" id="Introduction">Introduction</h2></p>
+
+
+This document contains the description of all the functionalities of Data Validation Tool.</p>
+This tool was created with the goal to speed up the data validation process with focus not only in CIs and Sites and all the existing rules and relations, but also in other important templates, improving the validation and the upload of asset and configuration data in ITSM.
+ <p>&nbsp;</p>
+
+<h2 style="color:black;background-color:#e6e6e6" id="Functionalities">Functionalities</h2></p>
+ <p>&nbsp;</p>
+
+<h2 style="color:black;background-color:#e6e6e6" id="User Templates Validation">Templates Validation</h2></p>
+Tabela
+ <p>&nbsp;</p>
+
+<h2 style="color:black;background-color:#e6e6e6" id="NOAM Templates Conversion">NOAM Templates Conversion</h2></p>
+Tabela
+ <p>&nbsp;</p>
+
+<h2 style="color:black;background-color:#e6e6e6" id="User Guide">User Guide</h2></p>
+ <p>&nbsp;</p>
+
+<h2 style="color:black;background-color:#e6e6e6" id="How to Login">How to Login</h2></p>
+The user is the same as Nokia intra Login – CSL and the password can be request by email to: 
+<a href="mailto:nuno_david.martins.ext@nokia.com">Martins, Nuno David (EXT - PT/Amadora)</a></p>
+The user should enter the valid credentials in the Login Page and click in the “Login” button. </p>
+
+Image
+ <p>&nbsp;</p>
+
+<h2 style="color:black;background-color:#e6e6e6" id="Home Page - Choosing the project">Home Page - Choosing the project</h2></p>
+After login the user will land in the home page. There, the user will be asked to select the Company in the dropdown menu and click on Submit button;</p>
+
+In the “Instructions for the input templates” section there is the “CMDB & OneITSM Templates button. By clicking on it, the user will land on the SharePoint folder where are all the Templates files the user needs to start a data collection.</p>
+
+Image
+{% endblock %}

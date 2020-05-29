@@ -1,15 +1,24 @@
 {% extends "login_layout.html" %}
 {% block content %}
- <!-- Login Form -->
+
+<p>&nbsp;</p>	
+
 <form>
   <input type="button" class="mybutton" method="GET" value=" &laquo; BACK" onclick="history.go(-1);">
 </form>
-<p class="big"></p>
-<p class="big"></p>
-	<div class="multi_upload_index">
 
+<!--<a href = "/return-file/" target ="blank"><button class="mybutton2">DOWNLOAD</button></a>
+-->
+
+<p class="big"></p>
+<p class="big"></p>
+{% if msg_time %}
+	<h2 style="color:black;" class="text-muted">{{ msg_time }}</h2>
+{% endif %}
+	
+<div class="multi_upload_index">
 		{% if msg_miss_file %}
-			<h2 style="color:red;background-color:#ffe6e6"" class="text-muted">{{ msg_miss_file }}</h2>
+			<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg_miss_file }}</h2>
 		{% endif %}
 		
 		{% if msg17 %}
@@ -26,23 +35,27 @@
 		{% if msg_company %}
 			<h2 style="color:black;background-color:#cccccc" class="text-muted"><b><font size="5">{{ msg_company }} REPORT:</font></b></h2>
 		{% endif %}
-		<h2 style="color:black;" class="text-muted">Below the screened input file(s) ('.csv') and an additional file with all the issues found detailed (...report_"date".xlsx):</h2>
-
+		<h2 style="color:black;" class="text-muted">INPUT FILES WITH SOME ISSUES AUTO FIXED:</h2>
+		<ul>
+		{% for file in filenames %}
+			<li><a href="{{url_for('uploaded_file', filename=file)}}">{{file}}</a></li>
+		{% endfor %}
+		</ul>
+		{% if filenames_errors %}
+			<h2><h2 style="color:black;" class="text-muted">FILE WITH ERRORS NOT POSSIBLE TO BE AUTO FIXED AND NEED TO BE REVIEWD BY USER:</h2>
 			<ul>
-				<h2>Input files with the auto fixing errors found:</h2>
-				{% for file in filenames %}
-					<li><a href="{{url_for('uploaded_file', filename=file)}}">{{file}}</a></li>
-				{% endfor %}
-			</ul>
-
-			<ul>
-				<h2>File with all the possible errors found:</h2>
 				{% for file in filenames_errors %}
 					<li><a href="{{url_for('uploaded_file', filename=file)}}">{{file}}</a></li>
 				{% endfor %}
 			</ul>
+		{% endif%}
+		</div>
 		<hr/>
-
+		<h2><h2 style="color:black;" class="text-muted">BELLOW A REPORT OVERVIEW :</h2>
+		
+		<div class="multi_upload_index">
+			<p>&emsp;</p>	
+			<button class='mybutton2' onclick="window.print()">DOWNLOAD WEB REPORT</button>
 		{% if msg_cmdb1 %}
 			<h2 style="color:green;background-color:#ccffcc" class="text-muted">{{ msg_cmdb1 }}</h2>
 		{% endif %}
@@ -65,9 +78,16 @@
 				{{ text_summary_Cis }}
 			</pre>
 		</h2>
+		
 		{% if msg %}
+
 			<h2 style="color:red;background-color:#ffe6e6" class="text-muted"><iframe src="https://giphy.com/embed/TFxzSQGEkQp846Hx1b" width="80" height="20" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>{{ msg }}</h2>			
 		{% endif %}
+		{% if msg_details %}
+
+			<h2 style="color:red;background-color:#ffe6e6" class="text-muted">{{ msg_details }}</h2>			
+		{% endif %}
+
 		{% if msg2 %}
 			<h2 style="color:green;background-color:#ccffcc" class="text-muted"><iframe src="https://giphy.com/embed/7NUJEtLY4zXcL8GKfr" width="80" height="20" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>{{ msg2 }} </h2>
 		{% endif %}

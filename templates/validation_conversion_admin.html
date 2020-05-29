@@ -1,0 +1,43 @@
+{% extends "login_layout.html" %}
+{% block content %}
+<p>&nbsp;</p>
+
+
+{% if msg %}
+    <h2>Please select the desired action for:</h2>
+    <h2 style="color:#004fab;" class="text-muted"><b>{{ msg }}</b></h2>
+{% endif %}
+<p>&nbsp;</p>
+
+<table>
+    <tr>
+      <form class="button" align="right" method="post" action="validation" enctype="multipart/form-data">
+         <input class="btngroup" type="submit" value="DATA VALIDATION"  class="span2"></td>
+          Select this option to validate data.
+      </form>
+     
+ </tr>
+    </table>
+
+<h2></h2>
+
+
+
+
+<table>
+  <tr> 
+    <form class="button" method="get" action="conversion" enctype="multipart/form-data">
+        <input class="btngroup" type="SUBMIT" value="DATA CONVERSION"  class="span2"></td>
+         Select this option to convert data.
+    </form>
+  </tr>
+</table>
+ <h2></h2>
+
+    
+
+
+
+
+
+{% endblock %}
