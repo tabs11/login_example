@@ -386,6 +386,7 @@ def data_to_validate():
 	session['name']=name
 	session['email']=email
 	msg_company=None
+	filenames=None
 	msg3=None
 	msg_to_many_files=None
 	session['filename']=session['company']+'_'+str(uuid.uuid1())
@@ -416,7 +417,7 @@ def data_to_validate():
 		else:
 			msg3='Please select a valid extension (.xls or .xlsx)'
 
-	return render_template('multi_upload_index.html',msg3=msg3,msg_company=msg_company,urls=urls,name=name,email=email,msg_to_many_files=msg_to_many_files)
+	return render_template('multi_upload_index.html',filenames=filenames,msg3=msg3,msg_company=msg_company,urls=urls,name=name,email=email,msg_to_many_files=msg_to_many_files)
 
 @application.route('/upload', methods=['POST'])
 #@cache.cached(timeout=500)
