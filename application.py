@@ -18,7 +18,11 @@ import process_site_history_users
 import process_cmdb_inventory
 import process_rap
 import process_rap_noam
-#import process_cmdb_update
+import process_prod_cat
+import process_cmdb_update
+from openpyxl import load_workbook
+#import flask
+#import flask_saml
 #import process_common_val
 #import process_specific_val
 
@@ -91,20 +95,22 @@ USERS = { # dictionary (username, User)
 	'roprita':User('roprita','roprita'),
 	'bharam':User('bharam','bharam'),
 	'arotaru':User('arotaru','arotaru'),
-	'bnanu':User('bnanu','bnanu'),
-	'aschilli':User('aschilli','aschilli'),
-	'aoprisan':User('aoprisan','aoprisan'),
-	'ccraciun':User('ccraciun','ccraciun')
+	'bnanu':User('bnanu','bnanu')
+
 		
 }
 
 application = Flask(__name__)
-
-
+#application.config.update({
+##    'SECRET_KEY': 'soverysecret',
+#    'SAML_METADATA_URL': 'https://login.microsoftonline.com/5d471751-9675-428d-917b-70f44f9630b0/federationmetadata/2007-06/federationmetadata.xml?appid=21c725a9-b27e-4221-9864-adb4da9edfa4',
+#})
+#flask_saml.FlaskSAML(application)
+#
 SECRET_KEY='bla'
 application.secret_key = SECRET_KEY
-CMDB_FOLDER = 'CMDB_templates/'
-application.config['CMDB_FOLDER']=CMDB_FOLDER
+#CMDB_FOLDER = 'CMDB_templates/'
+#application.config['CMDB_FOLDER']=CMDB_FOLDER
 application.config['ALLOWED_EXTENSIONS'] = set(['xlsx','xls','csv'])
 
 
@@ -147,6 +153,17 @@ def allowed_file(filename):
 		   filename.rsplit('.', 1)[1] in application.config['ALLOWED_EXTENSIONS']
 
 
+
+@application.route('/user_guide', methods=['GET'])
+def user_guide():
+
+	return render_template('user_guide.html')
+
+@application.route('/user_guide_v2', methods=['GET'])
+def user_guide_v2():
+
+	return render_template('user_guide_v2.html')
+
 ##########################################################################
 #####download templates
 #@application.route('/return-file/')
@@ -155,47 +172,21 @@ def allowed_file(filename):
 #	filename='Templates.zip'
 #	return send_file(os.path.join(application.config['CMDB_FOLDER'])+filename,attachment_filename=filename, as_attachment=True)
 
+#@application.route('/templates')
+#@login_required
+#def file_downloads():
+#	return render_template('home.html')
+
+
 @application.route('/action', methods=['GET'])
 def index():
 	return redirect("/", code=302)
 
 
-@application.route('/templates')
-@login_required
-def file_downloads():
-	return render_template('home.html')
 
-@application.route('/prod_cat' , methods=['GET', 'POST'])
-@login_required
-def prod_cat():
-	return render_template('update_prod_cat.html')
 
-####update prodCat
-@application.route('/update_prod_cat', methods=['GET','POST'])
-@login_required
-def update_prod_cat():
-	msg_company=None
-	msg3=None
-	#shutil.rmtree('Prod_Cats_V2/')	
-	UPLOAD_FOLDER='Prod_Cats_V2/'
-	#os.makedirs(UPLOAD_FOLDER)
-	uploaded_files = request.files.getlist("file[]")
-	for file in uploaded_files:
-		# Check if the file is one of the allowed types/extensions
-		if file and allowed_file(file.filename):
-			
-			# Make the filename safe, remove unsupported chars
-			filename = secure_filename(file.filename)
-			
-			# Move the file form the temporal folder to the upload
-			file.save(os.path.join(UPLOAD_FOLDER, filename))
-			filenames=os.listdir(UPLOAD_FOLDER)
-			msg3=filenames
-		else:
-			msg3='Please select a valid extension (.xls(x) or .csv)'
 
-	return render_template('update_prod_cat.html',msg3=msg3)
-
+###########################################################################
 @application.route('/')
 @login_required
 def drop():
@@ -206,9 +197,9 @@ def drop():
 		data=cmdb_owners['Company']
 	else:
 		data=cmdb_owners['Company'][cmdb_owners['Login ID']==user]
+		
 	data=np.unique(data).tolist()
 	data.insert(0,'Dummy Company')
-	#data=['Dummy Company','Airtel Chad','Airtel Congo B','Airtel Gabon','Airtel KE','Airtel Kenya (LOCAL)','Airtel Madagascar','Airtel Malawi','Airtel Niger','Airtel Seychelles','Airtel Tanzania','Airtel Uganda','Airtel Zambia','AT&T US','BHI NI','Capita TfL GB','Chorus NZ','Deutsche Telekom EAN DE','EMTS NG','IIJ Japan','ISAT EAN DE','Mobily SA','MTN SIG HUB','NESC','Nexera PL','Orange Burkina Faso','Orange CALICO FR','Orange RIP FR','Optus AU','S-Bahn Berlin DE','Telenor DK','Telenor PK','Telia DK','Three Ireland','T-Mobile US','TTN DK','Vodacom TZ','Vodacom ZA','Vodacom ZA DWDM','Wing EU']
 	return render_template(
 		'home.html',data=data
 		)
@@ -244,55 +235,24 @@ def home():
 			#return render_template('multi_upload_index.html')
 			return render_template('cmdb_validation_users.html',msg=msg)
 		else:
-			return render_template('cmdb_validation_admin.html',msg=msg)
+			return render_template('validation_conversion_admin.html',msg=msg)
+
+
+@application.route("/validation" , methods=['GET', 'POST'])
+@login_required
+def validation():
+	msg=session['company']
+	return render_template('cmdb_validation_admin.html',msg=msg)
+
+@application.route("/conversion" , methods=['GET', 'POST'])
+@login_required
+def conversion():
+	msg=session['company']
+	return render_template('cmdb_conversion_admin.html',msg=msg)
 
 
 
-##############################################
-####CMDB inventory
-#@application.route('/site_data', methods=['GET','POST'])
-#@login_required
-#def site_data():
-#	session['filename']=session['company']+'_'+str(uuid.uuid1())
-#	SITE_FOLDER=session['filename']
-#	SITE_REPORT=SITE_FOLDER +'/Report/'
-#	os.makedirs(SITE_FOLDER)
-#	os.makedirs(SITE_REPORT)
-#	return render_template('site_index.html')
-
-
-#@application.route('/site_upload', methods=['GET'])
-#@login_required
-#def site_upload():
-#	msg_cmdb1=None
-#	msg_cmdb2=None
-#	session['filename']=session['company']+'_'+str(uuid.uuid1())
-#	
-#	ID_FOLDER=session['filename']
-#	DOWNLOAD_FOLDER=ID_FOLDER +'/Report/'
-#	os.makedirs(ID_FOLDER)
-#	os.makedirs(DOWNLOAD_FOLDER)
-#
-#	msg_company=ID_FOLDER.split('_')[0]
-#	process_site_history_users.sites_cis_report(company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER)
-#	site_filenames=[f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith(('.xlsx','csv'))]
-#	if 'SQLDB_CMDB.txt' in os.listdir(DOWNLOAD_FOLDER):
-#		text_cmdb=open(DOWNLOAD_FOLDER+'SQLDB_CMDB.txt', 'r+',encoding='utf8')
-#		content_cmdb = text_cmdb.read()
-#		text_cmdb.close()
-#		if 'found in inven' in content_cmdb:
-#			msg_cmdb2='Missing CMDB inventory'.upper()
-#		else:
-#			msg_cmdb1=ID_FOLDER.split('_')[0].upper() + ' Current CMDB size in ITSM: '.upper()
-#	else:
-#		msg_cmdb2='Missing CMDB inventory'.upper()
-#	return render_template('site_upload.html', 
-#		site_filenames=site_filenames,
-#		msg_company=msg_company,
-#		msg_cmdb1=msg_cmdb1,
-#		text_cmdb=content_cmdb,
-#		msg_cmdb2=msg_cmdb2)
-
+#######CMDB reports#############
 @application.route('/site_upload', methods=['GET'])
 @login_required
 def site_upload():
@@ -333,20 +293,106 @@ def uploaded_site_file(filename):
 	DOWNLOAD_FOLDER=ID_FOLDER +'/Report/'
 	return send_from_directory(DOWNLOAD_FOLDER,filename)
 
-######################################################################
 
-#####input files to validate
-
-
-@application.route('/data', methods=['GET','POST'])
+####update prodCat############
+@application.route('/update_prod_cat', methods=['GET','POST'])
 @login_required
-def data_to_validate():
+def update_prod_cat():
 	msg_company=None
 	msg3=None
 	session['filename']=session['company']+'_'+str(uuid.uuid1())
 	ID_FOLDER=session['filename']
+	#TEMP_FOLDER=ID_FOLDER +'/new_Prod_Cats/'
+	UPLOAD_FOLDER='Prod_Cats_V2/'
+
+	#shutil.rmtree('Prod_Cats_V2/')	
+	uploaded_files = request.files.getlist("file[]")
+	for file in uploaded_files:
+		# Check if the file is one of the allowed types/extensions
+		if file and allowed_file(file.filename):
+			
+			# Make the filename safe, remove unsupported chars
+			filename = secure_filename(file.filename)
+			if not os.path.exists(UPLOAD_FOLDER):
+				os.makedirs(UPLOAD_FOLDER)
+			# Move the file form the temporal folder to the upload
+			file.save(os.path.join(UPLOAD_FOLDER, filename))
+			filenames=os.listdir(UPLOAD_FOLDER)
+			msg3=filenames
+		else:
+			msg3='Please select a valid extension (.xls(x) or .csv)'
+
+	return render_template('update_prod_cat.html',msg3=msg3)
+
+#######upload prod_cat
+
+#@application.route('/prod_upload', methods=['GET'])
+#@login_required
+#def prod_upload():
+#	ID_FOLDER=session['filename']
+#	TEMP_FOLDER=ID_FOLDER +'/new_Prod_Cats/'
+#	DOWNLOAD_FOLDER= 'Prod_Cats_V2/'
+#	process_prod_cat.prod_update(path=TEMP_FOLDER)
+#	prod_filenames=[f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith(('.xlsx','csv'))]
+#	return render_template('prod_update.html',prod_filenames=prod_filenames)
+#
+#
+#
+#@application.route('/report_prod/<filename>')
+#@login_required
+#def uploaded_prod(filename):
+#	DOWNLOAD_FOLDER= 'Prod_Cats_V2/'
+#	return send_from_directory(DOWNLOAD_FOLDER,filename)
+######################################################################
+
+
+
+##########################################################################
+#####download prod_cat
+@application.route('/return-file/')
+#@login_required
+def return_file():
+	filename='oneitsm_ProdCats.csv'
+	return send_file('Prod_Cats_V2/'+filename,attachment_filename=filename, as_attachment=True)
+
+@application.route('/templates')
+@login_required
+def file_downloads():
+	return render_template('home.html')
+
+
+#####input files to validate
+
+@application.route('/data', methods=['GET','POST'])
+@login_required
+def data_to_validate():
+	urls=None
+	user=session['username']
+	company=session['company']
+	cmdb_owners=pd.read_excel('CMDB_templates/cmdb Owners_full_list.xlsx')
+	if company=='Dummy Company':
+		urls=''
+		email=''
+		name=''
+	else:
+		links=cmdb_owners['Data Model'][((cmdb_owners['Login ID']==user) | (user in ['numartin','paulof','mccavitt','paagrawa'])) & (cmdb_owners['Company']==company)]
+		name=list(cmdb_owners['First Name*'][cmdb_owners['Company']==company] + ' '+cmdb_owners['Last Name*+'][cmdb_owners['Company']==company])
+		email=list(cmdb_owners['Email Address'][cmdb_owners['Company']==company])
+		if (links=='No hyperlink').any():
+			urls=''
+		else: 
+			urls=str(np.unique(links).tolist()[0])
+	session['urls']=urls
+	session['name']=name
+	session['email']=email
+	msg_company=None
+	msg3=None
+	msg_to_many_files=None
+	session['filename']=session['company']+'_'+str(uuid.uuid1())
+	ID_FOLDER=session['filename']
 	msg_company=ID_FOLDER.split('_')[0]
 	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
+	DOWNLOAD_FOLDER=ID_FOLDER+'/Report/'
 	uploaded_files = request.files.getlist("file[]")
 	for file in uploaded_files:
 		# Check if the file is one of the allowed types/extensions
@@ -358,26 +404,35 @@ def data_to_validate():
 			if not os.path.exists(ID_FOLDER):
 				os.makedirs(ID_FOLDER)
 				os.makedirs(UPLOAD_FOLDER)
+				os.makedirs(DOWNLOAD_FOLDER)
 			# Move the file form the temporal folder to the upload
 			file.save(os.path.join(UPLOAD_FOLDER, filename))
 			filenames=os.listdir(UPLOAD_FOLDER)
-			msg3=filenames
+			if len(os.listdir(UPLOAD_FOLDER))>2:
+				msg_to_many_files='THE NUMBER OF INPUT FILES SHOULD BE 1 (sites or cis) OR 2(sites and cis). PLEASE SELECT AGAIN THE INPUT FILES.'
+
+			else:
+				msg3='File(s) Successfully Submited. Click ont the button bellow to start the validation.'
 		else:
 			msg3='Please select a valid extension (.xls or .xlsx)'
 
-	return render_template('multi_upload_index.html',msg3=msg3,msg_company=msg_company)
+	return render_template('multi_upload_index.html',msg3=msg3,msg_company=msg_company,urls=urls,name=name,email=email,msg_to_many_files=msg_to_many_files)
 
 @application.route('/upload', methods=['POST'])
 #@cache.cached(timeout=500)
 @login_required
 def upload():
-	msg_miss_file=None
+	urls=session['urls']
+	name=session['name']
+	email=session['email']
+	filenames_errors=None
 	msg_company=None
 	msg_cmdb1=None
 	msg_cmdb2=None
 	msgCIs=None
 	msgSites=None
 	msg=None
+	msg_details=None
 	msg2=None
 	msg3=None
 	msg4=None
@@ -408,122 +463,132 @@ def upload():
 	ID_FOLDER=session['filename']
 	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
 	DOWNLOAD_FOLDER=ID_FOLDER+'/Report/'
-	os.makedirs(DOWNLOAD_FOLDER)
 	filenames = []
 	msg_company=ID_FOLDER.split('_')[0]
-	if not os.path.exists(UPLOAD_FOLDER):
-		msg_miss_file='PLEASE INSERT THE INPUT FILE(S) BEFORE RUN THE VALIDATION'
-		return render_template('multi_upload_index.html',msg_miss_file=msg_miss_file,msg_company=msg_company)
-	else:
-	#if len(os.listdir(UPLOAD_FOLDER))>0:	
-		process_data.process_file(path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER)
-		#process_common_val.common_validation(path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER)
-		#process_specific_val.specific_validation(path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER)
-#
-		#process_cmdb_inventory.read_file(path=UPLOAD_FOLDER)
-		#process_cmdb_inventory.call_cmdb_inventory(company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER)
-		filenames = [f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith(('csv'))]
-		filenames_errors = [f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith(('.xlsx'))]
-		#filenames = [f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith(('.xlsx','csv'))]
-		msg_company=ID_FOLDER.split('_')[0]
-		if 'Mismatched_fields.txt' in os.listdir(DOWNLOAD_FOLDER):
-			text_mis_fields=open(DOWNLOAD_FOLDER+'Mismatched_fields.txt', 'r+',encoding='utf8')
-			content_mis_fields = text_mis_fields.read()
-			text_mis_fields.close()
-			msg17='WRONG TEMPLATE USED OR FIELDS ARE MISSING FROM ORIGINAL TEMPLATE.'
-			msg18='PLEASE USE THE CORRECT TEMPLATES PROVIDED IN HOMEPAGE.'
+	instance='PROD'
+	startTime = dt.datetime.now()
+	process_data.process_file(path=UPLOAD_FOLDER,company=ID_FOLDER.split('_')[0],report=DOWNLOAD_FOLDER,instance=instance)
+	filenames = [f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith(('csv'))]
+	filenames_errors = [f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith(('.xlsx'))]
+	if len(filenames_errors)>0:
+		xl = pd.ExcelFile(DOWNLOAD_FOLDER+filenames_errors[0])
+		if xl.sheet_names[0]=='Sheet1':
+			filenames_errors=None
 		else:
-			content_mis_fields=''
-			if 'summary_CMDB.txt' in os.listdir(DOWNLOAD_FOLDER):
-				text_cmdb=open(DOWNLOAD_FOLDER+'summary_CMDB.txt', 'r+',encoding='utf8')
-				content_cmdb = text_cmdb.read()
-				text_cmdb.close()
-				msg_cmdb1=ID_FOLDER.split('_')[0].upper() + ' Current CMDB size in ITSM: '.upper()
-			else:
-				msg_cmdb2='Missing CMDB inventory'.upper()
-			msgCIs="CI'S VALIDATION:"
-			if 'errorsCIs.txt' in os.listdir(DOWNLOAD_FOLDER):
-				text_errors_Cis=open(DOWNLOAD_FOLDER+'errorsCIs.txt', 'r+',encoding='utf8')
-				content_errors_Cis = text_errors_Cis.read()
-				text_errors_Cis.close()
-				if len(content_errors_Cis)>1:
-					msg='Errors found in CIs data. Please download the report and check the sheets.'
-				else:
-					msg2='Your CIs data has no errors and is ready to be uploaded.'
-			else:
-				msg3='CIS FILE NOT FOUND.'
-				add_msg_cis='(If you still want to validate CIs, make sure you enter the correct file or the correct sheetname file - cis).'
-	
-			if 'warningsCIs.txt' in os.listdir(DOWNLOAD_FOLDER):
-				text_warnings_Cis=open(DOWNLOAD_FOLDER+'warningsCIs.txt', 'r+',encoding='utf8')
-				content_warnings_Cis = text_warnings_Cis.read()
-				text_warnings_Cis.close()
-				if len(content_warnings_Cis)>1:
-					msg7='WARNINGS:'
-				else:
-					content_warnings_Cis=''
-					msg8='YOUR CIS DATA HAS NO WARNINGS.'
-			else:
-				None
-	
-			if 'summaryCIs.txt' in os.listdir(DOWNLOAD_FOLDER):
-				text_summary_Cis=open(DOWNLOAD_FOLDER+'summaryCIs.txt', 'r+',encoding='utf8')
-				content_summary_Cis = text_summary_Cis.read()
-				text_summary_Cis.close()
-				msg15='SUMMARY:'
-			else:
-				None
+			None
+	else:
+		None
+	#if len(filenames_errors)>0:
+	#	report_issues = load_workbook(DOWNLOAD_FOLDER+filenames_errors[0])
+	#	sheets_sites = report_issues.sheetnames
+	#	sheets_issues=[x for x in sheets_sites if any(c.isdigit() for c in x)]
+	#	for i in range(len(sheets_issues)):
+	#		report_issues[sheets_issues[i]].sheet_properties.tabColor = 'FB0606'
+	#	report_issues.save(DOWNLOAD_FOLDER+filenames_errors[0])
+	#else:
+	#	None
+	#msg_time='Time spent in generating the validation report: '+str(dt.datetime.now() - startTime)
+	msg_time=(dt.datetime.now() - startTime).seconds
 
-			msgSites="SITES VALIDATION"
-			if 'errorsSites.txt' in os.listdir(DOWNLOAD_FOLDER):
-				text_errors_Sites=open(DOWNLOAD_FOLDER+'errorsSites.txt', 'r+',encoding='utf8')
-				content_errors_Sites = text_errors_Sites.read()
-				text_errors_Sites.close()
-				if len(content_errors_Sites)>1:
-					msg4='Errors found in Sites data. Please download the report and check the sheets.'
-				else:
-					msg5='Your Sites data has no errors and is ready to be uploaded.'
-					
+	msg_company=ID_FOLDER.split('_')[0]
+	if 'Mismatched_fields.txt' in os.listdir(DOWNLOAD_FOLDER):
+		text_mis_fields=open(DOWNLOAD_FOLDER+'Mismatched_fields.txt', 'r+',encoding='utf8')
+		content_mis_fields = text_mis_fields.read()
+		text_mis_fields.close()
+		msg17='WRONG TEMPLATE USED OR FIELDS ARE MISSING FROM ORIGINAL TEMPLATE.'
+		msg18='PLEASE USE THE CORRECT TEMPLATES PROVIDED IN HOMEPAGE.'
+	else:
+		content_mis_fields=''
+		if 'summary_CMDB.txt' in os.listdir(DOWNLOAD_FOLDER):
+			text_cmdb=open(DOWNLOAD_FOLDER+'summary_CMDB.txt', 'r+',encoding='utf8')
+			content_cmdb = text_cmdb.read()
+			text_cmdb.close()
+			msg_cmdb1=ID_FOLDER.split('_')[0].upper() + ' Current CMDB size in ITSM: '.upper()
+		else:
+			msg_cmdb2='Missing CMDB inventory'.upper()
+		msgCIs="CI'S VALIDATION:"
+		if 'errorsCIs.txt' in os.listdir(DOWNLOAD_FOLDER):
+			text_errors_Cis=open(DOWNLOAD_FOLDER+'errorsCIs.txt', 'r+',encoding='utf8')
+			content_errors_Cis = text_errors_Cis.read()
+			text_errors_Cis.close()
+			if len(content_errors_Cis)>1:
+				msg='ERRORS'
+				msg_details='Errors found in CIs data. Please download the report and check the sheets.'
 			else:
-				msg6='SITES FILE NOT FOUND'
-				add_msg_sites='(If you still want to validate Sites, make sure you enter the correct file or the correct sheetname file - sites).'
-	
-			
-			if 'warningsSites.txt' in os.listdir(DOWNLOAD_FOLDER):
-				text_warnings_Sites=open(DOWNLOAD_FOLDER+'warningsSites.txt', 'r+',encoding='utf8')
-				content_warnings_Sites = text_warnings_Sites.read()
-				text_warnings_Sites.close()
-				if len(content_warnings_Sites)>1:
-					msg10='WARNINGS:'
-				else:
-					msg11='YOUR SITES DATA HAS NO WARNINGS.'
+				msg2='Your CIs data has no errors and is ready to be uploaded.'
+		else:
+			msg3='CIS FILE NOT FOUND.'
+			add_msg_cis='(If you still want to validate CIs, make sure you enter the correct file or the correct sheetname file - cis).'
+
+		if 'warningsCIs.txt' in os.listdir(DOWNLOAD_FOLDER):
+			text_warnings_Cis=open(DOWNLOAD_FOLDER+'warningsCIs.txt', 'r+',encoding='utf8')
+			content_warnings_Cis = text_warnings_Cis.read()
+			text_warnings_Cis.close()
+			if len(content_warnings_Cis)>1:
+				msg7='WARNINGS:'
 			else:
-				None
+				content_warnings_Cis=''
+				msg8='YOUR CIS DATA HAS NO WARNINGS.'
+		else:
+			None
+
+		if 'summaryCIs.txt' in os.listdir(DOWNLOAD_FOLDER):
+			text_summary_Cis=open(DOWNLOAD_FOLDER+'summaryCIs.txt', 'r+',encoding='utf8')
+			content_summary_Cis = text_summary_Cis.read()
+			text_summary_Cis.close()
+			msg15='SUMMARY:'
+		else:
+			None
+		msgSites="SITES VALIDATION"
+		if 'errorsSites.txt' in os.listdir(DOWNLOAD_FOLDER):
+			text_errors_Sites=open(DOWNLOAD_FOLDER+'errorsSites.txt', 'r+',encoding='utf8')
+			content_errors_Sites = text_errors_Sites.read()
+			text_errors_Sites.close()
+			if len(content_errors_Sites)>1:
+				msg4='Errors found in Sites data. Please download the report and check the sheets.'
+			else:
+				msg5='Your Sites data has no errors and is ready to be uploaded.'
 				
-	
-			if 'summarySites.txt' in os.listdir(DOWNLOAD_FOLDER):
-				text_summary_Sites=open(DOWNLOAD_FOLDER+'summarySites.txt', 'r+',encoding='utf8')
-				content_summary_Sites = text_summary_Sites.read()
-				text_summary_Sites.close()
-				msg13='SUMMARY:'
+		else:
+			msg6='SITES FILE NOT FOUND'
+			add_msg_sites='(If you still want to validate Sites, make sure you enter the correct file or the correct sheetname file - sites).'
+
+		
+		if 'warningsSites.txt' in os.listdir(DOWNLOAD_FOLDER):
+			text_warnings_Sites=open(DOWNLOAD_FOLDER+'warningsSites.txt', 'r+',encoding='utf8')
+			content_warnings_Sites = text_warnings_Sites.read()
+			text_warnings_Sites.close()
+			if len(content_warnings_Sites)>1:
+				msg10='WARNINGS:'
 			else:
-				None
-		return render_template('multi_files_upload.html',
-			filenames=filenames,
-			filenames_errors=filenames_errors,
-			msg_miss_file=msg_miss_file,
-			text_cmdb=content_cmdb,
-			add_msg_cis=add_msg_cis,
-			add_msg_sites=add_msg_sites,
-			text_mis_fields=content_mis_fields,
-			text_errors_Cis=content_errors_Cis,
-			text_errors_Sites=content_errors_Sites,
-			text_warnings_Cis=content_warnings_Cis,
-			text_warnings_Sites=content_warnings_Sites,
-			text_summary_Cis=content_summary_Cis,
-			text_summary_Sites=content_summary_Sites,
-			msg_company=msg_company,msg_cmdb1=msg_cmdb1,msg_cmdb2=msg_cmdb2,msgCIs=msgCIs,msgSites=msgSites,msg=msg,msg2=msg2,msg3=msg3,msg4=msg4,msg5=msg5,msg6=msg6,msg7=msg7,
-			msg8=msg8,msg9=msg9,msg10=msg10,msg11=msg11,msg12=msg12,msg13=msg13,msg15=msg15,msg17=msg17,msg18=msg18)
+				msg11='YOUR SITES DATA HAS NO WARNINGS.'
+		else:
+			None
+			
+
+		if 'summarySites.txt' in os.listdir(DOWNLOAD_FOLDER):
+			text_summary_Sites=open(DOWNLOAD_FOLDER+'summarySites.txt', 'r+',encoding='utf8')
+			content_summary_Sites = text_summary_Sites.read()
+			text_summary_Sites.close()
+			msg13='SUMMARY:'
+		else:
+			None
+	return render_template('multi_files_upload.html',
+		filenames=filenames,
+		filenames_errors=filenames_errors,
+		text_cmdb=content_cmdb,
+		msg_time=msg_time,
+		add_msg_cis=add_msg_cis,
+		add_msg_sites=add_msg_sites,
+		text_mis_fields=content_mis_fields,
+		text_errors_Cis=content_errors_Cis,
+		text_errors_Sites=content_errors_Sites,
+		text_warnings_Cis=content_warnings_Cis,
+		text_warnings_Sites=content_warnings_Sites,
+		text_summary_Cis=content_summary_Cis,
+		text_summary_Sites=content_summary_Sites,
+		msg_company=msg_company,msg_cmdb1=msg_cmdb1,msg_cmdb2=msg_cmdb2,msgCIs=msgCIs,msgSites=msgSites,msg=msg,msg_details=msg_details,msg2=msg2,msg3=msg3,msg4=msg4,msg5=msg5,msg6=msg6,msg7=msg7,
+		msg8=msg8,msg9=msg9,msg10=msg10,msg11=msg11,msg12=msg12,msg13=msg13,msg15=msg15,msg17=msg17,msg18=msg18)
 
 
 @application.route('/report/<filename>')
@@ -534,6 +599,22 @@ def uploaded_file(filename):
 	return send_from_directory(DOWNLOAD_FOLDER,filename)
 
 
+
+
+#####download report files
+#@application.route('/return-file/')
+#@login_required
+#def return_file():
+#	ID_FOLDER=session['filename']
+#	DOWNLOAD_FOLDER=ID_FOLDER+'/Report/'
+#	filename=os.listdir(DOWNLOAD_FOLDER)[0]
+#	return send_file(DOWNLOAD_FOLDER+filename,attachment_filename=filename, as_attachment=True)
+#
+#@application.route('/templates')
+#@login_required
+#def file_downloads():
+#	return render_template('multi_files_upload.html')
+
 ##################################################################
 ################convert to NOAM
 
@@ -542,6 +623,7 @@ def uploaded_file(filename):
 def noam_data():
 	msg_company=None
 	msg3=None
+	msg_to_many_files=None
 	session['filename']=session['company']+'_'+str(uuid.uuid1())
 	ID_FOLDER=session['filename']
 	UPLOAD_FOLDER=ID_FOLDER + '/Files_to_validate/'
@@ -560,10 +642,14 @@ def noam_data():
 			
 			file.save(os.path.join(UPLOAD_FOLDER, filename))
 			filenames=os.listdir(UPLOAD_FOLDER)
-			msg3=filenames
+			if len(os.listdir(UPLOAD_FOLDER))>2:
+				msg_to_many_files='THE NUMBER OF INPUT FILES SHOULD BE 1 (sites or cis) OR 2(sites and cis). PLEASE SELECT AGAIN THE INPUT FILES.'
+
+			else:
+				msg3='File(s) Successfully Submited. Click ont the button bellow to start the validation.'
 		else:
 			msg3='Please select a valid extension (.xls or .xlsx)'
-	return render_template('index_NOAM_company.html',msg3=msg3,msg_company=msg_company)
+	return render_template('index_NOAM_company.html',msg3=msg3,msg_company=msg_company,msg_to_many_files=msg_to_many_files)
 
 
 @application.route('/noam_upload', methods=['GET'])
@@ -602,7 +688,8 @@ def uploaded_NOAM_file(filename):
 @login_required
 def op_res_cats_data():
 	msg_company=None
-	msg4=None
+	msg3=None
+	msg_to_many_files=None
 	session['filename']=session['company']+'_'+str(uuid.uuid1())
 	ID_FOLDER=session['filename']
 	msg_company=ID_FOLDER.split('_')[0]
@@ -621,10 +708,14 @@ def op_res_cats_data():
 			
 			file.save(os.path.join(UPLOAD_FOLDER, filename))
 			filenames=os.listdir(UPLOAD_FOLDER)
-			msg4=filenames
+			if len(os.listdir(UPLOAD_FOLDER))>2:
+				msg_to_many_files='THE NUMBER OF INPUT FILES SHOULD BE 1 (OPS or RES CATS) OR 2(OPS and RES CATS). PLEASE SELECT AGAIN THE INPUT FILES.'
+
+			else:
+				msg3='File(s) Successfully Submited. Click ont the button bellow to start the validation.'
 		else:
-			msg4='Please select a valid extension (.xls or .xlsx)'
-	return render_template('index_res_cats.html',msg4=msg4,msg_company=msg_company)
+			msg3='Please select a valid extension (.xls or .xlsx)'
+	return render_template('index_res_cats.html',msg3=msg3,msg_company=msg_company,msg_to_many_files=msg_to_many_files)
 
 
 
@@ -932,47 +1023,61 @@ def uploaded_NOAM_rap(filename):
 
 
 
+
+
 ###update CMDB####
 
 ####update prodCat############
-#@application.route('/update_cmdb', methods=['GET','POST'])
+@application.route('/update_cmdb', methods=['GET','POST'])
+@login_required
+def update_cmdb():
+	msg3=None
+	session['filename']=session['company']+'_'+str(uuid.uuid1())
+	ID_FOLDER=session['filename']
+	TEMP_FOLDER=ID_FOLDER +'/update_cmdb/'
+	msg_company=ID_FOLDER.split('_')[0]
+	uploaded_files = request.files.getlist("file[]")
+	for file in uploaded_files:
+		# Check if the file is one of the allowed types/extensions
+		if file and allowed_file(file.filename):
+			
+			# Make the filename safe, remove unsupported chars
+			filename = secure_filename(file.filename)
+			if not os.path.exists(TEMP_FOLDER):
+				os.makedirs(ID_FOLDER)
+				os.makedirs(TEMP_FOLDER)
+			# Move the file form the temporary folder to the upload
+			file.save(os.path.join(TEMP_FOLDER, filename))
+			filenames=os.listdir(TEMP_FOLDER)
+			msg3=filenames
+		else:
+			msg3='Please select a valid extension (.xls(x) or .csv)'
+
+	return render_template('update_cmdb.html',msg3=msg3,msg_company=msg_company)
+
+#######upload prod_cat
+
+@application.route('/cmdb_upload', methods=['GET'])
+@login_required
+def cmdb_upload():
+	ID_FOLDER=session['filename']
+	TEMP_FOLDER=ID_FOLDER +'/update_cmdb/'
+	msg_company=ID_FOLDER.split('_')[0]
+	process_cmdb_update.cmdb_update(path=TEMP_FOLDER,company=ID_FOLDER.split('_')[0])
+	#cmdb_filenames=[f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith(('.xlsx','csv'))]
+	return render_template('upload_cmdb.html',msg_company=msg_company)
+#
+#
+#
+#@application.route('/report_prod/<filename>')
 #@login_required
-#def update_cmdb():
-#	msg3=None
-#	session['filename']=session['company']+'_'+str(uuid.uuid1())
-#	ID_FOLDER=session['filename']
-#	TEMP_FOLDER=ID_FOLDER +'/update_cmdb/'
-#	msg_company=ID_FOLDER.split('_')[0]
-#	uploaded_files = request.files.getlist("file[]")
-#	for file in uploaded_files:
-#		# Check if the file is one of the allowed types/extensions
-#		if file and allowed_file(file.filename):
-#			
-#			# Make the filename safe, remove unsupported chars
-#			filename = secure_filename(file.filename)
-#			if not os.path.exists(TEMP_FOLDER):
-#				os.makedirs(ID_FOLDER)
-#				os.makedirs(TEMP_FOLDER)
-#			# Move the file form the temporary folder to the upload
-#			file.save(os.path.join(TEMP_FOLDER, filename))
-#			filenames=os.listdir(TEMP_FOLDER)
-#			msg3=filenames
-#		else:
-#			msg3='Please select a valid extension (.xls(x) or .csv)'
-#
-#	return render_template('update_cmdb.html',msg3=msg3,msg_company=msg_company)
-#
-########upload prod_cat
-#
-#@application.route('/cmdb_upload', methods=['GET'])
-#@login_required
-#def cmdb_upload():
-#	ID_FOLDER=session['filename']
-#	TEMP_FOLDER=ID_FOLDER +'/update_cmdb/'
-#	msg_company=ID_FOLDER.split('_')[0]
-#	process_cmdb_update.cmdb_update(path=TEMP_FOLDER,company=ID_FOLDER.split('_')[0])
-#	#cmdb_filenames=[f for f in os.listdir(DOWNLOAD_FOLDER) if f.endswith(('.xlsx','csv'))]
-#	return render_template('upload_cmdb.html',msg_company=msg_company)
+#def uploaded_prod(filename):
+#	DOWNLOAD_FOLDER= 'Prod_Cats_V2/'
+#	return send_from_directory(DOWNLOAD_FOLDER,filename)
+######################################################################
+
+
+
 
 
 @application.route('/logout', methods=['GET'])
@@ -997,4 +1102,4 @@ def load_user(userid):
 	return USERS[userid]
 
 if __name__=='__main__':
-	application.run(debug=True,threaded=True)
+	application.run(debug=True,threaded = True)
