@@ -9,7 +9,6 @@ from difflib import get_close_matches
 import itertools
 from tabulate import tabulate
 
-
 def op_res_cats_files(path,company,op_res_cats_report):
     #print('','#'*47,'#' +' Operational Resolution Categories validation'.upper()+ '#','#'*47,'',sep='\n',file=open(op_res_cats_report +'issues.txt','a',encoding='utf8'))
     ##Operational Category
@@ -69,7 +68,7 @@ def op_res_cats_files(path,company,op_res_cats_report):
             unmatched_fields_ops.append(list(set(op_col) - set(ops)))
         else:
             None
-    
+        sheets[j]['Company']=company
     if len(res)>0:
         if len(list(itertools.chain(*unmatched_fields_res)))>0:
             unmatched=pd.DataFrame(pd.Series(list(itertools.chain(*unmatched_fields_res))).rename('FIELD'))
@@ -93,6 +92,10 @@ def op_res_cats_files(path,company,op_res_cats_report):
             #wrong_res=wrong_Tiers.iloc[:,[0,1,2,3,4,7,5,6]]
             if len(wrong_Tiers)>0:
                 print('',tabulate(wrong_Tiers,headers="keys",tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(op_res_cats_report +'res_issues.txt','a',encoding='utf8'))
+
+                res.reset_index(inplace=True)
+                wrong_Tiers.reset_index(inplace=True)
+                wrong_Tiers=res.merge(wrong_Tiers.drop(columns=['Company','Module','ResCat1','ResCat2','ResCat3']),on='index', how='outer')
                 with pd.ExcelWriter(op_res_cats_report + company + '_res_cats_issues'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
                     wrong_Tiers.to_excel(writer, 'wrong_res',index=False)
                     writer.save()
@@ -137,7 +140,7 @@ def op_res_cats_files(path,company,op_res_cats_report):
             wrong_Tier2['Wrong Tier'] ='Tier 2'
             wrong_Tier2['Possible match Tier 1']=np.nan
             wrong_Tier2['Possible match Tier 2']=wrong_Tier2.iloc[:,3].apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else get_close_matches(x,templates[0].iloc[:,3].astype(str).unique().tolist(),1)).apply(lambda x: 'Not Found' if len(x)==0 or pd.isnull(x) or type(x)==float or type(x)==int else ''.join(x))
-            wrong_Tier1_2=ops.loc[~sheets[j].iloc[:,2].isin(templates[0].iloc[:,2]) & ~ops.iloc[:,3].isin(templates[0].iloc[:,3])].drop_duplicates()
+            wrong_Tier1_2=ops.loc[~ops.iloc[:,2].isin(templates[0].iloc[:,2]) & ~ops.iloc[:,3].isin(templates[0].iloc[:,3])].drop_duplicates()
             wrong_Tier1_2['Wrong Tier'] ='Tier 1 and 2'
             wrong_Tier1_2['Possible match Tier 1']=wrong_Tier1_2.iloc[:,2].apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else get_close_matches(x,templates[0].iloc[:,2].astype(str).unique().tolist(),1)).apply(lambda x: 'Not Found' if len(x)==0 or pd.isnull(x) or type(x)==float or type(x)==int else ''.join(x))
             wrong_Tier1_2['Possible match Tier 2']=wrong_Tier1_2.iloc[:,3].apply(lambda x: x if pd.isnull(x) or type(x)==float or type(x)==int else get_close_matches(x,templates[0].iloc[:,3].astype(str).unique().tolist(),1)).apply(lambda x: 'Not Found' if len(x)==0 or pd.isnull(x) or type(x)==float or type(x)==int else ''.join(x))
@@ -145,7 +148,10 @@ def op_res_cats_files(path,company,op_res_cats_report):
             wrong_Tiers.dropna(axis='columns',how='all',inplace=True)
             #wrong_ops=wrong_Tiers.iloc[:,[0,1,2,3,4,7,5,6]]
             if len(wrong_Tiers)>0:
-                print('',tabulate(wrong_Tiers.iloc[:,0:6],headers="keys",tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(op_res_cats_report +'op_issues.txt','a',encoding='utf8'))
+                print('',tabulate(wrong_Tiers,headers="keys",tablefmt="fancy_grid",showindex=False),'',sep='\n',file=open(op_res_cats_report +'op_issues.txt','a',encoding='utf8'))
+                ops.reset_index(inplace=True)
+                wrong_Tiers.reset_index(inplace=True)
+                wrong_Tiers=ops.merge(wrong_Tiers.drop(columns=['Company','Module','OpCat1','OpCat2','OpCat3']),on='index', how='outer')
                 with pd.ExcelWriter(op_res_cats_report + company + '_op_cats_issues'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S") +'.xlsx',engine='xlsxwriter') as writer:
                     wrong_Tiers.to_excel(writer, 'wrong_ops',index=False)
                     writer.save()

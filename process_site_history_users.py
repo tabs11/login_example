@@ -10,7 +10,7 @@ def sites_cis_report(user,company,site_report):
     #cmdb_owners=pd.read_excel('CMDB_templates/cmdb Owners_full_list.xlsx')
     #if ((cmdb_owners['Login ID']==user) & (cmdb_owners['Company']==company)).any() | (user in ['numartin','paulof','mccavitt','paagrawa'] or company=='Dummy Company'):
 
-    conn = sqlite3.connect('CMDB_inventory/CMDB_data.db')  # You can create a new database by changing the name within the quotes
+    conn = sqlite3.connect('CMDB_inventory/CMDB_data_PROD.db')  # You can create a new database by changing the name within the quotes
     c = conn.cursor() # The database will be saved in the location where your 'py' file is saved
     quer_sites=r"""SELECT DISTINCT * FROM SITES WHERE Company='"""+company+"""'"""
     quer_cis=r"""SELECT DISTINCT * FROM CIS WHERE Company='"""+company+"""'"""
