@@ -452,7 +452,7 @@ def process_file(path,company,report,instance):
 					###check product catalogue
 					opcat_template='Prod_Cats_V2'
 					
-					template=pd.read_csv(glob.glob(opcat_template+'/*.csv')[0],sep=',')
+					template=pd.read_csv(glob.glob(opcat_template+'/*.csv')[0],sep=';')
 					template.drop(columns=['Model Version'],axis=1,inplace=True)
 					template=template.drop_duplicates()
 					template.rename(columns={template.columns[3]:'Product Name'},inplace=True)
