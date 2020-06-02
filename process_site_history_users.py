@@ -23,7 +23,7 @@ def sites_cis_report(user,company,site_report):
     cis_itsm = DataFrame(c.fetchall(), columns=['Company','CI Name','Site','Region','Site Group','CI Description','DNS Host Name','System Role','Product Name','Tier 1','Tier 2','Tier 3','Manufacturer','Model Version','Additional Information','Tag Number','CI ID','NbrCells','Domain','Status','Reconciliation Identity','Priority','Date'])
     cis_itsm.to_csv(site_report + company + '_CIs_report_'+ dt.datetime.now().strftime("%Y-%m-%d %H-%M-%S")+'.csv',sep=';',mode='w',index=False)
     if len(sites_itsm)>0:
-        sites_size=len(sites_itsm)
+        sites_size=len(sites_itsm['Site Name'].drop_duplicates())
     else:
         sites_size='No Sites found in inventory'
             
