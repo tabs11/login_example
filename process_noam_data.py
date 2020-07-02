@@ -147,6 +147,7 @@ def noam_files(file_path,company,NOAM_report):
 
 			##CI ID
 			#w_sheet2_cis.write(4+i,11,cis.filter(regex=re.compile('CI ID',re.IGNORECASE)).iloc[:,0][i])
+			w_sheet2_cis['L' +str(4+i)]=cis['CI ID'][i]
 			###CI Description
 			w_sheet2_cis['G' +str(4+i)]=cis['CI Description'][i]
 
