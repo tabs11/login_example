@@ -341,7 +341,8 @@ def process_file(path,company,report,instance):
 					if len(list(set(cis['Status']) - set(options)))>0:
 						cis['Status'][cis['Status']=='']="NULL"
 						issues=cis['Status'][cis['Status'].isin(list(set(cis['Status']) - set(options)))]
-						issues.rename('issues',inplace=True)
+						#issues.rename('issues',inplace=True)
+						issues.rename(columns={'Status':'issues'},inplace=True)
 						cis['Status'][cis['Status'].isin(list(set(cis['Status']) - set(options)))]='Deployed'
 						fixed_status=pd.concat([issues,cis['Status']],axis=1).drop_duplicates().dropna()
 						fixed_status.rename(columns={fixed_status.columns[0]:'OLD STATUS','Status': 'UPDATED STATUS'},inplace=True)
